@@ -3,20 +3,17 @@ import os
 import shutil
 import tempfile
 
-from time import time
-"""
-from .compat import is_win32
+from time import time, mktime
 
+# from .compat import is_win32
+#
+#
+# if is_win32:
+#     xdg_cache = os.environ.get("APPDATA", os.path.expanduser("~"))
+# else:
+#     xdg_cache = os.environ.get("XDG_CACHE_HOME", os.path.expanduser("~/.cache"))
 
-if is_win32:
-    xdg_cache = os.environ.get("APPDATA",
-                               os.path.expanduser("~"))
-else:
-    xdg_cache = os.environ.get("XDG_CACHE_HOME",
-                               os.path.expanduser("~/.cache"))
-"""
-import xbmc
-import xbmcvfs
+import xbmc, xbmcvfs
 
 xdg_cache = xbmc.translatePath('special://profile/addon_data/script.module.streamlink.base').encode('utf-8')
 
@@ -77,7 +74,7 @@ class Cache(object):
         except (IOError, OSError):
             os.remove(tempname)
 
-    def set(self, key, value, expires=60 * 60 * 24 * 7):
+    def set(self, key, value, expires=60 * 60 * 24 * 7, expires_at=None):
         self._load()
         self._prune()
 
@@ -85,6 +82,9 @@ class Cache(object):
             key = "{0}:{1}".format(self.key_prefix, key)
 
         expires += time()
+
+        if expires_at:
+            expires = mktime(expires_at.timetuple())
 
         self._cache[key] = dict(value=value, expires=expires)
         self._save()
@@ -102,6 +102,24 @@ class Cache(object):
             return self._cache[key]["value"]
         else:
             return default
+
+    def get_all(self):
+        ret = {}
+        self._load()
+
+        if self._prune():
+            self._save()
+
+        for key, value in self._cache.items():
+            if self.key_prefix:
+                prefix = self.key_prefix + ":"
+            else:
+                prefix = ""
+            if key.startswith(prefix):
+                okey = key[len(prefix):]
+                ret[okey] = value["value"]
+
+        return ret
 
 
 __all__ = ["Cache"]

@@ -2,7 +2,7 @@ from datetime import datetime
 import re
 
 from streamlink.plugin import Plugin
-from streamlink.plugin.api import http, validate
+from streamlink.plugin.api import validate
 from streamlink.stream import HDSStream, HLSStream
 
 
@@ -10,8 +10,7 @@ class RTE(Plugin):
     VOD_API_URL = 'http://www.rte.ie/rteavgen/getplaylist/?type=web&format=json&id={0}'
     LIVE_API_URL = 'http://feeds.rasset.ie/livelistings/playlist'
 
-    _url_re = re.compile(r'http://www\.rte\.ie/player/[a-z0-9]+/(?:show/[a-z-]+-[0-9]+/(?P<video_id>[0-9]+)|live/(?P<channel_id>[0-9]+))')
-
+    _url_re = re.compile(r'https?://www\.rte\.ie/player/[a-z0-9]+/(?:show/[a-z-]+-[0-9]+/(?P<video_id>[0-9]+)|live/(?P<channel_id>[0-9]+))')
     _vod_api_schema = validate.Schema({
         'current_date': validate.text,
         'shows': validate.Schema(
@@ -73,8 +72,8 @@ class RTE(Plugin):
 
         if video_id is not None:
             # VOD
-            res = http.get(self.VOD_API_URL.format(video_id))
-            stream_data = http.json(res, schema=self._vod_api_schema)
+            res = self.session.http.get(self.VOD_API_URL.format(video_id))
+            stream_data = self.session.http.json(res, schema=self._vod_api_schema)
 
             # Check whether video format is expired
             current_date = datetime.strptime(stream_data['current_date'], '%Y-%m-%dT%H:%M:%S.%f')
@@ -89,12 +88,12 @@ class RTE(Plugin):
             # Live
             channel_id = match.group('channel_id')
             # Get live streams for desktop
-            res = http.get(self.LIVE_API_URL, params={'channelid': channel_id})
-            streams = http.xml(res, schema=self._live_api_schema)
+            res = self.session.http.get(self.LIVE_API_URL, params={'channelid': channel_id})
+            streams = self.session.http.xml(res, schema=self._live_api_schema)
 
             # Get HLS streams for Iphone
-            res = http.get(self.LIVE_API_URL, params={'channelid': channel_id, 'platform': 'iphone'})
-            stream = http.json(res, schema=self._live_api_iphone_schema)
+            res = self.session.http.get(self.LIVE_API_URL, params={'channelid': channel_id, 'platform': 'iphone'})
+            stream = self.session.http.json(res, schema=self._live_api_iphone_schema)
             if stream != 'none':
                 streams.append(stream)
 
