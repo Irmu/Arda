@@ -1234,6 +1234,19 @@ v3.0.5
         </extension>
     </addon>
 
+<addon id="repository.zomboided.plugins" name="Zomboided Add-on Repository" version="1.0.0" provider-name="zomboided">
+    <extension point="xbmc.addon.repository" name="Zomboided Add-on Repository">
+        <info>https://raw.githubusercontent.com/zomboided/xbmc.zomboided.plugins/master/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/zomboided/xbmc.zomboided.plugins/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://github.com/zomboided/xbmc.zomboided.plugins/raw/master/plugins/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="en">Install add-ons from Zomboided repository</summary>
+        <description lang="en">Add-ons for Kodi</description>
+    </extension>
+</addon>
+
 <addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="100.2.0" provider-name="[COLOR lime][B]Serious Fork[/B][/COLOR], original by phil65">
   <requires>
     <import addon="xbmc.python"                     version="2.19.0"/>
@@ -1428,6 +1441,28 @@ v3.0.5
 		<description lang="en">Collection of modules used by Elysium</description>
 		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
 	</extension>
+</addon>
+
+<addon id="script.module.slproxy" name="SLProxy" version="0.0.5" provider-name="devilsport">
+  <requires>
+    <import addon="xbmc.python" version="2.24.0"/>
+    <import addon="script.module.requests"/>
+	  <import addon="script.module.streamlink.base" />
+  </requires>
+  <extension point="xbmc.python.module" library="lib/"/>
+  <extension point="xbmc.addon.metadata">
+    <summary>StreamLink Proxy DS</summary>
+    <description>Streamlink proxy for Kodi</description>
+    <platform>all</platform>
+    <license>Simplified BSD</license>
+    <source></source>
+    <language>en</language>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+    <news>
+    </news>
+  </extension>
 </addon>
 
 <addon id="script.module.streamlink.base" name="Streamlink Library" version="2018.10.31" provider-name="Streamlink Devs, Twilight0">
@@ -1820,6 +1855,25 @@ v5.2.14 (2017-01-23)
 		<screenshot>resources/media/screenshot_3.jpg</screenshot>
 	</assets>
     <source>https://github.com/opensubtitles/service.subtitles.opensubtitles_by_opensubtitles</source>
+  </extension>
+</addon>
+
+<addon id="service.vpn.manager"
+       name="VPN Manager for OpenVPN"
+       version="5.0.7"
+       provider-name="Zomboided">
+  <requires>
+    <import addon="xbmc.python" version="2.7.0"/>
+  </requires>
+  <extension point="xbmc.service" library="service.py" start="startup" />
+  <extension point="xbmc.python.module" library="libs" />
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Configure and manage VPN connections using openVPN</summary>
+    <description lang="en">Establish a connection to the VPN service and automatically switch VPN locations based on the add-on being used.</description>
   </extension>
 </addon>
 </addons>
