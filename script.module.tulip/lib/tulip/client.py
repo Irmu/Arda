@@ -17,7 +17,7 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-from __future__ import absolute_import, division, unicode_literals
+from __future__ import absolute_import, division
 
 from random import choice
 import re, sys, time
@@ -307,7 +307,7 @@ def enum(**enums):
     return type(b'Enum', (), enums)
 
 
-def download_media(url, path, file_name, initiate_int=30500, completion_int=30501, exception_int=30502, progress=None):
+def download_media(url, path, file_name, initiate_int='', completion_int='', exception_int='', progress=None):
 
     PROGRESS = enum(OFF=0, WINDOW=1, BACKGROUND=2)
 
@@ -318,10 +318,12 @@ def download_media(url, path, file_name, initiate_int=30500, completion_int=3050
         active = not progress == PROGRESS.OFF
         background = progress == PROGRESS.BACKGROUND
 
-        with control.ProgressDialog(
-                control.addonInfo('name'), control.lang(initiate_int).format(file_name), background=background,
-                active=active
-        ) as pd:
+        if isinstance(initiate_int, int):
+            line1 = control.lang(initiate_int).format(file_name)
+        else:
+            line1 = 'Downloading {0}'.format(file_name)
+
+        with control.ProgressDialog(control.addonInfo('name'), line1, background=background, active=active) as pd:
 
             try:
                 headers = dict([item.split('=') for item in (url.split('|')[1]).split('&')])
@@ -382,13 +384,21 @@ def download_media(url, path, file_name, initiate_int=30500, completion_int=3050
             file_desc.close()
 
         if not cancel:
-            control.infoDialog(control.lang(completion_int).format(file_name))
+
+            if isinstance(completion_int, int):
+                control.infoDialog(control.lang(completion_int).format(file_name))
+            else:
+                control.infoDialog('Download_complete for file name {0}'.format(file_name))
+
             log_debug('Download Complete: {0} -> {1}'.format(url, full_path))
 
     except Exception as e:
 
         log_debug('Error ({0}) during download: {1} -> {2}'.format(str(e), url, file_name))
-        control.infoDialog(control.lang(exception_int).format(str(e), file_name))
+        if isinstance(exception_int, int):
+            control.infoDialog(control.lang(exception_int).format(str(e), file_name))
+        else:
+            control.infoDialog('Download_complete for file name {0}'.format(file_name))
 
 
 def parseDOM(html, name=u"", attrs=None, ret=False):
@@ -610,7 +620,7 @@ def replaceHTMLCodes(txt):
 
 def randomagent():
 
-    choices = [
+    agents = [
         'Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko',
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063',
@@ -623,7 +633,7 @@ def randomagent():
         'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
     ]
 
-    return choice(choices)
+    return choice(agents)
 
 
 def agent():
@@ -638,7 +648,7 @@ def mobile_agent():
 
 def random_mobile_agent():
 
-    choices = [
+    agents = [
         'Mozilla/5.0 (Linux; Android 7.1; vivo 1716 Build/N2G47H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36',
         'Mozilla/5.0 (Linux; U; Android 6.0.1; zh-CN; F5121 Build/34.0.A.1.247) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/40.0.2214.89 UCBrowser/11.5.1.944 Mobile Safari/537.36',
         'Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-N920C Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/6.2 Chrome/56.0.2924.87 Mobile Safari/537.36',
@@ -646,7 +656,7 @@ def random_mobile_agent():
         'Mozilla/5.0 (iPad; CPU OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Version/10.0 Mobile/14D27 Safari/602.1'
     ]
 
-    return choice(choices)
+    return choice(agents)
 
 
 def ios_agent():
@@ -654,9 +664,9 @@ def ios_agent():
     return 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
 
 
-def spoofer(headers=None, _agent=True, age_str=cache.get(randomagent, 12), referer=False, ref_str=''):
+def spoofer(headers=None, _agent=True, age_str=cache.get(randomagent, 12), referer=False, ref_str='', url=None):
 
-    append = '|'
+    pipe = '|'
 
     if not headers:
         headers = {}
@@ -668,11 +678,14 @@ def spoofer(headers=None, _agent=True, age_str=cache.get(randomagent, 12), refer
         headers.update({'Referer': ref_str})
 
     if headers:
-        append += urlencode(headers)
+        string = pipe + urlencode(headers)
+        if url:
+            url += string
+            return url
+        else:
+            return string
     else:
-        append = ''
-
-    return append
+        return ''
 
 
 def cfcookie(netloc, ua, timeout):

@@ -17,11 +17,12 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-from __future__ import absolute_import, division, unicode_literals
+from __future__ import absolute_import
 
-from sys import argv
+import sys
 from tulip.compat import parse_qsl
 
+argv = sys.argv
 syshandle = int(argv[1])
 sysaddon = argv[0]
 params_tuple = parse_qsl(argv[2].replace('?',''))

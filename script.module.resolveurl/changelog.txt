@@ -1,3 +1,89 @@
+[B]Version 5.0.24 (December 25, 2018)[/B]
+- Code Base Changes:
+    - none
+- Resolvers Added:
+    - none
+- Resolvers Fixed/Updated:
+    - realdebrid
+- Resolvers Removed
+    - none
+- Languages Added/Updated
+    - none
+
+[B]Version 5.0.23 (December 24, 2018)[/B]
+- Code Base Changes:
+    - none
+- Resolvers Added:
+    - none
+- Resolvers Fixed/Updated:
+    - realdebrid
+    - premiumize
+- Resolvers Removed
+    - none
+- Languages Added/Updated
+    - none
+
+[B]Version 5.0.22 (December 19, 2018)[/B]
+- Code Base Changes:
+    - magnet link support using Real-Debrid (experimental)
+    - add HTTP DELETE method
+    - new Real-Debrid CLIENT ID (you will need to re-authorize)
+- Resolvers Added:
+    - none
+- Resolvers Fixed/Updated:
+    - realdebrid
+- Resolvers Removed
+    - none
+- Languages Added/Updated
+    - none
+
+[B]Version 5.0.21 (December 16, 2018)[/B]
+- Code Base Changes:
+    - torrent and magnet link support using Premiumize (experimental)
+- Resolvers Added:
+    - none
+- Resolvers Fixed/Updated:
+    - premiumize
+- Resolvers Removed
+    - none
+- Languages Added/Updated
+    - English
+    - English(US)
+
+[B]Version 5.0.20 (December 13, 2018)[/B]
+- Code Base Changes:
+    - updated Premiumize to use new API
+    - case-insensitive sorting
+    - increase supported tld length
+- Resolvers Added:
+    - khatriuploads
+    - 24hd
+    - fileholic
+    - movierulz
+- Resolvers Fixed/Updated:
+    - premiumize
+    - thevid
+- Resolvers Removed
+    - flixtor
+- Languages Added/Updated
+    - English
+    - English(US)
+
+[B]Version 5.0.19 (December 05, 2018)[/B]
+- Code Base Changes:
+    - new sorting method
+- Resolvers Added:
+    - fembed
+    - irshare
+- Resolvers Fixed/Updated:
+    - premiumize
+    - vidtodo
+    - vivosx
+- Resolvers Removed
+    - none
+- Languages Added/Updated
+    - none
+
 [B]Version 5.0.18 (November 20, 2018)[/B]
 - Code Base Changes:
     - option to globally disable hosts that use popups

@@ -17,7 +17,7 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-
+from __future__ import absolute_import
 
 import re, hashlib, time
 
@@ -25,6 +25,7 @@ from tulip import control
 from tulip.compat import str, database
 
 
+# noinspection PyUnboundLocalVariable
 def get(function_, time_out, *args, **table):
     try:
         response = None
@@ -48,7 +49,7 @@ def get(function_, time_out, *args, **table):
         control.makeFile(control.dataPath)
         dbcon = database.connect(control.cacheFile)
         dbcur = dbcon.cursor()
-        dbcur.execute("SELECT * FROM %s WHERE func = '%s' AND args = '%s'" % (table, f, a))
+        dbcur.execute("SELECT * FROM {tn} WHERE func = '{f}' AND args = '{a}'".format(tn=table, f=f, a=a))
         match = dbcur.fetchone()
 
         try:
@@ -89,6 +90,7 @@ def get(function_, time_out, *args, **table):
         return eval(r)
 
 
+# noinspection PyUnboundLocalVariable
 def timeout(function_, *args, **table):
 
     try:
@@ -112,7 +114,7 @@ def timeout(function_, *args, **table):
         control.makeFile(control.dataPath)
         dbcon = database.connect(control.cacheFile)
         dbcur = dbcon.cursor()
-        dbcur.execute("SELECT * FROM %s WHERE func = '%s' AND args = '%s'" % (table, f, a))
+        dbcur.execute("SELECT * FROM {tn} WHERE func = '{f}' AND args = '{a}'".format(tn=table, f=f, a=a))
         match = dbcur.fetchone()
         return int(match[3])
     except BaseException:
@@ -158,7 +160,7 @@ def clear(table=None, withyes=True):
         pass
 
 
-def delete(dbfile=control.cacheFile, withyes=True):
+def delete(withyes=True):
 
     if withyes:
 
@@ -171,6 +173,6 @@ def delete(dbfile=control.cacheFile, withyes=True):
 
         pass
 
-    control.deleteFile(dbfile)
+    control.deleteFile(control.cacheFile)
 
     control.infoDialog(control.lang(30402).encode('utf-8'))
