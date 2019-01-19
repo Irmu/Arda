@@ -2209,6 +2209,23 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
+<addon id="service.radagast"
+    name="Radagast" version="2018.10.21" provider-name="Lórien">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.service" library="default.py" start="login" />
+  <extension point="xbmc.python.script" library="default.py">
+    <provides>all</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Automatic Search for Subtitles upon Playback.</summary>
+    <description lang="en">Automatic Search for Subtitles upon Playback. Credits to all previous/original developers. This is just a rebranding for personal use.</description>
+    <platform>all</platform>
+    <language>pt</language>
+  </extension>
+</addon>
+
 <addon id="service.subtitles.opensubtitles_by_opensubtitles" name="OpenSubtitles.org by OpenSubtitles" version="5.2.15" provider-name="amet, opensubtitles">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
