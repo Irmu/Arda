@@ -1,3 +1,21 @@
+28/12/2018 v.1.1.4.a
+bug fix on piratebay
+
+fix releasebb
+
+27/12/2018 v.1.1.4
+added:
+eztv
+piratebay
+1337x
+
+fix twomovies
+fix seriesonline8
+fix cmovies
+remove moviefisher
+remove putlocker_online
+
+
 11/11/2018 v.1.1.3
 - change movies/tvshows titles on default.py
 - add hosters function
