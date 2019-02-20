@@ -45,7 +45,7 @@ def addLinkItem(name, url, mode, params=1, iconimage='DefaultFolder.png', infoLa
 
     if contextmenu:
         contextMenuItems=contextmenu
-        li.addContextMenuItems(contextMenuItems, replaceItems=True) 
+        liz.addContextMenuItems(contextMenuItems, replaceItems=True)
 
     ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=u, listitem=liz,isFolder=False,totalItems=itemcount)
     xbmcplugin.addSortMethod(addon_handle, sortMethod=xbmcplugin.SORT_METHOD_NONE, label2Mask = "%R, %Y, %P")
@@ -289,7 +289,7 @@ elif mode[0] =='site2':
         streams = mod.getStreams(ex_link)
         if streams:
             t = [stream.get('title') for stream in streams]
-            s = xbmcgui.Dialog().select("Źródła", t)
+            s = xbmcgui.Dialog().select("Select Stream", t)
             if s>-1: stream_url,url,header = mod.getChannelVideo(streams[s])
             else: stream_url=''
             if stream_url: 
@@ -298,7 +298,7 @@ elif mode[0] =='site2':
                 xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
             else: xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=stream_url))
         else:
-            xbmcgui.Dialog().ok("Problem", 'Źródła nie są dostępne')  
+            xbmcgui.Dialog().ok("Sorry for that", 'plz contact Dev')
         
 elif mode[0] == 'folder':
     pass
