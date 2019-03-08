@@ -7,6 +7,7 @@ Provider thread methods
 import os
 import re
 import json
+import time
 import xbmc
 import xbmcaddon
 from client import Client
@@ -153,6 +154,7 @@ def process(provider, generator, filtering, verify_name=True, verify_size=True):
                 token = token_data['token']
                 log.debug("Got token for %s: %s" % (provider, repr(token)))
                 url_search = url_search.replace('TOKEN', token)
+                time.sleep(2)
             else:
                 log.warning('%s: Unable to get token for %s' % (provider, repr(url_search)))
 

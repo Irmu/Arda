@@ -135,16 +135,16 @@ def get_tmdb_window(window_type):
                         show_playlist = xbmc.translatePath("special://profile/playlists/video/%s.xsp" % (tvdb_id, SETTING("player_alt")))
                         if os.path.exists(show_playlist):
                             url = show_playlist
-                        else: url = 'plugin://plugin.video.metalliq-forqed/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
-                    else: url = 'plugin://plugin.video.metalliq-forqed/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
+                        else: url = 'plugin://plugin.video.metallik/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
+                    else: url = 'plugin://plugin.video.metallik/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
                 else:
                     if self.listitem.getProperty("dbid"): url = 'temp'
-                    else: url = 'plugin://plugin.video.metalliq-forqed/movies/play/tmdb/%s/%s' % (item_id, SETTING("player_alt"))
+                    else: url = 'plugin://plugin.video.metallik/movies/play/tmdb/%s/%s' % (item_id, SETTING("player_alt"))
                 PLAYER.qlickplay(url, listitem=None, dbid=dbid, window=self)
             if selection == 1:
                 if self.type == "tv" or self.type == "episode":
-                    TVLibrary   = METALLIQ.getSetting("tv_library_folder")
-                    TVPlaylists = METALLIQ.getSetting("tv_playlist_folder")
+                    TVLibrary   = MetalliK.getSetting("tv_library_folder")
+                    TVPlaylists = MetalliK.getSetting("tv_playlist_folder")
                     if self.listitem.getProperty("dbid"):
                         get_kodi_json(method="VideoLibrary.RemoveTVShow", params='{"tvshowid": %s}' % dbid)
                         if os.path.exists(xbmc.translatePath("%s%s.xsp" % (TVPlaylists, tvdb_id))):
@@ -159,10 +159,10 @@ def get_tmdb_window(window_type):
                         else:
                             notify(header='Item not added by QlickPlay' % self.listitem.getProperty("TVShowTitle"), message="Needs manual deletion", icon=self.listitem.getProperty("poster"), time=5000, sound=False)
                     else:
-                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/tv/add_to_library/%s)" % tvdb_id)
+                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metallik/tv/add_to_library/%s)" % tvdb_id)
                         notify(header='Added "%s" to library' % self.listitem.getProperty("TVShowTitle"), message="Starting library scan now", icon=self.listitem.getProperty("poster"), time=5000, sound=False)
                 else:
-                    MovieLibrary = METALLIQ.getSetting("movies_library_folder")
+                    MovieLibrary = MetalliK.getSetting("movies_library_folder")
                     if self.listitem.getProperty("dbid"):
                         get_kodi_json(method="VideoLibrary.RemoveMovie", params='{"movieid": %s}' % dbid)
                         if os.path.exists(xbmc.translatePath("%s%s/" % (MovieLibrary, imdb_id))):
@@ -172,15 +172,15 @@ def get_tmdb_window(window_type):
                         else:
                             notify(header='Item not added by QlickPlay', message="Needs manual deletion", icon=self.listitem.getProperty("poster"), time=5000, sound=False)
                     else:
-                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/movies/add_to_library/tmdb/%s)" % item_id)
+                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metallik/movies/add_to_library/tmdb/%s)" % item_id)
                         notify(header='Added "%s" to library' % self.listitem.getProperty("title"), message="Starting library scan now", icon=self.listitem.getProperty("poster"), time=5000, sound=False)
                 after_add(type=self.type)
                 self.update(force_update=True)
                 self.getControl(500).selectItem(self.position)
             if selection == 2:
-                if self.type == "tv": url = "plugin://script.extendedinfo/?info=playtvtrailer&id=%s" % item_id
-                elif self.type == "episode": url = "plugin://script.extendedinfo/?info=playtvtrailer&tvdb_id=%s" % tvdb_id
-                elif self.type == "movie": url = "plugin://script.extendedinfo/?info=playtrailer&id=%s" % item_id
+                if self.type == "tv": url = "plugin://script.qlickplay/?info=playtvtrailer&id=%s" % item_id
+                elif self.type == "episode": url = "plugin://script.qlickplay/?info=playtvtrailer&tvdb_id=%s" % tvdb_id
+                elif self.type == "movie": url = "plugin://script.qlickplay/?info=playtrailer&id=%s" % item_id
                 PLAYER.qlickplay(url, listitem=None, dbid=0, window=self)
             if selection == 3:
                 if self.logged_in:
@@ -191,7 +191,7 @@ def get_tmdb_window(window_type):
                             self.getControl(500).selectItem(self.position)
                 else:
                     if self.type == "episode":
-                        path = xbmc.translatePath("special://profile/addon_data/script.extendedinfo/exclusions_tvdb.txt")
+                        path = xbmc.translatePath("special://profile/addon_data/script.qlickplay/exclusions_tvdb.txt")
                         if xbmcvfs.exists(path): content = read_from_file(path, True).split("\n")
                         else: content = []
                         content.append("year - tvdb-id | TVShowTitle")
@@ -212,7 +212,7 @@ def get_tmdb_window(window_type):
                     elif self.type == "tv" or self.type == "episode":
                         xbmc.executebuiltin("RunPlugin(plugin://plugin.video.sickrage?action=addshow&tvdb_id=%s)" % tvdb_id)
                 if self.type == "episode":
-                    path = xbmc.translatePath("special://profile/addon_data/script.extendedinfo/exclusions_tvdb.txt")
+                    path = xbmc.translatePath("special://profile/addon_data/script.qlickplay/exclusions_tvdb.txt")
                     if xbmcvfs.exists(path): content = read_from_file(path, True).split("\n")
                     else: content = []
                     content.append("year - tvdb-id | TVShowTitle")

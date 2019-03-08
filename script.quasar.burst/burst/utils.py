@@ -64,16 +64,27 @@ def get_providers():
     return results
 
 
-def get_enabled_providers():
-    """ Utility method to get all enabled provider IDs
+def get_enabled_providers(method):
+    """ Utility method to get all enabled provider IDs for a search method
+
+    Args:
+        method (str): Type of search, can be ``general``, ``movie``, ``episode``, ``season`` or ``anime``
 
     Returns:
         list: All available enabled provider IDs
     """
     results = []
     for provider in definitions:
+        if 'enabled' in definitions[provider] and not definitions[provider]['enabled']:
+            continue
         if get_setting('use_%s' % provider, bool):
-            results.append(provider)
+            if method != 'general' and 'type' in definitions[provider]:
+                provider_type = definitions[provider]['type']
+                is_show_type = method in ('episode', 'season') and 'show' in provider_type
+                if method in provider_type or is_show_type:
+                    results.append(provider)
+            else:
+                results.append(provider)
         if 'custom' in definitions[provider] and definitions[provider]['custom']:
             results.append(provider)
     return results

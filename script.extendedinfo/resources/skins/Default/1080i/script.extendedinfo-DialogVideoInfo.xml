@@ -579,7 +579,7 @@
                                 <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),season)</visible>
                             </control>-->
                             <control type="radiobutton" id="120">
-                                <label>[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed</label>
+                                <label>MetalliK</label>
                                 <textureradioonfocus colordiffuse="FFFAFAFA">icons/browse.png</textureradioonfocus>
                                 <textureradioofffocus colordiffuse="FFFAFAFA">icons/browse.png</textureradioofffocus>
                                 <textureradiooffnofocus colordiffuse="FF999999">icons/browse.png</textureradiooffnofocus>
@@ -606,7 +606,7 @@
                                 <visible>Stringcompare(Window.Property(Type),tvshow) | Stringcompare(Window.Property(Type),movie)</visible>
                             </control>
                             <control type="radiobutton" id="121">
-                                <label>MeatlliQ 4Qed</label>
+                                <label>MetalliK</label>
                                 <textureradioonfocus colordiffuse="FFFAFAFA">icons/browse.png</textureradioonfocus>
                                 <textureradioofffocus colordiffuse="FFFAFAFA">icons/browse.png</textureradioofffocus>
                                 <textureradiooffnofocus colordiffuse="FF999999">icons/browse.png</textureradiooffnofocus>
@@ -3281,10 +3281,10 @@
                     <visible>!Control.HasFocus(132) + !ControlGroup(5000).HasFocus</visible>
                     <animation effect="fade" time="250">VisibleChange</animation>
                     <control type="image">
-                        <posx>1042</posx>
-                        <posy>-12</posy>
-                        <width>815</width>
-                        <height>140</height>
+                        <posx>1020</posx>
+                        <posy>-20</posy>
+                        <width>830</width>
+                        <height>190</height>
                         <aspectratio align="right">keep</aspectratio>
                         <texture background="true" fallback="moviedb.png">$INFO[Window.Property(movie.Logo)]</texture>
                     </control>

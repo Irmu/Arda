@@ -154,6 +154,54 @@ msgctxt "#32075"
 msgid "No torrents found"
 msgstr "Не знайдено жодного торренту"
 
-#~ msgctxt "#32040"
-#~ msgid "Maximum torrents"
-#~ msgstr "Максимально торрентів"
+msgctxt "#32076"
+msgid "Passkey"
+msgstr ""
+
+msgctxt "#32110"
+msgid "International"
+msgstr ""
+
+msgctxt "#32111"
+msgid "English"
+msgstr ""
+
+msgctxt "#32112"
+msgid "Italian"
+msgstr ""
+
+msgctxt "#32113"
+msgid "French"
+msgstr ""
+
+msgctxt "#32114"
+msgid "Russian"
+msgstr ""
+
+msgctxt "#32115"
+msgid "Ukrainian"
+msgstr ""
+
+msgctxt "#32116"
+msgid "Bulgarian"
+msgstr ""
+
+msgctxt "#32117"
+msgid "Romanian"
+msgstr ""
+
+msgctxt "#32118"
+msgid "Hungarian"
+msgstr ""
+
+msgctxt "#32124"
+msgid "Automatically adjust timeout according to Quasar settings"
+msgstr ""
+
+msgctxt "#32126"
+msgid "Polish"
+msgstr ""
+
+msgctxt "#32127"
+msgid "Lithuanian"
+msgstr ""

@@ -44,17 +44,17 @@
                 <visible>IntegerGreaterThan(Container(500).NumItems,0)</visible>
                 <animation effect="fade" time="320" delay="300">Visible</animation>
                 <control type="image">
-                    <posx>468</posx>
+                    <posx>465</posx>
                     <posy>107</posy>
                     <width>330</width>
-                    <height>412</height>
+                    <height>432</height>
                     <visible>Control.HasFocus(500) + IsEmpty(Window.Property(alt_layout))</visible>
                     <animation type="WindowOpen" reversible="false">
                         <effect type="fade" start="0" end="100" delay="700" time="300" />
                     </animation>
                     <animation effect="fade" time="320" delay="200">Visible</animation>
                     <animation effect="fade" time="200">Hidden</animation>
-                    <texture colordiffuse="$INFO[Skin.String(WindowColorThemed)]" border="40">buttons/roundedbutton-focus2.png</texture>
+                    <texture colordiffuse="$INFO[Skin.String(WindowColorThemed)]" border="40">buttons/roundedbutton-focus.png</texture>
                     <animation effect="slide" end="0,420" time="300" tween="cubic" easing="inout" condition="Container(500).Row(1)">Conditional</animation>
                     <animation effect="slide" end="350,0" time="300" tween="cubic" easing="inout" condition="Container(500).Column(4)">Conditional</animation>
                     <animation effect="slide" end="350,0" time="300" tween="cubic" easing="inout" condition="Container(500).Column(4) | Container(500).Column(3)">Conditional</animation>
@@ -181,7 +181,7 @@
                         <control type="image">
                             <posx>11</posx>
                             <posy>30</posy>
-                            <width>195</width>
+                            <width>193</width>
                             <height>290</height>
                             <aspectratio scalediffuse="false">scale</aspectratio>
                             <texture diffuse="thumbs/movieposter_mask.png" background="true" fallback="DefaultVideo.png">$INFO[ListItem.Thumb]</texture>
@@ -190,9 +190,8 @@
                         <control type="image">
                             <posx>-8.5</posx>
                             <posy>10.5</posy>
-                            <top>-11</top>
-                            <width>237</width>
-                            <height>352</height>
+                            <width>232</width>
+                            <height>328</height>
                             <aspectratio scalediffuse="false">stretch</aspectratio>
                             <texture diffuse="thumbs/movieposter_mask.png">thumbs/thumb_glass_noreflect.png</texture>
                             <bordertexture border="19.5">thumbs/poster_shadow.png</bordertexture>
@@ -201,7 +200,7 @@
                         <control type="image">
                             <width>55</width>
                             <height>55</height>
-                            <posy>35</posy>
+                            <posy>30</posy>
                             <posx>11</posx>
                             <texture flipx="true" colordiffuse="$INFO[Skin.String(WindowColorThemed)]">flags/marked.png</texture>
                             <visible>!IsEmpty(ListItem.Property(DBID))</visible>
@@ -209,8 +208,8 @@
                         <control type="image">
                             <width>55</width>
                             <height>55</height>
-                            <posy>26</posy>
-                            <posx>20</posx>
+                            <posy>30</posy>
+                            <posx>11</posx>
                             <texture flipx="true">flags/local.png</texture>
                             <visible>!IsEmpty(ListItem.Property(DBID))</visible>
                         </control>
@@ -255,7 +254,7 @@
                         <control type="image">
                             <posx>11</posx>
                             <posy>30</posy>
-                            <width>195</width>
+                            <width>193</width>
                             <height>290</height>
                             <aspectratio scalediffuse="false">scale</aspectratio>
                             <texture diffuse="thumbs/movieposter_mask.png" background="true" fallback="DefaultVideo.png">$INFO[ListItem.Thumb]</texture>
@@ -264,9 +263,8 @@
                         <control type="image">
                             <posx>-8.5</posx>
                             <posy>10.5</posy>
-                            <top>-11</top>
-                            <width>237</width>
-                            <height>352</height>
+                            <width>232</width>
+                            <height>328</height>
                             <aspectratio scalediffuse="false">stretch</aspectratio>
                             <texture diffuse="thumbs/movieposter_mask.png">thumbs/thumb_glass_noreflect.png</texture>
                             <bordertexture border="19.5">thumbs/poster_shadow.png</bordertexture>
@@ -276,7 +274,7 @@
                         <control type="image">
                             <width>55</width>
                             <height>55</height>
-                            <posy>35</posy>
+                            <posy>30</posy>
                             <posx>11</posx>
                             <texture flipx="true" colordiffuse="$INFO[Skin.String(WindowColorThemed)]">flags/marked.png</texture>
                             <visible>!IsEmpty(ListItem.Property(DBID))</visible>
@@ -284,8 +282,8 @@
                         <control type="image">
                             <width>55</width>
                             <height>55</height>
-                            <posy>26</posy>
-                            <posx>20</posx>
+                            <posy>30</posy>
+                            <posx>11</posx>
                             <texture flipx="true">flags/local.png</texture>
                             <visible>!IsEmpty(ListItem.Property(DBID))</visible>
                         </control>

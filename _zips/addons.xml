@@ -468,6 +468,69 @@ version="6.0.0~alpha6" />
     </extension>
 </addon>
 
+<addon id="plugin.video.metallik" name="[COLOR ff0084ff]M[/COLOR]etalliK" version="1.0.6" provider-name="KoDIY Help">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+		<import addon="script.module.requests" version="2.9.1"/>
+		<import addon="script.module.futures" version="2.2.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video audio</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="[login|startup]">
+	</extension>
+	<extension point="kodi.context.item">
+		<menu id="kodi.core.main">
+			<menu>
+				<label>MetalliK</label>
+				<item library="context_toggle.py">
+					<label>Preferred toggle</label>
+					<visible>!System.HasAddon(context.metallik) + !Skin.HasSetting(Toggling)</visible>
+				</item>
+				<item library="context_movie.py">
+					<label>$ADDON[plugin.video.metallik 30602]</label>
+					<visible>StringCompare(ListItem.dbtype,movie) + SubString(ListItem.Path, plugin.video.metallik)</visible>
+				</item>
+				<item library="context_tvshow.py">
+					<label>$ADDON[plugin.video.metallik 30602]</label>
+					<visible>StringCompare(ListItem.dbtype,tvshow) + SubString(ListItem.Path, plugin.video.metallik)</visible>
+				</item>
+				<item library="context_live.py">
+					<label>$ADDON[plugin.video.metallik 30602]</label>
+					<visible>[SubString(ListItem.FileNameAndPath, plugin.video.metallik\\Live) | SubString(ListItem.FileNameAndPath, plugin.video.metallik\\Live)]</visible>
+				</item>
+				<item library="context_playable.py">
+					<label>$ADDON[plugin.video.metallik 30622]</label>
+					<visible>!System.HasAddon(context.metallik) + !Skin.HasSetting(Contexting)</visible>
+				</item>
+			</menu>
+		</menu>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<language></language>
+		<summary lang="en">TMDb, TVDb, Trakt, AudioDb and LastFM browser</summary>
+		<description lang="en">Browse The MovieDb, The TVDb, Trakt, The AudioDb and LastFM and pass info along to library or an addon to try and play it. Needs player-files and the appropriate addon to actually play.</description>
+		<summary lang="nl">Blader door TMDb, TVDb, Trakt, AudioDb en LastFM</summary>
+		<description lang="nl">Blader door The MovieDb, The TVDb, Trakt, The AudioDb en LastFM en geef info door aan de bibliotheek of een addon om te proberen het af te spelen. Vereist player-bestanden en de bijbehorende addon om daadwerkelijk af te kunnen spelen.</description>
+		<supportedcontent>
+			<content>movies</content>
+			<content>tvshows</content>
+			<content>episodes</content>
+			<content>musicvideos</content>
+			<content>music</content>
+			<content>livetv</content>
+		</supportedcontent>
+		<genre>movies,tv,music,livetv</genre>
+		<!--<video_guide>yt-id</video_guide>
+		<video_preview>yt-id</video_preview>-->
+		<forum></forum>
+		<source></source>
+		<email></email>
+		<news></news>
+	</extension>
+</addon>
+
 <addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="7.0.17krypton" provider-name="[COLOR lime][B]Serious Fork[/B][/COLOR]">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
@@ -1042,7 +1105,7 @@ v3.0.5
   </extension>
 </addon>
 
-    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.70" provider-name="Aliunde">
+    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.71" provider-name="Aliunde">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -1170,24 +1233,6 @@ v3.0.5
 	</extension>
 </addon>
 
-    <addon id="repository.gimli" name="Gimli Repo" version="0.0.2" provider-name="Irmu">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-        <extension point="xbmc.addon.repository" name="Gimli Repo">
-            <info compressed="false">https://raw.githubusercontent.com/irmu/gimli/master/_zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/irmu/gimli/master/_zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/irmu/gimli/master/_zips/</datadir>
-            <hashes>false</hashes>
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary>Official Gimli Add-on Repository</summary>
-            <description>Official Gimli Add-on Repository</description>
-            <platform>all</platform>
-            <genre>movies,usa</genre>
-        </extension>
-    </addon>
-
 <addon id="repository.jsergio" name="jsergio repo" version="1.0.4" provider-name="jsergio">
 	<extension point="xbmc.addon.repository" name="jsergio repo">
         <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
@@ -1201,10 +1246,7 @@ v3.0.5
 	</extension>
 </addon>
 
-<addon id="repository.kodibae" name="[COLOR pink]Kodi Bae Repository[/COLOR]" version="2.0.0" provider-name="kodibae">
-    <requires>
-        <import addon="repository.thebackup" version="1.0.0"/>
-    </requires>
+<addon id="repository.kodibae" name="[COLOR pink]Kodi Bae Repository[/COLOR]" version="3.0.0" provider-name="kodibae">
     <extension point="xbmc.addon.repository" name="[COLOR pink]Kodi Bae Repository[/COLOR]">
     <dir>
         <info compressed="false">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml</info>
@@ -1251,6 +1293,23 @@ v3.0.5
         <description>kodil repository - the most extensive repository in isrl </description>
         <description>הריפו של קודישראל - מאגר ההרחבות הגדול והאיכותי בישראל  </description>
         <platform>all</platform>
+    </extension>
+</addon>
+
+    <addon id="repository.kodiyhelp" name="KoDIY Help Repo" version="0.1.0" provider-name="KoDIY Help">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="KoDIY Help Repo">
+            <info compressed="false">http://kodihelp.net/_files/addons.xml</info>
+            <checksum>http://kodihelp.net/_files/addons.xml.md5</checksum>
+            <datadir zip="true">http://kodihelp.net/_files/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>KoDIY Repo</summary>
+            <description>Also Includes Some Useful Dependencies etc when things are a bit hit and miss</description>
+            <platform>all</platform>
     </extension>
 </addon>
 
@@ -1326,10 +1385,7 @@ v3.0.5
 	</extension>
 </addon>
 
-    <addon id="repository.moria" name="Moria Repository" version="2018.10.05" provider-name="Irmu">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
+    <addon id="repository.moria" name="Moria Repository" version="2019.03.02" provider-name="Irmu">
         <extension point="xbmc.addon.repository" name="Moria Repository">
             <info compressed="false">https://raw.githubusercontent.com/irmu/moria/master/_zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/irmu/moria/master/_zips/addons.xml.md5</checksum>
@@ -1338,9 +1394,8 @@ v3.0.5
         </extension>
         <extension point="xbmc.addon.metadata">
             <summary>Moria Repository</summary>
-            <description>The Doors of Durin, Lord of Moria. Speak, friend, and enter. I, Narvi, made them. Celebrimbor of Hollin drew these signs.</description>
+            <description>The Doors of Durin, Lord of Moria. Speak, friend, and enter.</description>
             <platform>all</platform>
-            <genre>movies,usa</genre>
         </extension>
     </addon>
 
@@ -1533,18 +1588,17 @@ v3.0.5
   <extension library="lib" point="xbmc.python.module" />
 </addon>
 
-<addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="100.2.0" provider-name="[COLOR lime][B]Serious Fork[/B][/COLOR], original by phil65">
+<addon id="script.extendedinfo" name="[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od" version="999.9.9" provider-name="Modded by KoDIY, original work by phil65">
   <requires>
     <import addon="xbmc.python"                     version="2.19.0"/>
-    <import addon="plugin.program.super.favourites"/>
-    <import addon="plugin.video.metalliq-forqed"/>
-    <import addon="plugin.video.youtube"            version="5.3.10"/>
-    <import addon="repository.cdrepo"/>
+    <import addon="plugin.program.super.favourites" />
+    <import addon="plugin.video.metallik" />
+    <import addon="plugin.video.youtube"  />
     <import addon="script.module.pil"               version="1.1.7"/>
-    <import addon="script.module.requests"          version="1.1.0"/>
+    <import addon="script.module.requests" />
     <import addon="script.module.simplejson"        version="2.0.10"/>
-    <import addon="script.module.urlresolver"/>
-    <import addon="script.module.youtube.dl"        version="14.519.1"/>
+    <import addon="script.module.urlresolver" />
+    <import addon="script.module.youtube.dl"  />
   </requires>
   <extension point="xbmc.python.script"             library="default.py">
     <provides>executable</provides>
@@ -1555,10 +1609,10 @@ v3.0.5
   </extension>
   <extension point="xbmc.addon.metadata">
     <language/>
-    <summary lang="en">Modded for [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed</summary>
-    <description lang="en">This script offers various possibilities to display online content inside skins as well as a complete MovieDB browser including info dialogs for various media types. Used services are themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com and a lot more. Needs skin implementation for lot of functions. Uses [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed for playback and library functions.</description>
+    <summary lang="en">[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od</summary>
+    <description lang="en">This script offers various possibilities to display online content inside skins as well as a complete MovieDB browser including info dialogs for various media types. Used services are themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com and a lot more. Needs skin implementation for lot of functions. Uses [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]K[/COLOR] for playback and library functions.</description>
     <summary lang="nl">[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od</summary>
-    <description lang="nl">Dit script biedt meerdere mogelijkheden om online content weer te geven in skins en bevat ook een complete MovieDB browser inclusief info dialogen voor verscheidene media types. Gebruikte diensten zijn themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com en nog veel meer. Vereist skin implementatie voor de meeste functies. Gebruikt [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed voor afspeel en bibliotheek functies.</description>
+    <description lang="nl">Dit script biedt meerdere mogelijkheden om online content weer te geven in skins en bevat ook een complete MovieDB browser inclusief info dialogen voor verscheidene media types. Gebruikte diensten zijn themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com en nog veel meer. Vereist skin implementatie voor de meeste functies. Gebruikt [COLOR ff0084ff]M[/COLOR]etalli[COLOR ff0084ff]Q[/COLOR] voor afspeel en bibliotheek functies.</description>
     <platform>all</platform>
     <genre>movies,tv,trailers</genre>
     <video_guide>3nlzITuJizg</video_guide>
@@ -2307,7 +2361,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.quasar.burst" name="Quasar [COLOR FFFF6B00]Burst[/COLOR]" version="0.5.10" provider-name="scakemyer">
+<addon id="script.quasar.burst" name="Quasar [COLOR FFFF6B00]Burst[/COLOR]" version="0.6.0" provider-name="scakemyer">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="plugin.video.quasar" optional="false"/>

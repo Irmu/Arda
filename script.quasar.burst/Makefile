@@ -36,13 +36,13 @@ bump:
 	$(GIT) tag -f $(GIT_VERSION)
 
 surge:
-	$(GIT) clone --depth=1 https://bitbucket.com/scakemyer/burst-website.git
-	sed -i "s/version\s=\s\"\([0-9a-z\.\-]*\)\"/version = \"${VERSION}\"/" burst-website/public/index.jade
-	cd burst-website && harp compile . html/
-	mkdir -p burst-website/html/release/
-	cp addon.xml changelog.txt icon.png fanart.jpg burst-website/html/release/
-	cp *.zip burst-website/html/release/
-	cd burst-website && surge html burst.surge.sh
+	$(GIT) clone --depth=1 https://bitbucket.org/scakemyer/burst-website.git
+	sed -i "s/version:\s\([0-9a-z\.\-]*\)/version: ${VERSION}/" burst-website/_config.yml
+	cd burst-website && yarn install && hexo generate
+	mkdir -p burst-website/public/release/
+	cp addon.xml changelog.txt icon.png fanart.jpg burst-website/public/release/
+	cp *.zip burst-website/public/release/
+	cd burst-website && surge public burst.surge.sh
 
 docs-init:
 	cd docs && sphinx-apidoc --no-toc -M -o source/ ../burst

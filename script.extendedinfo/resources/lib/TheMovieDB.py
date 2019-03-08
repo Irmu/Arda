@@ -13,7 +13,7 @@ from functools32 import lru_cache
 from WindowManager import wm
 import datetime
 
-TMDB_KEY = '0afc169ab40ca614af43a7b9c0a61e9b'
+TMDB_KEY = '3d64bf27dcc155abbe3c55591a03b6e2'
 POSTER_SIZES = ["w92", "w154", "w185", "w342", "w500", "w780", "original"]
 LOGO_SIZES = ["w45", "w92", "w154", "w185", "w300", "w500", "original"]
 BACKDROP_SIZES = ["w300", "w780", "w1280", "original"]
@@ -22,7 +22,7 @@ STILL_SIZES = ["w92", "w185", "w300", "original"]
 HEADERS = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'User-agent': 'XBMC/17.6 ( phil65@kodi.tv )'
+    'User-agent': 'XBMC/14.0 ( phil65@kodi.tv )'
 }
 base_url = "http://image.tmdb.org/t/p/"
 poster_size = "w500"

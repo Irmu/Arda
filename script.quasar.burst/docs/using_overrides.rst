@@ -1,21 +1,32 @@
 Using overrides
 ---------------
 
-Default fixes and overrides are located in ``burst/providers/definitions.py``,
-and although you can edit that file directly, keep in mind that you will lose
-your changes on the next update. You can override existing definitions by adding
-another file named ``overrides.py`` in your `userdata`_ folder under
-``addon_data/script.quasar.burst``. Put all your overrides in the ``overrides``
-variable within that file, as such:
+Definitions are loaded from `burst/providers/definitions.py` starting with all
+the default providers in the `providers.json` file. You can override existing
+definitions using either an `overrides.py` or `overrides.json` file.
+
+Using a Python file is deprecated but will remain supported.
+
+Start by adding a new file named `overrides.json` in your `userdata`_ folder,
+ie. in `~/.kodi/userdata/addon_data/script.quasar.burst/overrides.json` and
+either paste the content of an existing provider or start with small overrides:
+
+.. code-block:: js
+
+    {
+        'torlock': {
+            'name': 'MyTorLock'
+        }
+    }
+
+If you are using the older Python format, put all your overrides in the
+`overrides` variable within that file, as such:
 
 .. code-block:: js
 
     overrides = {
         'torlock': {
             'name': 'MyTorLock'
-        },
-        'freshon.tv': {
-            'tv_keywords': '{title} s{season:2}e{episode:2}'
         }
     }
 
