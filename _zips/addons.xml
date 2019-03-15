@@ -870,7 +870,7 @@ v3.0.5
   </extension>
 </addon>
 
-<addon id="plugin.video.sparkle" name="Sparkle" version="0.0.83" provider-name="iwannabelikemike">
+<addon id="plugin.video.sparkle" name="Sparkle" version="0.0.84" provider-name="iwannabelikemike">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common" />
