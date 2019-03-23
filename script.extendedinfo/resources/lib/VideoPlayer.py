@@ -43,10 +43,11 @@ class VideoPlayer(xbmc.Player):
         get_kodi_json(method="Player.Open", params='{"item": %s, "options":{"resume": true}}' % item )
         if ADDON.getSetting("window_mode") == "false":
             if xbmc.getCondVisibility("player.hasvideo"):
-                wm.add_to_stack(window)
-                window.close()
-                self.wait_for_video_end()
-                return wm.pop_stack()
+                if window is not False and window is not True:
+                    wm.add_to_stack(window)
+                    window.close()
+                    self.wait_for_video_end()
+                    return wm.pop_stack()
             else:
                 for i in range(10):
                     xbmc.sleep(750)

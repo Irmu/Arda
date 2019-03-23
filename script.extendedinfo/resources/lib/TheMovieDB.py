@@ -22,7 +22,7 @@ STILL_SIZES = ["w92", "w185", "w300", "original"]
 HEADERS = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'User-agent': 'XBMC/14.0 ( phil65@kodi.tv )'
+    'User-agent': 'Kodi/17.6 ( phil65@kodi.tv )'
 }
 base_url = "http://image.tmdb.org/t/p/"
 poster_size = "w500"

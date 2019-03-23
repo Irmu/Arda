@@ -9,15 +9,6 @@
             <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/247/247-movies.png</thumbnail>
         </dir>
 
-        <plugin>
-            <title>For Him</title>
-            <meta>
-                <summary>Movies, TV Shows, and more geared for the guys from Team Deez Nutz</summary>
-            </meta>
-            <link>plugin://plugin.video.chocolatesaltyballs</link>
-            <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/moviemania/forhim.png</thumbnail>
-        </plugin>
-
         <dir>
             <title>Kings of Horror</title>
             <meta>
@@ -36,15 +27,6 @@
             <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/moviemania/latin.png</thumbnail>
         </plugin>
 
-        <plugin>
-            <title>First in Urban</title>
-            <meta>
-                <summary>First in.... something</summary>
-            </meta>
-            <link>plugin://plugin.video.urbankingz</link>
-            <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/moviemania/urban.png</thumbnail>
-        </plugin>
-
         <dir>
             <title>For Her</title>
             <meta>
@@ -52,15 +34,6 @@
             </meta>
             <link>file://moviemania/forte/main.xml</link>
             <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/moviemania/forher.png</thumbnail>
-        </dir>
-
-        <dir>
-            <title>Pure Movie Torture</title>
-            <meta>
-                <summary>Movies to torture your soul with!</summary>
-            </meta>
-            <link>file://moviemania/torture.xml</link>
-            <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/moviemania/horror.png</thumbnail>
         </dir>
 
         <dir>

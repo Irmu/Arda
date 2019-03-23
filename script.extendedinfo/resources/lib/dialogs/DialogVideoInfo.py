@@ -224,6 +224,13 @@ def get_movie_window(window_type):
             self.close()
             xbmc.executebuiltin("ActivateWindow(videos,%s,return)" % url)
 
+        @ch.click(122)
+        def trakt_manager_dialog(self):
+            name = self.info.get("title", "")
+            item_id = self.info.get("id", "")
+            content = "movie"
+            xbmc.executebuiltin("RunScript(script.extendedinfo,info=traktManager,name=%s,tmdb=%s,content=%s)" % (name, item_id, content))
+
         @ch.click(132)
         def show_plot(self):
             wm.open_textviewer(header=LANG(207),
@@ -327,42 +334,42 @@ def get_movie_window(window_type):
                 manage_list.append(["Search Youtube Channels", "RunScript(script.extendedinfo,info=list,type=channel,query="+title+")||Notification(YouTube Channels:,"+title+",5000,special://home/addons/script.extendedinfo/resources/skins/Default/media/common/youtube.png)"])
             if xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)") and ADDON.getSetting("ExtendedYoutubeMovie") == "true":
                 manage_list.append(["Search Youtube Playlists", "RunScript(script.extendedinfo,info=list,type=playlist,query="+title+")||Notification(YouTube Playlists:,"+title+",5000,special://home/addons/script.extendedinfo/resources/skins/Default/media/common/youtube.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.exodus)"):
-                manage_list.append(["Search Exodus", "ActivateWindow(10025,plugin://plugin.video.exodus/?action=movieSearch&query="+title+",return)||Notification(Exodus:,"+title+",5000,special://home/addons/plugin.video.exodus/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(script.icechannel)"):
-                manage_list.append(["Search iSTREAM", "ActivateWindow(10025,plugin://script.icechannel/?indexer=movies&indexer_id&mode=search&search_term="+title+"&section=search&type=movies)||Notification(iSTREAM:,"+title+",5000,special://home/addons/script.icechannel/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.salts)"):
-                manage_list.append(["Search SALTS", "ActivateWindow(10025,plugin://plugin.video.salts/?query="+title+"&section=Movies&mode=search_results,return)||Notification(SALTS:,"+title+",5000,special://home/addons/plugin.video.salts/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.saltshd.lite)"):
-                manage_list.append(["Search Salts HD Lite", "ActivateWindow(10025,plugin://plugin.video.saltshd.lite/?query="+title+"&section=Movies&mode=search_results,return)||Notification(Salts HD Lite:,"+title+",5000,special://home/addons/plugin.video.saltshd.lite/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.saltsrd.lite)"):
-                manage_list.append(["Search Salts RD Lite", "ActivateWindow(10025,plugin://plugin.video.saltsrd.lite/?query="+title+"&section=Movies&mode=search_results,return)||Notification(Salts RD Lite:,"+title+",5000,special://home/addons/plugin.video.saltsrd.lite/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.specto)"):
-                manage_list.append(["Search Specto", "ActivateWindow(10025,plugin://plugin.video.specto/?action=movieSearch&query="+title+",return)||Notification(Specto:,"+title+",5000,special://home/addons/plugin.video.specto/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.1channel)"):
-                manage_list.append(["Search 1Channel", "ActivateWindow(10025,&quot;plugin://plugin.video.1channel/?mode=Search&amp;section=movies&amp;query="+title+",return)||Notification(1Channel:,"+title+",5000,special://home/addons/plugin.video.1channel/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.theroyalwe)"):
-                manage_list.append(["Search The Royal We", "ActivateWindow(10025,plugin://plugin.video.theroyalwe/?query="+title+"&section=Movies&mode=search_results,return)||Notification(The Royal We:,"+title+",5000,special://home/addons/plugin.video.theroyalwe/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.phstreams)"):
-                manage_list.append(["Search Phoenix", "ActivateWindow(10025,plugin://plugin.video.phstreams/?action=addSearch&url="+title+",return)||Notification(Phoenix:,"+title+",5000,special://home/addons/plugin.video.phstreams/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.pulsar)"):
-                manage_list.append(["Search Pulsar", "PlayMedia(plugin://plugin.video.pulsar/movie/"+imdb_id+"/links)||Notification(Pulsar:,"+title+",5000,special://home/addons/plugin.video.pulsar/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.quasar)"):
-                manage_list.append(["Search Quasar", "PlayMedia(plugin://plugin.video.quasar/movie/"+tmdb_id+"/links)||Notification(Quasar:,"+title+",5000,special://home/addons/plugin.video.quasar/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(script.search.play2kd)") and language == 'Dutch':
-                manage_list.append(["NL [COLOR FFF35C9F]Search+Play[/COLOR]2KD", "RunScript(script.search.play2kd,type=1,query="+title+" gesproken)||Notification([COLOR FFF35C9F]Search+Play[/COLOR]2KD:,"+title+",5000,special://home/addons/script.search.play2kd/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(script.search.play2kd)"):
-                manage_list.append(["[COLOR FFF35C9F]Search+Play[/COLOR]2KD", "RunScript(script.search.play2kd,type=1,query="+title+")||Notification([COLOR FFF35C9F]Search+Play[/COLOR]2KD:,"+title+",5000,special://home/addons/script.search.play2kd/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.kmediatorrent)") and language == 'Dutch':
-                manage_list.append(["NL K-Search (KickAss)", "ActivateWindow(10025,plugin://plugin.video.kmediatorrent/kat/browse/usearch/"+title+"%2520gesproken%2520%2520verified%253A1/1/seeders/desc,return)||Notification(K-Search NL:,"+title+",5000,special://home/addons/plugin.video.kmediatorrent/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.kmediatorrent)"):
-                manage_list.append(["K-Search (KickAss)", "ActivateWindow(10025,plugin://plugin.video.kmediatorrent/kat/browse/usearch/"+title+"2520verified%253A1/1/seeders/desc,return)||Notification(K-Search KickAss:,"+title+",5000,special://home/addons/plugin.video.kmediatorrent/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.kmediatorrent)"):
-                manage_list.append(["K-Search Yify", "ActivateWindow(10025,plugin://plugin.video.kmediatorrent/yify/search/"+title+"/1,return)||Notification(K-Search Yify:,"+title+",5000,special://home/addons/plugin.video.kmediatorrent/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.kmediatorrent)"):
-                manage_list.append(["K-Search ExtraTorrent", "ActivateWindow(10025,plugin://plugin.video.kmediatorrent/extratorrent/search/?query="+title+",return)||Notification(K-Search ExtraTorrent:,"+title+",5000,special://home/addons/plugin.video.kmediatorrent/icon.png)"])
-            if xbmc.getCondVisibility("system.hasaddon(plugin.video.yifymovies.hd)"):
-                manage_list.append(["Search Yifymovies HD", "ActivateWindow(10025,plugin://plugin.video.yifymovies.hd/?action=movies_search&query="+title+",return)||Notification(YifyFind:,"+title+",5000,special://home/addons/plugin.video.yifymovies.hd/icon.png)"])
+            if xbmc.getCondVisibility("system.hasaddon(plugin.video.jor-el)"):
+                manage_list.append(["Search Exodus", "ActivateWindow(10025,plugin://plugin.video.jor-el/?action=movieSearch&query="+title+",return)||Notification(Exodus:,"+title+",5000,special://home/addons/plugin.video.exodus/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(script.icechannel)"):
+            #    manage_list.append(["Search iSTREAM", "ActivateWindow(10025,plugin://script.icechannel/?indexer=movies&indexer_id&mode=search&search_term="+title+"&section=search&type=movies)||Notification(iSTREAM:,"+title+",5000,special://home/addons/script.icechannel/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.salts)"):
+            #    manage_list.append(["Search SALTS", "ActivateWindow(10025,plugin://plugin.video.salts/?query="+title+"&section=Movies&mode=search_results,return)||Notification(SALTS:,"+title+",5000,special://home/addons/plugin.video.salts/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.saltshd.lite)"):
+            #    manage_list.append(["Search Salts HD Lite", "ActivateWindow(10025,plugin://plugin.video.saltshd.lite/?query="+title+"&section=Movies&mode=search_results,return)||Notification(Salts HD Lite:,"+title+",5000,special://home/addons/plugin.video.saltshd.lite/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.saltsrd.lite)"):
+            #    manage_list.append(["Search Salts RD Lite", "ActivateWindow(10025,plugin://plugin.video.saltsrd.lite/?query="+title+"&section=Movies&mode=search_results,return)||Notification(Salts RD Lite:,"+title+",5000,special://home/addons/plugin.video.saltsrd.lite/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.specto)"):
+            #    manage_list.append(["Search Specto", "ActivateWindow(10025,plugin://plugin.video.specto/?action=movieSearch&query="+title+",return)||Notification(Specto:,"+title+",5000,special://home/addons/plugin.video.specto/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.1channel)"):
+            #    manage_list.append(["Search 1Channel", "ActivateWindow(10025,&quot;plugin://plugin.video.1channel/?mode=Search&amp;section=movies&amp;query="+title+",return)||Notification(1Channel:,"+title+",5000,special://home/addons/plugin.video.1channel/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.theroyalwe)"):
+            #    manage_list.append(["Search The Royal We", "ActivateWindow(10025,plugin://plugin.video.theroyalwe/?query="+title+"&section=Movies&mode=search_results,return)||Notification(The Royal We:,"+title+",5000,special://home/addons/plugin.video.theroyalwe/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.phstreams)"):
+            #    manage_list.append(["Search Phoenix", "ActivateWindow(10025,plugin://plugin.video.phstreams/?action=addSearch&url="+title+",return)||Notification(Phoenix:,"+title+",5000,special://home/addons/plugin.video.phstreams/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.pulsar)"):
+            #    manage_list.append(["Search Pulsar", "PlayMedia(plugin://plugin.video.pulsar/movie/"+imdb_id+"/links)||Notification(Pulsar:,"+title+",5000,special://home/addons/plugin.video.pulsar/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.quasar)"):
+            #    manage_list.append(["Search Quasar", "PlayMedia(plugin://plugin.video.quasar/movie/"+tmdb_id+"/links)||Notification(Quasar:,"+title+",5000,special://home/addons/plugin.video.quasar/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(script.search.play2kd)") and language == 'Dutch':
+            #    manage_list.append(["NL [COLOR FFF35C9F]Search+Play[/COLOR]2KD", "RunScript(script.search.play2kd,type=1,query="+title+" gesproken)||Notification([COLOR FFF35C9F]Search+Play[/COLOR]2KD:,"+title+",5000,special://home/addons/script.search.play2kd/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(script.search.play2kd)"):
+            #    manage_list.append(["[COLOR FFF35C9F]Search+Play[/COLOR]2KD", "RunScript(script.search.play2kd,type=1,query="+title+")||Notification([COLOR FFF35C9F]Search+Play[/COLOR]2KD:,"+title+",5000,special://home/addons/script.search.play2kd/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.kmediatorrent)") and language == 'Dutch':
+            #    manage_list.append(["NL K-Search (KickAss)", "ActivateWindow(10025,plugin://plugin.video.kmediatorrent/kat/browse/usearch/"+title+"%2520gesproken%2520%2520verified%253A1/1/seeders/desc,return)||Notification(K-Search NL:,"+title+",5000,special://home/addons/plugin.video.kmediatorrent/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.kmediatorrent)"):
+            #    manage_list.append(["K-Search (KickAss)", "ActivateWindow(10025,plugin://plugin.video.kmediatorrent/kat/browse/usearch/"+title+"2520verified%253A1/1/seeders/desc,return)||Notification(K-Search KickAss:,"+title+",5000,special://home/addons/plugin.video.kmediatorrent/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.kmediatorrent)"):
+            #    manage_list.append(["K-Search Yify", "ActivateWindow(10025,plugin://plugin.video.kmediatorrent/yify/search/"+title+"/1,return)||Notification(K-Search Yify:,"+title+",5000,special://home/addons/plugin.video.kmediatorrent/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.kmediatorrent)"):
+            #    manage_list.append(["K-Search ExtraTorrent", "ActivateWindow(10025,plugin://plugin.video.kmediatorrent/extratorrent/search/?query="+title+",return)||Notification(K-Search ExtraTorrent:,"+title+",5000,special://home/addons/plugin.video.kmediatorrent/icon.png)"])
+            #if xbmc.getCondVisibility("system.hasaddon(plugin.video.yifymovies.hd)"):
+            #    manage_list.append(["Search Yifymovies HD", "ActivateWindow(10025,plugin://plugin.video.yifymovies.hd/?action=movies_search&query="+title+",return)||Notification(YifyFind:,"+title+",5000,special://home/addons/plugin.video.yifymovies.hd/icon.png)"])
             if xbmc.getCondVisibility("system.hasaddon(plugin.program.super.favourites)"):
                 manage_list.append(["iSearch (Super Favourites)", "ActivateWindow(10025,plugin://plugin.program.super.favourites/?mode=0&keyword="+title+",return)||Notification(iSearch:,"+title+",5000,special://home/addons/plugin.program.super.favourites/icon.png)"])
             selection = xbmcgui.Dialog().select(heading=LANG(32188),

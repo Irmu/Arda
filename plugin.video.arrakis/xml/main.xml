@@ -10,21 +10,12 @@
         </dir>
         
         <dir>
-            <title>24/7 Movies and TV Shows</title>
+            <title>Movies and TV Shows</title>
             <meta>
-                <summary>Find streams for Movies, TV Shows, and Channels that are, as the title suggests, 24/7</summary>
+                <summary>Find streams for Movies and TV Shows to catch up on</summary>
             </meta>
-            <link>file://arconai.xml</link>
-            <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/247.png</thumbnail>
-        </dir>
-
-        <dir>
-            <title>4K Movies and TV Shows</title>
-            <meta>
-                <summary>One Click Play Movies and TV Shows in 4K</summary>
-            </meta>
-            <link>file://4k.xml</link>
-            <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/4k.png</thumbnail>
+            <link>file://moviesandshows.xml</link>
+            <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/movies.png</thumbnail>
         </dir>
 
         <dir>
@@ -35,16 +26,6 @@
             </meta>
             <link>file://live/main.xml</link>
             <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/livetv.png</thumbnail>
-        </dir>
-
-        <dir>
-            <title>Movie Mania</title>
-            <meta>
-                <title>Movie Mania</title>
-                <summary>Themed movie and tv show sections that make use of the Universal Scrapers</summary>
-            </meta>
-            <link>file://moviemania/main.xml</link>
-            <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/movies.png</thumbnail>
         </dir>
 
         <dir>
@@ -111,20 +92,10 @@
             <title>The Spice Room</title>
             <meta>
                 <title>The Spice Room</title>
-                <summary>This content is only for 18+, and as such is disabled by default. Once enabled, you will need the password to gain access</summary>
+                <summary>This content is only for 18+</summary>
             </meta>
             <adult>QXJyYWtpUG9ybnxmaWxlOi8vYWR1bHQvbWFpbi54bWw=</adult>
             <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/spiceroom.png</thumbnail>
-        </dir>
-
-        <dir>
-            <title>Network Nation</title>
-            <meta>
-                <title>Network Nation</title>
-                <summary>Find your tv shows based on the network channel they air on</summary>
-            </meta>
-            <link>file://networks.xml</link>
-            <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/networks.png</thumbnail>
         </dir>
 
         <dir>
@@ -144,16 +115,6 @@
             </meta>
             <link>file://podcasts/main.xml</link>
             <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/voices.png</thumbnail>
-        </dir>
-
-        <dir>
-            <title>To Be A Hero</title>
-            <meta>
-                <title>To Be A Hero</title>
-                <summary>Marvel and DC movies and tv shows supported by Universal Scrapers</summary>
-            </meta>
-            <link>file://dasupers.xml</link>
-            <thumbnail>https://raw.githubusercontent.com/muaddibttv/artwork/master/arrakis/hero.png</thumbnail>
         </dir>
 
         <dir>

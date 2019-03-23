@@ -14,7 +14,7 @@
             <animation effect="fade" end="100" time="560">WindowOpen</animation>
             <animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
             <animation effect="fade" start="0" end="100" time="200">VisibleChange</animation>
-            <visible>!StringCompare(Window.Property(type),channel)</visible>
+            <visible>!String.IsEqual(Window.Property(type),channel)</visible>
         </control>
         <control type="image">
             <texture background="true" fallback="common/white.png" colordiffuse="FFAAAAAA">$INFO[Container(500).ListItem.Art(fanart)]</texture>
@@ -24,7 +24,7 @@
             <animation effect="fade" end="100" time="560">WindowOpen</animation>
             <animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
             <animation effect="fade" start="0" end="100" time="200">VisibleChange</animation>
-            <visible>StringCompare(Window.Property(type),channel)</visible>
+            <visible>String.IsEqual(Window.Property(type),channel)</visible>
         </control>
         <control type="image">
             <texture colordiffuse="$INFO[Skin.String(WindowColorMain)]">customoverlay.png</texture>
@@ -45,7 +45,7 @@
                 <effect type="fade" start="100" end="0" time="240" />
             </animation>
             <control type="group">
-                <visible>IntegerGreaterThan(Container(500).NumItems,0)</visible>
+                <visible>Integer.IsGreater(Container(500).NumItems,0)</visible>
                 <animation effect="fade" time="320" delay="300">Visible</animation>
                 <control type="image">
                     <posx>75</posx>
@@ -304,7 +304,7 @@
                 <height>30</height>
                 <animation effect="fade" end="100" time="360">WindowOpen</animation>
                 <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
-                <visible>!IsEmpty(Window.Property(ArrowDown))</visible>
+                <visible>!String.IsEmpty(Window.Property(ArrowDown))</visible>
             </control>
             <control type="image">
                 <texture flipy="true">arrowdown.png</texture>
@@ -315,7 +315,7 @@
                 <height>30</height>
                 <animation effect="fade" end="100" time="360">WindowOpen</animation>
                 <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
-                <visible>!IsEmpty(Window.Property(ArrowUp))</visible>
+                <visible>!String.IsEmpty(Window.Property(ArrowUp))</visible>
             </control>
             <control type="image">
                 <texture flipx="true">arrowright.png</texture>

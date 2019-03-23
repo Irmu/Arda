@@ -10,6 +10,7 @@ from ..TheMovieDB import *
 from ..WindowManager import wm
 from ..OnClickHandler import OnClickHandler
 from .. import VideoPlayer
+from ..TraktManager import *
 PLAYER = VideoPlayer.VideoPlayer()
 ch = OnClickHandler()
 
@@ -26,15 +27,17 @@ class DialogBaseInfo(object):
         self.data = None
         self.yt_listitems = []
         self.info = {}
-
+        self.trakt_account = getTraktCredentialsInfo()
+        
     def onInit(self, *args, **kwargs):
         super(DialogBaseInfo, self).onInit()
         HOME.setProperty("ImageColor", self.info.get('ImageColor', ""))
         self.window = xbmcgui.Window(self.window_id)
         self.window.setProperty("type", self.type)
         self.window.setProperty("tmdb_logged_in", self.logged_in)
+        self.window.setProperty("trakt_account", str(self.trakt_account))
         # present for jurialmunkey
-        HOME.setProperty("ExtendedInfo_fanart", self.info.get("fanart", ""))
+        HOME.setProperty("extendedinfo_fanart", self.info.get("fanart", ""))
 
     def onAction(self, action):
         ch.serve_action(action, self.getFocusId(), self)

@@ -4,7 +4,7 @@
 
     ----------------------------------------------------------------------------
     "THE BEER-WARE LICENSE" (Revision 42):
-    @tantrumdev wrote this file.  As long as you retain this notice you can do 
+    @tantrumdev wrote this file.  As long as you retain this notice you can do
     whatever you want with this stuff. Just Ask first when not released through
     the tools and parser GIT. If we meet some day, and you think this stuff is
     worth it, you can buy him a beer in return. - Muad'Dib
@@ -17,11 +17,13 @@
         This is a scraper plugin for the Massively Overpowered Podcast show
 
     Version:
+        2019.02.23:
+            - Updated Play function
         2018.8.2:
             - Initial Release
 
     XML Explanations:
-        Tags: 
+        Tags:
             <mop></mop> - Displays the full archive list
 
 
@@ -40,14 +42,20 @@
 
 """
 
+import base64
+import re
+import requests
+import time
+import traceback
 
-import base64,json,re,requests,os,time,traceback,urlparse
-import koding
 import __builtin__
-import xbmc,xbmcaddon,xbmcgui
+import koding
+import xbmc
+import xbmcaddon
+import xbmcgui
+
 from koding import route
 from resources.lib.plugin import Plugin
-from resources.lib.util import dom_parser
 from resources.lib.util.context import get_context_items
 from resources.lib.util.xml import JenItem, JenList, display_list
 from unidecode import unidecode
@@ -55,11 +63,13 @@ from unidecode import unidecode
 CACHE_TIME = 10800  # change to wanted cache time in seconds
 
 addon_fanart = xbmcaddon.Addon().getAddonInfo('fanart')
-addon_icon   = xbmcaddon.Addon().getAddonInfo('icon')
-headers = {'User_Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'} 
+addon_icon = xbmcaddon.Addon().getAddonInfo('icon')
+headers = {
+    'User_Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
 
 base_main_link = 'https://massivelyop.com/%s'
-json_cat_url   = 'wp-json/wp/v2/posts/?per_page=%s&categories=%s&page=%s'
+json_cat_url = 'wp-json/wp/v2/posts/?per_page=%s&categories=%s&page=%s'
+
 
 class MassivelyOP(Plugin):
     name = "massivelyop"
@@ -107,7 +117,6 @@ class MassivelyOP(Plugin):
             result_item['fanart_small'] = result_item["fanart"]
             return result_item
 
-
     def clear_cache(self):
         dialog = xbmcgui.Dialog()
         if dialog.yesno(xbmcaddon.Addon().getAddonInfo('name'), "Clear MOP Plugin Cache?"):
@@ -118,7 +127,7 @@ class MassivelyOP(Plugin):
 def get_MassivelyOP(url):
     url = url.replace('list/', '')
     page_id = url
-    url = base_main_link % ((json_cat_url % ('50', '16', page_id))) 
+    url = base_main_link % ((json_cat_url % ('50', '16', page_id)))
 
     count = 0
 
@@ -126,20 +135,24 @@ def get_MassivelyOP(url):
     if not xml:
         try:
             xml = ""
-            response = requests.get(url,headers).json()
+            response = requests.get(url, headers).json()
             try:
                 if 'invalid' in response['code']:
                     return
-            except:
+            except Exception:
                 pass
             count = len(response)
             for post in response:
-                title   = remove_non_ascii(replaceHTMLCodes(post['title']['rendered'])).replace('Massively OP Podcast','')
+                title = remove_non_ascii(
+                    replaceHTMLCodes(post['title']['rendered'])).replace(
+                    'Massively OP Podcast', '')
+                if 'Episode' not in title:
+                    continue
                 description = remove_non_ascii(replaceHTMLCodes(post['excerpt']['rendered']))
                 description = re.sub('<[^<]+?>', '', description)
                 icon = addon_icon
 
-                page_link = post['link'].replace('\/','/')
+                page_link = post['link'].replace('\/', '/')
                 if len(page_link) > 0:
                     xml += "<item>"\
                            "    <title>%s</title>"\
@@ -148,7 +161,7 @@ def get_MassivelyOP(url):
                            "    </meta>"\
                            "    <mop>%s</mop>"\
                            "    <thumbnail>%s</thumbnail>"\
-                           "</item>" % (title,description,page_link,icon)
+                           "</item>" % (title, description, page_link, icon)
 
             try:
                 if count == 50:
@@ -159,11 +172,11 @@ def get_MassivelyOP(url):
                            "    </meta>"\
                            "    <mop>list/%s</mop>"\
                            "</dir>" % (str(int(page_id)+1))
-            except:
+            except Exception:
                 pass
 
             save_to_db(xml, url)
-        except:
+        except Exception:
             pass
 
     jenlist = JenList(xml)
@@ -173,16 +186,17 @@ def get_MassivelyOP(url):
 @route(mode='PlayMOP', args=["url"])
 def play_MOPEpisode(url):
     try:
-        html = requests.get(url,headers).content
+        html = requests.get(url, headers).content
         link = re.compile('a href="(.+?).mp3"').findall(html)[0] + '.mp3'
-        title = re.compile('property="og:title" content="(.+?)"').findall(html)[0]
+        title = re.compile('h1 class="entry-title">(.+?)</h1>').findall(html)[0]
+
+        title = remove_non_ascii(replaceHTMLCodes(title)).replace('Massively OP Podcast', '')
 
         item = xbmcgui.ListItem(label=title, path=link, iconImage=addon_icon, thumbnailImage=addon_icon)
-        item.setInfo( type="Audio", infoLabels={ "Title": title } )
+        item.setInfo(type="Audio", infoLabels={"Title": title})
         import resolveurl
-        koding.Play_Video(link,showbusy=False,ignore_dp=True,item=item,resolver=resolveurl)
-    except:
-        failure = traceback.format_exc()
+        koding.Play_Video(link, showbusy=False, ignore_dp=True, item=item, resolver=resolveurl)
+    except Exception:
         xbmcgui.Dialog().ok('Stream', 'Unable to play stream')
 
 
@@ -203,7 +217,7 @@ def save_to_db(item, url):
                                 "item": base64.b64encode(item),
                                 "created": time.time()
                             })
-    except:
+    except Exception:
         return False
 
 
@@ -231,7 +245,7 @@ def fetch_from_db(url):
             match_item = match["item"]
             try:
                 result = base64.b64decode(match_item)
-            except:
+            except Exception:
                 return None
             return result
         else:
@@ -244,7 +258,7 @@ def replaceHTMLCodes(txt):
     txt = re.sub("(&#[0-9]+)([^;^0-9]+)", "\\1;\\2", txt)
     try:
         import html.parser as html_parser
-    except:
+    except Exception:
         import HTMLParser as html_parser
     txt = html_parser.HTMLParser().unescape(txt)
     txt = html_parser.HTMLParser().unescape(txt)
@@ -253,18 +267,19 @@ def replaceHTMLCodes(txt):
     txt = txt.strip()
     return txt
 
+
 def replaceEscapeCodes(txt):
     try:
         import html.parser as html_parser
-    except:
+    except Exception:
         import HTMLParser as html_parser
     txt = html_parser.HTMLParser().unescape(txt)
     return txt
 
+
 def remove_non_ascii(text):
     try:
         text = text.decode('utf-8').replace(u'\xc2', u'A').replace(u'\xc3', u'A').replace(u'\xc4', u'A')
-    except:
+    except Exception:
         pass
     return unidecode(text)
-

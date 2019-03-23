@@ -6,7 +6,7 @@
 import xbmc
 from Utils import *
 
-LAST_FM_API_KEY = 'd942dd5ca4c9ee5bd821df58cf8130d4'
+LAST_FM_API_KEY = 'c6d1cfd625723d953a3c1225c6eff299'
 GOOGLE_MAPS_KEY = 'AIzaSyBESfDvQgWtWLkNiOYXdrA9aU-2hv_eprY'
 BASE_URL = 'http://ws.audioscrobbler.com/2.0/?api_key=%s&format=json&' % (LAST_FM_API_KEY)
 

@@ -99,11 +99,11 @@
                     <width>2000</width>
                     <itemgap>15</itemgap>
                     <height>1000</height>
-                    <animation type="Conditional" condition="!IsEmpty(Window.Property(Bounce.Down))" reversible="false">
+                    <animation type="Conditional" condition="!String.IsEmpty(Window.Property(Bounce.Down))" reversible="false">
                         <effect type="slide" end="0,20" time="60" tween="sine" />
                         <effect type="slide" end="0,-20" time="180" tween="sine" delay="80" />
                     </animation>
-                    <animation type="Conditional" condition="!IsEmpty(Window.Property(Bounce.Up))" reversible="false">
+                    <animation type="Conditional" condition="!String.IsEmpty(Window.Property(Bounce.Up))" reversible="false">
                         <effect type="slide" end="0,-20" time="60" tween="sine" />
                         <effect type="slide" end="0,20" time="180" tween="sine" delay="80" />
                     </animation>
@@ -120,7 +120,7 @@
                         <textcolor>FF999999</textcolor>
                         <font>font12</font>
                         <label>$INFO[Window.Property(actor.AlsoKnownAs),$ADDON[script.extendedinfo 32016]: [COLOR=FFFAFAFA],[/COLOR]]</label>
-                        <visible>!isEmpty(Window.Property(actor.AlsoKnownAs))</visible>
+                        <visible>!String.IsEmpty(Window.Property(actor.AlsoKnownAs))</visible>
                     </control>
                     <control type="label">
                         <align>left</align>
@@ -132,7 +132,7 @@
                         <textcolor>FF999999</textcolor>
                         <font>font12</font>
                         <label>$INFO[Window.Property(actor.Birthday),$ADDON[script.extendedinfo 32012]: [COLOR=FFFAFAFA],[/COLOR]] $INFO[Window.Property(actor.Age),$ADDON[script.extendedinfo 32020]: [COLOR=FFFAFAFA],[/COLOR]]</label>
-                        <visible>!isEmpty(Window.Property(actor.Birthday))</visible>
+                        <visible>!String.IsEmpty(Window.Property(actor.Birthday))</visible>
                     </control>
                     <control type="label">
                         <align>left</align>
@@ -144,7 +144,7 @@
                         <textcolor>FF999999</textcolor>
                         <font>font12</font>
                         <label>$INFO[Window.Property(actor.PlaceOfBirth),$ADDON[script.extendedinfo 32014]: [COLOR=FFFAFAFA],[/COLOR]]</label>
-                        <visible>!isEmpty(Window.Property(actor.PlaceOfBirth))</visible>
+                        <visible>!String.IsEmpty(Window.Property(actor.PlaceOfBirth))</visible>
                     </control>
                     <control type="label">
                         <align>left</align>
@@ -156,7 +156,7 @@
                         <textcolor>FF999999</textcolor>
                         <font>font12</font>
                         <label>$INFO[Window.Property(actor.TotalMovies),$ADDON[script.extendedinfo 32011]: [COLOR=FFFAFAFA],[/COLOR]]</label>
-                        <visible>!isEmpty(Window.Property(actor.TotalMovies))</visible>
+                        <visible>!String.IsEmpty(Window.Property(actor.TotalMovies))</visible>
                     </control>
                     <control type="label">
                         <align>left</align>
@@ -168,7 +168,7 @@
                         <textcolor>FF999999</textcolor>
                         <font>font12</font>
                         <label>$INFO[Window.Property(actor.DBMovies),$ADDON[script.extendedinfo 32021]: [COLOR=FFFAFAFA],[/COLOR]]</label>
-                        <visible>!isEmpty(Window.Property(actor.DBMovies))</visible>
+                        <visible>!String.IsEmpty(Window.Property(actor.DBMovies))</visible>
                     </control>
                     <control type="label">
                         <align>left</align>
@@ -180,7 +180,7 @@
                         <textcolor>FF999999</textcolor>
                         <font>font12</font>
                         <label>$INFO[Window.Property(actor.Homepage),$ADDON[script.extendedinfo 32017]: [COLOR=FFFAFAFA],[/COLOR]]</label>
-                        <visible>!isEmpty(Window.Property(actor.Homepage))</visible>
+                        <visible>!String.IsEmpty(Window.Property(actor.Homepage))</visible>
                     </control>
                     <control type="label">
                         <align>left</align>
@@ -192,7 +192,7 @@
                         <textcolor>FF999999</textcolor>
                         <font>font12</font>
                         <label>$INFO[Window.Property(actor.Deathday),$ADDON[script.extendedinfo 32013]: [COLOR=FFFAFAFA],[/COLOR]]</label>
-                        <visible>!isEmpty(Window.Property(actor.Deathday))</visible>
+                        <visible>!String.IsEmpty(Window.Property(actor.Deathday))</visible>
                     </control>
                     <control type="group" id="140">
                         <height>255</height>
@@ -220,14 +220,14 @@
                             <posy>20</posy>
                             <width>980</width>
                             <height>210</height>
-                            <align>left</align>
+                            <align>justify</align>
                             <label fallback="No info available">$INFO[Window.Property(actor.Biography)]</label>
                             <font>font12</font>
                             <autoscroll delay="10000" time="2000" repeat="10000">true</autoscroll>
                         </control>
                     </control>
                     <control type="group" id="1500">
-                        <visible>IntegerGreaterThan(Container(150).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(150).NumItems,0)</visible>
                         <height>540</height>
                         <control type="label">
                             <posy>6</posy>
@@ -298,7 +298,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
@@ -307,7 +307,7 @@
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -376,7 +376,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
@@ -385,7 +385,7 @@
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -414,7 +414,7 @@
                     </control>
                     <control type="group" id="2500">
                         <height>540</height>
-                        <visible>IntegerGreaterThan(Container(250).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(250).NumItems,0)</visible>
                         <control type="label">
                             <posy>6</posy>
                             <posx>25</posx>
@@ -484,7 +484,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
@@ -493,7 +493,7 @@
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -562,7 +562,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
@@ -571,7 +571,7 @@
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -599,7 +599,7 @@
                         </control>
                     </control>
                     <control type="group" id="5500">
-                        <visible>IntegerGreaterThan(Container(550).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(550).NumItems,0)</visible>
                         <height>540</height>
                         <control type="label">
                             <posy>6</posy>
@@ -670,7 +670,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
@@ -679,7 +679,7 @@
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -748,7 +748,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
@@ -757,7 +757,7 @@
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -786,7 +786,7 @@
                     </control>
                     <control type="group" id="6500">
                         <height>540</height>
-                        <visible>IntegerGreaterThan(Container(650).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(650).NumItems,0)</visible>
                         <control type="label">
                             <posy>6</posy>
                             <posx>25</posx>
@@ -856,7 +856,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
@@ -865,7 +865,7 @@
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -934,7 +934,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
@@ -943,7 +943,7 @@
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -971,7 +971,7 @@
                         </control>
                     </control>
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(350).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
                         <height>440</height>
                         <control type="label">
                             <posy>6</posy>
@@ -1090,7 +1090,7 @@
                     </control>
                     <control type="group" id="4500">
                         <height>450</height>
-                        <visible>IntegerGreaterThan(Container(450).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(450).NumItems,0)</visible>
                         <control type="label">
                             <posy>6</posy>
                             <posx>25</posx>
@@ -1190,7 +1190,7 @@
                     </control>
                     <control type="group" id="7500">
                         <height>550</height>
-                        <visible>IntegerGreaterThan(Container(750).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(750).NumItems,0)</visible>
                         <control type="label">
                             <posx>25</posx>
                             <posy>6</posy>

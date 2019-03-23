@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window>
-<!--    <onload condition="IsEmpty(Window(home).Property(WindowColor))">SetProperty(WindowColor,FFFFFFFF,home)</onload>
-    <onload condition="IsEmpty(Window(home).Property(WindowColor))">SetProperty(WindowColor,$VAR[AreaColorVar],home)</onload>
-    <onunload>ClearProperty(extendedinfo_running,home)</onunload>
-    <onunload>ClearProperty(WindowColor,home)</onunload>-->
+#<!--    <onload condition="IsEmpty(Window(home).Property(WindowColor))">SetProperty(WindowColor,FFFFFFFF,home)</onload>
+#    <onload condition="IsEmpty(Window(home).Property(WindowColor))">SetProperty(WindowColor,$VAR[AreaColorVar],home)</onload>
+#    <onunload>ClearProperty(extendedinfo_running,home)</onunload>
+#    <onunload>ClearProperty(WindowColor,home)</onunload>-->
     <defaultcontrol always="true">500</defaultcontrol>
     <controls>
         <control type="image">
@@ -23,7 +23,7 @@
             <animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
         </control>
         <control type="image">
-            <texture colordiffuse="$INFO[Skin.String(WindowColorMain)]">customoverlay.png</texture>
+            <texture>customoverlay.png</texture>
             <animation effect="fade" start="100" end="80" time="0" condition="true">Conditional</animation>
             <width>1920</width>
             <height>1080</height>
@@ -41,14 +41,14 @@
                 <effect type="fade" start="100" end="0" time="240" />
             </animation>
             <control type="group">
-                <visible>IntegerGreaterThan(Container(500).NumItems,0)</visible>
+                <visible>Integer.IsGreater(Container(500).NumItems,0)</visible>
                 <animation effect="fade" time="320" delay="300">Visible</animation>
                 <control type="image">
-                    <posx>465</posx>
+                    <posx>468</posx>
                     <posy>107</posy>
-                    <width>330</width>
-                    <height>432</height>
-                    <visible>Control.HasFocus(500) + IsEmpty(Window.Property(alt_layout))</visible>
+                    <width>332</width>
+                    <height>412</height>
+                    <visible>Control.HasFocus(500) + String.IsEmpty(Window.Property(alt_layout))</visible>
                     <animation type="WindowOpen" reversible="false">
                         <effect type="fade" start="0" end="100" delay="700" time="300" />
                     </animation>
@@ -66,7 +66,7 @@
                     <posy>50</posy>
                     <width>800</width>
                     <height>140</height>
-                    <visible>Control.HasFocus(500) + !IsEmpty(Window.Property(alt_layout))</visible>
+                    <visible>Control.HasFocus(500) + !String.IsEmpty(Window.Property(alt_layout))</visible>
                     <animation type="WindowOpen" reversible="false">
                         <effect type="fade" start="0" end="100" delay="700" time="300" />
                     </animation>
@@ -153,7 +153,7 @@
                             <bordertexture border="3">common/black.png</bordertexture>
                             <bordersize>3</bordersize>
                     <texture>$INFO[Container(500).ListItem.Thumb]</texture>
-                    <visible>!IsEmpty(Window.Property(alt_layout))</visible>
+                    <visible>!String.IsEmpty(Window.Property(alt_layout))</visible>
                 </control>
             </control>
             <control type="panel" id="500">
@@ -229,7 +229,7 @@
                             <posy>2</posy>
                             <posx>-10</posx>
                             <texture>circle.png</texture>
-                            <visible>!IsEmpty(ListItem.Property(User_Rating))</visible>
+                            <visible>!String.IsEmpty(ListItem.Property(User_Rating))</visible>
                         </control>
                         <control type="label">
                             <width>46</width>
@@ -241,7 +241,7 @@
                             <font>font10</font>
                             <textcolor>FF000000</textcolor>
                             <label>$INFO[ListItem.Property(User_Rating)]</label>
-                            <visible>!IsEmpty(ListItem.Property(User_Rating))</visible>
+                            <visible>!String.IsEmpty(ListItem.Property(User_Rating))</visible>
                         </control>
                     </control>
                 </itemlayout>
@@ -277,7 +277,7 @@
                             <posy>30</posy>
                             <posx>11</posx>
                             <texture flipx="true" colordiffuse="$INFO[Skin.String(WindowColorThemed)]">flags/marked.png</texture>
-                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                            <visible>!String.IsEmpty(ListItem.Property(DBID))</visible>
                         </control>
                         <control type="image">
                             <width>55</width>
@@ -285,7 +285,7 @@
                             <posy>30</posy>
                             <posx>11</posx>
                             <texture flipx="true">flags/local.png</texture>
-                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                            <visible>!String.IsEmpty(ListItem.Property(DBID))</visible>
                         </control>
                         <control type="image">
                             <width>48</width>
@@ -293,7 +293,7 @@
                             <posy>2</posy>
                             <posx>-10</posx>
                             <texture>circle.png</texture>
-                            <visible>!IsEmpty(ListItem.Property(User_Rating))</visible>
+                            <visible>!String.IsEmpty(ListItem.Property(User_Rating))</visible>
                         </control>
                         <control type="label">
                             <width>46</width>
@@ -305,7 +305,7 @@
                             <font>font10</font>
                             <textcolor>FF000000</textcolor>
                             <label>$INFO[ListItem.Property(User_Rating)]</label>
-                            <visible>!IsEmpty(ListItem.Property(User_Rating))</visible>
+                            <visible>!String.IsEmpty(ListItem.Property(User_Rating))</visible>
                         </control>
                     </control>
                     <control type="textbox">
@@ -327,7 +327,7 @@
                         </animation>
                     </control>
                 </focusedlayout>
-                <itemlayout width="1536" height="161" condition="!IsEmpty(Window.Property(alt_layout))">
+                <itemlayout width="1536" height="161" condition="!String.IsEmpty(Window.Property(alt_layout))">
                     <control type="label">
                         <posx>80</posx>
                         <width>700</width>
@@ -356,7 +356,7 @@
                         <posy>120</posy>
                         <posx>758</posx>
                         <texture>icons/database.png</texture>
-                        <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                        <visible>!String.IsEmpty(ListItem.DBID)</visible>
                     </control>
                     <control type="label">
                         <width>46</width>
@@ -368,10 +368,10 @@
                         <font>font10</font>
                         <textcolor>FFFAFAFA</textcolor>
                         <label>$INFO[ListItem.Property(User_Rating),[B],[/B]]</label>
-                        <visible>!IsEmpty(ListItem.Property(User_Rating))</visible>
+                        <visible>!String.IsEmpty(ListItem.Property(User_Rating))</visible>
                     </control>
                 </itemlayout>
-                <focusedlayout width="1536" height="161" condition="!IsEmpty(Window.Property(alt_layout))">
+                <focusedlayout width="1536" height="161" condition="!String.IsEmpty(Window.Property(alt_layout))">
                     <control type="label">
                         <posx>80</posx>
                         <width>700</width>
@@ -406,7 +406,7 @@
                         <posy>120</posy>
                         <posx>758</posx>
                         <texture>icons/database.png</texture>
-                        <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                        <visible>!String.IsEmpty(ListItem.DBID)</visible>
                     </control>
                     <control type="label">
                         <width>46</width>
@@ -418,7 +418,7 @@
                         <font>font10</font>
                         <textcolor>FFFAFAFA</textcolor>
                         <label>$INFO[ListItem.Property(User_Rating),[B],[/B]]</label>
-                        <visible>!IsEmpty(ListItem.Property(User_Rating))</visible>
+                        <visible>!String.IsEmpty(ListItem.Property(User_Rating))</visible>
                     </control>
                 </focusedlayout>
             </control>
@@ -476,7 +476,7 @@
                 <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
             </control>
             <control type="group">
-                <animation effect="slide" start="0" end="-290" time="250" condition="!IsEmpty(Window.Property(alt_layout))">Conditional</animation>
+                <animation effect="slide" start="0" end="-290" time="250" condition="!String.IsEmpty(Window.Property(alt_layout))">Conditional</animation>
                 <control type="image">
                     <texture>arrowdown.png</texture>
                     <posx>1090</posx>
@@ -486,7 +486,7 @@
                     <height>30</height>
                     <animation effect="fade" end="100" time="360">WindowOpen</animation>
                     <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
-                    <visible>!IsEmpty(Window.Property(ArrowDown)) | Container(500).HasNext</visible>
+                    <visible>!String.IsEmpty(Window.Property(ArrowDown)) | Container(500).HasNext</visible>
                 </control>
                 <control type="image">
                     <texture flipy="true">arrowdown.png</texture>
@@ -497,7 +497,7 @@
                     <height>30</height>
                     <animation effect="fade" end="100" time="360">WindowOpen</animation>
                     <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
-                    <visible>!IsEmpty(Window.Property(ArrowUp)) | Container(500).HasPrevious</visible>
+                    <visible>!String.IsEmpty(Window.Property(ArrowUp)) | Container(500).HasPrevious</visible>
                 </control>
             </control>
             <control type="group">
@@ -795,7 +795,7 @@
                     <focusedcolor>FFFAFAFA</focusedcolor>
                 </control>
                 <control type="button" id="5005">
-                    <visible>!IsEmpty(Window.Property(Filter_Label))</visible>
+                    <visible>!String.IsEmpty(Window.Property(Filter_Label))</visible>
                     <label>$LOCALIZE[21435] $ADDON[script.extendedinfo 32023]</label>
                     <width>400</width>
                     <height>90</height>

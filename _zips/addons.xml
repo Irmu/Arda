@@ -53,6 +53,58 @@
     </extension>
 </addon>
 
+<addon
+  id="inputstream.adaptive"
+  version="2.3.15"
+  name="InputStream Adaptive"
+  provider-name="peak3d">
+  <requires>
+<import addon="kodi.binary.global.main" version="1.0.14"/>
+<import addon="kodi.binary.global.general" version="1.0.3"/>
+<import addon="kodi.binary.global.filesystem" version="1.0.2"/>
+<import addon="kodi.binary.instance.inputstream" version="2.0.8"/>
+<import addon="kodi.binary.instance.videocodec" version="1.0.1"/></requires>
+  <extension
+    point="kodi.inputstream"
+    name="adaptive"
+    extension=""
+    tags="true"
+    listitemprops="license_type|license_key|license_data|license_flags|manifest_type|server_certificate|stream_headers|manifest_update_parameter|original_audio_language|media_renewal_url|max_bandwidth"
+    library_windows="inputstream.adaptive.dll"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">InputStream client for adaptive streams</summary>
+    <description lang="en">InputStream client for adaptive streams</description>
+    <platform>windows-i686</platform>
+	<news>
+v2.3.15 (2019-02-11)
+- Fix windows build
+
+v2.3.14 (2019-02-10)
+- Add WebM container parser
+	</news>
+  </extension>
+</addon>
+
+<addon
+  id="inputstream.rtmp"
+  version="2.0.5"
+  name="RTMP Input"
+  provider-name="spiff">
+  <requires>
+<import addon="kodi.binary.global.main" version="1.0.14"/>
+<import addon="kodi.binary.instance.inputstream" version="2.0.8"/></requires>
+  <extension
+    point="kodi.inputstream"
+    name="rtmp"
+    protocols="rtmp|rtmpt|rtmpe|rtmpte|rtmps"
+    library_windows="inputstream.rtmp.dll" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">InputStream Client for RTMP streams</summary>
+    <description lang="en">InputStream Client for RTMP streams using librtmp</description>
+    <platform>windows-i686</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.audio.mp3streams" name="MP3 Streams" version="2017.09.09" provider-name="qahanik, kinkin, art by Marquerite">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -226,7 +278,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.arrakis" name="Arrakis" version="0.0.8" provider-name="69 Death Squad">
+<addon id="plugin.video.arrakis" name="Arrakis" version="1.0.4a" provider-name="ACE">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.universalscrapers" version="1.0.0" />
@@ -649,7 +701,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.mrpiracy" name="MrPiracy" provider-name="MrPiracy" version="0.9.1">
+<addon id="plugin.video.mrpiracy" name="MrPiracy" provider-name="MrPiracy" version="0.9.2">
  <requires>
   <import addon="xbmc.python" version="2.14.0"/>
   <import addon="script.module.t0mm0.common" version="1.0.0"/>
@@ -889,16 +941,17 @@ v3.0.5
 	</extension>
 </addon>
 
-<addon id="plugin.video.sport365.live" name="Sport365" version="2.2" provider-name="Bugatsinho">
+<addon id="plugin.video.sport365.live" name="Sport365" version="2.5.0" provider-name="Bugatsinho">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.19.1"/>
+        <import addon="plugin.video.f4mTester" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="main.py">
         <provides>video</provides>
     </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Sport365 by GalAnonim</summary>
+    <summary lang="en">Sport365 originally made by GalAnonim</summary>
     <description lang="en">Fork version 1.0 by GalAnonim!Kindly note that Sport365 Live is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system.</description>
     <disclaimer lang="en">Sport365 Live does not provide any streams of its own. Stream quality, content and copyright are responsibility of the ad-financed source web site.</disclaimer>
     <language>en</language>
@@ -911,7 +964,6 @@ v3.0.5
     <fanart>fanart.png</fanart>
   </assets>
   <news>
-      -Remove unnecessary code and imports
   </news>
   </extension>
 </addon>
@@ -973,6 +1025,31 @@ v3.0.5
     <summary lang="en">[COLORblue]Magic Dragon All In One Add On[/COLOR]</summary>
     <description lang="en">[COLORblue]This Is A 3rd Party Add On And Is Not Linked To Kodi In Any Way. All The Content We Provide Is Freely Available On The Internet. We Do Not Store Any Content Ourselves.[/COLOR]</description>
     <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.tvone" name="tvOne" version="17" provider-name="RACC">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.livestreamer" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.routing" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <reuselanguageinvoker>true</reuselanguageinvoker>
+    <summary lang="en_gb">tvOne</summary>
+    <description lang="en_gb">tvOne</description>
+    <disclaimer lang="en_gb"></disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license></license>
+    <forum></forum>
+    <website></website>
+    <email></email>
+    <source></source>
   </extension>
 </addon>
 
@@ -1170,6 +1247,44 @@ v3.0.5
         </extension>
     </addon>
 
+<addon id="repository.atreides" name="Atreides Repository" version="0.0.3" provider-name="House Atreides">
+    <requires>
+        <import addon="xbmc.addon" version="12.0.0"/>
+    </requires>
+    <extension point="xbmc.addon.repository" name="Atreides Repository">
+        <info compressed="false">https://raw.githubusercontent.com/therealatreides/houseatreides/master/_zipfiles/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/therealatreides/houseatreides/master/_zipfiles/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/therealatreides/houseatreides/master/_zipfiles/</datadir>
+        <hashes>false</hashes>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>House Atreides Official Repository</summary>
+        <description>House Atreides Official Repository</description>
+        <platform>all</platform>
+        <genre>movies,usa</genre>
+    </extension>
+</addon>
+
     <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="6.0.0" provider-name="Mr Blamo">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
@@ -1190,7 +1305,7 @@ v3.0.5
         </extension>
     </addon>
 
-    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="6.8" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
+    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="6.9" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -1224,12 +1339,64 @@ v3.0.5
         </extension>
         <extension point="xbmc.addon.metadata">
 		<summary lang="en">CellarDoorTV Repository</summary>
-		<description lang="en">[COLOR gold]The Future Of Home Entertainment[/COLOR][CR]Kodi Repository for [COLOR steelblue]CellarDoorTV[/COLOR][CR][COLOR steelblue]CellarDoorTV[/COLOR] [COLOR white]Repo[/COLOR] allows you to install our CDTV Wizard and get access to the latest CDTV Custom Builds and more.</description>
+		<description lang="en">[COLOR gold]The Future Of Home Entertainment[/COLOR][CR]Kodi Repository for [COLOR steelblue]CellarDoorTV[/COLOR][CR][COLOR steelblue]CellarDoorTV[/COLOR] [COLOR white]Repo[/COLOR] allows you to install CDTV Wizard Krypton and CDTV Wizard Leia to get access to the latest CDTV Custom Builds and more.</description>
 		<platform>all</platform>
     <assets>
         <icon>icon.gif</icon>
         <fanart>fanart.jpg</fanart>
     </assets>
+	</extension>
+</addon>
+
+    <addon id="repository.eggman" name="Eggman" version="0.0.9" provider-name="Eggman">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="Eggman">
+            <info compressed="false">https://raw.githubusercontent.com/eggman19/eggman/master/_files/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/eggman19/eggman/master/_files/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/eggman19/eggman/master/_files/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>Eggman Repo</summary>
+            <description>Eggman Repo</description>
+            <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id="repository.eggscrapers" name="EggScrapers" version="1.0.2" provider-name="Eggman">
+	<extension point="xbmc.addon.repository" name="EggScrapers">
+	    <dir>
+		    <info compressed="false">https://raw.githubusercontent.com/eggman19/eggscrapers/master/_eggscrapers/addons.xml</info>
+		    <checksum>https://raw.githubusercontent.com/eggman19/eggscrapers/master/_eggscrapers/addons.xml.md5</checksum>
+		    <datadir zip="true">https://raw.githubusercontent.com/eggman19/eggscrapers/master/_eggscrapers</datadir>
+        </dir>
+		<dir>
+		    <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+        </dir>
+		<dir>
+		    <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
+		</dir>
+		<dir>
+		    <info compressed="false">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml</info>
+		    <checksum>https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml.md5</checksum>
+		    <datadir zip="true">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/zips/</datadir>
+        </dir>
+		<dir>
+		    <info compressed="false">https://raw.githubusercontent.com/aenemapy/aenemapyrepo/master/addons.xml</info>
+		    <checksum>https://raw.githubusercontent.com/aenemapy/aenemapyrepo/master/addons.xml.md5</checksum>
+		    <datadir zip="true">https://raw.githubusercontent.com/aenemapy/aenemapyrepo/master/zips/</datadir>
+        </dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>EggScrapers</summary>
+		<description>EggScrapers</description>
+		<platform>all</platform>
 	</extension>
 </addon>
 
@@ -1264,24 +1431,6 @@ v3.0.5
     </extension>
 </addon>
 
-<addon id="repository.kodibae" name="[COLOR pink]Kodi Bae Repository[/COLOR]" version="1.0.0" provider-name="kodibae">
-    <extension point="xbmc.addon.repository" name="[COLOR pink]Kodi Bae Repository[/COLOR]">
-    <dir>
-        <info compressed="false">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml</info>
-        <checksum>https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml.md5</checksum>
-        <datadir zip="true">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/zips/</datadir>
-    </dir>
-        <info compressed="false">https://raw.githubusercontent.com/kodibae/repository.kodibae/master/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/kodibae/repository.kodibae/master/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/kodibae/repository.kodibae/master/</datadir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Unofficial Addons for Kodi</summary>
-        <description>Would you care for some salt with that fork?</description>
-        <platform>all</platform>
-    </extension>
-</addon>
-
 <addon id="repository.kodil" name=".[COLOR blue].Kodil [/COLOR][COLOR white] Repository [/COLOR]" version="1.3" provider-name="kodil">
     <extension point="xbmc.addon.repository" name=".Kodil  Repository ">
         <info compressed="false">https://raw.githubusercontent.com/kodil/kodil/master/addons.xml</info>
@@ -1292,6 +1441,20 @@ v3.0.5
         <summary>kodisrael repository</summary>
         <description>kodil repository - the most extensive repository in isrl </description>
         <description>הריפו של קודישראל - מאגר ההרחבות הגדול והאיכותי בישראל  </description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id="repository.kodil" name="[COLOR blue]Kodisrael[/COLOR][COLOR white]Repository[/COLOR]" version="1.2" provider-name="kodil">
+    <extension point="xbmc.addon.repository" name=".Kodisrael  Repository ">
+        <info compressed="false">https://raw.githubusercontent.com/kodil/kodil/master/addons.xml</info>
+        <checksum>http://www.lvtvv.com/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/kodil/kodil/master/repo</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>kodisrael repository</summary>
+        <description>kodisrael repository - the most extensive repository in israel </description>
+        <description></description>
         <platform>all</platform>
     </extension>
 </addon>
@@ -1346,7 +1509,7 @@ v3.0.5
     </extension>
 </addon>
 
-<addon id="repository.maverickrepo" name="[COLOR lime]MaverickTV Repo[/COLOR]" version="3.6" provider-name="Maverick TV">
+<addon id="repository.maverickrepo" name="[COLOR lime]MaverickTV Repo[/COLOR]" version="3.5" provider-name="Maverick TV">
 <extension point="xbmc.addon.repository" name="[COLOR lime]MaverickTV Repo[/COLOR]">
 	<dir>
 		<info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>
@@ -1367,11 +1530,6 @@ v3.0.5
         <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
         <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
         <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
-    </dir>
-	<dir>
-        <info compressed="false">http://kongmediaservice.tk/addons/addons.xml</info>
-        <checksum>http://kongmediaservice.tk/addons/addons.xml</checksum>
-        <datadir zip="true">http://kongmediaservice.tk/addons/</datadir>
     </dir>
 
 		<info compressed="false">https://raw.githubusercontent.com/Maverick53/repo/master/addons.xml</info>
@@ -1588,16 +1746,16 @@ v3.0.5
   <extension library="lib" point="xbmc.python.module" />
 </addon>
 
-<addon id="script.extendedinfo" name="[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od" version="999.9.9" provider-name="Modded by KoDIY, original work by phil65">
+<addon id="script.extendedinfo" name="[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od" version="999.9.9a" provider-name="Modded by KoDIY, original work by phil65">
   <requires>
-    <import addon="xbmc.python"                     version="2.19.0"/>
+    <import addon="xbmc.python"                     version="2.25.0"/>
     <import addon="plugin.program.super.favourites" />
     <import addon="plugin.video.metallik" />
     <import addon="plugin.video.youtube"  />
     <import addon="script.module.pil"               version="1.1.7"/>
     <import addon="script.module.requests" />
     <import addon="script.module.simplejson"        version="2.0.10"/>
-    <import addon="script.module.urlresolver" />
+	<import addon="script.skin.helper.service"      version="1.0.0"/>
     <import addon="script.module.youtube.dl"  />
   </requires>
   <extension point="xbmc.python.script"             library="default.py">
@@ -1766,6 +1924,27 @@ v3.0.5
   </extension>
 </addon>
 
+<addon id="script.module.cherrypy"
+       name="CherryPy Kodi module"
+       version="11.0.1"
+       provider-name="marcelveldt, CherryPy Team">
+    <requires>
+        <import addon="xbmc.python" version="2.24.0"/>
+        <import addon="script.module.six" version="1.9.0"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.addon.metadata">
+        <summary>CherryPy webserver packaged as Kodi module</summary>
+        <description>CherryPy is a pythonic, object-oriented web framework
+            CherryPy allows developers to build web applications in much the same way they would build any other object-oriented Python program. This results in smaller source code developed in less time.
+            CherryPy is now more than ten years old and it is has proven to be very fast and stable. It is being used in production by many sites, from the simplest to the most demanding.
+        </description>
+        <license>BSD</license>
+        <source>https://github.com/marcelveldt/script.module.cherrypy</source>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="script.module.httplib2" name="httplib2" provider-name="Joe Gregorio" version="0.10.3">
   <requires>
     <import addon="xbmc.python" version="2.14.0" />
@@ -1872,6 +2051,33 @@ v3.0.5
 		<platform>all</platform>
 		<source>https://github.com/jjlee/mechanize</source>
 	</extension>
+</addon>
+
+<addon id="script.module.metadatautils"
+       name="Metadata and Artwork module"
+       version="1.0.19"
+       provider-name="marcelveldt">
+    <requires>
+        <import addon="xbmc.python" version="2.24.0"/>
+        <import addon="script.module.requests" version="2.3.0"/>
+        <import addon="script.module.beautifulsoup" version="3.0.8" />
+        <import addon="script.module.thetvdb" version="0.0.1" />
+        <import addon="script.module.musicbrainz" version="0.0.1" />
+        <import addon="script.module.simplecache" version="1.0.0"/>
+        <import addon="script.module.arrow" version="0.6.0"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.addon.metadata">
+        <summary>Metadata and artwork from common sources like TMDB, IMDB, TADB and fanart.tv </summary>
+        <description>
+            The metadata and artwork module for Kodi provides rich metadata, including artwork for
+            various metatypes by scraping (and caching) this information from sites like TMDB, musicbrainz and fanart.tv.[CR][CR]
+            This product uses the TMDb API but is not endorsed or certified by TMDb
+        </description>
+        <license>Apache 2.0</license>
+        <source>https://github.com/marcelveldt/script.module.metadatautils</source>
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="script.module.metahandler"
@@ -2051,6 +2257,20 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
   <extension library="lib" point="xbmc.python.module" />
 </addon>
 
+<addon id="script.module.simplecache" name="Simple Cache Module" version="1.0.16" provider-name="marcelveldt">
+    <requires>
+        <import addon="xbmc.python" version="2.24.0"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.addon.metadata">
+        <summary>Provides a simple file- and memory based cache for Kodi addons</summary>
+        <description>Provides a simple file- and memory based cache for Kodi addons</description>
+        <license>Apache 2.0</license>
+        <source>https://github.com/marcelveldt/script.module.simplecache</source>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="script.module.simplejson"
        name="simplejson"
        version="3.4.0"
@@ -2094,12 +2314,12 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
   </extension>
 </addon>
 
-<addon id="script.module.streamlink.base" name="Streamlink Library" version="2018.12.05" provider-name="Streamlink Devs, Twilight0">
+<addon id="script.module.streamlink.base" name="Streamlink Library" version="2019.03.17" provider-name="Streamlink Devs, Twilight0">
   <requires>
     <import addon="xbmc.python" version="2.24.0"/>
     <import addon="script.module.requests" version="2.12.4"/>
     <import addon="script.module.futures" version="2.2.0"/>
-    <import addon="script.module.streamlink.crypto" version="1.4.0"/>
+    <import addon="script.module.streamlink.crypto" version="1.5.0"/>
   </requires>
   <extension point="xbmc.python.module" library="resources/lib/"/>
   <extension point="xbmc.addon.metadata">
@@ -2112,12 +2332,16 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
     <assets>
         <icon>icon.png</icon>
     </assets>
-    <news>+ 2018.12.05
-- Corrected icon asset location, ensuring backwards compatibility
+    <news>+ 2019.03.17
+- Fixed icon
+- Updated changelog.txt
+- Moved and updated six module into utils directory
 
-+ 2018.12.04
-- Rebase to latest upstream commit b99249e941852341b06b267ffc1ca1d144c6b718
-- New icon</news>
++ 2019.03.16
+- Updated to latest upstream commit e96c725cb553027dd1ca7b1c278211b57947b05c
+
++ 2018.12.05
+- Corrected icon asset location, ensuring backwards compatibility</news>
   </extension>
 </addon>
 
@@ -2164,6 +2388,27 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
     <summary lang="en">Collection of commonly used addon routines</summary>
     <description lang="en">Collection of commonly used addon routines to simplify addon development.</description>
   </extension>
+</addon>
+
+<addon id="script.module.thetvdb"
+       name="The TVDB API v2"
+       version="1.0.27"
+       provider-name="marcelveldt">
+    <requires>
+        <import addon="xbmc.python" version="2.24.0"/>
+        <import addon="script.module.requests" version="2.3.0"/>
+        <import addon="script.module.simplejson" version="3.3.0"/>
+        <import addon="script.module.simplecache" version="1.0.0"/>
+        <import addon="script.module.arrow" version="0.6.0"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.addon.metadata">
+        <summary>TheTVDB API v2 python module for Kodi</summary>
+        <description>TheTVDB API v2 python module for Kodi</description>
+        <license>Apache 2.0</license>
+        <source>https://github.com/marcelveldt/script.module.thetvdb</source>
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="script.module.trakt"
@@ -2383,6 +2628,60 @@ This is a Non-profit resource, organized solely for educational purposes which i
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon>
+
+	<addon id="script.skin.helper.service" name="Skin Helper Service" version="1.1.24" provider-name="marcelveldt">
+	<requires>
+		<import addon="xbmc.python" version="2.13.0"/>
+		<import addon="xbmc.addon" version="12.0.0"/>
+        <import addon="script.module.simplejson" version="3.3.0"/>
+        <import addon="script.module.simplecache" version="1.0.0"/>
+        <import addon="script.module.metadatautils" version="1.0.0"/>
+        <import addon="script.module.cherrypy" version="11.0.0"/>
+	</requires>
+
+    <extension point="kodi.context.item">
+        <menu id="kodi.core.main">
+            <item library="resources\lib\context_animatedart.py">
+              <label>32024</label>
+              <visible>!IsEmpty(Window(Home).Property(SkinHelper.EnableAnimatedPosters)) + Container.Content(movies)</visible>
+            </item>
+            <item library="resources\lib\context_pvr.py">
+                <label>32023</label>
+                <description>PVR artwork Configuration</description>
+                <visible>
+                    !IsEmpty(Window(Home).Property(SkinHelper.EnablePvrThumbs)) +
+                    [Window.IsActive(MyPVRChannels.xml) |
+                    Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) |
+                    Window.IsActive(MyPVRTimers.xml) | Window.IsActive(MyPVRSearch.xml)]
+                </visible>
+            </item>
+            <item library="resources\lib\context_music.py">
+                <label>32023</label>
+                <description>Music artwork Configuration</description>
+                <visible>
+                    !IsEmpty(Window(Home).Property(SkinHelper.EnableMusicArt)) +
+                    [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]
+                </visible>
+            </item>
+        </menu>
+	</extension>
+
+    <extension point="xbmc.python.library" library="default.py" />
+	<extension point="xbmc.python.pluginsource" library="plugin.py">
+    </extension>
+	<extension library="service.py" point="xbmc.service" start="login" />
+
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Helper service for Kodi skins</summary>
+        <description>Helper service for Kodi skins</description>
+		<language></language>
+		<platform>all</platform>
+		<license>GPL v2.0</license>
+		<forum>http://forum.kodi.tv/showthread.php?tid=235676</forum>
+		<website></website>
+		<source>https://github.com/marcelveldt/script.skin.helper.service</source>
+	</extension>
 </addon>
 
 <addon id="script.trakt" name="Trakt" version="3.2.1" provider-name="Trakt.tv, Razzeee">

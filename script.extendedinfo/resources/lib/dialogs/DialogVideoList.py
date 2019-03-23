@@ -11,6 +11,8 @@ from DialogBaseList import DialogBaseList
 from ..WindowManager import wm
 from ..OnClickHandler import OnClickHandler
 from ..import VideoPlayer
+from ..tmtools import log_utils
+from ..TraktManager import *
 PLAYER = VideoPlayer.VideoPlayer()
 
 ch = OnClickHandler()
@@ -50,6 +52,7 @@ def get_tmdb_window(window_type):
             self.sort_label = kwargs.get('sort_label', LANG(32110))
             self.order = kwargs.get('order', "desc")
             self.logged_in = check_login()
+            self.trakt_account = getTraktCredentialsInfo()
             if self.listitem_list:
                 self.listitems = create_listitems(self.listitem_list)
                 self.total_items = len(self.listitem_list)
@@ -128,18 +131,27 @@ def get_tmdb_window(window_type):
                 if xbmc.getCondVisibility("system.hasaddon(plugin.video.trakt_list_manager)"): listitems += [LANG(32253)]
             if self.type == "tv" and xbmc.getCondVisibility("system.hasaddon(plugin.video.sickrage)"):
                 listitems += [LANG(32166)]
+            if self.trakt_account and ( self.type == 'movie' or self.type == 'tv' ):
+                listitems += [LANG(32255)]
             selection = xbmcgui.Dialog().select(heading=LANG(32151), list=listitems)
-            if selection == 0:
+            if selection != -1 and listitems[selection] == LANG(32255):
+                name = self.listitem.getProperty("title")
+                if self.type == "movie":
+                    content = "movie"
+                else:
+                    content = "tvshow"
+                xbmc.executebuiltin("RunScript(script.extendedinfo,info=traktManager,name=%s,tmdb=%s,content=%s)" % (name, item_id, content))
+            elif selection == 0:
                 if self.type == "tv" or self.type == "episode":
                     if self.listitem.getProperty("dbid"):
                         show_playlist = xbmc.translatePath("special://profile/playlists/video/%s.xsp" % (tvdb_id, SETTING("player_alt")))
                         if os.path.exists(show_playlist):
                             url = show_playlist
-                        else: url = 'plugin://plugin.video.metallik/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
-                    else: url = 'plugin://plugin.video.metallik/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
+                        else: url = 'plugin://plugin.video.metallik/tv/play/%s/1/1/library' % (tvdb_id)
+                    else: url = 'plugin://plugin.video.metallik/tv/play/%s/1/1/library' % (tvdb_id)
                 else:
                     if self.listitem.getProperty("dbid"): url = 'temp'
-                    else: url = 'plugin://plugin.video.metallik/movies/play/tmdb/%s/%s' % (item_id, SETTING("player_alt"))
+                    else: url = 'plugin://plugin.video.metallik/movies/play/tmdb/%s/library' % (item_id)
                 PLAYER.qlickplay(url, listitem=None, dbid=dbid, window=self)
             if selection == 1:
                 if self.type == "tv" or self.type == "episode":
@@ -178,9 +190,9 @@ def get_tmdb_window(window_type):
                 self.update(force_update=True)
                 self.getControl(500).selectItem(self.position)
             if selection == 2:
-                if self.type == "tv": url = "plugin://script.qlickplay/?info=playtvtrailer&id=%s" % item_id
-                elif self.type == "episode": url = "plugin://script.qlickplay/?info=playtvtrailer&tvdb_id=%s" % tvdb_id
-                elif self.type == "movie": url = "plugin://script.qlickplay/?info=playtrailer&id=%s" % item_id
+                if self.type == "tv": url = "plugin://script.extendedinfo/?info=playtvtrailer&id=%s" % item_id
+                elif self.type == "episode": url = "plugin://script.extendedinfo/?info=playtvtrailer&tvdb_id=%s" % tvdb_id
+                elif self.type == "movie": url = "plugin://script.extendedinfo/?info=playtrailer&id=%s" % item_id
                 PLAYER.qlickplay(url, listitem=None, dbid=0, window=self)
             if selection == 3:
                 if self.logged_in:
@@ -191,7 +203,7 @@ def get_tmdb_window(window_type):
                             self.getControl(500).selectItem(self.position)
                 else:
                     if self.type == "episode":
-                        path = xbmc.translatePath("special://profile/addon_data/script.qlickplay/exclusions_tvdb.txt")
+                        path = xbmc.translatePath("special://profile/addon_data/script.extendedinfo/exclusions_tvdb.txt")
                         if xbmcvfs.exists(path): content = read_from_file(path, True).split("\n")
                         else: content = []
                         content.append("year - tvdb-id | TVShowTitle")
@@ -212,7 +224,7 @@ def get_tmdb_window(window_type):
                     elif self.type == "tv" or self.type == "episode":
                         xbmc.executebuiltin("RunPlugin(plugin://plugin.video.sickrage?action=addshow&tvdb_id=%s)" % tvdb_id)
                 if self.type == "episode":
-                    path = xbmc.translatePath("special://profile/addon_data/script.qlickplay/exclusions_tvdb.txt")
+                    path = xbmc.translatePath("special://profile/addon_data/script.extendedinfo/exclusions_tvdb.txt")
                     if xbmcvfs.exists(path): content = read_from_file(path, True).split("\n")
                     else: content = []
                     content.append("year - tvdb-id | TVShowTitle")
@@ -286,21 +298,17 @@ def get_tmdb_window(window_type):
 
         @ch.click(5001)
         def get_sort_type(self):
-            if self.mode in ["favorites", "rating", "list"]:
+            if self.mode in ['list']:
                 sort_key = self.mode
             else:
                 sort_key = self.type
             listitems = [key for key in SORTS[sort_key].values()]
             sort_strings = [value for value in SORTS[sort_key].keys()]
-            index = xbmcgui.Dialog().select(heading=LANG(32104),
-                                            list=listitems)
+            index = xbmcgui.Dialog().select(heading='Sort by', list=listitems)
             if index == -1:
                 return None
-            if sort_strings[index] == "vote_average":
-                self.add_filter(key="vote_count.gte",
-                                value="10",
-                                typelabel="%s (%s)" % (LANG(32111), LANG(21406)),
-                                label="10")
+            if sort_strings[index] == 'vote_average':
+                self.add_filter(key='vote_count.gte', value='10', typelabel='%s (%s)' % ('Vote count', 'greater than'), label='10')
             self.sort = sort_strings[index]
             self.sort_label = listitems[index]
             self.update()
@@ -399,19 +407,15 @@ def get_tmdb_window(window_type):
         @ch.click(5012)
         def set_vote_count_filter(self):
             ret = True
-            if not self.type == "tv":
-                ret = xbmcgui.Dialog().yesno(heading=LANG(32151),
-                                             line1=LANG(32106),
-                                             nolabel=LANG(32150),
-                                             yeslabel=LANG(32149))
-            result = xbmcgui.Dialog().input(heading=LANG(32111),
-                                            type=xbmcgui.INPUT_NUMERIC)
+            if not self.type == 'tv':
+                ret = xbmcgui.Dialog().yesno(heading='Choose option', line1='Choose filter behaviour', nolabel='Lower limit', yeslabel='Upper limit')
+            result = xbmcgui.Dialog().input(heading='Vote count', type=xbmcgui.INPUT_NUMERIC)
             if result:
                 if ret:
-                    self.add_filter("vote_count.%s" % "lte", result, LANG(32111), " < " + result)
+                    self.add_filter('vote_count.lte', result, 'Vote count', ' < ' + result)
                 else:
-                    self.add_filter("vote_count.%s" % "gte", result, LANG(32111), " > " + result)
-                self.mode = "filter"
+                    self.add_filter('vote_count.gte', result, 'Vote count', ' > ' + result)
+                self.mode = 'filter'
                 self.page = 1
                 self.update()
 
@@ -573,6 +577,22 @@ def get_tmdb_window(window_type):
                                 "total_results": 0}
                     url = "guest_session/%s/rated_movies?language=%s&" % (session_id, SETTING("LanguageID"))
                 self.filter_label = rated
+            elif self.mode == 'incinemas':
+                url = "movie/now_playing?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'upcoming':
+                url = "movie/upcoming?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'popularmovies':
+                url = "movie/popular?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'topratedmovies':
+                url = "movie/top_rated?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'populartvshows':
+                url = "tv/popular?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'topratedtvshows':
+                url = "tv/top_rated?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'onairtvshows':
+                url = "tv/on_the_air?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'airingtodaytvshows':
+                url = "tv/airing_today?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
             else:
                 self.set_filter_url()
                 self.set_filter_label()
@@ -587,9 +607,12 @@ def get_tmdb_window(window_type):
                 return None
             if self.mode == "list":
                 prettyprint(response)
-                info = {"listitems": handle_tmdb_movies(results=response["items"],
-                                                        local_first=True,
-                                                        sortkey=None),
+                listitems = None
+                if get_media_type_from_tmdb_user_list(response) == "movie":
+                    listitems = handle_tmdb_movies(results=response["items"], local_first=True, sortkey=None)
+                else:
+                    listitems = handle_tmdb_tvshows(results=response["items"], local_first=True, sortkey=None)
+                info = {"listitems": listitems,
                         "results_per_page": 1,
                         "total_results": len(response["items"])}
                 return info

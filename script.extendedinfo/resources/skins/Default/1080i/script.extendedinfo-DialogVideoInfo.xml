@@ -47,11 +47,11 @@
                     <posy>184</posy>
                     <itemgap>20</itemgap>
                     <ondown>-</ondown>
-                    <animation type="Conditional" condition="!IsEmpty(Window.Property(Bounce.Down))" reversible="false">
+                    <animation type="Conditional" condition="!String.IsEmpty(Window.Property(Bounce.Down))" reversible="false">
                         <effect type="slide" end="0,20" time="60" tween="sine" />
                         <effect type="slide" end="0,-20" time="180" tween="sine" delay="80" />
                     </animation>
-                    <animation type="Conditional" condition="!IsEmpty(Window.Property(Bounce.Up))" reversible="false">
+                    <animation type="Conditional" condition="!String.IsEmpty(Window.Property(Bounce.Up))" reversible="false">
                         <effect type="slide" end="0,-20" time="60" tween="sine" />
                         <effect type="slide" end="0,20" time="180" tween="sine" delay="80" />
                     </animation>
@@ -59,7 +59,7 @@
                     <height>896</height>
                     <control type="group" id="140">
                         <height>220</height>
-                        <visible>!IsEmpty(Window.Property(movie.Plot)) | !IsEmpty(Window.Property(tvshow.Plot)) | !IsEmpty(Window.Property(episode.Plot))</visible>
+                        <visible>!String.IsEmpty(Window.Property(movie.Plot)) | !String.IsEmpty(Window.Property(tvshow.Plot)) | !String.IsEmpty(Window.Property(episode.Plot))</visible>
                         <control type="radiobutton" id="132">
                             <posx>0</posx>
                             <posy>0</posy>
@@ -85,17 +85,17 @@
                             <width>960</width>
                             <height>210</height>
                             <textcolor>FFFAFAFA</textcolor>
-                            <align>left</align>
+                            <align>justify</align>
                             <label fallback="19055">[B]$INFO[Window.Property(movie.TagLine),,[CR]][/B]$INFO[Window.Property(movie.Plot)]</label>
                             <font>font12</font>
                             <autoscroll delay="10000" time="2000" repeat="10000">true</autoscroll>
                         </control>
                     </control>
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(1900).NumItems,1)</visible>
+                        <visible>Integer.IsGreater(Container(1900).NumItems,1)</visible>
                         <height>100</height>
                         <control type="image">
-                            <visible>IntegerGreaterThan(Container(1900).NumItems,14)</visible>
+                            <visible>Integer.IsGreater(Container(1900).NumItems,14)</visible>
                             <posx>-5</posx>
                             <posy>45</posy>
                             <width>20</width>
@@ -106,7 +106,7 @@
                             <visible>Container(1900).HasPrevious + Control.HasFocus(1900)</visible>
                         </control>
                         <control type="image">
-                            <visible>IntegerGreaterThan(Container(1900).NumItems,14)</visible>
+                            <visible>Integer.IsGreater(Container(1900).NumItems,14)</visible>
                             <posx>1085</posx>
                             <posy>45</posy>
                             <width>20</width>
@@ -250,7 +250,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),episode) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),episode) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="9">
                                 <label>$LOCALIZE[208]</label>
@@ -273,7 +273,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),episode) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),episode) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="10">
                                 <label>$LOCALIZE[208]</label>
@@ -296,7 +296,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),episode)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),episode)</visible>
                             </control>
                             <control type="radiobutton" id="11">
                                 <label>$LOCALIZE[208]</label>
@@ -319,7 +319,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="18">
                                 <label>$ADDON[script.extendedinfo 32234]</label>
@@ -342,8 +342,8 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>IsEmpty(Window.Property(movie.DBID))</visible>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),episode) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>String.IsEmpty(Window.Property(movie.DBID))</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),episode) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="19">
                                 <label>$ADDON[script.extendedinfo 32234]</label>
@@ -366,8 +366,8 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!IsEmpty(Window.Property(movie.DBID))</visible>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),episode) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.DBID))</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),episode) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="20">
                                 <label>$ADDON[script.extendedinfo 32234]</label>
@@ -390,8 +390,8 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>IsEmpty(Window.Property(movie.DBID))</visible>
-                                <visible>!Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),episode) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>String.IsEmpty(Window.Property(movie.DBID))</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),episode) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="21">
                                 <label>$ADDON[script.extendedinfo 32234]</label>
@@ -414,8 +414,8 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!IsEmpty(Window.Property(movie.DBID))</visible>
-                                <visible>!Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),episode) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.DBID))</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),episode) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="22">
                                 <label>$ADDON[script.extendedinfo 32235]</label>
@@ -438,7 +438,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),episode)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),episode)</visible>
                             </control>
                             <control type="radiobutton" id="23">
                                 <label>$ADDON[script.extendedinfo 32235]</label>
@@ -461,7 +461,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
 <!--                            <control type="radiobutton" id="11">
                                 <label>$LOCALIZE[208]</label>
@@ -484,7 +484,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="12">
                                 <label>$LOCALIZE[208]</label>
@@ -507,7 +507,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),episode) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),episode) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="13">
                                 <label>$LOCALIZE[208]</label>
@@ -530,7 +530,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),episode) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),episode) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <control type="radiobutton" id="14">
                                 <label>$LOCALIZE[208]</label>
@@ -553,7 +553,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),episode)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),episode)</visible>
                             </control>
                             <control type="radiobutton" id="15">
                                 <label>$LOCALIZE[208]</label>
@@ -576,7 +576,7 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>!String.IsEqual(Window.Property(Type),tvshow) + !String.IsEqual(Window.Property(Type),movie) + !String.IsEqual(Window.Property(Type),season)</visible>
                             </control>-->
                             <control type="radiobutton" id="120">
                                 <label>MetalliK</label>
@@ -603,7 +603,7 @@
                                 <onright>121</onright>
                                 <onup>132</onup>
                                 <ondown>250</ondown>
-                                <visible>Stringcompare(Window.Property(Type),tvshow) | Stringcompare(Window.Property(Type),movie)</visible>
+                                <visible>String.IsEqual(Window.Property(Type),tvshow) | String.IsEqual(Window.Property(Type),movie)</visible>
                             </control>
                             <control type="radiobutton" id="121">
                                 <label>MetalliK</label>
@@ -630,11 +630,11 @@
                                 <onright>6001</onright>
                                 <onup>132</onup>
                                 <ondown>250</ondown>
-                                <visible>Stringcompare(Window.Property(Type),season)</visible>
+                                <visible>String.IsEqual(Window.Property(Type),season)</visible>
                             </control>
                             <!--<control type="group" id="99">
                                 <width>280</width>
-                                <visible>!IsEmpty(Window.Property(movie.DBID)) + IntegerGreaterThan(Window.Property(movie.PercentPlayed),0)</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.DBID)) + Integer.IsGreater(Window.Property(movie.PercentPlayed),0)</visible>
                                 <control type="button" id="9">
                                     <label>$LOCALIZE[13404] $INFO[Window.Property(movie.PercentPlayed),(,%)]</label>
                                     <width>280</width>
@@ -663,10 +663,10 @@
                                 </control>
                             </control>-->
                             <control type="group" id="30000">
-                                <visible>!IsEmpty(Window.Property(tmdb_logged_in))</visible>
+                                <visible>!String.IsEmpty(Window.Property(tmdb_logged_in))</visible>
                                 <posx>0</posx>
                                 <posy>0</posy>
-                                <visible>!StringCompare(Window.Property(type),season)</visible>
+                                <visible>!String.IsEqual(Window.Property(type),season)</visible>
                                 <width>280</width>
                                 <height>400</height>
                                 <control type="radiobutton" id="6001">
@@ -691,7 +691,7 @@
                                     <onup>132</onup>
                                     <ondown>250</ondown>
                                     <aligny>bottom</aligny>
-                                    <selected>!IsEmpty(Window.Property(movie.rated))</selected>
+                                    <selected>!String.IsEmpty(Window.Property(movie.rated))</selected>
                                     <textoffsety>77</textoffsety>
                                     <radioposx>118</radioposx>
                                     <radioposy>30</radioposy>
@@ -734,9 +734,9 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <selected>!IsEmpty(Window.Property(movie.favorite))</selected>
-                                <visible>!IsEmpty(Window.Property(tmdb_logged_in))</visible>
-                                <visible>!StringCompare(Window.Property(type),season) + !StringCompare(Window.Property(type),episode)</visible>
+                                <selected>!String.IsEmpty(Window.Property(movie.favorite))</selected>
+                                <visible>!String.IsEmpty(Window.Property(tmdb_logged_in))</visible>
+                                <visible>!String.IsEqual(Window.Property(type),season) + !String.IsEqual(Window.Property(type),episode)</visible>
                             </control>
                             <control type="radiobutton" id="6005">
                                 <label>$ADDON[script.extendedinfo 32107]</label>
@@ -759,8 +759,8 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!IsEmpty(Window.Property(tmdb_logged_in))</visible>
-                                <visible>!StringCompare(Window.Property(type),season) + !StringCompare(Window.Property(type),episode)</visible>
+                                <visible>!String.IsEmpty(Window.Property(tmdb_logged_in))</visible>
+                                <visible>!String.IsEqual(Window.Property(type),season) + !String.IsEqual(Window.Property(type),episode)</visible>
                             </control>
                             <control type="radiobutton" id="6002">
                                 <label>$ADDON[script.extendedinfo 32130]</label>
@@ -783,8 +783,8 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!IsEmpty(Window.Property(tmdb_logged_in))</visible>
-                                <visible>!StringCompare(Window.Property(type),season) + !StringCompare(Window.Property(type),episode)</visible>
+                                <visible>!String.IsEmpty(Window.Property(tmdb_logged_in))</visible>
+                                <visible>!String.IsEqual(Window.Property(type),season) + !String.IsEqual(Window.Property(type),episode)</visible>
                             </control>
                             <control type="radiobutton" id="6006">
                                 <label>$ADDON[script.extendedinfo 32131]</label>
@@ -807,8 +807,8 @@
                                 <radioposy>30</radioposy>
                                 <radiowidth>44</radiowidth>
                                 <radioheight>44</radioheight>
-                                <visible>!IsEmpty(Window.Property(tmdb_logged_in))</visible>
-                                <visible>!StringCompare(Window.Property(type),season) + !StringCompare(Window.Property(type),TVShow)</visible>
+                                <visible>!String.IsEmpty(Window.Property(tmdb_logged_in))</visible>
+                                <visible>!String.IsEqual(Window.Property(type),season) + !String.IsEqual(Window.Property(type),TVShow)</visible>
                             </control>
                             <control type="radiobutton" id="100">
                                 <width>280</width>
@@ -828,8 +828,8 @@
                                 <radioheight>44</radioheight>
                                 <label>$ADDON[script.extendedinfo 32132]</label>
                                 <onclick>XBMC.RunScript(script.videoextras,display,"$INFO[Window.Property(movie.FilenameAndPath)]")</onclick>
-                                <visible>System.HasAddon(script.videoextras) + IsEmpty(Window(movieinformation).Property(HideVideoExtrasButton))</visible>
-                                <visible>!IsEmpty(Window.Property(movie.FilenameAndPath))</visible>
+                                <visible>System.HasAddon(script.videoextras) + String.IsEmpty(Window(movieinformation).Property(HideVideoExtrasButton))</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.FilenameAndPath))</visible>
                                 <textureradioonfocus colordiffuse="FFFAFAFA">icons/plus2.png</textureradioonfocus>
                                 <textureradioofffocus colordiffuse="FFFAFAFA">icons/plus2.png</textureradioofffocus>
                                 <textureradiooffnofocus colordiffuse="FF999999">icons/plus2.png</textureradiooffnofocus>
@@ -862,7 +862,7 @@
                     </control>
                     <control type="group">
                         <height>120</height>
-                        <visible>!IsEmpty(Window.Property(movie.omdb.Awards)) | !IsEmpty(Window.Property(movie.omdb.tomatoConsensus))</visible>
+                        <visible>!String.IsEmpty(Window.Property(movie.omdb.Awards)) | !String.IsEmpty(Window.Property(movie.omdb.tomatoConsensus))</visible>
                         <!--
                              <control type="radiobutton" id="241">
                              <posx>0</posx>
@@ -903,7 +903,7 @@
                         </control>
                     </control>
                     <control type="group">
-                        <visible>!IsEmpty(Window.Property(movie.set.label))</visible>
+                        <visible>!String.IsEmpty(Window.Property(movie.set.label))</visible>
                         <posy>400</posy>
                         <height>350</height>
                         <control type="image">
@@ -920,7 +920,7 @@
                             <posx>0</posx>
                             <width>980</width>
                             <height>325</height>
-                            <visible>!IsEmpty(Window.Property(movie.set.fanart)) + !IsEmpty(Window.Property(movie.set.overview))</visible>
+                            <visible>!String.IsEmpty(Window.Property(movie.set.fanart)) + !String.IsEmpty(Window.Property(movie.set.overview))</visible>
                             <texture colordiffuse="66FFFFFF">common/black.png</texture>
                             <aspectratio>scale</aspectratio>
                         </control>
@@ -942,7 +942,7 @@
                             <font>font12</font>
                             <textcolor>FFFAFAFA</textcolor>
                             <autoscroll delay="10000" time="2000" repeat="10000">true</autoscroll>
-                            <visible>!StringCompare(Window.Property(movie.set.overview),Window.Property(movie.set.label))</visible>
+                            <visible>!String.IsEqual(Window.Property(movie.set.overview),Window.Property(movie.set.label))</visible>
                         </control>
                         <control type="image">
                             <posy>45</posy>
@@ -960,8 +960,8 @@
                             <effect type="zoom" start="100,0" end="100,100" delay="460" time="960" center="0,872" tween="cubic" />
                         </animation>
                         <posy>60</posy>
-                        <visible>!IsEmpty(Window.Property(movie.DBID))</visible>
-                        <visible>StringCompare(Window.Property(type),movie) | StringCompare(Window.Property(type),episode)</visible>
+                        <visible>!String.IsEmpty(Window.Property(movie.DBID))</visible>
+                        <visible>String.IsEqual(Window.Property(type),movie) | String.IsEqual(Window.Property(type),episode)</visible>
                         <height>75</height>
                         <control type="image">
                             <posx>30</posx>
@@ -983,75 +983,75 @@
                                 <width>100</width>
                                 <height>62</height>
                                 <aspectratio>keep</aspectratio>
-                                <texture colordiffuse="FFFAFAFA">$INFO[Window.Property(movie.VideoCodec),flags/source/,.png]</texture>
-                                <visible>!IsEmpty(Window.Property(movie.VideoCodec))</visible>
+                                <texture colordiffuse="FFFAFAFA">$VAR[MediaFlagsPathVar]/video/$INFO[Window.Property(movie.VideoCodec),,.png]</texture>
+                                <visible>!String.IsEmpty(Window.Property(movie.VideoCodec))</visible>
                             </control>
                             <control type="image">
                                 <width>2</width>
                                 <height>71</height>
                                 <texture>info/upright.png</texture>
-                                <visible>!IsEmpty(Window.Property(movie.VideoCodec))</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.VideoCodec))</visible>
                             </control>
                             <control type="image" id="900013">
                                 <posy>5</posy>
                                 <width>126</width>
                                 <height>62</height>
                                 <aspectratio>keep</aspectratio>
-                                <texture colordiffuse="FFFAFAFA">$INFO[Window.Property(movie.AudioCodec),flags/audio/,.png]</texture>
-                                <visible>!IsEmpty(Window.Property(movie.AudioCodec))</visible>
+                                <texture colordiffuse="FFFAFAFA">$VAR[MediaFlagsPathVar]/audio/$INFO[Window.Property(movie.AudioCodec),,.png]</texture>
+                                <visible>!String.IsEmpty(Window.Property(movie.AudioCodec))</visible>
                             </control>
                             <control type="image">
                                 <width>2</width>
                                 <height>71</height>
                                 <texture>info/upright.png</texture>
-                                <visible>!IsEmpty(Window.Property(movie.AudioCodec))</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.AudioCodec))</visible>
                             </control>
                             <control type="image" id="900014">
                                 <posy>5</posy>
                                 <width>80</width>
                                 <height>62</height>
                                 <aspectratio>keep</aspectratio>
-                                <texture colordiffuse="FFFAFAFA">$INFO[Window.Property(movie.VideoResolution),flags/resolution/,.png]</texture>
-                                <visible>!IsEmpty(Window.Property(movie.VideoResolution))</visible>
+                                <texture colordiffuse="FFFAFAFA">$VAR[MediaFlagsPathVar]/resolution/$INFO[Window.Property(movie.VideoResolution),,.png]</texture>
+                                <visible>!String.IsEmpty(Window.Property(movie.VideoResolution))</visible>
                             </control>
                             <control type="image">
                                 <width>2</width>
                                 <height>71</height>
                                 <texture>info/upright.png</texture>
-                                <visible>!IsEmpty(Window.Property(movie.VideoResolution))</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.VideoResolution))</visible>
                             </control>
                             <control type="image" id="900015">
                                 <posy>5</posy>
                                 <width>80</width>
                                 <height>62</height>
                                 <aspectratio>keep</aspectratio>
-                                <texture colordiffuse="FFFAFAFA">$INFO[Window.Property(movie.VideoAspect),flags/aspectratio/,.png]</texture>
-                                <visible>!IsEmpty(Window.Property(movie.VideoAspect))</visible>
+                                <texture colordiffuse="FFFAFAFA">$VAR[MediaFlagsPathVar]/aspectratio/$INFO[Window.Property(movie.VideoAspect),,.png]</texture>
+                                <visible>!String.IsEmpty(Window.Property(movie.VideoAspect))</visible>
                             </control>
                             <control type="image">
                                 <width>2</width>
                                 <height>71</height>
                                 <texture>info/upright.png</texture>
-                                <visible>!IsEmpty(Window.Property(movie.VideoAspect))</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.VideoAspect))</visible>
                             </control>
                             <!-- Language flags -->
                             <control type="grouplist">
-                                <visible>!IsEmpty(Window.Property(movie.AudioLanguage.1)) | !IsEmpty(Window.Property(movie.AudioLanguage.2))</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.AudioLanguage.1)) | !String.IsEmpty(Window.Property(movie.AudioLanguage.2))</visible>
                                 <orientation>vertical</orientation>
                                 <usecontrolcoords>true</usecontrolcoords>
                                 <control type="grouplist" id="11000">
                                     <posy>10</posy>
                                     <width>600</width>
-                                    <height>25</height>
+                                    <height>29</height>
                                     <align>left</align>
-                                    <itemgap>2</itemgap>
+                                    <itemgap>5</itemgap>
                                     <orientation>horizontal</orientation>
                                     <control type="label">
                                         <width>110</width>
                                         <height>24</height>
                                         <align>right</align>
                                         <aligny>center</aligny>
-                                        <textoffsetx>10</textoffsetx>
+                                        <textoffsetx>2</textoffsetx>
                                         <label>$LOCALIZE[445]:</label>
                                         <font>font10</font>
                                     </control>
@@ -1060,7 +1060,7 @@
                                         <height>28</height>
                                         <aspectratio>keep</aspectratio>
                                         <texture>$INFO[Window.Property(movie.AudioLanguage.1),flags/language/,.png]</texture>
-                                        <visible>!IsEmpty(Window.Property(movie.AudioLanguage.1))</visible>
+                                        <visible>!String.IsEmpty(Window.Property(movie.AudioLanguage.1))</visible>
                                     </control>
                                     <control type="image">
                                         <width>28</width>
@@ -1131,20 +1131,20 @@
                                 </control>
                                 <!-- Subtitle flags -->
                                 <control type="grouplist" id="12000">
-                                    <posx>0</posx>
+                                    <posx>-8</posx>
                                     <posy>-2</posy>
-                                    <visible>!IsEmpty(Window.Property(movie.SubtitleLanguage.1)) | !IsEmpty(Window.Property(movie.SubtitleLanguage.2))</visible>
+                                    <visible>!String.IsEmpty(Window.Property(movie.SubtitleLanguage.1)) | !String.IsEmpty(Window.Property(movie.SubtitleLanguage.2))</visible>
                                    <animation effect="fade" start="100" end="80" time="40" condition="true">Conditional</animation>
-                                    <width>600</width>
-                                    <height>25</height>
+                                    <width>608</width>
+                                    <height>29</height>
                                     <align>left</align>
-                                    <itemgap>2</itemgap>
+                                    <itemgap>5</itemgap>
                                     <orientation>horizontal</orientation>
                                     <control type="label">
-                                        <width>110</width>
+                                        <width>118</width>
                                         <height>24</height>
                                         <align>right</align>
-                                        <textoffsetx>10</textoffsetx>
+                                        <textoffsetx>0</textoffsetx>
                                         <aligny>center</aligny>
                                         <label>$LOCALIZE[287]:</label>
                                         <font>font10</font>
@@ -1245,7 +1245,7 @@
                         </control>-->
                     </control>
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(2000).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(2000).NumItems,0)</visible>
                         <height>720</height>
                         <control type="label">
                             <posx>25</posx>
@@ -1357,7 +1357,7 @@
 
                     <control type="group" id="50113">
                         <height>500</height>
-                        <visible>IntegerGreaterThan(Container(250).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(250).NumItems,0)</visible>
                         <control type="label">
                             <posx>25</posx>
                             <posy>6</posy>
@@ -1366,7 +1366,7 @@
                             <aligny>center</aligny>
                             <font>font14</font>
                             <label>$LOCALIZE[33054]$INFO[Container(250).NumItems, (,)]</label>
-                            <visible>IsEmpty(Window.Property(movie.set.label))</visible>
+                            <visible>String.IsEmpty(Window.Property(movie.set.label))</visible>
                         </control>
                         <control type="image">
                             <posx>0</posx>
@@ -1427,16 +1427,16 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
-                                            <width>54</width>
+                                            <width>64</width>
                                             <height>25</height>
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -1505,16 +1505,16 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
-                                            <width>54</width>
+                                            <width>64</width>
                                             <height>25</height>
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -1543,7 +1543,7 @@
                         </control>
                     </control>
                     <control type="group" id="50112">
-                        <visible>IntegerGreaterThan(Container(150).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(150).NumItems,0)</visible>
                         <height>500</height>
                         <control type="label">
                             <posx>25</posx>
@@ -1610,12 +1610,12 @@
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
-                                            <width>54</width>
+                                            <width>64</width>
                                             <height>25</height>
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -1633,7 +1633,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>10</posy>
@@ -1693,16 +1693,16 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(DBID))</visible>
+                                            <visible>!String.IsEmpty(ListItem.DBID)</visible>
                                         </control>
                                         <control type="image">
                                             <posy>310</posy>
-                                            <width>54</width>
+                                            <width>64</width>
                                             <height>25</height>
                                             <texture>common/black.png</texture>
                                             <animation effect="fade" end="60" time="0" condition="true">Conditional</animation>
                                             <aspectratio aligny="center">scale</aspectratio>
-                                            <visible>!IsEmpty(ListItem.Year)</visible>
+                                            <visible>!String.IsEmpty(ListItem.Year)</visible>
                                         </control>
                                         <control type="label">
                                             <posx>5</posx>
@@ -1733,7 +1733,7 @@
 
                     <control type="group" id="50215">
                         <height>600</height>
-                        <visible>IntegerGreaterThan(Container(450).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(450).NumItems,0)</visible>
                         <control type="label">
                             <posx>25</posx>
                             <posy>6</posy>
@@ -1803,7 +1803,7 @@
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(account))</visible>
+                                            <visible>!String.IsEmpty(ListItem.Property(account))</visible>
                                         </control>
                                         <control type="image">
                                             <posy>10</posy>
@@ -1867,12 +1867,12 @@
                                             <fadetime>0</fadetime>
                                         </control>
                                         <control type="image">
-                                            <width>55</width>
-                                            <height>55</height>
+                                            <width>50</width>
+                                            <height>50</height>
                                             <posy>10</posy>
                                             <posx>169</posx>
                                             <texture>flags/local.png</texture>
-                                            <visible>!IsEmpty(ListItem.Property(account))</visible>
+                                            <visible>!String.IsEmpty(ListItem.Property(account))</visible>
                                         </control>
                                         <control type="label">
                                             <width>228</width>
@@ -1900,7 +1900,7 @@
                         </control>
                     </control> 
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(1150).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(1150).NumItems,0)</visible>
                         <height>420</height>
                         <control type="label">
                             <posx>25</posx>
@@ -2033,7 +2033,7 @@
                         </control>
                     </control>
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(350).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(350).NumItems,0)</visible>
                         <height>460</height>
                         <control type="label">
                             <posx>25</posx>
@@ -2165,7 +2165,7 @@
 
 					
                     <control type="group" id="50111">
-                        <visible>IntegerGreaterThan(Container(1000).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(1000).NumItems,0)</visible>
                         <height>530</height>
                         <control type="label">
                             <posx>25</posx>
@@ -2299,7 +2299,7 @@
                         </control>
                     </control>
                     <control type="group" id="54111">
-                        <visible>IntegerGreaterThan(Container(750).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(750).NumItems,0)</visible>
                         <height>530</height>
                         <control type="label">
                             <posx>25</posx>
@@ -2452,7 +2452,7 @@
 
 					
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(550).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(550).NumItems,0)</visible>
                         <height>300</height>
                         <control type="label">
                             <posx>25</posx>
@@ -2513,7 +2513,7 @@
                                         <posx>50</posx>
                                         <width>273</width>
                                         <height>100</height>
-                                        <texture fallback="flags/studios/default-studio.png">$INFO[ListItem.Label,flags/studios/,.png]</texture>
+                                        <texture fallback="flags/source/default.png">$INFO[ListItem.Label,resource://resource.images.studios.white/,.png]</texture>
                                         <aspectratio aligny="center" align="center">keep</aspectratio>
                                     </control>
                                     <control type="textbox">
@@ -2550,7 +2550,7 @@
                                         <posx>50</posx>
                                         <width>273</width>
                                         <height>100</height>
-                                        <texture fallback="flags/studios/default-studio.png">$INFO[ListItem.Label,flags/studios/,.png]</texture>
+                                        <texture fallback="flags/source/default.png">$INFO[ListItem.Label,resource://resource.images.studios.white/,.png]</texture>
                                         <aspectratio aligny="center" align="center">keep</aspectratio>
                                     </control>
                                     <control type="textbox">
@@ -2569,7 +2569,7 @@
                         </control>
                     </control>
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(1450).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(1450).NumItems,0)</visible>
                         <height>300</height>
                         <control type="label">
                             <posx>25</posx>
@@ -2630,7 +2630,7 @@
                                         <posx>30</posx>
                                         <width>313</width>
                                         <height>100</height>
-                                        <texture fallback="flags/studios/default-studio.png">$INFO[ListItem.Label,flags/studios/,.png]</texture>
+                                        <texture fallback="flags/source/default.png">$INFO[ListItem.Label,resource://resource.images.studios.white/,.png]</texture>
                                         <aspectratio aligny="center" align="center">keep</aspectratio>
                                     </control>
                                     <control type="textbox">
@@ -2667,7 +2667,7 @@
                                         <posx>30</posx>
                                         <width>313</width>
                                         <height>100</height>
-                                        <texture fallback="flags/studios/default-studio.png">$INFO[ListItem.Label,flags/studios/,.png]</texture>
+                                        <texture fallback="flags/source/default.png">$INFO[ListItem.Label,resource://resource.images.studios.white/,.png]</texture>
                                         <aspectratio aligny="center" align="center">keep</aspectratio>
                                     </control>
                                     <control type="textbox">
@@ -2686,7 +2686,7 @@
                         </control>
                     </control>
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(650).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(650).NumItems,0)</visible>
                         <height>450</height>
                         <control type="label">
                             <posx>25</posx>
@@ -2810,7 +2810,7 @@
                         </control>
                     </control>
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(850).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(850).NumItems,0)</visible>
                         <height>180</height>
                         <control type="label">
                             <posx>25</posx>
@@ -2894,7 +2894,7 @@
                         </control>
                     </control>
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(1050).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(1050).NumItems,0)</visible>
                         <height>430</height>
                         <control type="label">
                             <posx>25</posx>
@@ -2977,7 +2977,7 @@
                         </control>
                     </control>
                     <control type="group">
-                        <visible>IntegerGreaterThan(Container(950).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(950).NumItems,0)</visible>
                         <height>300</height>
                         <control type="label">
                             <posx>25</posx>
@@ -3061,7 +3061,7 @@
                     </control>
                     <control type="group">
                         <height>450</height>
-                        <visible>IntegerGreaterThan(Container(1250).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(1250).NumItems,0)</visible>
                         <control type="label">
                             <posx>25</posx>
                             <posy>6</posy>
@@ -3168,7 +3168,7 @@
                     </control>
                     <control type="group">
                         <height>450</height>
-                        <visible>IntegerGreaterThan(Container(1350).NumItems,0)</visible>
+                        <visible>Integer.IsGreater(Container(1350).NumItems,0)</visible>
                         <control type="label">
                             <posx>25</posx>
                             <posy>6</posy>
@@ -3299,7 +3299,7 @@
                             <effect type="slide" start="0,80" end="0,0" delay="460" time="960" tween="cubic" />
                         </animation>
                         <control type="group">
-                            <visible>!IsEmpty(Window.Property(movie.Top250))</visible>
+                            <visible>!String.IsEmpty(Window.Property(movie.Top250))</visible>
                             <posy>-30</posy>
                             <control type="label">
                                 <posx>-20</posx>
@@ -3315,7 +3315,7 @@
                         <control type="grouplist">
                             <posx>0</posx>
                             <posy>-30</posy>
-                            <animation effect="slide" start="0,0" end="90,0" time="0" condition="!IsEmpty(Window.Property(movie.Top250))">Conditional</animation>
+                            <animation effect="slide" start="0,0" end="90,0" time="0" condition="!String.IsEmpty(Window.Property(movie.Top250))">Conditional</animation>
                             <width>1018</width>
                             <height>200</height>
                             <aligny>top</aligny>
@@ -3352,7 +3352,7 @@
                             <texture>info/infopanel_line.png</texture>
                         </control>
                         <control type="grouplist">
-                            <posx>-25</posx>
+                            <posx>-15</posx>
                             <posy>91</posy>
                             <width>1200</width>
                             <itemgap>0</itemgap>
@@ -3393,9 +3393,9 @@
                                     <height>38</height>
                                     <align>center</align>
                                     <aligny>center</aligny>
-                                    <label fallback="563">$INFO[Window.Property(movie.Votes),, $LOCALIZE[20350]]</label>
+                                    <label fallback="563">$INFO[Window.Property(movie.Votes),, Votes]</label>
+                                    <textcolor>FFFFFFFF</textcolor>
                                     <font>font10</font>
-                                    <visible>!Stringcompare(System.AddonVersion(xbmc.python),2.25.0)</visible>
                                 </control>
                                 <control type="label">
                                     <posx>0</posx>
@@ -3406,13 +3406,13 @@
                                     <aligny>center</aligny>
                                     <label fallback="563">$INFO[Window.Property(movie.Votes),, $LOCALIZE[205]]</label>
                                     <font>font10</font>
-                                    <visible>Stringcompare(System.AddonVersion(xbmc.python),2.25.0)</visible>
+                                    <visible>String.IsEqual(System.AddonVersion(xbmc.python),2.25.0)</visible>
                                  </control>
                             </control>
                             <control type="group">
                                 <posx>0</posx>
                                 <width>155</width>
-                                <visible>!Stringcompare(Window.Property(movie.duration),0) + !IsEmpty(Window.Property(movie.duration))</visible>
+                                <visible>!String.IsEqual(Window.Property(movie.duration),0) + !String.IsEmpty(Window.Property(movie.duration))</visible>
                                 <control type="image">
                                     <posx>0</posx>
                                     <height>79</height>
@@ -3444,12 +3444,12 @@
                                 <posy>1</posy>
                                 <height>79</height>
                                 <width>2</width>
-                                <visible>!StringCompare(Window.Property(type),Season)</visible>
+                                <visible>!String.IsEqual(Window.Property(type),Season)</visible>
                                 <texture>info/upright.png</texture>
                             </control>
                             <control type="group">
                                 <width>220</width>
-                                <visible>!IsEmpty(Window.Property(movie.release_date))</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.release_date))</visible>
                                 <control type="label">
                                     <posx>0</posx>
                                     <posy>8</posy>
@@ -3473,7 +3473,7 @@
                             <control type="group">
                                 <posx>0</posx>
                                 <width>220</width>
-                                <visible>!IsEmpty(Window.Property(movie.Budget))</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.Budget))</visible>
                                 <control type="image">
                                     <posx>0</posx>
                                     <posy>1</posy>
@@ -3504,7 +3504,7 @@
                             <control type="group">
                                 <posx>0</posx>
                                 <width>220</width>
-                                <visible>!IsEmpty(Window.Property(movie.Revenue))</visible>
+                                <visible>!String.IsEmpty(Window.Property(movie.Revenue))</visible>
                                 <control type="image">
                                     <posx>0</posx>
                                     <posy>1</posy>
@@ -3535,7 +3535,7 @@
                             <control type="group">
                                 <posx>0</posx>
                                 <width>180</width>
-                                <visible>Stringcompare(Window.Property(type),Season)</visible>
+                                <visible>String.IsEqual(Window.Property(type),Season)</visible>
                                 <control type="image">
                                     <posx>0</posx>
                                     <posy>1</posy>
@@ -3595,7 +3595,7 @@
                 <height>1080</height>
                 <fadetime>300</fadetime>
                 <aspectratio aligny="center">keep</aspectratio>
-                <visible>Stringcompare(Window.Property(type),episode)</visible>
+                <visible>String.IsEqual(Window.Property(type),episode)</visible>
                 <texture>$INFO[Window.Property(movie.still_original)]</texture>
             </control>
             <control type="image">
@@ -3604,15 +3604,15 @@
                 <width>207</width>
                 <height>207</height>
                 <texture flipx="true" colordiffuse="$INFO[Skin.String(WindowColorThemed)]">flags/marked.png</texture>
-                <visible>!IsEmpty(Window.Property(movie.DBID))</visible>
+                <visible>!String.IsEmpty(Window.Property(movie.DBID))</visible>
             </control>
             <control type="image">
                 <posx>0</posx>
                 <posy>0</posy>
-                <width>207</width>
-                <height>207</height>
+                <width>200</width>
+                <height>200</height>
                 <texture flipx="true">flags/local.png</texture>
-                <visible>!IsEmpty(Window.Property(movie.DBID))</visible>
+                <visible>!String.IsEmpty(Window.Property(movie.DBID))</visible>
             </control>
         </control>
     </controls>
