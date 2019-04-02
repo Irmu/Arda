@@ -202,6 +202,7 @@ class TopDocs(Plugin):
 
 @route(mode='TDCats', args=["url"])
 def get_tdcats(url):
+    pins = ""
     xml = ""
     url = url.replace('tdcategory/', '') # Strip our category tag off.
     orig_cat = url.split("/")[0]
@@ -294,7 +295,7 @@ def get_tdcats(url):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 def remove_non_ascii(text):

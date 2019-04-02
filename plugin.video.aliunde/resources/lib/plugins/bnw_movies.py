@@ -92,6 +92,7 @@ class BNW_Movies(Plugin):
 
 @route(mode='open_bnw_movies')
 def open_movies():
+    pins = ""
     xml = ""
     at = Airtable('appbXfuDDhnWqYths', 'bnw_movies', api_key='keyikW1exArRfNAWj')
     match = at.get_all(maxRecords=1200, sort=['name'])  
@@ -131,7 +132,7 @@ def open_movies():
         except:
             pass                                                            
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 def remove_non_ascii(text):
     return unidecode(text)

@@ -113,6 +113,7 @@ class Sports_streams(Plugin):
 
 @route(mode='Sport_Stream', args=["url"])
 def get_stream(url):
+    pins = ""
     xml = ""
     try:
         url = "http://www.sports-stream.net/schedule.html"
@@ -136,7 +137,7 @@ def get_stream(url):
                    "<link></link>"\
                    "</item>" % head1
             jenlist = JenList(xml)
-            display_list(jenlist.get_list(), jenlist.get_content_type())
+            display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
         except:
             pass
         try:
@@ -195,7 +196,7 @@ def get_stream(url):
     except:
         pass
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 def remove_non_ascii(text):

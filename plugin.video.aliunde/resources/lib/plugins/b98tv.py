@@ -117,6 +117,7 @@ class B98TV(Plugin):
 
 @route(mode='B98Series', args=["url"])
 def get_B98Main_Processor(url):
+    pins = ""
     url = url.replace('serieslist/', '')
     url = urlparse.urljoin(base_main_link, url)
 
@@ -172,11 +173,12 @@ def get_B98Main_Processor(url):
         save_to_db(xml, url)
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='B98Play', args=["url"])
 def get_B98Play(url):
+    pins = ""
     url = url.replace('playtoon/', '')
     try:
         url = urlparse.urljoin(base_main_link, url)

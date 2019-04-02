@@ -87,6 +87,7 @@ class AIRTABLE(Plugin):
 
 @route(mode='sport_replay')
 def sport_Replay_list():
+    pins = ""
     xml = ""
     at = Airtable('appWtf1GS8PBChZaN', 'Sports_replays', api_key='keyOHaxsTGzHU9EEh')
     match = at.get_all(maxRecords=700, view='Grid view')
@@ -161,7 +162,7 @@ def sport_Replay_list():
                    "</item>" % (channel,channel,thumbnail,fanart,link,link2,link3,link4)
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
        
 def remove_non_ascii(text):
     return unidecode(text)

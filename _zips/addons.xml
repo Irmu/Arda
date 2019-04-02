@@ -55,7 +55,7 @@
 
 <addon
   id="inputstream.adaptive"
-  version="2.3.15"
+  version="2.3.16"
   name="InputStream Adaptive"
   provider-name="peak3d">
   <requires>
@@ -76,6 +76,11 @@
     <description lang="en">InputStream client for adaptive streams</description>
     <platform>windows-i686</platform>
 	<news>
+v2.3.16 (2019-03-25)
+- TTML parser fix
+- [HLS] Add HEVC streams / Fix extra_data_size in ts parser
+- [HLS] effective URL for license
+
 v2.3.15 (2019-02-11)
 - Fix windows build
 
@@ -247,7 +252,7 @@ v2.3.14 (2019-02-10)
 
 </addon>
 
-<addon id="plugin.video.aliunde" name="[COLOR aqua]Aliunde[/COLOR]" version="0.4.0" provider-name="Aliunde">
+<addon id="plugin.video.aliunde" name="[COLOR aqua]Aliunde[/COLOR]" version="0.4.95" provider-name="Aliunde">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.universalscrapers" version="1.0.0" />
@@ -268,9 +273,8 @@ v2.3.14 (2019-02-10)
     <extension point="xbmc.service" library="service.py" start="[login|startup]" />
     <extension point="xbmc.addon.metadata">
         <summary lang="en">Kodi 18 support</summary>
-        <description lang="en">Please do NOT post this add-on on Youtube, Facebook, Blogs or anywhere on the internet, thank you.[CR]Thanks go to the Jen support group.</description>
+        <description lang="en">Please do NOT post this add-on on Youtube, Facebook, Blogs or anywhere on the internet, thank you.[CR]Thanks go to the Jen support group and Team OTB (Only The Best).</description>
         <disclaimer lang="en">The author is not responsible for the use of this addon. The author is not responsible for the content found using this addon. The author does not host or own any content found within this addon.[CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
-        <news>Added Aliunde Maintenance Wizard</news>
         <platform>all</platform>
         <website/>
         <video_guide>https://youtu.be/0kFhoWahtFw</video_guide>
@@ -701,10 +705,10 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.mrpiracy" name="MrPiracy" provider-name="MrPiracy" version="0.9.2">
+<addon id="plugin.video.mrpiracy" name="MrPiracy" provider-name="MrPiracy" version="0.9.4">
  <requires>
   <import addon="xbmc.python" version="2.14.0"/>
-  <import addon="script.module.t0mm0.common" version="1.0.0"/>
+  <import addon="script.module.t0mm0.common"/>
   <import addon="plugin.video.youtube" optional="true" />
   </requires>
  <extension library="addon.py" point="xbmc.python.pluginsource">
@@ -941,7 +945,7 @@ v3.0.5
 	</extension>
 </addon>
 
-<addon id="plugin.video.sport365.live" name="Sport365" version="2.5.0" provider-name="Bugatsinho">
+<addon id="plugin.video.sport365.live" name="Sport365" version="2.5.2" provider-name="Bugatsinho">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.19.1"/>
@@ -963,8 +967,10 @@ v3.0.5
     <icon>icon.png</icon>
     <fanart>fanart.png</fanart>
   </assets>
-  <news>
-  </news>
+  <news>2.5.2 23-03-2019
+- add inputstream option for playback(settings)
+- add alternatives domains and language support
+      (https://github.com/bugatsinho/bugatsinho.github.io/pull/15)</news>
   </extension>
 </addon>
 
@@ -1182,7 +1188,20 @@ v3.0.5
   </extension>
 </addon>
 
-    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.71" provider-name="Aliunde">
+<addon id="repository.aenemapy" name="Aenemapy Addons Repository" version="2018.01.04.2" provider-name="aenemapy">
+    <extension point="xbmc.addon.repository" name="Aenemapy Addons Repository">
+		<info compressed="false">https://raw.githubusercontent.com/aenemapy/aenemapyrepo/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/aenemapy/aenemapyrepo/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/aenemapy/aenemapyrepo/master/zips/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Aenemapy repo</summary>
+        <description>This is just a repo...</description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
+    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.73" provider-name="Aliunde">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>

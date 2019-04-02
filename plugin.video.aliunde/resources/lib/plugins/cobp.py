@@ -84,6 +84,7 @@ class COBP(Plugin):
 
 @route(mode='COBP', args=["url"])
 def get_stream(url):
+    pins = ""
     xml = ""
     try:
         url = urlparse.urljoin('http://collectionofbestporn.com/', url)
@@ -118,7 +119,7 @@ def get_stream(url):
     except:
         pass
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='PlayVideo', args=["url"])

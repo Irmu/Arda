@@ -298,6 +298,7 @@ class DocuHeaven(Plugin):
 
 @route(mode='DHCats', args=["url"])
 def get_DHcats(url):
+    pins = ""
     xml = ""
     url = url.replace('dhcategory/', '') # Strip our category tag off.
     orig_cat = url.split("/")[0]
@@ -388,7 +389,7 @@ def get_DHcats(url):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 def remove_non_ascii(text):

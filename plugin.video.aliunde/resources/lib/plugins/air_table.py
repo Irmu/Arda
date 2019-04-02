@@ -200,6 +200,7 @@ class AIRTABLE(Plugin):
 
 @route(mode='Tv_channels')
 def new_releases():
+    pins = ""
     xml = ""
     table_key = 'appw1K6yy7YtatXbm'
     table_name = 'TV_channels'
@@ -226,11 +227,12 @@ def new_releases():
         except:
             pass                
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='Sports_channels')
 def new_releases():
+    pins = ""
     xml = ""
     table_key = 'appFVmVwiMw0AS1cJ'
     table_name = 'Sports_channels'
@@ -258,11 +260,12 @@ def new_releases():
         except:
             pass                
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='247')
 def twenty_four_seven():
+    pins = ""
     xml = ""
     table_key = 'appMiehwc18Akz8Zv'
     table_name = 'twenty_four_seven'
@@ -290,10 +293,11 @@ def twenty_four_seven():
         except:
             pass                
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())        
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)      
 
 @route(mode='channels2')
 def get_channels2():
+    pins = ""
     xml = ""
     at = Airtable('appycq5PhSS0tygok', 'TV_channels2', api_key='keyikW1exArRfNAWj')
     match = at.get_all(maxRecords=1200, sort=['channel'])
@@ -322,10 +326,11 @@ def get_channels2():
         except:
             pass                
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 @route(mode='show_category_channels',args=["url"])
 def get_channels2(url):
+    pins = ""
     xml = ""
     table_key = url.split("/")[-3]
     table_name = url.split("/")[-2]
@@ -449,7 +454,7 @@ def get_channels2(url):
         except:
             pass                
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 def remove_non_ascii(text):
     return unidecode(text)

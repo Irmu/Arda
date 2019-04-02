@@ -77,6 +77,7 @@ class Sportshd(Plugin):
 
 @route(mode='sportshd', args=["url"])
 def get_stream(url):
+    pins = ""
     xml = ""
     try:    
         url = "http://sportshd.me/"       
@@ -119,7 +120,7 @@ def get_stream(url):
     except:
         pass
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type()) 
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins) 
               
 
 def remove_non_ascii(text):

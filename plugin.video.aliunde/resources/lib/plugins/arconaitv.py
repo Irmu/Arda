@@ -119,6 +119,7 @@ class ARCONAITV(Plugin):
 
 @route(mode='get_shows', args=["url"])
 def get_shows(url):
+    pins = ""
     xml = ""
     try:  
         url2 = "https://www.arconaitv.us/"
@@ -150,6 +151,7 @@ def get_shows(url):
  
 
 def tv_shows(html):
+    pins = ""
     xml = ""
     try:
         block = re.compile('<div class="stream-nav shows" id="shows">(.+?)<div class="acontainer">',re.DOTALL).findall(html)
@@ -190,9 +192,10 @@ def tv_shows(html):
     except:
         pass               
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())                        
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)                     
 
 def networks(html):
+    pins = ""
     xml = ""
     try:
         block4 = re.compile('<div class="stream-nav cable" id="cable">(.+?)<div class="acontainer">',re.DOTALL).findall(html)
@@ -250,9 +253,10 @@ def networks(html):
     except:
         pass                   
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 def movies(html):
+    pins = ""
     xml = ""
     try:
         block5 = re.compile('<div class="stream-nav movies" id="movies">(.+?)<div class="acontainer">',re.DOTALL).findall(html)
@@ -324,7 +328,7 @@ def movies(html):
     except:
         pass                   
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())                                                  
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)                                              
             
 def get_thumb(name,html):
     block2 = re.compile('<div class="content">(.+?)<div class="stream-nav shows" id="shows">',re.DOTALL).findall(html)

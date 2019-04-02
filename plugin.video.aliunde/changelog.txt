@@ -1,3 +1,16 @@
+v2.0.1
+    - Added the new sources.py that enables the use of direct torrent and magnet links 
+          in xml's.  
+v2.0
+    - Added main cache and plugins cache.
+    - Main cache is for any xml's outside of plugins including menu xml's.
+    - The plugins cache is for any plugin that does not already have its own cache set up.
+    - Tmdb and Trakt are not included in the plugins cache.
+    - Added enable cache to settings. This effects the main cache only, not plugins.
+    - Added main_cache_time to settings. Default is set to 1440 minutes or 24 hours.
+    - Known issue. The clear scraper cache is not working in Kodi 18.1. Hopefully future versions
+          of Kodi will fix this issue. 
+
 v1.9
     - Added airtable wrapper to the Jen template. No user action is required.
 

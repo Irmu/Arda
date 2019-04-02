@@ -69,6 +69,7 @@ class M3U(Plugin):
 
 @route(mode='m3u', args=["url"])
 def m3u(url):
+    pins = ""
     xml = ""
     if not xml:
         xml = ""
@@ -85,7 +86,7 @@ def m3u(url):
                        "<thumbnail></thumbnail>"\
                        "</item>" % (name, url)
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 def getHtml(url, referer=None, hdr=None, data=None):

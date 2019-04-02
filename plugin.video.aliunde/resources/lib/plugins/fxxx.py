@@ -84,13 +84,10 @@ class FXXXMovies(Plugin):
             result_item['fanart_small'] = result_item["fanart"]
             return result_item
 
-    def clear_cache(self):
-        dialog = xbmcgui.Dialog()
-        if dialog.yesno(xbmcaddon.Addon().getAddonInfo('name'), "Clear Full XXX Movie Plugin Cache?"):
-            koding.Remove_Table("fxxx_com_plugin")
 
 @route(mode='FXXXTags', args=["url"])
 def fxxx_tags(url):
+    pins = ""
     url = url.replace('fxmtag/', '')
     orig_tag = url.split("/")[0]
     url = urlparse.urljoin('http://fullxxxmovies.net/tag/', url)
@@ -140,7 +137,7 @@ def fxxx_tags(url):
         save_to_db(xml, url)
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 ignore_items = {'imgcloud','depfile','rapidgator','vidlox'}
 

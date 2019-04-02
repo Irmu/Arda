@@ -72,6 +72,7 @@ class PASSWORD(Plugin):
 @route(mode='showing', args=["url"])
 def showing(url):
 	xml = ''
+	pins = ""
 	string = url.split()
 	TheXml,TheCode = string[0],string[1]
 	TheCode = TheCode.replace("get/","")
@@ -94,7 +95,7 @@ def showing(url):
 			   "<thumbnail>https://nsx.np.dl.playstation.net/nsx/material/c/ce432e00ce97a461b9a8c01ce78538f4fa6610fe-1107562.png</thumbnail>"\
 			   "</dir>"
 	jenlist = JenList(xml)
-	display_list(jenlist.get_list(), jenlist.get_content_type())
+	display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 

@@ -202,6 +202,7 @@ class NewsON(Plugin):
 
 @route(mode='StateList', args=["url"])
 def get_StateList(list_type):
+    pins = ""
     list_type = list_type.replace('states/', '') # clear our category tag off
     xml = ""
 
@@ -237,12 +238,13 @@ def get_StateList(list_type):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 # We do not pull the channel id from the JSON, because this is NOT local channel, but NewsOn channel
 @route(mode='Newscasts', args=["url"])
 def get_Newscasts(state):
+    pins = ""
     state = state.replace('newscasts/', '') # clear our type tag off
     xml = ""
 
@@ -291,11 +293,12 @@ def get_Newscasts(state):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='Newsclips', args=["url"])
 def get_Newsclips(url):
+    pins = ""
     url = url.split('/')
     list_type = url[1] # Could be state or region
     identifier = url[2] # Could be state name or region name
@@ -350,11 +353,12 @@ def get_Newsclips(url):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='NewsFeed', args=["url"])
 def get_NewsFeed(url):
+    pins = ""
     url = url.replace('feed/', '')
     xml = ""
 
@@ -387,7 +391,7 @@ def get_NewsFeed(url):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 def get_states():

@@ -131,6 +131,7 @@ class ARCONAITV(Plugin):
 
 @route(mode='get_shows2', args=["url"])
 def get_shows2(url):
+    pins = ""
     xml = ""
     try:    
         url = "https://www.arconaitv.us/"
@@ -154,11 +155,12 @@ def get_shows2(url):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 	
 	
 @route(mode='get_cable2', args=["url"])
 def get_cable2(url):
+    pins = ""
     xml = ""
     try:    
         url = "https://www.arconaitv.us/"
@@ -182,7 +184,7 @@ def get_cable2(url):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
               
 
 def remove_non_ascii(text):
@@ -191,6 +193,7 @@ def remove_non_ascii(text):
 
 @route(mode='get_movies2', args=["url"])
 def get_movies2(url):
+    pins = ""
     xml = ""
     try:    
         url = "https://www.arconaitv.us/"
@@ -214,4 +217,4 @@ def get_movies2(url):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)

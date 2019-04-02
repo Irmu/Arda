@@ -121,6 +121,7 @@ class RELEASES(Plugin):
 
 @route(mode='new_releases', args=["url"])
 def new_releases(url):
+    pins = ""
     xml = ""
     url = url.replace("new_releases/", "")
     at = Airtable('appTkr2yvgd1LTyD6', 'Releases_New', api_key='keyOHaxsTGzHU9EEh')
@@ -228,10 +229,11 @@ def new_releases(url):
            "</dir>" % (call)
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
         
 @route(mode='newest_releases', args=["url"])
 def newest_releases(url):
+    pins = ""
     xml = ""
     url = url.replace("newest_releases/", "")
     at = Airtable('app4O4BNC5yEy9wNa', 'Releases_Newest', api_key='keyOHaxsTGzHU9EEh')
@@ -339,7 +341,7 @@ def newest_releases(url):
            "</dir>" % (call)
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 def pull_tmdb(title,year,tmdb):
     try:

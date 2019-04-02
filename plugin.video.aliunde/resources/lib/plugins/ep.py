@@ -169,6 +169,7 @@ class EPORNER(Plugin):
 
 @route(mode='EPorner_Cat', args=["url"])
 def category_eporner(url):
+    pins = ""
     xml = ""
     try:
         url = urlparse.urljoin('https://www.eporner.com/', url)
@@ -213,11 +214,12 @@ def category_eporner(url):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='EPorner_Stars', args=["url"])
 def pornstars_eporner(url):
+    pins = ""
     xml = ""
     try:
         url = urlparse.urljoin('https://www.eporner.com/', url)
@@ -250,11 +252,12 @@ def pornstars_eporner(url):
         pass
 
     jenlist = JenList(xml)
-    display_list(jenlist.get_list(), jenlist.get_content_type())
+    display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='EPorner_Search', args=["url"])
 def category_eporner(url):
+    pins = ""
     xml = ""
     try:
         if len(url) > 6:
@@ -326,7 +329,7 @@ def category_eporner(url):
 
     if total > 0:
         jenlist = JenList(xml)
-        display_list(jenlist.get_list(), jenlist.get_content_type())
+        display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='PlayEporner', args=["url"])
