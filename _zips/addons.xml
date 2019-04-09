@@ -1324,7 +1324,7 @@ v3.0.5
         </extension>
     </addon>
 
-    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="6.9" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
+    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="7.1" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2521,7 +2521,7 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
         </extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="5.0.31" provider-name="tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="5.0.33" provider-name="tvaddons">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
@@ -2545,7 +2545,7 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
 
 <addon id="script.module.web-pdb"
        name="Web-PDB"
-       version="1.4.3"
+       version="1.5.1"
        provider-name="Roman V.M.">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
@@ -2566,7 +2566,7 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
       <icon>icon.png</icon>
       <screenshot>resources/screenshot.png</screenshot>
     </assets>
-    <news>1.4.3: Replace deflate compression with gzip for web UI endpoints.</news>
+    <news>1.5.1: Added new &quot;inspect&quot; debugging command.</news>
   </extension>
 </addon>
 
