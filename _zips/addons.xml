@@ -252,7 +252,7 @@ v2.3.14 (2019-02-10)
 
 </addon>
 
-<addon id="plugin.video.aliunde" name="[COLOR aqua]Aliunde[/COLOR]" version="0.4.95" provider-name="Aliunde">
+<addon id="plugin.video.aliunde" name="[COLOR aqua]Aliunde[/COLOR]" version="0.4.96" provider-name="Aliunde">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.universalscrapers" version="1.0.0" />
@@ -705,7 +705,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.mrpiracy" name="MrPiracy" provider-name="MrPiracy" version="0.9.4">
+<addon id="plugin.video.mrpiracy" name="MrPiracy" provider-name="MrPiracy" version="0.9.5">
  <requires>
   <import addon="xbmc.python" version="2.14.0"/>
   <import addon="script.module.t0mm0.common"/>
@@ -1080,7 +1080,7 @@ v3.0.5
   </extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="6.4.0" provider-name="anxdpanic, bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="6.4.1" provider-name="anxdpanic, bromix">
     <requires>
         <import addon="xbmc.python" version="2.20.0"/>
         <import addon="script.module.six" version="1.11.0"/>
@@ -1094,24 +1094,22 @@ v3.0.5
     <extension point="xbmc.python.module" library="resources/lib/"/>
     <extension point="xbmc.addon.metadata">
         <news>
-6.4.0
-[add] 4K videos with InputStream Adaptive >= v2.3.14
-        - Thanks to @peak3d
-[fix] some videos not playing when logged in
-[fix] reset function cache at restart/update to resolve issues persisting due to cached results
-[fix] service potentially not shutting down http server
-[fix] added to playlist/subscriptions notifications
-[fix] only generate mpeg-dash file if adaptive formats are available
-[fix] map frame rates to more common representation to lessen the chance of double refresh changes (applies only to generated mpeg-dash files)
-[fix] currently playing file check when playing file is a plugin:// url
-[chg] Settings - General - Autoplay suggested videos
-        - limit playlist size to 1000 videos
-        - request less relevant videos at one time
-        - old behavior: add 50 most relevant videos for each video played, repeats allowed
-            - result: a lot of barely relevant videos in groups of 50
-        - new behavior: add single most relevant video, no repeats
-            - result: next video is always the most relevant video to the last video played
-[upd] player javascript retrieval
+6.4.1
+[upd] Use the activation url provided by the authentication request
+[add] add Settings - MPEG-DASH - Default to WEBM adaptation set
+        - required for 4k stream automatic selection
+[add] add Settings - MPEG-DASH - Include VP9.2
+        - includes HDR content in the manifest
+[add] add support for &amp;hide_folders=true parameter in search query urls
+        - when added to the url it will hide the Playlists, Channels, and Live folders
+[add] &amp;seek=&lt;time_in_seconds&gt; to play urls
+[fix] fix playback of Purchases
+[fix] fixed saved playlists that don't belong to a channel
+[fix] mpeg-dash frame rate representation
+[fix] datetime parsing if no datetime string is available
+[chg] handle playback monitoring in threads
+[lang] nl_nl strings |contrib: MB1968|
+[lang] el_gr strings |contrib: twilight0|
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -1201,7 +1199,7 @@ v3.0.5
     </extension>
 </addon>
 
-    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.73" provider-name="Aliunde">
+    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.76" provider-name="Aliunde">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -1324,7 +1322,7 @@ v3.0.5
         </extension>
     </addon>
 
-    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="7.1" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
+    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="7.2" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2226,7 +2224,7 @@ AMF3, the default serialization for ActionScript 3.0, provides various advantage
 	</extension>
 </addon>
 
-<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.26" provider-name="jsergio">
+<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.28" provider-name="jsergio">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
@@ -2364,7 +2362,7 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
   </extension>
 </addon>
 
-<addon id="script.module.streamlink.crypto" name="streamlink.crypto" version="1.5.0" provider-name="Streamlink.crypto">
+<addon id="script.module.streamlink.crypto" name="Streamlink Crypto" version="1.5.2" provider-name="Twilight0">
   <requires>
     <import addon="xbmc.python" version="2.14.0"/>
   </requires>
@@ -2495,7 +2493,7 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
 	</extension>
 </addon>
 
-<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.1.5" provider-name="Team Universal">
+<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.1.6" provider-name="Team Universal">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.beautifulsoup" version="3.2.1"/>

@@ -32,7 +32,7 @@
                action="RunPlugin(plugin://plugin.video.jen/?mode=clearCache)"/>
         <setting label="Clear Cache Without Prompts" type="bool" id="quiet_cache" default="true" visible="true"/>
 		<setting label="Enable Main Cache" type="bool" id="enable_cache" default="true" visible="true"/>
-		<setting label="Main Cache Time in minutes" type="text" id="main_cache_time" default="1440" visible="true"/>	
+		<setting label="Main Cache Time in minutes" type="text" id="main_cache_time" default="1440" visible="false"/>	
     </category>
 
     <!-- custom login settings -->

@@ -122,7 +122,7 @@ def get_stream(url):
         local_time = datetime.datetime.now().strftime('%H:%M')
 
         xml += "<item>"\
-               "<title>[COLOR blue]Local Time  %s[/COLOR]</title>"\
+               "<title>[COLOR yellow]Local Time  %s[/COLOR]</title>"\
                "<thumbnail>http://www.logotypes101.com/logos/997/AD71A2CC84DD8DDE7932F9BC585926E1/Sports.png</thumbnail>"\
                "<fanart>http://sportz4you.com/blog/wp-content/uploads/2016/01/0b46b20.jpg</fanart>"\
                "<link></link>"\
@@ -131,7 +131,7 @@ def get_stream(url):
             match = re.compile('<h3>(.+?)<input onclick=', re.DOTALL).findall(html)[0]
             head1 = match.split("GMT")[0]
             xml += "<item>"\
-                   "<title>[COLOR blue]%s[/COLOR]</title>"\
+                   "<title>[COLOR aqua]%s[/COLOR]</title>"\
                    "<thumbnail>http://www.logotypes101.com/logos/997/AD71A2CC84DD8DDE7932F9BC585926E1/Sports.png</thumbnail>"\
                    "<fanart>http://sportz4you.com/blog/wp-content/uploads/2016/01/0b46b20.jpg</fanart>"\
                    "<link></link>"\
@@ -172,7 +172,7 @@ def get_stream(url):
             match3 = re.compile('<br><font color="red"><h3>.+?<br><font color="red"><h3>(.+?)<input onclick=', re.DOTALL).findall(html)[0]
             head2 = match3.split("GMT")[0]
             xml += "<item>"\
-                   "<title>[COLOR blue]%s[/COLOR]</title>"\
+                   "<title>[COLOR aqua]%s[/COLOR]</title>"\
                    "<thumbnail>http://www.logotypes101.com/logos/997/AD71A2CC84DD8DDE7932F9BC585926E1/Sports.png</thumbnail>"\
                    "<fanart>http://sportz4you.com/blog/wp-content/uploads/2016/01/0b46b20.jpg</fanart>"\
                    "<link></link>"\
