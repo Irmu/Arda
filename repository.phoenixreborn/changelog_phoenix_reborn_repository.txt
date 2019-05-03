@@ -1,0 +1,42 @@
+Verzija 0.0.1
+- Pocetna verzija
+Verzija 1.0.0
+- Prva verzija
+Verzija 1.1.0
+- Dodavanje aplikacija
+verzija 1.2.0
+- Dodavanje aplikacija
+Version 1.2.1
+- Ispravljanje i dodavanje aplikacija
+verzija 1.2.2
+- Dodavanje aplikacija
+verzija 1.2.3
+- Dodavanje aplikacija
+verzija 1.2.4
+- Dodavanje aplikacija
+verzija 1.2.5
+- Dodavanje aplikacija
+verzija 1.2.6
+- Dodavanje aplikacija
+verzija 1.3.0
+- Promjena hostinga, putanje i dodavanje novih aplikacija
+verzija 1.3.1
+- Ispravljanje gresaka
+verzija 1.3.2
+- Ispravljanje gresaka
+verzija 1.3.3
+- Promjena putanje
+verzija 1.3.4
+- Ispravka greske
+verzija 1.3.5
+- Dodavanje aplikacije
+verzija 1.3.6
+- Dodavanje aplikacije za movies addon
+verzija 1.3.7
+- Brisanje addona koji se ne odrzavaju
+verzija 1.3.8
+- Ispravka putanje
+verzija 1.3.9
+- Popravak verzija greske
+verzija 1.4.0
+- Ispravak putanje

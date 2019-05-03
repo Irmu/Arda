@@ -1,0 +1,23 @@
+v 1.0.6
+- Removed Music From Total Setup (Work in Progress More cleanup required)
+
+v 1.0.5
+- Fixed Error Running Total Setup in 18
+- Removed Music Menu to fixed Unavailable Menu Showing
+
+v 1.0.4
+- Replaced Music API Keys
+
+v1.0.3
+- Changed Context Menu Name 
+
+v1.0.2
+- Fixed Block Code Patcher, will now auto patch any Exodus/Covenant Forks that have the code
+
+v1.0.1
+- Released, Added New APIs for Trakt, TMDB, TVDB and Fanart
+- Removed and Replaced Dead URLS
+- Added KoDIY Artwork
+- Fixed some Errors with Views
+
+
