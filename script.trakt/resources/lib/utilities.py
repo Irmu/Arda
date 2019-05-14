@@ -118,22 +118,22 @@ def findMediaObject(mediaObjectToMatch, listToSearch, matchByTitleAndYear):
 def regex_tvshow(label):
     regexes = [
         # ShowTitle.S01E09; s01e09, s01.e09, s01-e09
-        '(.*?)[._ -]s([0-9]+)[._ -]*e([0-9]+)',
-        '(.*?)[._ -]([0-9]+)x([0-9]+)',  # Showtitle.1x09
-        '(.*?)[._ -]([0-9]+)([0-9][0-9])',  # ShowTitle.109
+        r'(.*?)[._ -]s([0-9]+)[._ -]*e([0-9]+)',
+        r'(.*?)[._ -]([0-9]+)x([0-9]+)',  # Showtitle.1x09
+        r'(.*?)[._ -]([0-9]+)([0-9][0-9])',  # ShowTitle.109
         # ShowTitle.Season 01 - Episode 02, Season 01 Episode 02
         '(.*?)[._ -]?season[._ -]*([0-9]+)[._ -]*-?[._ -]*episode[._ -]*([0-9]+)',
         # ShowTitle_[s01]_[e01]
-        '(.*?)[._ -]\[s([0-9]+)\][._ -]*\[[e]([0-9]+)',
-        '(.*?)[._ -]s([0-9]+)[._ -]*ep([0-9]+)']  # ShowTitle - s01ep03, ShowTitle - s1ep03
+        r'(.*?)[._ -]\[s([0-9]+)\][._ -]*\[[e]([0-9]+)',
+        r'(.*?)[._ -]s([0-9]+)[._ -]*ep([0-9]+)']  # ShowTitle - s01ep03, ShowTitle - s1ep03
 
     for regex in regexes:
         match = re.search(regex, label, re.I)
         if match:
             show_title, season, episode = match.groups()
             if show_title:
-                show_title = re.sub('[\[\]_\(\).-]', ' ', show_title)
-                show_title = re.sub('\s\s+', ' ', show_title)
+                show_title = re.sub(r'[\[\]_\(\).-]', ' ', show_title)
+                show_title = re.sub(r'\s\s+', ' ', show_title)
                 show_title = show_title.strip()
             return show_title, int(season), int(episode)
 
@@ -141,7 +141,7 @@ def regex_tvshow(label):
 
 
 def regex_year(title):
-    prog = re.compile('^(.+) \((\d{4})\)$')
+    prog = re.compile(r'^(.+) \((\d{4})\)$')
     result = prog.match(title)
 
     if result:
@@ -150,16 +150,16 @@ def regex_year(title):
         return "", ""
 
 
-def findMovieMatchInList(id, list, idType):
-    return next((item.to_dict() for key, item in list.items() if any(idType in key for key, value in item.keys if str(value) == str(id))), {})
+def findMovieMatchInList(id, listToMatch, idType):
+    return next((item.to_dict() for key, item in list(listToMatch.items()) if any(idType in key for key, value in item.keys if str(value) == str(id))), {})
 
 
-def findShowMatchInList(id, list, idType):
-    return next((item.to_dict() for key, item in list.items() if any(idType in key for key, value in item.keys if str(value) == str(id))), {})
+def findShowMatchInList(id, listToMatch, idType):
+    return next((item.to_dict() for key, item in list(listToMatch.items()) if any(idType in key for key, value in item.keys if str(value) == str(id))), {})
 
 
-def findSeasonMatchInList(id, seasonNumber, list, idType):
-    show = findShowMatchInList(id, list, idType)
+def findSeasonMatchInList(id, seasonNumber, listToMatch, idType):
+    show = findShowMatchInList(id, listToMatch, idType)
     logger.debug("findSeasonMatchInList %s" % show)
     if 'seasons' in show:
         for season in show['seasons']:
@@ -529,9 +529,6 @@ def __getEpisodes(seasons):
     return data
 
 def checkIfNewVersion(old, new):
-    explodedOld = old.split('.')
-    explodedNew = new.split('.')
-
     # Check if old is empty, it might be the first time we check
     if old == '':
         return True

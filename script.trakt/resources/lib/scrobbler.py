@@ -23,7 +23,6 @@ class Scrobbler():
     pausedAt = 0
     curVideo = None
     curVideoInfo = None
-    playlistLength = 1
     playlistIndex = 0
     traktShowSummary = None
     videosToRate = []
@@ -105,16 +104,12 @@ class Scrobbler():
                 else:
                     self.videoDuration = 1
 
-            self.playlistLength = len(xbmc.PlayList(xbmc.PLAYLIST_VIDEO))
             self.playlistIndex = xbmc.PlayList(xbmc.PLAYLIST_VIDEO).getposition()
-            if self.playlistLength == 0:
-                logger.debug("Warning: Cant find playlist length, assuming that this item is by itself")
-                self.playlistLength = 1
 
             self.isMultiPartEpisode = False
             if utilities.isMovie(self.curVideo['type']):
                 if 'id' in self.curVideo:
-                    self.curVideoInfo = kodiUtilities.kodiRpcToTraktMediaObject('movie', kodiUtilities.getMovieDetailsFromKodi(self.curVideo['id'], ['imdbnumber', 'title', 'year', 'file', 'lastplayed', 'playcount']))
+                    self.curVideoInfo = kodiUtilities.kodiRpcToTraktMediaObject('movie', kodiUtilities.getMovieDetailsFromKodi(self.curVideo['id'], ['uniqueid', 'title', 'year', 'file', 'lastplayed', 'playcount']))
                 elif 'video_ids' in self.curVideo:
                     self.curVideoInfo = {'ids': self.curVideo['video_ids']}
                 elif 'title' in self.curVideo and 'year' in self.curVideo:
@@ -126,14 +121,13 @@ class Scrobbler():
             elif utilities.isEpisode(self.curVideo['type']):
                 if 'id' in self.curVideo:
                     episodeDetailsKodi = kodiUtilities.getEpisodeDetailsFromKodi(self.curVideo['id'], ['showtitle', 'season', 'episode', 'tvshowid', 'uniqueid', 'file', 'playcount'])
-                    ids = utilities.parseIdToTraktIds(episodeDetailsKodi['imdbnumber'], self.curVideo['type'])[0]
                     title, year = utilities.regex_year(episodeDetailsKodi['showtitle'])
                     if not year:
                         self.traktShowSummary = {'title': episodeDetailsKodi['showtitle'], 'year': episodeDetailsKodi['year']}
                     else:
                         self.traktShowSummary = {'title': title, 'year': year}
-                    if ids:
-                        self.traktShowSummary['ids'] = ids
+                    if 'show_ids' in episodeDetailsKodi:
+                        self.traktShowSummary['ids'] = episodeDetailsKodi['show_ids']
                     self.curVideoInfo = kodiUtilities.kodiRpcToTraktMediaObject('episode', episodeDetailsKodi)
                     if not self.curVideoInfo:  # getEpisodeDetailsFromKodi was empty
                         logger.debug("Episode details from Kodi was empty, ID (%d) seems invalid, aborting further scrobbling of this episode." % self.curVideo['id'])
@@ -246,13 +240,12 @@ class Scrobbler():
         if self.watchedTime != 0:
             if 'type' in self.curVideo:
                 self.__scrobble('stop')
-                ratingCheck(self.curVideo['type'], self.videosToRate, self.watchedTime, self.videoDuration, self.playlistLength)
+                ratingCheck(self.curVideo['type'], self.videosToRate, self.watchedTime, self.videoDuration)
             self.watchedTime = 0
             self.isMultiPartEpisode = False
         self.videosToRate = []
         self.curVideoInfo = None
         self.curVideo = None
-        self.playlistLength = 0
         self.playlistIndex = 0
 
     def __calculateWatchedPercent(self):

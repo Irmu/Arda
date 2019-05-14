@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from resources.lib import utilities
-from resources.lib import kodiUtilities
 import xbmc
-from resources.lib import sqlitequeue
 import sys
 import logging
+from resources.lib import utilities
+from resources.lib import kodiUtilities
+from resources.lib import sqlitequeue
 from resources.lib.traktContextMenu import traktContextMenu
 
 logger = logging.getLogger(__name__)
@@ -97,7 +97,7 @@ def run():
             if 'dbid' in data:
                 logger.debug("Manual %s of library '%s' with an ID of '%s'." % (args['action'], media_type, data['dbid']))
                 if utilities.isMovie(media_type):
-                    result = kodiUtilities.getMovieDetailsFromKodi(data['dbid'], ['imdbnumber', 'title', 'year'])
+                    result = kodiUtilities.getMovieDetailsFromKodi(data['dbid'], ['imdbnumber', 'uniqueid', 'title', 'year'])
                     if not result:
                         logger.debug("No data was returned from Kodi, aborting manual %s." % args['action'])
                         return
@@ -123,7 +123,7 @@ def run():
                     data['episode'] = result['episode']
 
                 if utilities.isShow(media_type) or utilities.isSeason(media_type) or utilities.isEpisode(media_type):
-                    result = kodiUtilities.getShowDetailsFromKodi(tvshow_id, ['imdbnumber'])
+                    result = kodiUtilities.getShowDetailsFromKodi(tvshow_id, ['imdbnumber', 'uniqueid'])
                     if not result:
                         logger.debug("No data was returned from Kodi, aborting manual %s." % args['action'])
                         return
@@ -218,7 +218,7 @@ def run():
 
             elif utilities.isShow(media_type):
                 dbid = int(xbmc.getInfoLabel('ListItem.DBID'))
-                result = kodiUtilities.getShowDetailsFromKodi(dbid, ['year', 'imdbnumber'])
+                result = kodiUtilities.getShowDetailsFromKodi(dbid, ['year', 'imdbnumber', 'uniqueid'])
                 if not result:
                     logger.debug("Error getting show details from Kodi.")
                     return
@@ -241,7 +241,7 @@ def run():
                         logger.debug("'%s' is already marked as watched." % showTitle)
                         return
 
-                    data['seasons'] = dict((k, v) for k, v in s.iteritems() if v)
+                    data['seasons'] = dict((k, v) for k, v in list(s.items()) if v)
                 else:
                     logger.debug("Error getting episode details for '%s' from Kodi." % showTitle)
                     return
@@ -319,7 +319,7 @@ def run():
 
                 elif utilities.isShow(media_type):
                     dbid = int(xbmc.getInfoLabel('ListItem.DBID'))
-                    result = kodiUtilities.getShowDetailsFromKodi(dbid, ['year', 'imdbnumber'])
+                    result = kodiUtilities.getShowDetailsFromKodi(dbid, ['year', 'imdbnumber', 'uniqueid'])
                     if not result:
                         logger.debug("Error getting show details from Kodi.")
                         return
@@ -338,7 +338,7 @@ def run():
                             if e['playcount'] == 0:
                                 s[season].append(e['episode'])
 
-                        data['seasons'] = dict((k, v) for k, v in s.iteritems() if v)
+                        data['seasons'] = dict((k, v) for k, v in list(s.items()) if v)
                     else:
                         logger.debug("Error getting episode details for '%s' from Kodi." % showTitle)
                         return

@@ -58,7 +58,7 @@ class SyncMovies():
         self.sync.UpdateProgress(1, line2=kodiUtilities.getString(32079))
 
         logger.debug("[Movies Sync] Getting movie data from Kodi")
-        data = kodiUtilities.kodiJsonRequest({'jsonrpc': '2.0', 'id': 0, 'method': 'VideoLibrary.GetMovies', 'params': {'properties': ['title', 'imdbnumber', 'year', 'playcount', 'lastplayed', 'file', 'dateadded', 'runtime', 'userrating']}})
+        data = kodiUtilities.kodiJsonRequest({'jsonrpc': '2.0', 'id': 0, 'method': 'VideoLibrary.GetMovies', 'params': {'properties': ['title', 'imdbnumber', 'uniqueid', 'year', 'playcount', 'lastplayed', 'file', 'dateadded', 'runtime', 'userrating']}})
         if data['limits']['total'] == 0:
             logger.debug("[Movies Sync] Kodi JSON request was empty.")
             return
@@ -80,7 +80,7 @@ class SyncMovies():
         self.sync.UpdateProgress(17, line2=kodiUtilities.getString(32082))
         traktMovies = self.sync.traktapi.getMoviesWatched(traktMovies)
         traktMovies = self.sync.traktapi.getMoviesRated(traktMovies)
-        traktMovies = traktMovies.items()
+        traktMovies = list(traktMovies.items())
 
         self.sync.UpdateProgress(24, line2=kodiUtilities.getString(32083))
         movies = []

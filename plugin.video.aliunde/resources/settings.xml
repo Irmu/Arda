@@ -3,8 +3,8 @@
 
     <category label="Customization">
         <setting label="32507" type="lsep"/>
-        <setting label="30717" type="bool" id="metadata" default="false"/>
-        <setting label="Disable Metadata Dialog" type="bool" id="disable_metadata_dialog" default="true"/>
+        <setting label="30717" type="bool" id="metadata" default="true"/>
+        <setting label="Disable Metadata Dialog" type="bool" id="disable_metadata_dialog" default="false"/>
         <setting label="32508" type="select" values="Trakt|TMDB" id="movie_metadata_provider" default="Trakt"/>
         <setting label="32509" type="select" values="Trakt|TVDB" id="tv_metadata_provider" default="Trakt"/>
         <setting label="32510" type="lsep" visible="false"/>
@@ -32,7 +32,7 @@
                action="RunPlugin(plugin://plugin.video.jen/?mode=clearCache)"/>
         <setting label="Clear Cache Without Prompts" type="bool" id="quiet_cache" default="true" visible="true"/>
 		<setting label="Enable Main Cache" type="bool" id="enable_cache" default="true" visible="true"/>
-		<setting label="Main Cache Time in minutes" type="text" id="main_cache_time" default="1440" visible="false"/>	
+		<setting label="Main Cache Time in minutes" type="text" id="main_cache_time" default="120" visible="true"/>	
     </category>
 
     <!-- custom login settings -->

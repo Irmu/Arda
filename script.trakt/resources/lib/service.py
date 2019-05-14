@@ -2,17 +2,16 @@
 import threading
 import logging
 import xbmc
-from resources.lib import globals
-from resources.lib import sqlitequeue
-from resources.lib import utilities
-from resources.lib import kodiUtilities
 import time
 import xbmcgui
 import json
 import re
-import AddonSignals
 import urllib
 
+from resources.lib import globals
+from resources.lib import sqlitequeue
+from resources.lib import utilities
+from resources.lib import kodiUtilities
 from resources.lib.rating import rateMedia
 from resources.lib.scrobbler import Scrobbler
 from resources.lib.sync import Sync
@@ -106,8 +105,6 @@ class traktService:
 
         # init scrobbler class
         self.scrobbler = Scrobbler(globals.traktapi)
-
-        AddonSignals.registerSlot('service.nextup.notification', 'NEXTUPWATCHEDSIGNAL', self.callback)
 
         # start loop for events
         while not self.Monitor.abortRequested():
@@ -315,10 +312,6 @@ class traktService:
         self.syncThread = syncThread(manual, silent, library)
         self.syncThread.start()
 
-    def callback(self, data):
-        logger.debug('Callback received - Nextup skipped to the next episode')
-        self.scrobbler.playbackEnded()
-
 class syncThread(threading.Thread):
 
     _isManual = False
@@ -341,6 +334,14 @@ class traktMonitor(xbmc.Monitor):
         # xbmc.getCondVisibility('Library.IsScanningVideo') returns false when cleaning during update...
         self.scanning_video = False
         logger.debug("[traktMonitor] Initalized.")
+
+    def onNotification(self, sender, method, data):
+        if method.split('.')[1].upper() != 'NEXTUPWATCHEDSIGNAL': # method looks like Other.NEXTUPWATCHEDSIGNAL
+            return
+
+        logger.debug('Callback received - Upnext skipped to the next episode')
+        data = {'action': 'ended'}
+        self.action(data)
 
     # called when database gets updated and return video or music to indicate which DB has been changed
     def onScanFinished(self, database):
@@ -382,7 +383,7 @@ class traktPlayer(xbmc.Player):
             waitFor = 10
             waitedFor = 0
             # check each 10 seconds if we can abort or proceed
-            while not xbmc.abortRequested and scrobbleStartOffset > waitedFor:
+            while scrobbleStartOffset > waitedFor:
                 waitedFor += waitFor
                 time.sleep(waitFor)
                 if not self.isPlayingVideo():
@@ -502,11 +503,11 @@ class traktPlayer(xbmc.Player):
                     # is populated with several interesting things. If these things change in future versions, uncommenting
                     # this code will hopefully provide some useful info in the debug log.
                     #logger.debug("[traktPlayer] onAVStarted() - TEMP Checking all videoplayer infolabels.")
-                    #for il in ['VideoPlayer.Time','VideoPlayer.TimeRemaining','VideoPlayer.TimeSpeed','VideoPlayer.Duration','VideoPlayer.Title','VideoPlayer.TVShowTitle','VideoPlayer.Season','VideoPlayer.Episode','VideoPlayer.Genre','VideoPlayer.Director','VideoPlayer.Country','VideoPlayer.Year','VideoPlayer.Rating','VideoPlayer.UserRating','VideoPlayer.Votes','VideoPlayer.RatingAndVotes','VideoPlayer.mpaa','VideoPlayer.IMDBNumber','VideoPlayer.EpisodeName','VideoPlayer.PlaylistPosition','VideoPlayer.PlaylistLength','VideoPlayer.Cast','VideoPlayer.CastAndRole','VideoPlayer.Album','VideoPlayer.Artist','VideoPlayer.Studio','VideoPlayer.Writer','VideoPlayer.Tagline','VideoPlayer.PlotOutline','VideoPlayer.Plot','VideoPlayer.LastPlayed','VideoPlayer.PlayCount','VideoPlayer.VideoCodec','VideoPlayer.VideoResolution','VideoPlayer.VideoAspect','VideoPlayer.AudioCodec','VideoPlayer.AudioChannels','VideoPlayer.AudioLanguage','VideoPlayer.SubtitlesLanguage','VideoPlayer.StereoscopicMode','VideoPlayer.EndTime','VideoPlayer.NextTitle','VideoPlayer.NextGenre','VideoPlayer.NextPlot','VideoPlayer.NextPlotOutline','VideoPlayer.NextStartTime','VideoPlayer.NextEndTime','VideoPlayer.NextDuration','VideoPlayer.ChannelName','VideoPlayer.ChannelNumber','VideoPlayer.SubChannelNumber','VideoPlayer.ChannelNumberLabel','VideoPlayer.ChannelGroup','VideoPlayer.ParentalRating','Player.FinishTime','Player.FinishTime(format)','Player.Chapter','Player.ChapterCount','Player.Time','Player.Time(format)','Player.TimeRemaining','Player.TimeRemaining(format)','Player.Duration','Player.Duration(format)','Player.SeekTime','Player.SeekOffset','Player.SeekOffset(format)','Player.SeekStepSize','Player.ProgressCache','Player.Folderpath','Player.Filenameandpath','Player.StartTime','Player.StartTime(format)','Player.Title','Player.Filename']:
+                    #for il in ['VideoPlayer.Time','VideoPlayer.TimeRemaining','VideoPlayer.TimeSpeed','VideoPlayer.Duration','VideoPlayer.Title','VideoPlayer.TVShowTitle','VideoPlayer.Season','VideoPlayer.Episode','VideoPlayer.Genre','VideoPlayer.Director','VideoPlayer.Country','VideoPlayer.Year','VideoPlayer.Rating','VideoPlayer.UserRating','VideoPlayer.Votes','VideoPlayer.RatingAndVotes','VideoPlayer.mpaa',VideoPlayer.EpisodeName','VideoPlayer.PlaylistPosition','VideoPlayer.PlaylistLength','VideoPlayer.Cast','VideoPlayer.CastAndRole','VideoPlayer.Album','VideoPlayer.Artist','VideoPlayer.Studio','VideoPlayer.Writer','VideoPlayer.Tagline','VideoPlayer.PlotOutline','VideoPlayer.Plot','VideoPlayer.LastPlayed','VideoPlayer.PlayCount','VideoPlayer.VideoCodec','VideoPlayer.VideoResolution','VideoPlayer.VideoAspect','VideoPlayer.AudioCodec','VideoPlayer.AudioChannels','VideoPlayer.AudioLanguage','VideoPlayer.SubtitlesLanguage','VideoPlayer.StereoscopicMode','VideoPlayer.EndTime','VideoPlayer.NextTitle','VideoPlayer.NextGenre','VideoPlayer.NextPlot','VideoPlayer.NextPlotOutline','VideoPlayer.NextStartTime','VideoPlayer.NextEndTime','VideoPlayer.NextDuration','VideoPlayer.ChannelName','VideoPlayer.ChannelNumber','VideoPlayer.SubChannelNumber','VideoPlayer.ChannelNumberLabel','VideoPlayer.ChannelGroup','VideoPlayer.ParentalRating','Player.FinishTime','Player.FinishTime(format)','Player.Chapter','Player.ChapterCount','Player.Time','Player.Time(format)','Player.TimeRemaining','Player.TimeRemaining(format)','Player.Duration','Player.Duration(format)','Player.SeekTime','Player.SeekOffset','Player.SeekOffset(format)','Player.SeekStepSize','Player.ProgressCache','Player.Folderpath','Player.Filenameandpath','Player.StartTime','Player.StartTime(format)','Player.Title','Player.Filename']:
                     #    logger.debug("[traktPlayer] TEMP %s : %s" % (il, xbmc.getInfoLabel(il)))
-                    #for k,v in result.iteritems():
+                    #for k,v in result.items():
                     #    logger.debug("[traktPlayer] onAVStarted() - result - %s : %s" % (k,v))
-                    #for k,v in result['item'].iteritems():
+                    #for k,v in result['item'].items():
                     #    logger.debug("[traktPlayer] onAVStarted() - result.item - %s : %s" % (k,v))
 
                     # As of Kodi v17, many of the VideoPlayer labels are populated by the MythTV PVR addon, though sadly this
@@ -549,7 +550,7 @@ class traktPlayer(xbmc.Player):
                                 return
                         foundShowAndEpInfo = splitLabel[0]
                         logger.debug("[traktPlayer] onAVStarted() - show plus episode info: %s" % foundShowAndEpInfo)
-                        splitShowAndEpInfo = re.split(' (s\d\de\d\d)? ?\((\d\d\d\d)\) ',foundShowAndEpInfo, 1)
+                        splitShowAndEpInfo = re.split(r' (s\d\de\d\d)? ?\((\d\d\d\d)\) ', foundShowAndEpInfo, 1)
                         logger.debug("[traktPlayer] onAVStarted() - Post-split of show plus episode info: %s " % splitShowAndEpInfo)
                         if len(splitShowAndEpInfo) != 4:
                             logger.debug("[traktPlayer] onAVStarted() - Show plus episode info doesn't have the ShowName sXXeYY (year) EpisodeName format that was expected. Giving up.")
@@ -603,8 +604,8 @@ class traktPlayer(xbmc.Player):
                             data['video_ids'] = showKeys
                             # For some reason, the Trakt search call returns the season and episode as an array in the pk field.
                             # You'd think individual episode and season fields would be better, but whatever.
-                            data['season'] = rightResp.pk[0];
-                            data['episode'] = rightResp.pk[1];
+                            data['season'] = rightResp.pk[0]
+                            data['episode'] = rightResp.pk[1]
                     # At this point if we haven't found the episode data yet, the episode-title-text-search method
                     # didn't work.
                     if (not data['season']):
@@ -631,7 +632,7 @@ class traktPlayer(xbmc.Player):
                                 if not epQueryResp:
                                     # Nothing returned. Giving up.
                                     logger.debug("[traktPlayer] onAVStarted() - No response received")
-                                    break;
+                                    break
                                 else:
                                     # Got the list back. Go through each season.
                                     logger.debug("[traktPlayer] onAVStarted() - Got response with seasons: %s" % str(epQueryResp))
@@ -656,7 +657,7 @@ class traktPlayer(xbmc.Player):
                                                 break
                                         # If we already found our data, no need to go through the rest of the seasons.
                                         if (data['season']):
-                                            break;
+                                            break
                     # Now we've done all we can.
                     if (data['season']):
                         # OK, that's everything. Data should be all set for scrobbling.
@@ -664,7 +665,7 @@ class traktPlayer(xbmc.Player):
                     else:
                         # Still no data? Too bad, have to give up.
                         logger.debug("[traktPlayer] onAVStarted() - Did our best, but couldn't get info for this show and episode. Skipping.")
-                        return;
+                        return
                 else:
                     logger.debug("[traktPlayer] onAVStarted() - Video type '%s' unrecognized, skipping." % self.type)
                     return

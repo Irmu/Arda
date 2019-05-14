@@ -3,11 +3,7 @@
 import os
 import sys
 import sqlite3
-
-if sys.version_info >= (2, 7):
-    from json import loads, dumps
-else:
-    from simplejson import loads, dumps
+from json import loads, dumps
 
 from time import sleep
 
@@ -67,7 +63,7 @@ class SqliteQueue(object):
 
     def __iter__(self):
         with self._get_conn() as conn:
-            for id, obj_buffer in conn.execute(self._iterate):
+            for _, obj_buffer in conn.execute(self._iterate):
                 yield loads(str(obj_buffer))
 
     def _get_conn(self):
@@ -96,7 +92,7 @@ class SqliteQueue(object):
                 conn.execute(self._write_lock)
                 cursor = conn.execute(self._get)
                 try:
-                    id, obj_buffer = cursor.next()
+                    id, obj_buffer = next(cursor)
                     keep_pooling = False
                 except StopIteration:
                     conn.commit()  # unlock the database
@@ -115,6 +111,6 @@ class SqliteQueue(object):
         with self._get_conn() as conn:
             cursor = conn.execute(self._peek)
             try:
-                return loads(str(cursor.next()[0]))
+                return loads(str(next(cursor)[0]))
             except StopIteration:
                 return None

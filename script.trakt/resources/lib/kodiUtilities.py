@@ -4,16 +4,12 @@
 import xbmc
 import xbmcgui
 import xbmcaddon
+import json
 import re
 import sys
 import logging
 from resources.lib import utilities
 
-
-if sys.version_info >= (2, 7):
-    import json as json
-else:
-    import simplejson as json
 
 # read settings
 __addon__ = xbmcaddon.Addon('script.trakt')
@@ -103,15 +99,14 @@ def checkExclusion(fullpath):
             return True
 
     found = False
-    for x in xrange(2,13):
+    for x in range(2,13):
         found |= utilities.checkExcludePath(getSetting('ExcludePath%i' % x).encode('utf-8'), getSettingAsBool('ExcludePathOption%i' % x), fullpath, x)
 
     return found
 
 def kodiRpcToTraktMediaObject(type, data, mode='collected'):
     if type == 'show':
-        id = data.pop('imdbnumber')
-        data['ids'] = utilities.parseIdToTraktIds(id, type)[0]
+        data['ids'] = data.pop('uniqueid')
         data['rating'] = data['userrating'] if 'userrating' in data and data['userrating'] > 0 else 0
         del data['label']
         return data
@@ -168,8 +163,7 @@ def kodiRpcToTraktMediaObject(type, data, mode='collected'):
         data['rating'] = data['userrating'] if 'userrating' in data and data['userrating'] > 0 else 0
         data['collected'] = 1  # this is in our kodi so it should be collected
         data['watched'] = 1 if data['plays'] > 0 else 0
-        id = data.pop('imdbnumber')
-        data['ids'] = utilities.parseIdToTraktIds(id, type)[0]
+        data['ids'] = data.pop('uniqueid')
         del data['label']
         return data
     else:
@@ -252,13 +246,13 @@ def getEpisodeDetailsFromKodi(libraryId, fields):
         logger.debug("getEpisodeDetailsFromKodi(): Result from Kodi was empty.")
         return None
 
-    show_data = getShowDetailsFromKodi(result['episodedetails']['tvshowid'], ['year', 'imdbnumber'])
+    show_data = getShowDetailsFromKodi(result['episodedetails']['tvshowid'], ['year', 'uniqueid'])
 
     if not show_data:
         logger.debug("getEpisodeDetailsFromKodi(): Result from getShowDetailsFromKodi() was empty.")
         return None
 
-    result['episodedetails']['imdbnumber'] = show_data['imdbnumber']
+    result['episodedetails']['show_ids'] = show_data['uniqueid']
     result['episodedetails']['year'] = show_data['year']
 
     try:

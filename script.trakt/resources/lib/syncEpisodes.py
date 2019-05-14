@@ -71,7 +71,7 @@ class SyncEpisodes:
         self.sync.UpdateProgress(1, line1=kodiUtilities.getString(32094), line2=kodiUtilities.getString(32095))
 
         logger.debug("[Episodes Sync] Getting show data from Kodi")
-        data = kodiUtilities.kodiJsonRequest({'jsonrpc': '2.0', 'method': 'VideoLibrary.GetTVShows', 'params': {'properties': ['title', 'imdbnumber', 'year', 'userrating']}, 'id': 0})
+        data = kodiUtilities.kodiJsonRequest({'jsonrpc': '2.0', 'method': 'VideoLibrary.GetTVShows', 'params': {'properties': ['title', 'uniqueid', 'year', 'userrating']}, 'id': 0})
         if data['limits']['total'] == 0:
             logger.debug("[Episodes Sync] Kodi json request was empty.")
             return None, None
@@ -125,20 +125,20 @@ class SyncEpisodes:
         try:
             traktShowsCollected = {}
             traktShowsCollected = self.sync.traktapi.getShowsCollected(traktShowsCollected)
-            traktShowsCollected = traktShowsCollected.items()
+            traktShowsCollected = list(traktShowsCollected.items())
 
             self.sync.UpdateProgress(12, line2=kodiUtilities.getString(32101))
             traktShowsWatched = {}
             traktShowsWatched = self.sync.traktapi.getShowsWatched(traktShowsWatched)
-            traktShowsWatched = traktShowsWatched.items()
+            traktShowsWatched = list(traktShowsWatched.items())
 
             traktShowsRated = {}
             traktShowsRated = self.sync.traktapi.getShowsRated(traktShowsRated)
-            traktShowsRated = traktShowsRated.items()
+            traktShowsRated = list(traktShowsRated.items())
 
             traktEpisodesRated = {}
             traktEpisodesRated = self.sync.traktapi.getEpisodesRated(traktEpisodesRated)
-            traktEpisodesRated = traktEpisodesRated.items()
+            traktEpisodesRated = list(traktEpisodesRated.items())
 
         except Exception:
             logger.debug("[Episodes Sync] Invalid Trakt.tv show list, possible error getting data from Trakt, aborting Trakt.tv collection/watched/rated update.")
