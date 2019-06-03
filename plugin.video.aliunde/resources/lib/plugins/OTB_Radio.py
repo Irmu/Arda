@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 """
     OTB Radio.py
     Copyright (C) 2018, Team OTB
-    Version 1.0.9
+    Version 1.1.0
+    Jen 2x plugin
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -82,6 +84,10 @@
     <otb_radio>genre/USA5</otb_radio>
     </dir>    
     
+    <dir>
+    <title>OTB Radio Search</title>
+    <otb_radio>search</otb_radio>>
+    </dir>
     
     --------------------------------------------------------------
 
@@ -89,20 +95,25 @@
 
 
 import requests,re,os,xbmc,xbmcaddon
-import koding
+import base64,pickle,koding,time,sqlite3
 from koding import route
 from ..plugin import Plugin
 from resources.lib.util.context import get_context_items
-from resources.lib.util.xml import JenItem, JenList, display_list
+from resources.lib.util.xml import JenItem, JenList, display_list, display_data, clean_url
 from resources.lib.external.airtable.airtable import Airtable
 from unidecode import unidecode
 
-CACHE_TIME = 3600  # change to wanted cache time in seconds
+CACHE_TIME = 86400  # change to wanted cache time in seconds
 
+addon_id = xbmcaddon.Addon().getAddonInfo('id')
 addon_fanart = xbmcaddon.Addon().getAddonInfo('fanart')
 addon_icon = xbmcaddon.Addon().getAddonInfo('icon')
 AddonName = xbmc.getInfoLabel('Container.PluginName')
-AddonName = xbmcaddon.Addon(AddonName).getAddonInfo('id')
+home_folder = xbmc.translatePath('special://home/')
+user_data_folder = os.path.join(home_folder, 'userdata')
+addon_data_folder = os.path.join(user_data_folder, 'addon_data')
+database_path = os.path.join(addon_data_folder, addon_id)
+database_loc = os.path.join(database_path, 'database.db')
 
 
 class OTB_Radio_List(Plugin):
@@ -265,293 +276,320 @@ def display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5):
 
 @route(mode='open_otb_radio')
 def open_movies():
-    pins = ""
     xml = ""
-    at = Airtable('appJh8Kyj5UkERsUT', 'Radio Stations', api_key='keyikW1exArRfNAWj')
-    match = at.get_all(maxRecords=1200, sort=['name'])
-    print "<<<<<<<<<<<<<<<< match >>>>>>>>>>>>>>>>>>>>>"
-    for field in match:
-        print "<<<<<<<<<<<<<<<<<< worked >>>>>>>>>>>>>>"
-        try:
-            res = field['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']  
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)                    
-        except:
-            pass    
-    at2 = Airtable('appkEDsIy1skg0rBH', 'Radio Stations 2', api_key='keyikW1exArRfNAWj')
-    match2 = at2.get_all(maxRecords=1200, sort=['name'])      
-    for field2 in match2:
-        try:
-            res = field2['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
-    at3 = Airtable('appNcFWTkprAJiizT', 'Radio Stations 3', api_key='keyikW1exArRfNAWj')
-    match3 = at3.get_all(maxRecords=1200, sort=['name'])      
-    for field3 in match3:
-        try:
-            res = field3['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
-    at4 = Airtable('appKUY6MYlvQQO51W', 'Radio Stations 4', api_key='keyikW1exArRfNAWj')
-    match4 = at4.get_all(maxRecords=1200, sort=['name'])      
-    for field4 in match4:
-        try:
-            res = field4['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
-    at5 = Airtable('appfWHupyJXhgvaum', 'Radio Stations 5', api_key='keyikW1exArRfNAWj')
-    match5 = at5.get_all(maxRecords=1200, sort=['name'])      
-    for field5 in match5:
-        try:
-            res = field5['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
-    at6 = Airtable('appODokGNYAShltUj', 'Radio Stations 6', api_key='keyikW1exArRfNAWj')
-    match6 = at6.get_all(maxRecords=1200, sort=['name'])      
-    for field6 in match6:
-        try:
-            res = field6['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
-    at7 = Airtable('appFvuCrqLynvzDup', 'Radio Stations 7', api_key='keyikW1exArRfNAWj')
-    match7 = at7.get_all(maxRecords=1200, sort=['name'])      
-    for field7 in match7:
-        try:
-            res = field7['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
+    pins = "PLuginotbradioall"
+    Items = fetch_from_db2(pins)
+    if Items: 
+        display_data(Items) 
+    else:    
+        at = Airtable('appJh8Kyj5UkERsUT', 'Radio Stations', api_key='keyikW1exArRfNAWj')
+        match = at.get_all(maxRecords=1200, sort=['name'])
+        for field in match:
+            try:
+                res = field['fields']   
+                name = res['name']
+                name = remove_non_ascii(name)
+                summary = res['summary']
+                summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
+                thumbnail = res['thumbnail']
+                fanart = res['fanart']
+                link1 = res['link1']
+                link2 = res['link2']
+                link3 = res['link3']
+                link4 = res['link4']  
+                link5 = res['link5']
+                xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)                    
+            except:
+                pass    
+        at2 = Airtable('appkEDsIy1skg0rBH', 'Radio Stations 2', api_key='keyikW1exArRfNAWj')
+        match2 = at2.get_all(maxRecords=1200, sort=['name'])      
+        for field2 in match2:
+            try:
+                res = field2['fields']   
+                name = res['name']
+                name = remove_non_ascii(name)
+                summary = res['summary']
+                summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
+                thumbnail = res['thumbnail']
+                fanart = res['fanart']
+                link1 = res['link1']
+                link2 = res['link2']
+                link3 = res['link3']
+                link4 = res['link4']
+                link5 = res['link5']
+                xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+            except:
+                pass
+        at3 = Airtable('appNcFWTkprAJiizT', 'Radio Stations 3', api_key='keyikW1exArRfNAWj')
+        match3 = at3.get_all(maxRecords=1200, sort=['name'])      
+        for field3 in match3:
+            try:
+                res = field3['fields']   
+                name = res['name']
+                name = remove_non_ascii(name)
+                summary = res['summary']
+                summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
+                thumbnail = res['thumbnail']
+                fanart = res['fanart']
+                link1 = res['link1']
+                link2 = res['link2']
+                link3 = res['link3']
+                link4 = res['link4']
+                link5 = res['link5']
+                xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+            except:
+                pass
+        at4 = Airtable('appKUY6MYlvQQO51W', 'Radio Stations 4', api_key='keyikW1exArRfNAWj')
+        match4 = at4.get_all(maxRecords=1200, sort=['name'])      
+        for field4 in match4:
+            try:
+                res = field4['fields']   
+                name = res['name']
+                name = remove_non_ascii(name)
+                summary = res['summary']
+                summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
+                thumbnail = res['thumbnail']
+                fanart = res['fanart']
+                link1 = res['link1']
+                link2 = res['link2']
+                link3 = res['link3']
+                link4 = res['link4']
+                link5 = res['link5']
+                xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+            except:
+                pass
+        at5 = Airtable('appfWHupyJXhgvaum', 'Radio Stations 5', api_key='keyikW1exArRfNAWj')
+        match5 = at5.get_all(maxRecords=1200, sort=['name'])      
+        for field5 in match5:
+            try:
+                res = field5['fields']   
+                name = res['name']
+                name = remove_non_ascii(name)
+                summary = res['summary']
+                summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
+                thumbnail = res['thumbnail']
+                fanart = res['fanart']
+                link1 = res['link1']
+                link2 = res['link2']
+                link3 = res['link3']
+                link4 = res['link4']
+                link5 = res['link5']
+                xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+            except:
+                pass
+        at6 = Airtable('appODokGNYAShltUj', 'Radio Stations 6', api_key='keyikW1exArRfNAWj')
+        match6 = at6.get_all(maxRecords=1200, sort=['name'])      
+        for field6 in match6:
+            try:
+                res = field6['fields']   
+                name = res['name']
+                name = remove_non_ascii(name)
+                summary = res['summary']
+                summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
+                thumbnail = res['thumbnail']
+                fanart = res['fanart']
+                link1 = res['link1']
+                link2 = res['link2']
+                link3 = res['link3']
+                link4 = res['link4']
+                link5 = res['link5']
+                xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+            except:
+                pass
+        at7 = Airtable('appFvuCrqLynvzDup', 'Radio Stations 7', api_key='keyikW1exArRfNAWj')
+        match7 = at7.get_all(maxRecords=1200, sort=['name'])      
+        for field7 in match7:
+            try:
+                res = field7['fields']   
+                name = res['name']
+                name = remove_non_ascii(name)
+                summary = res['summary']
+                summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
+                thumbnail = res['thumbnail']
+                fanart = res['fanart']
+                link1 = res['link1']
+                link2 = res['link2']
+                link3 = res['link3']
+                link4 = res['link4']
+                link5 = res['link5']
+                xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+            except:
+                pass
     jenlist = JenList(xml)
     display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 @route(mode='open_otb_radio2',args=["url"])
 def open_action_movies(url):
-    pins = ""
     xml = ""
-    genre = url.split("/")[-1]
-    at = Airtable('appJh8Kyj5UkERsUT', 'Radio Stations', api_key='keyikW1exArRfNAWj')
-    try:
-        match = at.search('type', genre, sort=['name'])
-        for field in match:
-            res = field['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)                   
-    except:
-        pass 
-    at2 = Airtable('appkEDsIy1skg0rBH', 'Radio Stations 2', api_key='keyikW1exArRfNAWj')
-    try:
-        match2 = at2.search('type', genre, sort=['name'])
-        for field2 in match2:
-            res = field2['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)                  
-    except:
-        pass
-    at3 = Airtable('appNcFWTkprAJiizT', 'Radio Stations 3', api_key='keyikW1exArRfNAWj')
-    match3 = at3.search('type', genre, sort=['name'])      
-    for field3 in match3:
-        try:
-            res = field3['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
-    at4 = Airtable('appKUY6MYlvQQO51W', 'Radio Stations 4', api_key='keyikW1exArRfNAWj')
-    match4 = at4.search('type', genre, sort=['name'])     
-    for field4 in match4:
-        try:
-            res = field4['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
-    at5 = Airtable('appfWHupyJXhgvaum', 'Radio Stations 5', api_key='keyikW1exArRfNAWj')
-    match5 = at5.search('type', genre, sort=['name'])     
-    for field5 in match5:
-        try:
-            res = field5['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
-    at6 = Airtable('appODokGNYAShltUj', 'Radio Stations 6', api_key='keyikW1exArRfNAWj')
-    match6 = at6.search('type', genre, sort=['name'])     
-    for field6 in match6:
-        try:
-            res = field6['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
-    at7 = Airtable('appFvuCrqLynvzDup', 'Radio Stations 7', api_key='keyikW1exArRfNAWj')
-    match7 = at7.search('type', genre, sort=['name'])     
-    for field7 in match7:
-        try:
-            res = field7['fields']   
-            name = res['name']
-            name = remove_non_ascii(name)
-            summary = res['summary']
-            summary = remove_non_ascii(summary)
-            thumbnail = res['thumbnail']
-            fanart = res['fanart']
-            link1 = res['link1']
-            link2 = res['link2']
-            link3 = res['link3']
-            link4 = res['link4']
-            link5 = res['link5']
-            xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
-        except:
-            pass
+    genre = url.split("/")[-1]                                            
+    pins = "PLuginotbradio"+str(genre)
+    Items = fetch_from_db2(pins)
+    if Items: 
+        display_data(Items) 
+    else:
+        if genre == "UK1":     
+            at = Airtable('appJh8Kyj5UkERsUT', 'Radio Stations', api_key='keyikW1exArRfNAWj')
+            try:
+                match = at.search('type', genre, sort=['name'])
+                for field in match:
+                    res = field['fields']   
+                    name = res['name']
+                    name = remove_non_ascii(name)
+                    summary = res['summary']
+                    summary = remove_non_ascii(summary)
+                    summary = clean_summary(summary)
+                    thumbnail = res['thumbnail']
+                    fanart = res['fanart']
+                    link1 = res['link1']
+                    link2 = res['link2']
+                    link3 = res['link3']
+                    link4 = res['link4']
+                    link5 = res['link5']
+                    xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)                   
+            except:
+                pass
+        elif genre == "UK2":       
+            at2 = Airtable('appkEDsIy1skg0rBH', 'Radio Stations 2', api_key='keyikW1exArRfNAWj')
+            try:
+                match2 = at2.search('type', genre, sort=['name'])
+                for field2 in match2:
+                    res = field2['fields']   
+                    name = res['name']
+                    name = remove_non_ascii(name)
+                    summary = res['summary']
+                    summary = remove_non_ascii(summary)
+                    summary = clean_summary(summary)
+                    thumbnail = res['thumbnail']
+                    fanart = res['fanart']
+                    link1 = res['link1']
+                    link2 = res['link2']
+                    link3 = res['link3']
+                    link4 = res['link4']
+                    link5 = res['link5']
+                    xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)                  
+            except:
+                pass
+        elif genre == "USA1":        
+            at3 = Airtable('appNcFWTkprAJiizT', 'Radio Stations 3', api_key='keyikW1exArRfNAWj')
+            match3 = at3.search('type', genre, sort=['name'])      
+            for field3 in match3:
+                try:
+                    res = field3['fields']   
+                    name = res['name']
+                    name = remove_non_ascii(name)
+                    summary = res['summary']
+                    summary = remove_non_ascii(summary)
+                    summary = clean_summary(summary)
+                    thumbnail = res['thumbnail']
+                    fanart = res['fanart']
+                    link1 = res['link1']
+                    link2 = res['link2']
+                    link3 = res['link3']
+                    link4 = res['link4']
+                    link5 = res['link5']
+                    xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+                except:
+                    pass
+        elif genre == "USA2":            
+            at4 = Airtable('appKUY6MYlvQQO51W', 'Radio Stations 4', api_key='keyikW1exArRfNAWj')
+            match4 = at4.search('type', genre, sort=['name'])     
+            for field4 in match4:
+                try:
+                    res = field4['fields']   
+                    name = res['name']
+                    name = remove_non_ascii(name)
+                    summary = res['summary']
+                    summary = remove_non_ascii(summary)
+                    summary = clean_summary(summary)
+                    thumbnail = res['thumbnail']
+                    fanart = res['fanart']
+                    link1 = res['link1']
+                    link2 = res['link2']
+                    link3 = res['link3']
+                    link4 = res['link4']
+                    link5 = res['link5']
+                    xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+                except:
+                    pass
+        elif genre == "USA3":            
+            at5 = Airtable('appfWHupyJXhgvaum', 'Radio Stations 5', api_key='keyikW1exArRfNAWj')
+            match5 = at5.search('type', genre, sort=['name'])     
+            for field5 in match5:
+                try:
+                    res = field5['fields']   
+                    name = res['name']
+                    name = remove_non_ascii(name)
+                    summary = res['summary']
+                    summary = remove_non_ascii(summary)
+                    summary = clean_summary(summary)
+                    thumbnail = res['thumbnail']
+                    fanart = res['fanart']
+                    link1 = res['link1']
+                    link2 = res['link2']
+                    link3 = res['link3']
+                    link4 = res['link4']
+                    link5 = res['link5']
+                    xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+                except:
+                    pass
+        elif genre == "USA4":            
+            at6 = Airtable('appODokGNYAShltUj', 'Radio Stations 6', api_key='keyikW1exArRfNAWj')
+            match6 = at6.search('type', genre, sort=['name'])     
+            for field6 in match6:
+                try:
+                    res = field6['fields']   
+                    name = res['name']
+                    name = remove_non_ascii(name)
+                    summary = res['summary']
+                    summary = remove_non_ascii(summary)
+                    summary = clean_summary(summary)
+                    thumbnail = res['thumbnail']
+                    fanart = res['fanart']
+                    link1 = res['link1']
+                    link2 = res['link2']
+                    link3 = res['link3']
+                    link4 = res['link4']
+                    link5 = res['link5']
+                    xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+                except:
+                    pass
+        elif genre == "USA5":            
+            at7 = Airtable('appFvuCrqLynvzDup', 'Radio Stations 7', api_key='keyikW1exArRfNAWj')
+            match7 = at7.search('type', genre, sort=['name'])     
+            for field7 in match7:
+                try:
+                    res = field7['fields']   
+                    name = res['name']
+                    name = remove_non_ascii(name)
+                    summary = res['summary']
+                    summary = remove_non_ascii(summary)
+                    summary = clean_summary(summary)
+                    thumbnail = res['thumbnail']
+                    fanart = res['fanart']
+                    link1 = res['link1']
+                    link2 = res['link2']
+                    link3 = res['link3']
+                    link4 = res['link4']
+                    link5 = res['link5']
+                    xml += display_xml(name,summary,thumbnail,fanart,link1,link2,link3,link4,link5)      
+                except:
+                    pass
     jenlist = JenList(xml)
     display_list(jenlist.get_list(), jenlist.get_content_type(), pins)
 
 
 @route(mode='open_otb_radio_search')
 def open_bml_search():
-    pins = ""
     xml = ""
-    show = koding.Keyboard(heading='Movie Name')
+    pins = ""
+    show = koding.Keyboard(heading='Station Name or Number')
     movie_list = []
     at = Airtable('appJh8Kyj5UkERsUT', 'Radio Stations', api_key='keyikW1exArRfNAWj')
     match = at.get_all(maxRecords=1200, sort=['name'])
@@ -599,10 +637,10 @@ def open_bml_search():
     if not search_result:
         xbmc.log("--------no results--------",level=xbmc.LOGNOTICE)
         xml += "<item>"\
-            "<title>[COLOR=orange][B]Movie was not found[/B][/COLOR]</title>"\
+            "<title>[COLOR=orange][B]Station was not found[/B][/COLOR]</title>"\
             "</item>"
         jenlist = JenList(xml)
-        display_list(jenlist.get_list(), jenlist.get_content_type())    
+        display_list(jenlist.get_list(), jenlist.get_content_type(), pins)    
     for item in search_result:
         item2 = str(item)
         item2 = remove_non_ascii(item2)           
@@ -616,6 +654,7 @@ def open_bml_search():
                 thumbnail = res2['thumbnail']
                 summary = res2['summary']
                 summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
                 link1 = res2['link1']
                 link2 = res2['link2']
                 link3 = res2['link3']
@@ -634,6 +673,7 @@ def open_bml_search():
                 thumbnail = res2['thumbnail']
                 summary = res2['summary']
                 summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
                 link1 = res2['link1']
                 link2 = res2['link2']
                 link3 = res2['link3']
@@ -652,6 +692,7 @@ def open_bml_search():
                 thumbnail = res2['thumbnail']
                 summary = res2['summary']
                 summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
                 link1 = res2['link1']
                 link2 = res2['link2']
                 link3 = res2['link3']
@@ -670,6 +711,7 @@ def open_bml_search():
                 thumbnail = res2['thumbnail']
                 summary = res2['summary']
                 summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
                 link1 = res2['link1']
                 link2 = res2['link2']
                 link3 = res2['link3']
@@ -688,6 +730,7 @@ def open_bml_search():
                 thumbnail = res2['thumbnail']
                 summary = res2['summary']
                 summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
                 link1 = res2['link1']
                 link2 = res2['link2']
                 link3 = res2['link3']
@@ -706,6 +749,7 @@ def open_bml_search():
                 thumbnail = res2['thumbnail']
                 summary = res2['summary']
                 summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
                 link1 = res2['link1']
                 link2 = res2['link2']
                 link3 = res2['link3']
@@ -724,6 +768,7 @@ def open_bml_search():
                 thumbnail = res2['thumbnail']
                 summary = res2['summary']
                 summary = remove_non_ascii(summary)
+                summary = clean_summary(summary)
                 link1 = res2['link1']
                 link2 = res2['link2']
                 link3 = res2['link3']
@@ -734,8 +779,46 @@ def open_bml_search():
             pass
     jenlist = JenList(xml)
     display_list(jenlist.get_list(), jenlist.get_content_type(), pins)        
-               
+ 
+def fetch_from_db2(url):
+    koding.reset_db()
+    url2 = clean_url(url)
+    match = koding.Get_All_From_Table(url2)
+    if match:
+        match = match[0]
+        if not match["value"]:
+            return None   
+        match_item = match["value"]
+        try:
+                result = pickle.loads(base64.b64decode(match_item))
+        except:
+                return None
+        created_time = match["created"]
+        print created_time + "created"
+        print time.time() 
+        print CACHE_TIME
+        test_time = float(created_time) + CACHE_TIME 
+        print test_time
+        if float(created_time) + CACHE_TIME <= time.time():
+            koding.Remove_Table(url2)
+            db = sqlite3.connect('%s' % (database_loc))        
+            cursor = db.cursor()
+            db.execute("vacuum")
+            db.commit()
+            db.close()
+            display_list2(result, "video", url2)
+        else:
+            pass                     
+        return result
+    else:
+        return []               
 
 def remove_non_ascii(text):
     return unidecode(text)
         
+def clean_summary(title):
+    title = re.sub('&#(\d+);', '', title)
+    title = re.sub('(&#[0-9]+)([^;^0-9]+)', '\\1;\\2', title)
+    title = title.replace('&quot;', '\"').replace('&amp;', '&')
+    #title = re.sub('\\\|/|\(|\)|\[|\]|\{|\}|-|:|;|\*|\?|"|\'|<|>|\_|\.|\?', ' ', title)
+    return title

@@ -55,7 +55,7 @@
 
 <addon
   id="inputstream.adaptive"
-  version="2.3.16"
+  version="2.3.19"
   name="InputStream Adaptive"
   provider-name="peak3d">
   <requires>
@@ -76,6 +76,13 @@
     <description lang="en">InputStream client for adaptive streams</description>
     <platform>windows-i686</platform>
 	<news>
+v2.3.18 (2019-05-11)
+- align settings with internal resolution check
+- [HLS] support single playlists
+
+v2.3.17 (2019-04-16)
+- Fix KID's with 0 char inside
+
 v2.3.16 (2019-03-25)
 - TTML parser fix
 - [HLS] Add HEVC streams / Fix extra_data_size in ts parser
@@ -703,7 +710,7 @@ v2.3.14 (2019-02-10)
 
 </addon>
 
-<addon id="plugin.video.aliunde" name="[COLOR aqua]Aliunde[/COLOR]" version="0.4.97" provider-name="Aliunde">
+<addon id="plugin.video.aliunde" name="[COLOR aqua]Aliunde[/COLOR]" version="0.4.98" provider-name="Aliunde">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.universalscrapers" version="1.0.0" />
@@ -819,6 +826,35 @@ version="6.0.0~alpha6" />
         <website></website>
         <video_guide></video_guide>
     </extension>
+</addon>
+
+<addon id="plugin.video.destiny"
+	   name="Destiny"
+	   version="1.2.7"
+	   provider-name="Dark Child">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.requests"/>
+	<import addon="script.module.python.koding.aio" version="0.9.6.6" />
+	<import addon="script.module.resolveurl" version="5.0.00"/>
+	<import addon="script.common.plugin.cache" version="2.5.5"/>
+	<import addon="script.module.pyxbmct" version="1.1.4" />
+	<import addon="script.module.futures" version="2.2.0"/>
+	<import addon="script.module.universalscrapers"/>
+	<import addon="script.module.beautifulsoup4" version="4.5.3"/>
+	<import addon="script.module.feedparser" />
+	<import addon="script.module.dateutil" />
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+            library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="startup" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="he">The Moment You've All Been Waiting For... is FINALLY HERE </summary>
+    <description lang="he">Finally destiny is here, a new and revolutionary way to enjoy kodi.</description>
+    <platform>all</platform>
+  </extension>
 </addon>
 
 <addon id="plugin.video.f4mTester" name="f4mTester" version="2.7.2" provider-name="Shani">
@@ -1483,7 +1519,7 @@ v3.0.5
   </extension>
 </addon>
 
-    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.78" provider-name="Aliunde">
+    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.80" provider-name="Aliunde">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2164,6 +2200,67 @@ v3.0.5
   </extension>
 </addon>
 
+<addon id="script.module.inputstreamhelper"
+       version="0.3.4"
+       name="InputStream Helper"
+       provider-name="emilsvennesson">
+    <requires>
+        <import addon="xbmc.python" version="2.25.0"/>
+        <import addon="script.module.kodi-six" version="0.0.2"/>
+        <import addon="script.module.requests" version="2.9.1"/>
+    </requires>
+    <extension library="lib" point="xbmc.python.module"/>
+    <extension point="xbmc.addon.metadata">
+        <description lang="en_GB">A simple Kodi module that makes life easier for add-on developers relying on InputStream based add-ons and DRM playback.</description>
+        <description lang="el_GR">Μία απλή μονάδα για το Kodi η οποία διευκολύνει την ζωή των προγραμματιστών οι οποίοι εξαρτώνται από τα πρόσθετσ InputStream και αναπαραγωγή τύπου DRM.</description>
+        <news>2019.03.23 v0.3.4
+        + python2_3 compability (mediaminister, Rechi)
+        + Option to disable inputstreamhelper in settings.xml
+        + calculate disk space on the tmp folder (dawez)
+        + Support for Unicode paths in Windows (WallyCZ)
+        + Italian translation (pinoelefante)
+        + Dutch translation (dnicolaas)
+        + Greek translation (Twilight0)
+        + Russian translation (vlmaksime)
+    </news>
+        <platform>all</platform>
+        <license>MIT License</license>
+        <source>https://github.com/emilsvennesson/script.module.inputstreamhelper</source>
+        <assets>
+            <icon>resources/icon.png</icon>
+        </assets>
+    </extension>
+</addon>
+
+<addon id="script.module.requests"
+       name="requests"
+       version="2.22.0"
+       provider-name="kennethreitz">
+  <requires>
+    <import addon="xbmc.python" version="2.25.0"/>
+    <import addon="script.module.urllib3" version="1.22"/>
+    <import addon="script.module.chardet" version="3.0.4"/>
+    <import addon="script.module.idna" version="2.6"/>
+    <import addon="script.module.certifi" version="2017.07.27.1"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Python HTTP for Humans</summary>
+    <description lang="en_GB">Packed for KODI from https://pypi.org/project/requests/</description>
+    <platform>all</platform>
+    <language></language>
+    <license>Apache2</license>
+    <forum></forum>
+    <website>http://python-requests.org</website>
+    <source>https://github.com/Freso/script.module.requests</source>
+    <email>freso.dk AT gmail.com</email>
+    <assets>
+      <icon>resources/icon.png</icon>
+    </assets>
+  </extension>
+</addon>
+
 <addon id="script.module.resolveurl" name="ResolveURL" version="5.0.31" provider-name="jsergio">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
@@ -2369,7 +2466,7 @@ v3.0.5
   </extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="5.0.34" provider-name="tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="5.0.36" provider-name="tvaddons">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
