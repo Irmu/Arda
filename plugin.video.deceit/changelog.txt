@@ -1,3 +1,6 @@
+v1.2.2
+- Toons & Anime Fixed (Credit Maud'Dib)
+
 v1.2.1
 - Sports League Py Updated (Credit TV Hangouts Group)
 

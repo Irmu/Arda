@@ -55,7 +55,7 @@
 
 <addon
   id="inputstream.adaptive"
-  version="2.3.19"
+  version="2.3.21"
   name="InputStream Adaptive"
   provider-name="peak3d">
   <requires>
@@ -76,6 +76,18 @@
     <description lang="en">InputStream client for adaptive streams</description>
     <platform>windows-i686</platform>
 	<news>
+v2.3.21 (2019-06-07)
+- [DASH] initialize segment::range_begin_ for URL segments (youtube)
+
+v2.3.20 (2019-06-07)
+- Fix parsing PR ContentProtection KID
+
+v2.3.19 (2019-06-02)
+- [widevine] remove API 8 / Add API 11
+- [TS] Signal configuration change if extra-data has changed
+- [DASH] Use PlayReady WRMHEADER to retrieve DefaultKID
+- [DASH] Allow URL_SEGMENTS + Range-Bytes
+
 v2.3.18 (2019-05-11)
 - align settings with internal resolution check
 - [HLS] support single playlists
@@ -795,7 +807,7 @@ v2.3.14 (2019-02-10)
 	</extension>
 </addon>
 
-<addon id="plugin.video.deceit" name="Deceit" version="1.2.1" provider-name="Collusion/OneNation">
+<addon id="plugin.video.deceit" name="Deceit" version="1.2.2" provider-name="Collusion/OneNation">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.universalscrapers" version="1.0.0" />
@@ -1307,7 +1319,7 @@ v3.0.5
 	</extension>
 </addon>
 
-<addon id="plugin.video.sport365.live" name="Sport365" version="2.6.0" provider-name="Bugatsinho">
+<addon id="plugin.video.sport365.live" name="Sport365" version="2.6.1" provider-name="Bugatsinho">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.19.1"/>
@@ -1331,10 +1343,8 @@ v3.0.5
     <icon>icon.png</icon>
     <fanart>fanart.png</fanart>
   </assets>
-  <news>2.6.0 17-05-2019
-- Add as default playback method Streamlink thanks to Twilight and Devilsport
-- Add News-Updates on menu
-- Show version and by click it you force update addons!</news>
+  <news>2.6.1 07-06-2019
+- Fix links resolver</news>
   </extension>
 </addon>
 
@@ -2232,6 +2242,43 @@ v3.0.5
     </extension>
 </addon>
 
+<addon id="script.module.kodi-six"
+       name="Kodi Six"
+       version="0.1.0"
+       provider-name="Roman V.M.">
+  <requires>
+    <import addon="xbmc.python" version="2.26.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="libs" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Wrappers around Kodi Python API for seamless Python 2/3 compatibility</summary>
+    <description lang="en_GB">Wrappers around Kodi Python API that normalize handling of textual and byte strings in Python 2 and 3.</description>
+    <platform>all</platform>
+    <license>GPL v.3</license>
+    <forum>https://forum.kodi.tv/showthread.php?tid=327883</forum>
+    <source>https://github.com/romanvm/kodi.six</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+    <news>0.1.0:
+- Implemented lazy patching of Kodi API functions and classes.
+0.0.3:
+- Added xbmcdrm module.</news>
+  </extension>
+</addon>
+
+<addon id="script.module.overeasy" name="Overeasy Module" version="2.7.1" provider-name="Eggman">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">Overeasy</summary>
+	<reuselanguageinvoker>false</reuselanguageinvoker>
+	</extension>
+</addon>
+
 <addon id="script.module.requests"
        name="requests"
        version="2.22.0"
@@ -2279,6 +2326,27 @@ v3.0.5
 		<description lang="en">Resolve common video host URL's to be playable in XBMC/Kodi, simplify addon development of video plugins requiring multi video hosts.</description>
 		<description lang="hr">Prilagodi najčešće URL-ove video izvora kako bi radili u XBMC/Kodiju, pojednostavnjuje razvoj priključaka za video dodatke koji zahtjevaju višestruke video izvore.</description>
 	</extension>
+</addon>
+
+<addon id="script.module.simplejson"
+       name="simplejson"
+       version="3.16.1"
+       provider-name="Bob Ippolito">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language></language>
+    <summary lang="en">Simple, fast, extensible JSON encoder/decoder for Python</summary>
+    <description lang="en">Simple, fast, extensible JSON encoder/decoder for Python</description>
+    <disclaimer lang="en">Code taken from https://pypi.org/project/simplejson/</disclaimer>
+    <license>MIT License, Academic Free License v. 2.1</license>
+    <website>https://pypi.org/project/simplejson/</website>
+    <source>https://github.com/simplejson/simplejson</source>
+  </extension>
 </addon>
 
 <addon id="script.module.streamlink.base" name="Streamlink Library" version="2019.05.08" provider-name="Streamlink Devs, Twilight0">
@@ -2443,7 +2511,7 @@ v3.0.5
 
 <addon id="script.module.urllib3"
        name="urllib3"
-       version="1.25.2"
+       version="1.25.3"
        provider-name="shazow">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
