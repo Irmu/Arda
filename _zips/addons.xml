@@ -2190,6 +2190,19 @@ v3.0.5
     </extension>
 </addon>
 
+<addon id="script.module.cryptolib" name="Crypto Libraries" version="1.0.0" provider-name="Twilight0">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary>Pure Python implementation of some cryptographic libraries</summary>
+    <source>https://github.com/Twilight0/script.module.cryptolib</source>
+    <platform>all</platform>
+    <license>MIT</license>
+  </extension>
+</addon>
+
 <addon id="script.module.html5lib"
        name="html5lib-python"
        version="0.999.0"
