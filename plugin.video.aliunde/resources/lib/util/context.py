@@ -55,24 +55,28 @@ def get_context_items(item):
     # information
     context.append((xbmcaddon.Addon().getLocalizedString(30708),
                     "XBMC.Action(Info)"))
-
+    context.append(('Clear Main and Refresh', 'RunPlugin(plugin://plugin.video.aliunde/?mode=refresh_main&quot;,return)'))
     # view modes
     if content == "movie":
         context.append((_("Set Movie View"),
                         "RunPlugin({0})".format(
-                            get_addon_url("save_view_mode", "movies"))))
+                            get_addon_url("save_view_mode", "movies")))),
+
     elif content == "tvshow":
         context.append((_("Set TV Show View"),
                         "RunPlugin({0})".format(
-                            get_addon_url("save_view_mode", "tvshows"))))
+                            get_addon_url("save_view_mode", "tvshows")))),       
+
     elif content == "season":
         context.append((_("Set Season View"),
                         "RunPlugin({0})".format(
-                            get_addon_url("save_view_mode", "seasons"))))
+                            get_addon_url("save_view_mode", "seasons")))),   
+
     elif content == "episode":
         context.append((_("Set Episode View"),
                         "RunPlugin({0})".format(
-                            get_addon_url("save_view_mode", "episodes"))))
+                            get_addon_url("save_view_mode", "episodes")))),        
+
     else:
         context.append((_("Set View"),
                         "RunPlugin({0})".format(

@@ -191,6 +191,24 @@ def handle_login():
         display_menu = False
     return display_menu
 
+@route('clear_main')
+def Clear_Main():
+            res = koding.Get_All_From_Table("Table_names")
+            for results in res:
+                table_nm = results['name']
+                print table_nm
+                koding.Remove_Table(table_nm)
+            db = sqlite3.connect('%s' % (database_loc))        
+            cursor = db.cursor()
+            db.execute("vacuum")
+            db.commit()
+            db.close()
+
+@route('refresh_main')
+def Refresh_Main():
+            Clear_Main()
+            koding.Refresh(r_mode=['skin'])
+            xbmcgui.Dialog().notification('[COLOR aqua]Aliunde Refresh Main[/COLOR]', '[COLOR aqua]Completed[/COLOR]',xbmcaddon.Addon().getAddonInfo("icon"), 4000)
 
 @route(mode='get_list_uncached', args=["url"])
 def get_list_uncached(url):
