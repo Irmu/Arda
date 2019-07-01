@@ -1048,7 +1048,7 @@ Initial Release
     </extension>
 </addon>
 
-<addon id="plugin.video.metallik" name="[COLOR ff0084ff]M[/COLOR]etalliK" version="1.0.6" provider-name="KoDIY Help">
+<addon id="plugin.video.metallik" name="[COLOR ff0084ff]M[/COLOR]etalliK" version="1.0.7" provider-name="KoDIY Help">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="script.module.requests" version="2.9.1"/>
@@ -1666,7 +1666,7 @@ v3.0.5
         </extension>
     </addon>
 
-    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="8.0" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
+    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="8.2" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>

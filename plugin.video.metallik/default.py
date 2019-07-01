@@ -233,7 +233,7 @@ def update_library():
         try:
             set_property("updating_library", int(now))
             meta.library.tvshows.update_library()
-#            meta.library.movies.update_library()
+            meta.library.movies.update_library()
             meta.library.music.update_library()
         finally: clear_property("updating_library")
     else: clear_property("updating_library")
@@ -357,7 +357,7 @@ def settings_set_default_channeler(media):
     channelers = active_channelers(media)
     channelers.insert(0, ADDON_PICKER)
     media = media.replace('es','e').replace('ws','w').replace('all','').replace('os','o').replace('vs','v s')
-    selection = dialogs.select("{0}".format(_("Select %s") % "{0} {1}".format(_("Default").lower(), _("Player").lower())), [p.title for p in channelers])
+    selection = dialogs.select("{0}".format(_("Select {0}").format("{0} {1}".format(_("Default").lower(), _("Player").lower()))), [p.title for p in channelers])
     if selection >= 0:
         selected = channelers[selection].id
         if media == "movies":
@@ -377,7 +377,7 @@ def settings_set_default_channeler(media):
 def settings_set_default_player(media):
     players = active_players(media)
     players.insert(0, ADDON_SELECTOR)
-    selection = dialogs.select("{0}".format(_("Select %s") % "{0} {1}".format(_("Default").lower(), _("Player").lower())), [p.title for p in players])
+    selection = dialogs.select("{0}".format(_("Select {0}").format("{0} {1}".format(_("Default").lower(), _("Player").lower()))), [p.title for p in players])
     if selection >= 0:
         selected = players[selection].id
         if media == "movies":
@@ -398,7 +398,7 @@ def settings_set_default_player(media):
 def settings_set_default_player_fromlib(media):
     players = active_players(media)
     players.insert(0, ADDON_SELECTOR)
-    selection = dialogs.select("{0}".format(_("Select %s") % "{0} {1}".format(_("Library").lower(), _("Player").lower())), [p.title for p in players])
+    selection = dialogs.select("{0}".format(_("Select {0}").format("{0} {1}".format(_("Library").lower(), _("Player").lower()))), [p.title for p in players])
     if selection >= 0:
         selected = players[selection].id
         if media == "movies":
@@ -419,7 +419,7 @@ def settings_set_default_player_fromlib(media):
 def settings_set_default_player_fromcontext(media):
     players = active_players(media)
     players.insert(0, ADDON_SELECTOR)
-    selection = dialogs.select("{0}".format(_("Select %s") % "{0} {1}".format("context", _("Player").lower())), [p.title for p in players])
+    selection = dialogs.select("{0}".format(_("Select {0}").format("{0} {1}".format("context", _("Player").lower()))), [p.title for p in players])
     if selection >= 0:
         selected = players[selection].id
         if media == "movies":
