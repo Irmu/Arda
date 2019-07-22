@@ -102,7 +102,7 @@ def MainMenu():  # homescreen
     
     control.content(int(sys.argv[1]), 'addons')
     control.directory(int(sys.argv[1]))
-    view.setView('addons', {})
+    view.setView('addons', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def downloads_root():
@@ -125,7 +125,7 @@ def downloads_root():
 
     control.content(int(sys.argv[1]), 'videos')
     control.directory(int(sys.argv[1]))
-    view.setView('addons', {})
+    view.setView('addons', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def Categories(section):  # categories
@@ -162,7 +162,7 @@ def Categories(section):  # categories
     
     control.content(int(sys.argv[1]), 'addons')
     control.directory(int(sys.argv[1]))
-    view.setView('addons', {})
+    view.setView('addons', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def recommended_movies(url):
@@ -200,7 +200,7 @@ def recommended_movies(url):
 
     control.content(int(sys.argv[1]), 'movies')
     control.directory(int(sys.argv[1]))
-    view.setView('movies', {})
+    view.setView('movies', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def GetTitles(section, url, startPage='1', numOfPages='1'):  # Get Movie Titles
@@ -262,7 +262,7 @@ def GetTitles(section, url, startPage='1', numOfPages='1'):  # Get Movie Titles
     
     control.content(int(sys.argv[1]), 'movies')
     control.directory(int(sys.argv[1]))
-    view.setView('movies', {})
+    view.setView('movies', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def GetPack(section, url, img, plot): # TV packs links
@@ -293,7 +293,7 @@ def GetPack(section, url, img, plot): # TV packs links
             NAME, ICON, 5000)
     control.content(int(sys.argv[1]), 'videos')
     control.directory(int(sys.argv[1]))
-    view.setView('videos', {})
+    view.setView('videos', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def GetLinksPack(section, url, img, plot):
@@ -350,7 +350,7 @@ def GetLinksPack(section, url, img, plot):
 
     control.content(int(sys.argv[1]), 'videos')
     control.directory(int(sys.argv[1]))
-    view.setView('videos', {})
+    view.setView('videos', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def GetLinks(section, url, img, plot):  # Get Links
@@ -465,7 +465,7 @@ def GetLinks(section, url, img, plot):  # Get Links
     
     control.content(int(sys.argv[1]), 'videos')
     control.directory(int(sys.argv[1]))
-    view.setView('videos', {})
+    view.setView('videos', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def cloudflare_mode(url):
@@ -709,7 +709,7 @@ def search_menu():
 
     control.content(int(sys.argv[1]), 'videos')
     control.directory(int(sys.argv[1]))
-    view.setView('videos', {})
+    view.setView('videos', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def clear_Title(txt):

@@ -93,11 +93,11 @@ msgid "CLICK HERE TO SAVE VIEW"
 msgstr ""
 
 msgctxt "#32021"
-msgid "'Triggered a request for addon updates'"
+msgid "Triggered a request for addon updates"
 msgstr ""
 
 msgctxt "#32022"
-msgid "[COLOR red][B]Sorry there was a problem![/B][/COLOR]\n[COLOR lime][B]Please try again!![/B][/COLOR]
+msgid "[COLOR red][B]Sorry there was a problem![/B][/COLOR]\n[COLOR lime][B]Please try again!![/B][/COLOR]"
 msgstr ""
 
 msgctxt "#32023"

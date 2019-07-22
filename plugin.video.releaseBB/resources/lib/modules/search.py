@@ -236,7 +236,7 @@ def Search_bb(url):
 
     control.content(int(sys.argv[1]), 'videos')
     control.directory(int(sys.argv[1]))
-    view.setView('videos', {'skin.estuary': 55, 'skin.confluence': 500, 'skin.xonfluence': 500})
+    view.setView('videos', {'skin.estuary': 55, 'skin.confluence': 500})
 
 
 def del_search(query):

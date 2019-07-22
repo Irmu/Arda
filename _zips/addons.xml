@@ -1270,7 +1270,7 @@ v3.0.5
 	</extension>
 </addon>
 
-<addon id="plugin.video.releaseBB" version="1.8.1.1" name="Release[COLOR orange][B]BB[/B][/COLOR]" provider-name="Bugatsinho">
+<addon id="plugin.video.releaseBB" version="1.8.2" name="Release[COLOR orange][B]BB[/B][/COLOR]" provider-name="Bugatsinho">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.t0mm0.common" version="2.1.1"/>
@@ -1289,13 +1289,14 @@ v3.0.5
       [COLOR gold][B][I]YOU can find FREE links also!!![/B][/I][/COLOR]
       CREDITS to @MrEntertainRepo original dev of the add-on</description>
     <platform>all</platform>
-    <disclaimer lang="en">All the movies on this αδδ-ον are hosted on the third party sites and uploaded by other people. We are not responsible for any content that hosted on on the third-party sites. If you have any legal issues please contact appropriate video owners hosters.</disclaimer>
+    <disclaimer lang="en">All the movies on this add-on are hosted on the third party sites and uploaded by other people. We are not responsible for any content that hosted on on the third-party sites. If you have any legal issues please contact appropriate video owners hosters.</disclaimer>
     <website>https://bugatsinho.github.io/</website>
     <twitter>https://twitter.com/bugatsinho</twitter>
     <repo>https://bugatsinho.github.io/repo/</repo>
     <email>bugatsinho@protonmail.com</email>
-    <news>+ [B][COLOR lime]1.8.1[/B][/COLOR] [COLOR gold](12-07-2019)[/COLOR]
-- Fix View Mode by removing any default mode for skins
+    <news>+ [B][COLOR lime]1.8.2[/B][/COLOR] [COLOR gold](21-07-2019)[/COLOR]
+- Update cfscrape.py
+- Fix search function
 - For support join https://bit.ly/bug_telegram or https://bugatsinho.github.io</news>
     <assets>
         <icon>icon.png</icon>
@@ -2994,5 +2995,20 @@ v5.2.14 (2017-01-23)
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
+</addon>
+
+<addon id="xbmc.python" version="2.26.0" provider-name="Team Kodi">
+  <backwards-compatibility abi="2.1.0"/>
+  <requires>
+    <import addon="xbmc.core" version="0.1.0"/>
+  </requires>
+  <extension-point id="script" schema="script.xsd"/>
+  <extension-point id="subtitles" schema="script.xsd"/>
+  <extension-point id="lyrics" schema="script.xsd"/>
+  <extension-point id="weather" schema="script.xsd"/>
+  <extension-point id="library" schema="script.xsd"/>
+  <extension-point id="screensaver" schema="script.xsd"/>
+  <extension-point id="plugin" schema="pluginsource.xsd"/>
+  <extension-point id="context.item" schema="contextitem.xsd"/>
 </addon>
 </addons>
