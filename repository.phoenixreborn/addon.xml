@@ -5,7 +5,7 @@
 <addon 
   id="repository.phoenixreborn" 
   name="[COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]" 
-  version="1.5.0" 
+  version="1.6.6" 
   provider-name="Kodi Phoenix Reborn">
 	<extension point="xbmc.addon.repository" 
     name="[COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]">
@@ -18,8 +18,8 @@
 		<summary lang="en_GB">Kodi Phoenix Reborn  Repository. [COLOR cyan]Facebook[/COLOR] Group: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR]</summary>
 		<description lang="hr_HR">Kodi Phoenix Reborn Repositorij. Besplatan IPTV add-on, kids add-on, porn add-on, filmski add-on i ostali dodatci potrebni za koristenje Kodi aplikacije. [COLOR=cyan]Facebook[/COLOR] grupa: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</description>
 		<description lang="en_GB">Kodi Phoenix Reborn  Repository. Free IPTV add-on, kids add-on, porn add-on, movie add-on and other addon's needed for use the Kodi aplications. [COLOR cyan]Facebook[/COLOR] Group: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</description>
-		<news lang="hr_HR">Nova verzija [COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]-a. Verzija: 1.4.0. Dodani novi addoni, ispravljeni nedostatci, izmijenjen izgled i funkcionalnost Repository-a. [COLOR=cyan]Facebook[/COLOR] grupa: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</news>
-        <news lang="en_GB">New version of the [COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]. Version: 1.4.0. Added new addons, fixed bugs, changed layout and functionality of Repository. [COLOR cyan]Facebook[/COLOR] Group: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</news>
+		<news lang="hr_HR">Nova verzija [COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]-a. Verzija: 1.6.6 Dodan Phoenix Reborn skin, ispravljeni nedostatci, izmijenjen izgled i funkcionalnost Repository-a. [COLOR=cyan]Facebook[/COLOR] grupa: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</news>
+        <news lang="en_GB">New version of the [COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]. Version: 1.6.6 Added Phoenix Reborn skin, fixed bugs, changed layout and functionality of Repository. [COLOR cyan]Facebook[/COLOR] Group: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</news>
 		<disclaimer lang="hr_HR">Autor ovog repozitorija ne sadrzi bilo koji sadrzaj koji se nalazi i nema vezu s bilo kojim davateljima sadrzaja. Koristite na vlastiti rizik! [COLOR=cyan]Facebook[/COLOR] grupa: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</disclaimer>
 		<disclaimer lang="en_GB">Author of this repository does not contain any content and has no connection with any content provider. Use at your own risk! [COLOR cyan]Facebook[/COLOR] Group: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</disclaimer>
 		<platform>all</platform>

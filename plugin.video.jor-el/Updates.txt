@@ -1,0 +1,17 @@
+[COLOR yellow]===============================================================================================[/COLOR]CURRENT STATUS: [COLOR orange]GOOD[/COLOR] - [COLOR red] Jor-El Current Version 1.3.4[/COLOR]
+
+[COLOR yellow]===============================================================================================[/COLOR]
+ 
+[B][I][COLOR yellow]02/07/2019[/COLOR][/B][/I]
+ 
+[COLOR red]Jor-El - ver 1.3.4[/COLOR]
+
+    - Removed Hanging Scrapers, Will Fix and Re-Add
+
+  [B][I][COLOR yellow]02/07/2019[/COLOR][/B][/I]    
+
+[COLOR red]Module - ver 1.4.0[/COLOR]
+
+    - Removed Hanging Scrapers
+
+[COLOR yellow]===============================================================================================[/COLOR]

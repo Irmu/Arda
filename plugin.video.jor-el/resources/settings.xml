@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="32310">
+        <setting id="appearance.alt" type="action" label="32311" default="-" option="close" action="RunPlugin(plugin://plugin.video.jor-el/?action=artwork)" visible="!System.HasAddon(script.jor-el.artwork)" />
+        <setting id="appearance.1" type="select" label="32311" values="Jor-EL|Kal-EL|Kryptonite" default="Jor-EL" visible="System.HasAddon(script.jor-el.artwork)" />
+        <setting id="scrapers.timeout.1" type="slider" label="32312" default="60" range="10,60" option="int" />
+        <setting id="trakt.user" type="text" default="" visible="false" />
+        <setting id="indicators.alt" type="enum" label="32313" lvalues="32314|32315" default="1" visible="!eq(-1,)" />
+        <setting id="indicators" type="enum" label="32313" lvalues="32314" default="0" visible="eq(-2,)" />
+        <setting id="api.language" type="select" label="32316" values="AUTO|Bulgarian|Chinese|Croatian|Czech|Danish|Dutch|English|Finnish|French|German|Greek|Hebrew|Hungarian|Italian|Japanese|Korean|Norwegian|Polish|Portuguese|Romanian|Russian|Serbian|Slovak|Slovenian|Spanish|Swedish|Thai|Turkish|Ukrainian" default="AUTO" />
+        <setting id="providers.lang" type="select" label="32360" values="English|German|German+English|French|French+English|Polish|Polish+English|Korean|Korean+English|Russian|Russian+English|Spanish|Spanish+English|Italian|Italian+English|Greek|Greek+English" default="English" />
+        <setting id="flatten.tvshows" type="bool" label="32317" default="false" />
+        <setting id="fanart" type="bool" label="32318" default="true" />
+        <setting id="showunaired" type="bool" label="32570" default="true" />
+        <setting id="hidecinema" type="bool" label="32571" default="false" />
+        <setting type="lsep" label="32319" />
+        <setting id="movie.widget" type="enum" label="32320" lvalues="32302|32321|32322|32323|32324|32580" default="1" />
+        <setting id="tv.widget.alt" type="enum" label="32325" lvalues="32302|32326|32327|32328" default="2" visible="!eq(-11,)" />  
+        <setting id="tv.widget" type="enum" label="32325" lvalues="32302|32326" default="1" visible="eq(-12,)" />
+        <setting id="prgr.sortorder" type="enum" label="32584" lvalues="32585|32586" default="1" visible="!eq(-13,)" />
+        <setting id="lists.widget" type="enum" label="32329" lvalues="32302|32301" default="1" />
+		<setting id="firstrun" label="Enable startup notice" type="bool" default="true" visible="false" />
+    </category>
+    <category label="32330">
+        <setting id="hosts.mode" type="enum" label="32331" lvalues="32332|32333|32334" default="1" />
+        <setting id="progress.dialog" type="enum" label="32335" lvalues="32336|32337" default="0" />
+        <setting id="prem.identify" type="enum" label="32588" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="0" />
+        <setting type="lsep" label="32338" />
+        <setting id="debrid.only" type="bool" label="Debrid Sources Only" default="false" />
+        <setting id="hosts.quality" type="enum" label="32339" values="4K|1440p|1080p|720p|480p" default="0" />
+        <setting id="autoplay.sd" type="bool" label="32340" default="false" />
+        <setting id="sources.extrainfo" type="bool" label="32587" default="true" />
+        <setting id="HEVC" type="bool" label="32363" default="true" />
+        <setting id="hosts.captcha" type="bool" label="32341" default="true" />
+        <setting id="hosts.sort.provider" type="bool" label="32342" default="false" />
+        <setting type="lsep" label="32343" />
+        <setting id="bookmarks" type="bool" label="32344" default="true" />
+        <setting type="lsep" label="32372" />
+        <setting id="crefresh" type="bool" label="32373" default="false" />
+    </category>
+    <category label="32610">
+	<setting type="lsep" label="32001" />
+        <setting id="moviegenres" type="bool" label="32011" default="true" />
+        <setting id="movieyears" type="bool" label="32012" default="true" />
+        <setting id="moviepersons" type="bool" label="32013" default="true" />
+        <setting id="movielanguages" type="bool" label="32014" default="true" />
+        <setting id="moviecertificates" type="bool" label="32015" default="true" />
+        <setting id="movietrending" type="bool" label="32017" default="true" />
+        <setting id="moviepopular" type="bool" label="32018" default="true" />
+        <setting id="movieviews" type="bool" label="32019" default="true" />
+        <setting id="movieboxoffice" type="bool" label="32020" default="true" />
+        <setting id="movieoscars" type="bool" label="32021" default="true" />
+        <setting id="movietheaters" type="bool" label="32022" default="true" />
+        <setting id="moviewidget" type="bool" label="32005" default="true" />
+        <setting type="lsep" label="32002" />
+        <setting id="tvGenres" type="bool" label="32011" default="true" />
+        <setting id="tvNetworks" type="bool" label="32016" default="true" />
+        <setting id="tvLanguages" type="bool" label="32014" default="true" />
+        <setting id="tvCertificates" type="bool" label="32015" default="true" />
+        <setting id="tvTrending" type="bool" label="32017" default="true" />
+        <setting id="tvPopular" type="bool" label="32018" default="true" />
+        <setting id="tvRating" type="bool" label="32023" default="true" />
+        <setting id="tvViews" type="bool" label="32019" default="true" />
+        <setting id="tvAiring" type="bool" label="32024" default="true" />
+        <setting id="tvPremier" type="bool" label="32026" default="true" />
+        <setting id="tvAdded" type="bool" label="32006" default="true" />
+        <setting id="tvCalendar" type="bool" label="32027" default="true" />
+    </category>    
+    <category label="32345">
+		<setting id="provider.library"				type="bool" label="LIBRARY"				default="true" />
+		<setting id="provider.videoscraper"			type="bool" label="VIDEOSCRAPER"		default="true" />
+
+        <setting label="English" type="lsep" />
+		
+        <setting id="provider.2dll"		        	type="bool" label="2DDL"                default="true" />
+		<setting id="provider.123movieshubz"		type="bool" label="123MOVIESHUBZ"		default="true" />
+		<setting id="provider.300mbfilms" 			type="bool" label="300MBFILMS"			default="true" />
+		<setting id="provider.300mbdownload"		type="bool" label="300MBDOWNLOAD"		default="true" />
+        <setting id="provider.animetoon"   			type="bool" label="ANIMETOON"   	    default="true" />
+        <setting id="provider.bestmoviez"			type="bool" label="BESTMOVIEZ"			default="true" />
+		<setting id="provider.bnwmovies"			type="bool" label="BNWMOVIES"			default="true" />
+		<setting id="provider.cartoonhd"			type="bool" label="CARTOONHD"			default="true" />
+		<setting id="provider.cartoonwire"			type="bool" label="CARTOONWIRE"			default="true" />
+		<setting id="provider.cmovieshd"   			type="bool" label="CMOVIESHD" 		    default="true" />
+        <setting id="provider.cmovieshdbz"			type="bool" label="CMOVIESHDBZ"			default="true" />
+		<setting id="provider.coolmoviezone"		type="bool" label="COOLMOVIEZONE"		default="true" />
+		<setting id="provider.ddlspot"		    	type="bool" label="DDLSPOT" 			default="true" />
+		<setting id="provider.ddlvalley"			type="bool" label="DDLVALLEY"			default="true" />
+		<setting id="provider.deepmovie"			type="bool" label="DEEPMOVIE" 			default="true" />
+        <setting id="provider.directdl"				type="bool" label="DIRECTDL"			default="true" />
+        <setting id="provider.extramovies"			type="bool" label="EXTRAMOVIES"			default="true" />
+        <setting id="provider.ffilms"	    		type="bool" label="FFILMS" 	    		default="true" />
+        <setting id="provider.filmsofts"    		type="bool" label="FILMSOFTS"			default="true" />
+		<setting id="provider.filmxy"				type="bool" label="FILMXY"				default="true" />
+        <setting id="provider.fmovies"   			type="bool" label="FMOVIES"			    default="true" />
+        <setting id="provider.freefmovies"			type="bool" label="FREEFMOVIES" 		default="true" />
+        <setting id="provider.freeputlocker"		type="bool" label="FREEPUTLOCKER"	    default="true" />
+        <setting id="provider.freeputlockers"		type="bool" label="FREEPUTLOCKERS"		default="true" />
+        <setting id="provider.furk"					type="bool" label="FURK"				default="true" />
+        <setting id="provider.gmovies"  			type="bool" label="GMOVIES" 			default="true" />
+		<setting id="provider.gomoviesink"			type="bool" label="GOMOVIESINK"		    default="true" />
+        <setting id="provider.gowatchseries"		type="bool" label="GOWATCHSERIES"		default="true" />
+        <setting id="provider.hackimdb" 			type="bool" label="HACKIMDB" 			default="true" />
+		<setting id="provider.hdbest"    			type="bool" label="HDBEST" 			    default="true" />
+        <setting id="provider.hdmto"				type="bool" label="HMDTO"				default="true" />
+		<setting id="provider.hdonline"   			type="bool" label="HDONLINE"    	    default="true" />
+        <setting id="provider.hdpopcorns"			type="bool" label="HDPOPCORNS"			default="true" />
+		<setting id="provider.invictus"				type="bool" label="INVICTUS"			default="true" />
+		<setting id="provider.iwantmyshow" 			type="bool" label="IWANTMYSHOW"		    default="true" />
+        <setting id="provider.kingmovies"			type="bool" label="KINGMOVIES"			default="true" />
+		<setting id="provider.movie4kis"			type="bool" label="MOVIE4KIS"			default="true" />
+		<setting id="provider.mftwbb"   			type="bool" label="MFTWBB"  			default="true" />
+		<setting id="provider.moviescouch" 			type="bool" label="MOVIESCOUCH"		    default="true" />
+        <setting id="provider.moviesleak"			type="bool" label="MOVIESLEAK"			default="true" />
+		<setting id="provider.movietube" 			type="bool" label="MOVIETUBE"   		default="true" />
+		<setting id="provider.naturalbd"			type="bool" label="NATURALBD"			default="true" />
+		<setting id="provider.odb"					type="bool" label="ODB"					default="true" />
+		<setting id="provider.orionoid-com"			type="bool" label="ORIONOID-COM"		default="true" />
+		<setting id="provider.playmovies"			type="bool" label="PLAYMOVIES" 			default="true" />
+		<setting id="provider.plocker"				type="bool" label="PLOCKER"				default="true" />
+		<setting id="provider.plockers"   			type="bool" label="PLOCKERS" 		    default="true" />
+        <setting id="provider.popcorn"				type="bool" label="POPCORN"				default="true" />
+		<setting id="provider.primewire"			type="bool" label="PRIMEWIRE"			default="true" />				
+		<setting id="provider.projectfree"			type="bool" label="PROJECTFREE"			default="true" />
+		<setting id="provider.reddit"				type="bool" label="REDDIT"				default="true" />
+		<setting id="provider.rlsbb"				type="bool" label="RLSBB"				default="true" />
+        <setting id="provider.rmz"      			type="bool" label="RMZ" 	    		default="true" />
+		<setting id="provider.sceneddl"   			type="bool" label="SCENEDDL" 		    default="true" />
+        <setting id="provider.scenerls"				type="bool" label="SCENERLS"			default="true" />
+		<setting id="provider.scenesrc"   			type="bool" label="SCENESRC" 		    default="true" />
+        <setting id="provider.seehd"				type="bool" label="SEEHD"				default="true" />
+		<setting id="provider.series9"				type="bool" label="SERIES9"				default="true" />
+		<setting id="provider.sezonlukdizi"			type="bool" label="SEZONLUKDIZI"		default="true" />
+		<setting id="provider.shaanig"   			type="bool" label="SHAANIG" 		    default="true" />
+        <setting id="provider.soaptv"				type="bool" label="SOAPTV"				default="true" />
+        <setting id="provider.solarmoviefree"		type="bool" label="SOLARMOVIEFREE"		default="true" />
+		<setting id="provider.solarmoviez"			type="bool" label="SOLARMOVIEZ"			default="true" />
+		<setting id="provider.spacemov"				type="bool" label="SPACEMOV"			default="true" />				
+        <setting id="provider.swatchseries"			type="bool" label="SWATCHSERIES"		default="true" />				
+        <setting id="provider.timewatch"			type="bool" label="TIMEWATCH" 			default="true" />
+        <setting id="provider.tvbox"				type="bool" label="TVBOX"				default="true" />
+		<setting id="provider.vidics"   			type="bool" label="VIDICS"  		    default="true" />
+        <setting id="provider.wannahd"   			type="bool" label="WANNAHD" 		    default="true" />
+        <setting id="provider.watchepisodes"		type="bool" label="WATCHEPISODES"		default="true" />
+        <setting id="provider.weseries"   			type="bool" label="WESERIES" 		    default="true" />
+        <setting id="provider.wnmnt"    			type="bool" label="WNMNT"   		    default="true" />
+        <setting id="provider.xwatchseries"			type="bool" label="XWATCHSERIES" 	    default="true" />
+ 	</category>
+	<category label="Torrents">
+		<setting label="TORRENTS ARE CACHED ONLY, add your static API key for better stability" type="lsep" />
+	
+		<setting id="private.rd.enable" type="bool" label="Private API Token (http://real-debrid.com/apitoken)" default="false" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="private.rd.api" type="text" label="API Token" default="" enable="eq(-1,true)" visible="System.HasAddon(script.realdebrid.mod)" />
+	
+		<setting label="Please log-in to the Real Debrid Mod plugin to verify your account." type="lsep" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting label="These scrapers will not work until you do so." type="lsep" visible="System.HasAddon(script.realdebrid.mod)" />
+		
+		<setting id="provider.1337x-to"            type="bool" label="1337X-TO"           default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.bitlordsearch-com"   type="bool" label="BITLORDSEARCH-COM"  default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.ettv-tv"             type="bool" label="ETTV-TV"            default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.extratorrent-si"     type="bool" label="EXTRATORRENT-SI"    default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.eztv-ag"             type="bool" label="EZTV-AG"            default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.glodls-to"           type="bool" label="GLODLS-TO"          default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+        <setting id="provider.limetorrents-cc"     type="bool" label="LIMETORRENTS-CC"    default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.magnet4you-me"       type="bool" label="MAGNET4YOU-ME"      default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.magnetdl-com"        type="bool" label="MAGNETDL-COM"       default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.piratebay"           type="bool" label="PIRATEBAY"          default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.popcorntime"         type="bool" label="POPCORNTIME"        default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.prostylex-com"       type="bool" label="PROSTYLEX-COM"      default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.rd-cache"            type="bool" label="RD-CACHE"           default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.showrss-info"        type="bool" label="SHOWRSS-INFO"       default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.skytorrents-co"      type="bool" label="SKYTORRENTS-CO"     default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.torrentapi-org"      type="bool" label="TORRENTAPI-ORG"     default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.torrentdownload-ch"  type="bool" label="TORRENTDOWNLOAD-CH" default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.torrentgalaxy-org"   type="bool" label="TORRENTGALAXY-ORG"  default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.torrentproject2-se"  type="bool" label="TORRENTPROJECT2-SE" default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.torrentquest-com"    type="bool" label="TORRENTQUEST-COM"   default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.torrent-tm"          type="bool" label="TORRENT-TM"         default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.torrentz2-cc"        type="bool" label="TORRENTZ2-CC"       default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.yify-torrent-org"    type="bool" label="YIFY-TORRENT-ORG"   default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+		<setting id="provider.yts"                 type="bool" label="YTS"                default="true" visible="System.HasAddon(script.realdebrid.mod)" />
+	</category>
+    <category label="32346">
+        <setting type="lsep" label="FANART.TV" />
+        <setting type="lsep" label="32582" default="" />
+        <setting type="lsep" label="32583" default="" />
+        <setting id="fanart.tv.user" type="text" label="32309" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="TMDb" />
+        <setting id="tm.user" type="text" option="hidden" label="32309" default="1e7b47249796f50c0b783fcdcbcfa8ba" />
+        <setting type="sep" />
+        <setting type="lsep" label="Trakt" />
+        <setting id="trakt.auth" type="action" label="32306" option="close" action="RunPlugin(plugin://plugin.video.jor-el/?action=authTrakt)" />
+        <setting id="trakt.token" type="text" visible="false" label="" default="" />
+        <setting id="trakt.refresh" type="text" visible="false" label="" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="IMDb" />
+        <setting id="imdb.user" type="text" label="32303" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="32538" />
+        <setting type="lsep" label="32539" />
+        <setting id="open_smu_settings" type="action" label="32540" enable="true" option="close" action="RunPlugin(plugin://plugin.video.jor-el/?action=smuSettings)" />
+        <setting type="sep" />
+        <setting type="lsep" label="Moviesplanet.is" />
+        <setting id="moviesplanet.user" type="text" label="32303" default="" />
+        <setting id="moviesplanet.pass" type="text" option="hidden" label="32307" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="Streamlord.com" />
+        <setting id="streamlord.user" type="text" label="32303" default="" />
+        <setting id="streamlord.pass" type="text" option="hidden" label="32307" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="Ororo.tv" />
+        <setting id="ororo.user" type="text" label="32304" default="" />
+        <setting id="ororo.pass" type="text" option="hidden" label="32307" default="" />
+        <setting type="sep" />
+		<setting type="lsep" label="Chillax.ws" visible="false" />
+		<setting type="lsep" label="Security Warning: Chillax does not use SSL" visible="false" />
+		<setting type="lsep" label="Your login details are not protected" visible="false"  />
+		<setting id="chillax.username" type="text" label="32303" default="ohyoudidntknow" visible="false"  />
+		<setting id="chillax.password" type="text" option="hidden" label="32307" default="HKqEpY57" visible="false"  />	
+		<setting type="sep" />
+        <setting type="lsep" label="SerienStream.to" />
+        <setting id="serienstream.user" type="text" label="32304" default="" />
+        <setting id="serienstream.pass" type="text" label="32307" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="Seriesever.net" />
+        <setting id="seriesever.user" type="text" label="32303" default="" />
+        <setting id="seriesever.pass" type="text" option="hidden" label="32307" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="Furk.net" />
+        <setting id="furk.user_name" type="text" label="Furk Username" default="" />
+        <setting id="furk.user_pass" type="text" label="Furk Password" option="hidden" default="" />
+        <setting id="furk.api" type="text" label="Furk API Key" default="" />
+        <setting id="furk.limit" label="Limit results" type="slider" default="25" range="5,5,200" option="int" />        
+    </category>
+    <category label="Orionoid">
+		<setting type="lsep" label="Go to orionoid.com to obtain an API key" />
+		<setting type="lsep" label="[B]Streaming[/B]" />
+		<setting id="orionoid.api" type="text" label="API Key" default="" />
+		<setting id="orionoid.count" type="select" label="Max results" values="1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25" default="5" />
+		<setting id="orionoid.min" type="select" label="Minimum quality" values="sd|hd720|hd1080|hd2k|hd4k" default="hd720" />
+		<setting id="orionoid.max" type="select" label="Maximum quality" values="sd|hd720|hd1080|hd2k|hd4k" default="hd1080" />
+		<setting id="orionoid.debrid" type="bool" label="Search Real Debrid" default="false" />
+	</category>
+    <category label="32541">
+        <setting id="library.movie" type="folder" label="32543" default="special://userdata/addon_data/plugin.video.jor-el/Movies" />
+        <setting id="library.tv" type="folder" label="32544" default="special://userdata/addon_data/plugin.video.jor-el/TVShows" />
+        <setting type="lsep" label="32542" />
+        <setting type="sep" />
+        <setting id="library.service.update" type="bool" label="32545" default="true" />
+        <setting id="library.service.notification" type="bool" label="32546" default="true" />
+        <setting type="sep" />
+        <setting id="library.update" type="bool" label="32547" default="true" />
+        <setting id="library.check" type="bool" label="32548" default="true" />
+        <setting type="sep" />
+        <setting id="library.check_movie" type="bool" label="32549" default="false" />
+        <setting id="library.check_episode" type="bool" label="32550" default="false" />
+        <setting id="library.include_unknown" type="bool" label="32565" default="true" />
+    </category>
+    <category label="32347">
+        <setting id="downloads" type="bool" label="32348" default="false" />
+        <setting type="sep" />
+        <setting id="movie.download.path" type="folder" label="32349" enable="!eq(-2,false)" default="" />
+        <setting id="tv.download.path" type="folder" label="32350" enable="!eq(-3,false)" default="" />
+        <setting type="lsep" label="[CR]" />
+        <setting type="lsep" label="32351" />
+        <setting type="lsep" label="32352" />
+    </category>
+    <category label="32353">
+        <setting id="subtitles" type="bool" label="32354" default="false" />
+        <setting type="sep" />
+        <setting id="subtitles.utf" type="bool" label="32355" enable="!eq(-2,false)" default="false" />
+        <setting type="sep" />
+        <setting id="subtitles.lang.1" type="select" label="32356" values="Afrikaans|Albanian|Arabic|Armenian|Basque|Bengali|Bosnian|Breton|Bulgarian|Burmese|Catalan|Chinese|Croatian|Czech|Danish|Dutch|English|Esperanto|Estonian|Finnish|French|Galician|Georgian|German|Greek|Hebrew|Hindi|Hungarian|Icelandic|Indonesian|Italian|Japanese|Kazakh|Khmer|Korean|Latvian|Lithuanian|Luxembourgish|Macedonian|Malay|Malayalam|Manipuri|Mongolian|Montenegrin|Norwegian|Occitan|Persian|Polish|Portuguese|Portuguese(Brazil)|Romanian|Russian|Serbian|Sinhalese|Slovak|Slovenian|Spanish|Swahili|Swedish|Syriac|Tagalog|Tamil|Telugu|Thai|Turkish|Ukrainian|Urdu" enable="!eq(-4,false)" default="English" />
+        <setting id="subtitles.lang.2" type="select" label="32357" values="Afrikaans|Albanian|Arabic|Armenian|Basque|Bengali|Bosnian|Breton|Bulgarian|Burmese|Catalan|Chinese|Croatian|Czech|Danish|Dutch|English|Esperanto|Estonian|Finnish|French|Galician|Georgian|German|Greek|Hebrew|Hindi|Hungarian|Icelandic|Indonesian|Italian|Japanese|Kazakh|Khmer|Korean|Latvian|Lithuanian|Luxembourgish|Macedonian|Malay|Malayalam|Manipuri|Mongolian|Montenegrin|Norwegian|Occitan|Persian|Polish|Portuguese|Portuguese(Brazil)|Romanian|Russian|Serbian|Sinhalese|Slovak|Slovenian|Spanish|Swahili|Swedish|Syriac|Tagalog|Tamil|Telugu|Thai|Turkish|Ukrainian|Urdu" enable="!eq(-5,false)" default="English" />
+        <setting type="lsep" label="[CR]" />
+        <setting type="lsep" label="32358" />
+        <setting type="lsep" label="32359" />
+    </category>
+	
+</settings>
