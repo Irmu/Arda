@@ -599,6 +599,20 @@ v2.3.14 (2019-02-10)
   </extension>
 </addon>
 
+<addon id="repository.nixgates" name="Nixgates Repo" version="1.0.0" provider-name="Nixgates">
+	<extension point="xbmc.addon.repository" name="Nixgates Repo">
+		<info compressed="false">https://raw.githubusercontent.com/nixgates/nixgates/master/packages/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/nixgates/nixgates/master/packages/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/nixgates/nixgates/master/packages</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Nixgates</summary>
+		<description>Nixgates Repository</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="plugin.audio.mp3streams" name="MP3 Streams" version="2017.09.09" provider-name="qahanik, kinkin, art by Marquerite">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -782,6 +796,34 @@ v2.3.14 (2019-02-10)
         <license>Beerware rev. 42</license>
         <forum>http://www.tantrumtv.com</forum>
         <website>http://www.tantrumtv.com</website>
+    </extension>
+</addon>
+
+<addon id="plugin.video.arrakislite" name="Arrakis Lite" version="1.0.0" provider-name="MuadDib">
+    <requires>
+        <import addon="xbmc.python" version="2.19.0" />
+        <import addon="script.module.universalscrapers" version="1.0.0" />
+        <import addon="script.module.python.koding.aio" version="0.9.6.6" />
+        <import addon="script.module.beautifulsoup" version="3.2.1" />
+        <import addon="script.module.requests" version="2.9.1" />
+        <import addon="script.module.addon.common" version="2.0.0" />
+        <import addon="script.module.xmltodict" version="0.9.0" />
+        <import addon="script.module.dateutil" />
+        <import addon="script.module.resolveurl" />
+        <import addon="script.module.feedparser" version="5.1.3"/>
+        <import addon="plugin.video.youtube" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>audio video</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" start="[login|startup]" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Arrakis Lite is a Kodi Addon with open, free domain, and otherwise legitimate top notch content</summary>
+        <description lang="en">Arrakis Lite is a Kodi Addon with open, free domain, and otherwise legitimate top notch content</description>
+        <disclaimer lang="en">The author is not responsible for the use of this addon. The author is not responsible for the content found using this addon. The author does not host or own any content found within this addon.[CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
+        <platform>all</platform>
+        <website>http://www.tantrumtv.com</website>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
 </addon>
 
@@ -1237,6 +1279,33 @@ Initial Release
   </extension>
 </addon>
 
+<addon id="plugin.video.PLsportowo" name="Sportowa TV" version="1.8.8" provider-name="mbebe">
+	<requires>
+		<import addon="xbmc.python" version="2.25.0"/>
+		<import addon="script.module.requests" />
+		<import addon="script.module.parsedom" version="2.5.2"/>
+		<import addon="script.module.inputstreamhelper" version="0.3.3"/>
+		<import addon="script.module.resolveurl" version="5.0.00"/>
+        <import addon="script.module.streamlink.base" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="maintv.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<description>Wydarzenia sportowe</description>
+		<disclaimer>https://github.com/mbebe/blomqvist</disclaimer>
+		<summary>Relacje Live</summary>
+		<language></language>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+		<website></website>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon>
+
 <addon id="plugin.video.plutotv" version="1.1.3" name="Pluto.TV" provider-name="Lunatixz">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
@@ -1377,6 +1446,202 @@ v3.0.5
   </extension>
 </addon>
 
+<addon id="plugin.video.seren" version="1.0.24" name="Seren" provider-name="Nixgates">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.requests" version="2.19.1" />
+		<import addon="script.module.beautifulsoup4" version="4.5.3"/>
+		<import addon="script.module.metahandler" version="1.0.0" />
+		<import addon="plugin.video.youtube" version="6.2.0"/>
+		<import addon="script.module.addon.signals" version="0.0.1"/>
+		<import addon="script.module.dateutil" version="2.7.3"/>
+<!--		<import addon="script.module.inputstreamhelper" version="0.3.3"/> #### Not yet big boy ####-->
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="seren.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Seren - This Addon is currently in beta. Please be aware there may be bugs present</summary>
+		<description lang="en">
+		</description>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+		<forum></forum>
+		<website></website>
+		<source></source>
+		<disclaimer lang="en">The author of this addon takes no responsibility for any 3rd party intergration or modification of this software, please ensure your use of this software abides by your local and insterstate laws.</disclaimer>
+		<assets>
+			<icon>ico-fox-gold-final.png</icon>
+			<fanart>fanart-fox-gold-final.png</fanart>
+		</assets>
+		<news>
+Changelog 1.0.24:
+Fix Automatic Episode Resume
+
+Changelog 1.0.23:
+Fixed disable/enabled of providers
+Clean up some missed logging
+
+Changelog 1.0.22:
+Fixed Background Scraping Display style
+
+Changelog 1.0.21:
+Fixed issue with Custom Providers refresh not honoring disabled status (Actually this time)
+Added try/except for property/progress updates in getSources module
+Fixed issue with source dicts being stringed during source select
+Added onClick callback for source select
+
+Changelog 1.0.20:
+Fixed Source Select selecting wrong source
+Fixed issue with Custom Providers refresh not honoring disabled status
+
+Changelog 1.0.19:
+Further adjustments of background overlay to better suit brighter fanart images
+
+Changelog 1.0.18:
+Added Overlay to custom windows
+Added re-worked versions of artwork
+Seren Fanart now applies to all items that are missing fanart
+
+Changelog 1.0.17:
+Adjust poster size in Source Select
+Added setting "Auto try next link on resolve failure (Source Select)"
+
+Changelog 1.0.16:
+Cleaned up and re-worked provider database sync function
+Fixed issue with providers not showing on initial install of providers
+
+Changelog 1.0.15:
+Local torrent database restructued to increase speeds and handling of entries
+Increased visibility of selected item in source select view
+Fixed hosters providers not scraping episodes
+Hosters now display the release title of the source if available
+Re-work of Seren artwork
+
+Changelog 1.0.14:
+Fixed Shuffle Play
+Adjusted contrast levels for new windows
+
+Changelog 1.0.13:
+All custom windows have been migrated over to XML based windows
+Tidied code within getSources endpoint
+Failure to resolve an item with source select active now returns the user to the source select window
+Improvements to trakt bookmarks occuring
+Added notification at RD auth to check if users account is premium and advise accordingly
+Adjusted Premiumize Automatic Cloud Removal to support new Fair Usage system
+Premiumize percentage threshold is now maximum GBs of used storage
+Fixed appending seasons to current playlist
+
+Changelog 1.0.12:
+Fixed issues with show year returning INT
+
+Changelog 1.0.11:
+Fixed removal of hidden items during sync
+
+Changelog 1.0.10:
+Fixed Hiding show from episode items
+
+Changelog 1.0.9:
+Fixed Date Display issue with Up Next notification
+Menu caching is now optional within Seren settings, defaulted to On
+Show year meta information now gathered from Trakt instead of TVDB (meta missing on some titles)
+Changes to search menu to provide better usability
+Increasesd title identification
+
+Changelog 1.0.8:
+Improvements to title identification
+Improvements to window handling on playback failure/cancellation
+Disabled Kodi menu caching for all directories
+Moved playback resume execution closer to start of playback
+Fixed IMDB meta confirmation for movies
+
+Changelog 1.0.7:
+Adjusted Trakt Manager method to better suit new URLS
+Fixed Smartplay playlist builder not honoring hide un-aired setting
+Further improvements to show pack filter
+
+Changelog 1.0.6:
+Change movie items action to the correct action
+Changing trakt account now raises an initial sync process.
+Removing trakt account removes all watched status and collected status from local database
+Authorising trakt for the first time raises an initial sync process to occur
+Added trakt_username column to the Trakt Sync activities database
+Added migration for existing trakt users
+Unsuccesful attempts to mark/unmark watched status on items is now notified and logged
+Fixed issue with pre-emptive scraping failing when set to background task style scraping
+TV module functions now use a shared instance of the Trakt Sync database class
+Movie modules functions now use a shared instance of the Trakt Sync database class
+
+Changelog 1.0.5:
+Rollback changes to initial playlist creation due to issues with skin widgets
+
+Changelog 1.0.4:
+Added workaround for getSources api call
+Fixed more URL issues in seren.py breaking play style
+
+Changelog 1.0.3:
+Fixed issue cloud scraping for movie items caused by URL changes
+Fixed Source Select List (Movies) issues due to URL changes
+Fixed issues caused in player module from URL change
+Fixed issues caused in smartPlay from URL change
+
+Changelog 1.0.2:
+Fixed issue with Trakt Sync Database repeatedly downgrading/upgrading
+
+Changelog 1.0.1:
+Fix slow trakt sync speeds caused by maximum SQL statements variable not resetting
+Fix issues with list style source select and URL changes
+Fixed date display in list style source select window
+
+Changelog 1.0.0:
+Removed Building Playlist process, seren now moves straight to scraping and fills in the playlist in the background
+Re-worked smartplay module
+Moving forward, Seren's versioning should now match semantic versioning
+Complete restructure of actionArgs for Seren API endpoints
+Fixed issues with trakt manager when in a mixed episode list
+Fixed Trakt Sync failing with exceptionally large libraries
+
+Changelog 0.2.38:
+Fixed issue with marking items as watched locally
+
+Changelog 0.2.37:
+Fixed Episode File Size setting visibility
+Fixed getSources module displaying checking local database when setting is disabled
+Removed logging of some superficial errors in Trakt Sync and Next Up menu
+Reduced minimum of percentage watched before marked as watched locally
+Fixed issue where seasons would not display for shows with odd season number conventions
+
+Changelog 0.2.36:
+Fixed visibility of Premiumize Account Settings
+Provider update check timeout increased to hourly
+Addon update checks timeout increased to daily
+Drastic increases to trakt sync speeds
+Added fallbacks for possible network failures in trakt syncing process
+Fixed default tuple length in getSources
+Fixed Real-Debrid Cloud Sources breaking due to missing size key
+Disabled cache assist when cloud files are present during scrape process
+Adjusted scrobble check for player module to occur only when successfully scrobbled to trakt
+Added fallback for trakt scrobbling to playbackended player callback
+Removed duplicate trakt prompt on auth failure
+Un-cached Sources in manual cache assist are now sorted by seeds descending
+Added Browse Season option to episode context menu
+Added ability to shuffle play show from an episode item
+Fixed setting retrieval for Apple devices
+Movies and episodes now have seperate file size limits
+Source select view now defaults to list
+Fixed delayed playback failed dialog from Kodi
+Fixed issue with appending next season to active playlist
+Escaped ampersand characters in settings file
+Fixed issue where item meta information would not update unless a Trakt account was authorised
+Disabled caching of results if no sources are found
+Fixed missing settings check for Local Torrent Cache inspection.
+Fixed CM options not showing if context menu addon not installed
+
+		</news>
+	</extension>
+</addon>
+
 <addon id="plugin.video.SkyNet"
        name="[COLOR white]SkyNet[/COLOR]"
        version="5.0.2"
@@ -1409,6 +1674,42 @@ v3.0.5
     <description lang="en">SkyNet</description>
     <platform>all</platform>
   </extension>
+</addon>
+
+<addon id="plugin.video.sovietmoviesonline" name="Sovietmoviesonline" version="1.0.1" provider-name="L0RE">
+	<requires>
+		<import addon="xbmc.python" version="2.24.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="de">Sowjetische und russische Filme mit englischen Untertiteln</summary>
+		<summary lang="en">Soviet and Russian movies with English subtitles</summary>
+		<summary lang="ru">Советские и русские фильмы с английскими субтитрами</summary>
+		<description lang="de">In den letzten drei Jahren haben wir die besten sowjetischen und russischen Filme ausgewählt, um sie unseren Zuschauern zur Verfügung zu stellen.[CR]Sie können Filme online ansehen, die eine breite Palette von sehr beliebten Bildern bis hin zu seltenen Funden umfassen.</description>
+		<description lang="en">For the last three years we have been selecting the best Soviet and Russian movies in order to make them available for our viewers.[CR]You can watch movies online that span a wide range of very popular images to rare finds.</description>
+		<description lang="ru">За последние три года мы отобрали лучшие советские и российские фильмы, чтобы сделать их доступными для наших зрителей.[CR]Вы можете смотреть фильмы онлайн, которые включают широкий спектр очень популярных изображений для редких находок.</description>
+		<disclaimer lang="de">Die von diesem Addon dargestellten Inhalte werden von den Erstellern des Addons weder gehostet oder verbreitet, noch stehen die Ersteller in irgendeiner Beziehung zu den Anbietern des Inhalts.</disclaimer>
+		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content providers.</disclaimer>
+		<disclaimer lang="ru">Содержимое, отображаемое этим дополнением, не размещается и не распространяется его создателями, равно как и создатели никак не связаны с поставщиками содержимого.</disclaimer>
+		<language></language>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+		<forum>https://www.kodinerds.net/index.php/Thread/55451-L0REs-Blog/</forum>
+		<website>https://sovietmoviesonline.com</website>
+		<email></email>
+		<source>https://github.com/kodinerds/repo/tree/master/plugin.video.sovietmoviesonline</source>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+		<news>[B][COLOR orangered]Version 1.0.1  (23.02.2019)[/COLOR][/B] by realvito[CR]
+- fixed: Listing of the Categories-Subfolders
+- added: Categories = All-Movies, Movies by Decades and Movies by Directors
+- added: Switch complete Addon-Language between "EN" and "RU"
+		</news>
+	</extension>
 </addon>
 
 <addon id="plugin.video.sparkle" name="Sparkle" version="0.0.84" provider-name="iwannabelikemike">
@@ -1488,6 +1789,40 @@ v3.0.5
   </extension>
 </addon>
 
+<addon id="plugin.video.spotitube" name="Youtube Music" version="2.1.3" provider-name="realvito (inspired by L0RE)">
+	<requires>
+		<import addon="xbmc.python" version="2.24.0"/>
+		<import addon="plugin.video.youtube" version="6.1.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video audio</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="de">Musik über Youtube abspielen</summary>
+		<summary lang="en">Play Music via Youtube</summary>
+		<description lang="de">Musik aus verschiedenen Quellen z.B. Billboard, iTunes, Spotify etc. auswählen und über Youtube abspielen.[CR][CR]Für mehr Informationen zu allen Neuerungen siehe - CHANGELOG.[CR]     TEST IT AND LIKE IT</description>
+		<description lang="en">Choose Music from different sources e.g. Billboard, iTunes, Spotify etc. and play it via Youtube.[CR][CR]For more information about all new features see - CHANGELOG.[CR]     TEST IT AND LIKE IT</description>
+		<disclaimer lang="de">Die von diesem Addon dargestellten Inhalte werden von den Erstellern des Addons weder gehostet oder verbreitet, noch stehen die Ersteller in irgendeiner Beziehung zu den Anbietern des Inhalts.</disclaimer>
+		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content providers.</disclaimer>
+		<language></language>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, June 2007</license>
+		<forum>http://www.kodinerds.net/index.php/Thread/47087-Release-YoutubeMusic-patched/</forum>
+		<website></website>
+		<email></email>
+		<source>https://github.com/kodinerds/repo/tree/master/plugin.video.spotitube</source>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+		<news>[B][COLOR orangered]Version 2.1.3  (06.01.2019)[/COLOR][/B] by realvito[CR]
+- fixed: Another time Billboard-Videolists are empty (Thanks for good work on the website)
+- fixed: Double-entries of Countries in folders of "SPOTIFY - International" (VIRAL top 50/TOP Streams)
+- optimized: Title-Search-Algorithm on Youtube (Original) - THX @digaogt on Github for the hint
+		</news>
+	</extension>
+</addon>
+
 <addon id="plugin.video.tvone" name="tvOne" version="17" provider-name="RACC">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -1510,6 +1845,31 @@ v3.0.5
     <website></website>
     <email></email>
     <source></source>
+  </extension>
+</addon>
+
+
+<addon id="plugin.video.ukturk" name="UK Turk Playlists" version="6.00.001" provider-name="UKTurk">
+
+  <requires>
+    <import addon="script.module.simplejson" />
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.t0mm0.common" />
+    <import addon="plugin.video.youtube" />
+	<import addon="script.module.resolveurl" />
+    <import addon="script.common.plugin.cache" />
+    <import addon="script.module.metahandler" />
+    <import addon="script.video.F4mProxy" />
+	<import addon="script.module.beautifulsoup4" />
+	<import addon="script.module.html5lib" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Free Playlists courtesy of @uk_turk</summary>
+    <description lang="en">Free Playlists courtesy of @uk_turk</description>
+    <platform>all</platform>
   </extension>
 </addon>
 
@@ -1971,6 +2331,22 @@ v3.0.5
     </extension>
 </addon>
 
+<addon id="repository.kodinerds" name="kodinerds.net Add-ons" version="6.0.0" provider-name="L0RE">
+	<extension point="xbmc.addon.repository" name="L0RE">
+		<info compressed="true">https://raw.githubusercontent.com/kodinerds/repo/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/kodinerds/repo/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/kodinerds/repo/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Official Repository of Kodinerds</summary>
+		<summary lang="de">Offizielles Repository der Kodinerds</summary>
+		<description lang="en">This is the official Repository of the german Community 'Kodinerds' which you'll find at www.kodinerds.net. Most of the hosted Addons are supported by the members of the Community. Enjoy!</description>
+		<description lang="de">Das ist das offizielle Repository der deutschen Community 'Kodinerds', welche Du unter www.kodinerds.net findest. Die meisten der hier gehosteten Addons werden von den Mitgliedern der Community aktiv supported. Viel Spaß!</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
     <addon id="repository.kodiyhelp" name="KoDIY Help Repo" version="0.1.0" provider-name="KoDIY Help">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
@@ -2021,38 +2397,26 @@ v3.0.5
     </extension>
 </addon>
 
-<addon id="repository.maverickrepo" name="[COLOR lime]MaverickTV Repo[/COLOR]" version="3.5" provider-name="Maverick TV">
-<extension point="xbmc.addon.repository" name="[COLOR lime]MaverickTV Repo[/COLOR]">
-	<dir>
-		<info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/</datadir>
-	</dir>
-	<dir>
-		<info compressed="false">https://raw.githubusercontent.com/Maverick53/modrepo/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/Maverick53/modrepo/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/Maverick53/modrepo/master/plugins/</datadir>
-	</dir>
-	<dir>
-        <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
-    </dir>
-	<dir>
-        <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
-    </dir>
-
-		<info compressed="false">https://raw.githubusercontent.com/Maverick53/repo/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/Maverick53/repo/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/Maverick53/repo/master/plugins/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>The MaverickTV Repository v3.5</summary>
-		<description>The MaverickTV Repository for add-on and dependencies</description>
-		<platform>all</platform>
-	</extension>
+	<addon id="repository.mbebe" name="mbebe" version="0.4" provider-name="mbebe">
+		<extension point="xbmc.addon.repository" name="mbebe">
+			<info compressed="false">https://raw.githubusercontent.com/mbebe/blomqvist/master/zips/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/mbebe/blomqvist/master/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://github.com/mbebe/blomqvist/raw/master/zips</datadir>
+			<dir>
+				<info compressed="false">https://raw.githubusercontent.com/Proximus2000/mb-support/master/zips/addons.xml</info>
+				<checksum>https://raw.githubusercontent.com/Proximus2000/mb-support/master/zips/addons.xml.md5</checksum>
+				<datadir zip="true">https://github.com/Proximus2000/mb-support/raw/master/zips</datadir>
+			</dir>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+			<summary>...</summary>
+			<description>...</description>
+			<platform>all</platform>
+		</extension>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
 </addon>
 
 <addon id="repository.mrandmrssmith" name="[B][COLORdarkgray]Mr and Mrs Smith Repository[/COLOR][/B]" version="1.0.2" provider-name="[B][COLORdarkgray]John and Jane[/COLOR][/B]">
@@ -2221,6 +2585,53 @@ The author is not responsible for the use of this addon. The author is not respo
         <description>Repo For Stream Army, Bought to you by @Nemzzy668 /  @_MANC_</description>
         <platform>all</platform>
     </extension>
+</addon>
+
+<addon id="repository.tantrumtv" name="Tantrum.TV Repository" version="2.0.1" provider-name="MuadDib">
+    <requires>
+        <import addon="xbmc.addon" version="12.0.0"/>
+    </requires>
+    <extension point="xbmc.addon.repository" name="Tantrum.TV Repository">
+        <info compressed="false">https://raw.githubusercontent.com/muaddibttv/tantrumrepo/master/_zipfiles/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/muaddibttv/tantrumrepo/master/_zipfiles/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/muaddibttv/tantrumrepo/master/_zipfiles/</datadir>
+        <hashes>false</hashes>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/</datadir>
+            <hashes>false</hashes>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Tantrum.TV Official Repository!</summary>
+        <description>Tantrum.TV Official Repository</description>
+        <platform>all</platform>
+        <genre>movies,usa</genre>
+    </extension>
+</addon>
+
+<addon id="repository.ukturk" name="UKTurk Addon Repository" version="2.0.0" provider-name="UKTurk">
+		<extension point="xbmc.addon.repository" name="UKTurk Addon Repository">
+				<info compressed="false">https://addoncloud.org/ukturk/repofiles/addons.xml</info>
+				<checksum>https://addoncloud.org/ukturk/repofiles/addons.xml.md5</checksum>
+				<datadir zip="true">https://addoncloud.org/ukturk/repofiles/zips/</datadir>
+				<dir>
+					<info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
+					<checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
+					<datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
+				</dir>
+		</extension>
+		<extension point="xbmc.addon.metadata">
+				<summary>Install UKTurk</summary>
+				<description>Install UKTurk</description>
+				<platform>all</platform>
+		</extension>
 </addon>
 
     <addon id="repository.universalscrapers" name="universalscrapers-repository" version="1.0.0" provider-name="universalscrapers">
