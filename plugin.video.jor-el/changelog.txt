@@ -1,5 +1,8 @@
+[B]1.3.5[/B]
+- Scraper Cleanup and New Scrapers
+
 [B]1.3.4[/B]
-- Removed Hanging Scrapers - Will Fix and Re-Add
+- Removed Hanging Scrapers
 
 [B]1.3.3[/B]
 - Code Cleanup

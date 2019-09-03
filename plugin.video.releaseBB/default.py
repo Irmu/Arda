@@ -169,7 +169,7 @@ def recommended_movies(url):
     try:
         r = response_html(url, '8')
         # r = cloudflare_mode(url)
-        r = client.parseDOM(r, 'li', attrs={'id': 'text-8'})[0]
+        r = client.parseDOM(r, 'li', attrs={'id': 'text-\d+'})[-1]
         items = zip(client.parseDOM(r, 'a', ret='href'),
                     client.parseDOM(r, 'img', ret='src'))
 
@@ -179,7 +179,8 @@ def recommended_movies(url):
             name = re.sub('-|\.', ' ', name)
 
             if 'search' in movieUrl:
-                query = name.replace('.', '+')
+                query = name.split('?s=')[1]
+                query = query.replace('.', '+')
                 action = {'mode': 'search_bb', 'url': query}
             else:
                 action = {'mode': 'GetLinks', 'section': section, 'url': movieUrl, 'img': item[1], 'plot': 'N/A'}
@@ -469,7 +470,12 @@ def GetLinks(section, url, img, plot):  # Get Links
 
 
 def cloudflare_mode(url):
-    from resources.lib.modules import cfscrape
+    kodi_ver = float(xbmc.getInfoLabel("System.BuildVersion")[:4])
+    if kodi_ver >= 18:
+        from resources.lib.modules import cfscrape as cfscrape
+    else:
+        from resources.lib.modules import cfscrape17 as cfscrape
+
     scraper = cfscrape.create_scraper()
     result = scraper.get(url).text
     # xbmc.log('RESULTTTTT: %s' % result)

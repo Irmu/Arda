@@ -55,7 +55,7 @@
 
 <addon
   id="inputstream.adaptive"
-  version="2.3.22"
+  version="2.4.2"
   name="InputStream Adaptive"
   provider-name="peak3d">
   <requires>
@@ -76,6 +76,9 @@
     <description lang="en">InputStream client for adaptive streams</description>
     <platform>windows-i686</platform>
 	<news>
+v2.4.2 (2019-09-02)
+- Fix versioning
+
 v2.3.22 (2019-06-14)
 - Bento4: sample duration workaround (24/1)
 - WVDecrypter: remove sleep between decrypt calls
@@ -915,6 +918,47 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
+<addon id="plugin.video.exodus" version="8.0.7" name="Exodus" provider-name="Exodus">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.exodus" />
+		<import addon="script.exodus.artwork" />
+		<import addon="script.exodus.metadata" />
+		<import addon="script.module.urlresolver" />
+		<import addon="script.module.requests" />
+<!--		<import addon="script.module.lambdascrapers" />-->
+		<import addon="script.module.exoscrapers" />
+		<import addon="script.module.metahandler" version="1.0.0" />
+		<import addon="repository.kodibae" />
+		<import addon="repository.xbmchub" />
+		<import addon="repository.thebackup" />
+		<import addon="plugin.program.indigo" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="startup" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Exodus</summary>
+		<description lang="en">Please visit [COLOR blue]www.tvaddons.co[/COLOR] for Exodus support and assistance! Kindly note that Exodus is not an official part of the media player you are running, and therefore not to be mentioned within official support channels, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system.</description>
+		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
+		<description lang="de">Bitte besuche [COLOR blue]www.tvaddons.co[/COLOR] für Unterstützung und Fragen zu Exodus! Beachte dabei, dass Exodus nicht offizieller Teil des Media Players ist den du gerade verwendest und daher nicht von dem offiziellen Support-Kanäle abgedeckt wird, dieses Addon hat nichts zu tun mit dem Media-Player selbst, noch ist es dafür beabsichtigt, es handelt sich hierbei lediglich um ein Drittanbieter-Anwendung die dem System hinzugefügt wurde.</description>
+		<disclaimer lang="de">Die von diesem Addon dargestellten Inhalte werden von den Erstellern des Addons weder gehostet oder verbreitet, noch stehen die Ersteller in irgendeiner Beziehung zu den Content-Anbietern.</disclaimer>
+		<description lang="fr">SVP visitez [COLOR blue]www.tvaddons.co[/COLOR] pour avoir de l'aide sur Exodus. Prenez note qu'Exodus n'est pas une partie intégrante de votre outil de visionnement multimedia et SVP ne le mentionnez pas dans les media sociaux officiels, cet addiciel n'a rien a voir avec votre lecteur multimedia lui même, c'est simplement un addiciel qui a été ajouté à votre système.</description>
+		<disclaimer lang="fr">L'auteur n'héberge pas ou ne distribue pas le contenu qui vous est affiché avec cet addiciel. L'auteur n'a pas d'alliance avec les distributeurs de contenu.</disclaimer>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+		<forum>https://www.tvaddons.co/forums/</forum>
+		<website>https://www.tvaddons.co/</website>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+    			<screenshot></screenshot>
+		</assets>
+		<news></news>
+	</extension>
+</addon>
+
 <addon id="plugin.video.f4mTester" name="f4mTester" version="2.7.3" provider-name="Shani">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -930,7 +974,7 @@ version="6.0.0~alpha6" />
     </extension>
 </addon>
 
-<addon id="plugin.video.jor-el" version="1.3.4" name="Jor-El" provider-name="KoDIY">
+<addon id="plugin.video.jor-el" version="1.3.5" name="Jor-El" provider-name="KoDIY">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.jor-el" />
@@ -1306,7 +1350,7 @@ Initial Release
 	</extension>
 </addon>
 
-<addon id="plugin.video.plutotv" version="1.1.3" name="Pluto.TV" provider-name="Lunatixz">
+<addon id="plugin.video.plutotv" version="1.1.4" name="Pluto.TV" provider-name="Lunatixz">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.simplecache" version="1.0.0"/>
@@ -1327,7 +1371,7 @@ Initial Release
         <source>https://github.com/Lunatixz/KODI_Addons/tree/master/plugin.video.plutotv</source>
         <website>http://pluto.tv/</website>
         <forum>http://forum.kodi.tv/showthread.php?tid=315513</forum>
-        <news>v1.1.2[CR]- Improved usability[CR]v1.1.0[CR]- Improved UWP check [CR]- Added automatic region detection[CR]- Improved guide load times[CR]- Improved overall performance[CR]v1.0.9[CR]- Added UWP check[CR]- Improved Playback[CR]v1.0.8[CR]- Fixed parsing errors[CR]- Added uEPG guide[CR]v1.0.7[CR]- init. uEPG support.[CR]- New menu items.[CR]- Misc. Tweaks.[CR]v1.0.7[CR]- Improved browsing speed[CR]- General tweaks and improvements.[CR]v1.0.6[CR]- Added Guest Login.[CR]- Added Geoblock warning.[CR]v1.0.5[CR]- Fixed Android Login[CR]v1.0.4[CR]- Added Region Selection and Improved Region Filter[CR]- Added Startup Wizard and Improved Login Verification.[CR]v1.0.3[CR]- Fixed Menu and Tweaked cache.[CR]v1.0.2[CR]- Fixed cookie issue on android devices.[CR]- Updated cache life.[CR]v1.0.1[CR]- Fixed login cache issue.</news>
+        <news>v1.1.4[CR]- Back-end updates[CR]-v1.1.2[CR]- Improved usability[CR]v1.1.0[CR]- Improved UWP check [CR]- Added automatic region detection[CR]- Improved guide load times[CR]- Improved overall performance[CR]v1.0.9[CR]- Added UWP check[CR]- Improved Playback[CR]v1.0.8[CR]- Fixed parsing errors[CR]- Added uEPG guide[CR]v1.0.7[CR]- init. uEPG support.[CR]- New menu items.[CR]- Misc. Tweaks.[CR]v1.0.7[CR]- Improved browsing speed[CR]- General tweaks and improvements.[CR]v1.0.6[CR]- Added Guest Login.[CR]- Added Geoblock warning.[CR]v1.0.5[CR]- Fixed Android Login[CR]v1.0.4[CR]- Added Region Selection and Improved Region Filter[CR]- Added Startup Wizard and Improved Login Verification.[CR]v1.0.3[CR]- Fixed Menu and Tweaked cache.[CR]v1.0.2[CR]- Fixed cookie issue on android devices.[CR]- Updated cache life.[CR]v1.0.1[CR]- Fixed login cache issue.</news>
         <assets>
             <icon>resources/images/icon.png</icon>
             <fanart>resources/images/fanart.jpg</fanart>
@@ -1411,7 +1455,7 @@ v3.0.5
 	</extension>
 </addon>
 
-<addon id="plugin.video.releaseBB" version="1.8.2" name="Release[COLOR orange][B]BB[/B][/COLOR]" provider-name="Bugatsinho">
+<addon id="plugin.video.releaseBB" version="1.8.4" name="Release[COLOR orange][B]BB[/B][/COLOR]" provider-name="Bugatsinho">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.t0mm0.common" version="2.1.1"/>
@@ -1435,14 +1479,40 @@ v3.0.5
     <twitter>https://twitter.com/bugatsinho</twitter>
     <repo>https://bugatsinho.github.io/repo/</repo>
     <email>bugatsinho@protonmail.com</email>
-    <news>+ [B][COLOR lime]1.8.2[/B][/COLOR] [COLOR gold](21-07-2019)[/COLOR]
-- Update cfscrape.py
-- Fix search function
-- For support join https://bit.ly/bug_telegram or https://bugatsinho.github.io</news>
+    <news>+ [B][COLOR lime]1.8.4[/B][/COLOR] [COLOR gold](30-08-2019)[/COLOR]
+- add cfscrape17.py to support  kodi 17.6 users</news>
     <assets>
         <icon>icon.png</icon>
         <fanart>fanart.jpg</fanart>
     </assets>
+  </extension>
+</addon>
+
+<addon id="plugin.video.Rising.Tides"
+	name="[COLOR red][B]R[/B][/COLOR][COLOR white][B]ising[/B][/COLOR] [COLOR pink][B]T[/B][/COLOR][COLOR white][B]ides[/B][/COLOR]"
+	version="1.4.19"
+	provider-name="[COLOR turquoise][B]mullafabz[/B][/COLOR]">
+  <requires>
+	<import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.simple.downloader" optional="true"/>
+	<import addon="script.module.beautifulsoup" version="3.2.1"/>
+	<import addon="script.module.beautifulsoup4"/>
+	<import addon="script.module.requests"/>
+	<import addon="script.module.httplib2"/>
+	<import addon="script.module.urlresolver" optional="true"/>
+	<import addon="script.module.resolveurl" optional="true"/>
+	<import addon="script.module.liveresolver" version="0.1.50"/>
+	<import addon="script.module.simplejson"/>
+	<import addon="script.common.plugin.cache" version="2.5.2"/>
+	<import addon="script.module.metahandler" version="2.5.1"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Watch many sports and events from the world</summary>
+    <description lang="en">I don't have any affiliation with the content provider nor KODI.Content freely available on the internet.More info at [COLOR lime][B]@mullafabz[/B][/COLOR]</description>
+    <platform>all</platform>
   </extension>
 </addon>
 
@@ -2157,7 +2227,7 @@ Fixed CM options not showing if context menu addon not installed
     </extension>
 </addon>
 
-    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="8.7" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
+    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="8.8" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2841,7 +2911,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="1.0.3" provider-name="Exodus">
+<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="1.0.5" provider-name="Exodus">
     <requires>
         <import addon="xbmc.python" version="2.25.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -2861,7 +2931,7 @@ The author is not responsible for the use of this addon. The author is not respo
         <icon>icon.png</icon>
         <fanart></fanart>
     </assets>
-    <news>v1.0.3 - Scraper cleanup and EOL fixes</news>
+    <news>v1.0.5 - Scraper cleanup and EOL fixes</news>
     </extension>
 </addon>
 
@@ -2878,6 +2948,24 @@ The author is not responsible for the use of this addon. The author is not respo
         <platform>all</platform>
         <source>https://github.com/kurtmckee/feedparser</source>
     </extension>
+</addon>
+
+<addon id="script.module.future"
+       name="future"
+       version="0.17.1"
+       provider-name="Ed Schofield">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0" />
+  </requires>
+  <extension point="xbmc.python.module" library="libs" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Clean single-source support for Python 3 and 2</summary>
+    <description lang="en">future is the missing compatibility layer between Python 2 and Python 3. It allows you to use a single, clean Python 3.x-compatible codebase to support both Python 2 and Python 3 with minimal overhead.</description>
+    <platform>all</platform>
+    <license>MIT</license>
+    <source>https://github.com/PythonCharmers/python-future</source>
+    <website>http://python-future.org</website>
+  </extension>
 </addon>
 
 <addon id="script.module.html5lib"
@@ -2903,26 +2991,41 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.inputstreamhelper"
-       version="0.3.5"
-       name="InputStream Helper"
-       provider-name="emilsvennesson">
+<addon id="script.module.inputstreamhelper" version="0.4.1" name="InputStream Helper" provider-name="emilsvennesson,dagwieers">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
+        <!-- This is needed for the plugin to import the library -->
+        <import addon="script.module.inputstreamhelper" optional="true"/>
         <import addon="script.module.kodi-six" version="0.0.4"/>
-        <import addon="script.module.requests" version="2.9.1"/>
+        <import addon="script.module.pysocks" version="1.6.8" optional="true"/>
     </requires>
-    <extension library="lib" point="xbmc.python.module"/>
+    <extension point="xbmc.python.module" library="lib"/>
+    <!-- This is needed to get an addon icon -->
+    <extension point="xbmc.python.script" library="addon.py"/>
     <extension point="xbmc.addon.metadata">
         <description lang="en_GB">A simple Kodi module that makes life easier for add-on developers relying on InputStream based add-ons and DRM playback.</description>
         <description lang="el_GR">Μία απλή μονάδα για το Kodi η οποία διευκολύνει την ζωή των προγραμματιστών οι οποίοι εξαρτώνται από τα πρόσθετσ InputStream και αναπαραγωγή τύπου DRM.</description>
-        <news>2019.08.15 v0.3.5
-        + Auto install inputstream.adaptive (mediaminister)
-        + Fix latest Widevine version detection (dagwieers)
-        + Check for Widevine updates on new release (mediaminister)
-    </news>
+        <description lang="ru_RU">Простой модуль для Kodi, который облегчает жизнь разработчикам дополнений, с использованием InputStream дополнений и воспроизведения DRM контента.</description>
+        <news>
+v0.4.1 (2019-09-01)
+- Use local url variable
+- Directly use Kodi CDM directory
+- Implement settings menu and API
+- Add integration tests
+- Add a progress dialog for extraction on ARM
+- Fix crash when using platform.system()
+- Fix a python error
+- Remove legacy Widevine CDM support
+- Replace requests/urllib3 with urllib/urllib2
+- Various unicode fixes
+- Add proxy support
+- Add setting to disable inputstreamhelper
+- Check Widevine support before all checks
+- Support 64-bit kernel with 32-bit userspace
+- Dutch, German, Greek, Italian, Russian and Swedish translations
+        </news>
         <platform>all</platform>
-        <license>MIT License</license>
+        <license>MIT</license>
         <source>https://github.com/emilsvennesson/script.module.inputstreamhelper</source>
         <assets>
             <icon>resources/icon.png</icon>
@@ -2930,7 +3033,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="script.module.jor-el" name="Jor-El Module" version="1.4.0" provider-name="KoDIY">
+<addon id="script.module.jor-el" name="Jor-El Module" version="1.4.1" provider-name="KoDIY">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>

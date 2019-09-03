@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 import logging, random, time, re
 
 import ssl
 
-import xbmc
 '''''''''
 Disables InsecureRequestWarning: Unverified HTTPS request is being made warnings.
 '''''''''
@@ -23,47 +21,24 @@ except ImportError:
     from urllib.parse import urlparse
     from urllib.parse import urlunparse
 
+#Debug Mode (enable lots of log())
 DEBUG_MODE = False
-__version__ = "1.9.8"
-
+__version__ = "1.9.9"
 
 def log(txt):
-    xbmc.log(str(txt), xbmc.LOGNOTICE)
+    print "%s" % txt
+    #xbmc.log(str(txt), xbmc.LOGNOTICE)
 
 
 DEFAULT_USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.79 Safari/537.36"
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/65.0.3325.181 Chrome/65.0.3325.181 Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 7.0; Moto G (5) Build/NPPS25.137-93-8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.137 Mobile Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B554a Safari/9537.53",
+    "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:59.0) Gecko/20100101 Firefox/59.0",
+    "Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0"
 ]
-
 
 BUG_REPORT = ("Cloudflare may have changed their technique, or there may be a bug in the script.\n\nPlease read " "https://github.com/Anorov/cloudflare-scrape#updates, then file a "
 "bug report at https://github.com/Anorov/cloudflare-scrape/issues.")
@@ -74,13 +49,10 @@ class CipherSuiteAdapter(HTTPAdapter):
     def __init__(self, cipherSuite=None, **kwargs):
         self.cipherSuite = cipherSuite
 
-        if hasattr(ssl, 'PROTOCOL_TLS'):
-            self.ssl_context = create_urllib3_context(
-                ssl_version=getattr(ssl, 'PROTOCOL_TLSv1_3', ssl.PROTOCOL_TLSv1_2),
-                ciphers=self.cipherSuite
-            )
-        else:
-            self.ssl_context = create_urllib3_context(ssl_version=ssl.PROTOCOL_TLSv1)
+        self.ssl_context = create_urllib3_context(
+            ssl_version=ssl.PROTOCOL_TLS,
+            ciphers=self.cipherSuite
+        )
 
         super(CipherSuiteAdapter, self).__init__(**kwargs)
 
@@ -131,33 +103,39 @@ class CloudflareScraper(Session):
 
         if hasattr(ssl, 'PROTOCOL_TLS'):
             ciphers = [
-                'ECDHE-ECDSA-AES128-GCM-SHA256', 'ECDHE-RSA-AES128-GCM-SHA256', 'ECDHE-ECDSA-AES256-GCM-SHA384',
-                'ECDHE-RSA-AES256-GCM-SHA384', 'ECDHE-ECDSA-CHACHA20-POLY1305-SHA256', 'ECDHE-RSA-CHACHA20-POLY1305-SHA256',
-                'ECDHE-RSA-AES128-CBC-SHA', 'ECDHE-RSA-AES256-CBC-SHA', 'RSA-AES128-GCM-SHA256', 'RSA-AES256-GCM-SHA384',
-                'ECDHE-RSA-AES128-GCM-SHA256', 'RSA-AES256-SHA', '3DES-EDE-CBC'
+                'TLS13-AES-256-GCM-SHA384',
+                'TLS13-CHACHA20-POLY1305-SHA256',
+                'ECDHE-ECDSA-AES256-GCM-SHA384',
+                'ECDHE-ECDSA-AES256-SHA384',
+                'ECDHE-ECDSA-AES256-SHA',
+                'ECDHE-ECDSA-CHACHA20-POLY1305',
+                'TLS13-AES-128-GCM-SHA256',
+                'ECDHE-ECDSA-AES128-GCM-SHA256',
+                'ECDHE-ECDSA-AES128-SHA256',
+                'ECDHE-ECDSA-AES128-SHA',
+                # Slip in some additional intermediate compatibility ciphers, This should help out users for non Cloudflare based sites.
+                'ECDHE-RSA-AES256-SHA384',
+                'ECDHE-RSA-AES256-GCM-SHA384'
             ]
 
-            if hasattr(ssl, 'PROTOCOL_TLSv1_3'):
-                ciphers.insert(0, ['GREASE_3A', 'GREASE_6A', 'AES128-GCM-SHA256', 'AES256-GCM-SHA256', 'AES256-GCM-SHA384', 'CHACHA20-POLY1305-SHA256'])
-
-            ctx = ssl.SSLContext(getattr(ssl, 'PROTOCOL_TLSv1_3', ssl.PROTOCOL_TLSv1_2))
+            ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
 
             for cipher in ciphers:
                 try:
                     ctx.set_ciphers(cipher)
-                    self.cipherSuite = '{}:{}'.format(self.cipherSuite, cipher).rstrip(':')
+                    self.cipherSuite = '{}:{}'.format(self.cipherSuite, cipher).rstrip(':').lstrip(':')
                 except ssl.SSLError:
                     pass
 
         return self.cipherSuite
 
     def request(self, method, url, *args, **kwargs):
-        #Sometime the https trigge the captcha
+        #Sometimes the https triggers the captcha
         resp = super(CloudflareScraper, self).request(method, url, *args, **kwargs)
 
         # Check if Cloudflare anti-bot is on
         if self.ifCloudflare(resp):
-            #Sometime the https triggers the captcha
+            #Sometimes the https triggers the captcha
             if self.isCaptcha == True:
                 if self.baseUrl == "":
                     self.baseUrl = resp.url
@@ -166,7 +144,7 @@ class CloudflareScraper(Session):
             return self.solve_cf_challenge(resp, **kwargs)
 
         # Otherwise, no Cloudflare anti-bot detected
-        if DEBUG_MODE is True:
+        if DEBUG_MODE == True:
             log(resp.text)
         return resp
 
@@ -176,7 +154,7 @@ class CloudflareScraper(Session):
                 raise Exception('Failed to solve Cloudflare challenge!')
             elif b'/cdn-cgi/l/chk_captcha' in resp.content:
                 #Try without https
-                if self.isCaptcha is False:
+                if self.isCaptcha == False:
                     self.isCaptcha = True
                     self.cf_tries = 0
                     return True
@@ -195,9 +173,9 @@ class CloudflareScraper(Session):
         body = resp.text
         parsed_url = urlparse(resp.url)
         domain = parsed_url.netloc
-        submit_url = "{0}://{1}/cdn-cgi/l/chk_jschl".format(parsed_url.scheme, domain)
+        submit_url = "%s://%s/cdn-cgi/l/chk_jschl" % (parsed_url.scheme, domain)
 
-        cloudflare_kwargs = original_kwargs.copy()
+        cloudflare_kwargs = original_kwargs.copy( )
         params = cloudflare_kwargs.setdefault("params", {})
         headers = cloudflare_kwargs.setdefault("headers", {})
         headers["Referer"] = resp.url
@@ -210,31 +188,31 @@ class CloudflareScraper(Session):
                 raise Exception('CF form not found')
             sub_body = body[form_index:]
 
-            s_match = re.search(r'name=[\'"]s[\'"]\s*value=[\'"](.+?)[\'"]', sub_body)
+            s_match = re.search('name="s" value="(.+?)"', sub_body)
             if s_match:
                 params["s"] = s_match.group(1) # On older variants this parameter is absent.
-            params["jschl_vc"] = re.search(r'name=[\'"]jschl_vc[\'"]\s*value=[\'"](\w+)[\'"]', sub_body).group(1)
-            params["pass"] = re.search(r'name=[\'"]pass[\'"]\s*value=[\'"](.+?)[\'"]', sub_body).group(1)
+            params["jschl_vc"] = re.search(r'name="jschl_vc" value="(\w+)"', sub_body).group(1)
+            params["pass"] = re.search(r'name="pass" value="(.+?)"', sub_body).group(1)
 
             if body.find('id="cf-dn-', form_index) != -1:
-                extra_div_expression = re.search(r'id=[\'"]cf-dn-.*?>(.+?)<', sub_body).group(1)
+                extra_div_expression = re.search('id="cf-dn-.*?>(.+?)<', sub_body).group(1)
 
             # Initial value.
             js_answer = self.cf_parse_expression(
-                re.search(r'setTimeout\(function\(.*?:(.*?)}', body, re.DOTALL).group(1)
+                re.search('setTimeout\(function\(.*?:(.*?)}', body, re.DOTALL).group(1)
             )
             # Extract the arithmetic operations.
-            builder = re.search(r'challenge-form[\'"]\);\s*;(.*);a.value', body, re.DOTALL).group(1)
+            builder = re.search("challenge-form'\);\s*;(.*);a.value", body, re.DOTALL).group(1)
             # Remove a function semicolon before splitting on semicolons, else it messes the order.
             lines = builder.replace(' return +(p)}();', '', 1).split(';')
 
-            if DEBUG_MODE is True:
-                log('s : ' + params["s"])
-                log('jschl_vc : '+ params["jschl_vc"])
-                log('pass : '+ params["pass"])
-                log('js_answer : ' + str(js_answer))
-                log('html Content : '+ body)
-                log('lines : ' + str(lines))
+            if DEBUG_MODE == True:
+                log('s : '+params["s"])
+                log('jschl_vc : '+params["jschl_vc"])
+                log('pass : '+params["pass"])
+                log('js_answer : '+str(js_answer))
+                log('html Content : '+body)
+                log('lines : ' +str(lines))
 
             for line in lines:
                 if len(line) and '=' in line:
@@ -254,8 +232,8 @@ class CloudflareScraper(Session):
 
             params["jschl_answer"] = '%.10f' % js_answer
 
-            if DEBUG_MODE is True:
-                log("jschl_answer : " + params["jschl_answer"])
+            if DEBUG_MODE == True:
+                log("jschl_answer : "+params["jschl_answer"])
 
         except Exception as e:
             # Something is wrong with the page.
@@ -389,8 +367,8 @@ class CloudflareScraper(Session):
                     "__cfduid": scraper.cookies.get("__cfduid", "", domain=cookie_domain),
                     "cf_clearance": scraper.cookies.get("cf_clearance", "", domain=cookie_domain)
                 },
-                scraper.headers["User-Agent"])
-
+                scraper.headers["User-Agent"]
+               )
 
     @classmethod
     def get_cookie_string(cls, url, user_agent=None, **kwargs):

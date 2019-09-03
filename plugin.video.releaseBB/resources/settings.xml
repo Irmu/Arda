@@ -1,8 +1,8 @@
-<?xml version="2.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="GENERAL">
         <setting type="lsep" label="Select Domain" />
-        <setting id="domain" label="DOMAIN" type="select" values="RLSBB.TO|RLSBB.RU|RLSBB.UNBLOCKED.LS" default="RLSBB.RU"/>
+        <setting id="domain" label="DOMAIN" type="select" values="RLSBB.TO|RLSBB.RU" default="RLSBB.TO"/>
         <setting type="lsep" label="LINKS/SIZE" />
         <setting id="test.links" label="Remove 'DEAD' Links|Show File Size" type="bool" default="false"/>
     </category>

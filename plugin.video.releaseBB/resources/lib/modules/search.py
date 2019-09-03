@@ -48,7 +48,11 @@ except ImportError:
 
 
 def Search_bb(url):
-    from resources.lib.modules import cfscrape
+    kodi_ver = float(xbmc.getInfoLabel("System.BuildVersion")[:4])
+    if kodi_ver >= 18:
+        from resources.lib.modules import cfscrape as cfscrape
+    else:
+        from resources.lib.modules import cfscrape17 as cfscrape
     scraper = cfscrape.create_scraper()
     if 'new' == url:
         keyboard = xbmc.Keyboard()

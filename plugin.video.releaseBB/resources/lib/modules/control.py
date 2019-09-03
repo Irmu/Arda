@@ -279,22 +279,5 @@ def open_git(url=None):
         return
 
 
-def android_activity(url, package=''):
-
-    if package:
-        package = '"' + package + '"'
-
-    return execute('StartAndroidActivity({0},"android.intent.action.VIEW","","{1}")'.format(package, url))
 
 
-def open_web_browser(url):
-
-    if condVisibility('system.platform.android'):
-
-        return android_activity(url)
-
-    else:
-
-        import webbrowser
-
-        return webbrowser.open(url)
