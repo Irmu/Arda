@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import sys
-import urllib2,urllib
+import urllib2,urllib,urllib3
 import cookielib
 import threading
 import re
@@ -12,16 +12,24 @@ import mydecode
 reload(sys)
 sys.setdefaultencoding('utf8')
 
+import cfdeco6
+scraper = cfdeco6.create_scraper()
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 BASEURL='http://www.streamendous.com'
 BASEURL2='https://cricfree.stream/'
 BASEURL3='http://strims.world/'
 BASEURL4='https://www.soccerstreams100.com/'
-
-UA='Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'
+BASEURL5='https://livesport.ws/en/'
+sess = requests.Session()
+UA="Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0"
 UAbot='Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
 def getUrl(url,ref=BASEURL2):
 	headers = {'User-Agent': UA,'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Referer': ref,}
-	html=requests.get(url,headers=headers,verify=False,timeout=30).content
+	html=requests.get(url,headers=headers,verify=False,timeout=30)#.content
+	if html.status_code == 503:
+		html=scraper.get(url).text
+	else:
+		html=html.content
 	if html.find('by DDoS-GUARD')>0:   
 		headers = {'User-Agent': UAbot,'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Referer': ref,'Cookie':unbkuk}
 		html=requests.get(url,headers=headers,verify=False,timeout=30).content		
@@ -31,7 +39,8 @@ def getUrl(url,ref=BASEURL2):
 def getUrl2(url,ref=BASEURL2):
 	headers = {'User-Agent': UA,'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Referer': ref,}
 	html=requests.get(url,headers=headers,verify=False,timeout=30)
-
+	if html.status_code == 503:
+		html=scraper.get(url)#.text
 	last=html.url
 	html=html.content
 	return html,last
@@ -128,20 +137,29 @@ def getF1stream(url):
 def getSWstreams(url):
 	out=[]
 	html,basurl=getUrl2(url)
+	
 	try:
-		result = parseDOM(html,'font',attrs = {'size':'3'})[0]
-		
+		try:
+			result = parseDOM(html,'font size=3.+?')[0]
+		except:
+			result = parseDOM(html,'font',attrs = {'size':'3'})[0]
+
 		if '<center><b>' in result:
 			result = parseDOM(html,'font',attrs = {'size':'3'})[1]
-		result=result.replace('\n','').replace('</a> |',' |').replace('<b>','').replace('</b>','')
-		
+		result=result.replace('\n','').replace('<b>','').replace('</b>','')
+
 		try:
-			xx=re.findall('(\w+: <a class.+?</a>)',result,re.DOTALL)
+			result2=result.replace('\n','').replace('</a> |',' |').replace('<b>','').replace('</b>','')
+
+			xx=re.findall('(\w+.*?: <a class.+?</a>)',result2,re.DOTALL)
+			
+			
 			for x in xx:
+				x=x.replace('br>','')
 				lang=re.findall('^(\w+)',x,re.DOTALL)[0]
-				hreftyt=re.findall('href="(.+?)".+?>(Source \d \w+)',x)
+				hreftyt=re.findall('href="(.+?)".+?>(Source \d.+?)<',x)
 				for href,tyt in hreftyt:
-					
+					tyt = tyt.replace('|','')
 					href=basurl+href
 					tyt='%s - [B]%s[/B]'%(lang,tyt)
 					out.append({'href':href,'title':tyt})
@@ -155,6 +173,16 @@ def getSWstreams(url):
 		
 	except:
 		pass
+	if not out:
+		try:
+			#	except:
+			results=result.split('|')
+			for result in results:
+				href,name=re.findall('href="(.+?)".+?>(.+?)<\/a>',result)[0]
+				href=url+href
+				out.append({'href':href,'title':name.replace('<b>','').replace('</b>','')})	
+		except:
+			pass
 	return out
 	
 	
@@ -207,25 +235,29 @@ def unescapeHtml(hh):
 	vales=re.findall("""['"](.+?)['"]""",hh,re.DOTALL)#[0]
 	vale=vales[0] if vales else ''
 	a=urllib2.unquote(vale)  
-	if 'm3u8' in a:
+	if 'm3u8' in a or 'src="http' in a:
 		return a
 	else:
-		spl=re.findall("""split\(['"](.+?)['"]\)""",a,re.DOTALL)[0]
-		pl=re.findall("""\+\s*['"](.+?)['"]\);""",a,re.DOTALL)[0]
-		odj=re.findall('\(i\)\)(.+?)\);',a,re.DOTALL)[0]	
-		funkcja='chr((int(k[i%len(k)])^ord(s[i]))'+odj+')'
-		tmp=vales[2]
-		tmp = tmp.split(spl)
-		s = urllib2.unquote(tmp[0]);
-		k = urllib2.unquote(tmp[1] + pl);
-		r=''
-		for i in range(0, len(s)):
-			r+=eval(funkcja)
-	return r
+		try:
+			spl=re.findall("""split\(['"](.+?)['"]\)""",a,re.DOTALL)[0]
+			pl=re.findall("""\+\s*['"](.+?)['"]\);""",a,re.DOTALL)[0]
+			odj=re.findall('\(i\)\)(.+?)\);',a,re.DOTALL)[0]	
+			funkcja='chr((int(k[i%len(k)])^ord(s[i]))'+odj+')'
+			tmp=vales[2]
+			tmp = tmp.split(spl)
+			s = urllib2.unquote(tmp[0]);
+			k = urllib2.unquote(tmp[1] + pl);
+			r=''
+			for i in range(0, len(s)):
+				r+=eval(funkcja)
+			return r
+		except:
+			return a
 	
 def resolvingCR(url,ref):
 	html=getUrl(url,ref)
 	iframes= parseDOM(html,'iframe',ret='src')#[0]
+	dal=''
 	for iframe in iframes:
 		if 'unblocked.is' in iframe:
 			if 'nullrefer.com' in iframe or 'href.li/' in iframe:
@@ -233,19 +265,54 @@ def resolvingCR(url,ref):
 			html2=getUrl(iframe,url)		
 			stream=getUnblocked(html2)
 			return stream
+		#elif 'twitch.tv' in iframe:
+		#	return iframe
+		
 		elif 'nullrefer.com' in iframe or 'href.li/' in iframe:
 			iframe = urlparse.urlparse(iframe).query
+
 			html=getUrl(iframe,url)	
 			url=iframe
 			break
+		elif 'sportsbay.org' in iframe:
+			if iframe.startswith('//'):
+
+				iframe = 'https:'+iframe
+			html=getUrl(iframe,url)	
+			url=iframe
+			dal=iframe
+			break
+		elif 'daddylive.live' in iframe:
+			if iframe.startswith('//'):
+
+				iframe = 'https:'+iframe
+			html=getUrl(iframe,url)	
+			url=iframe
+			dal=iframe
+			break
+		elif 'strimstv.eu' in iframe:
+			if iframe.startswith('//'):
+				iframe = 'https:'+iframe
+			html=getUrl(iframe,url)	
+			url=iframe
+			dal=iframe
+			break
+	
 	if html.find("eval(unescape('")>0:
-		html=unescapeHtml(html)
+		try:
+			html=unescapeHtml(html)
+		except:
+			pass
 	vido_url=re.findall("""['"](rtmp:.+?)['"]""",html,re.DOTALL)
 	if vido_url:
 		vido_url = vido_url[0]
 	else:
 		vido_url=re.findall("""source:\s*['"](.+?)['"]""",html,re.DOTALL)
-		vido_url = vido_url[0] if vido_url else mydecode.decode(url,html)	
+
+		vido_url = vido_url[0]+'|User-Agent='+UA+'&Referer='+dal if vido_url else mydecode.decode(url,html)
+		if vido_url:
+			if 'about:blank' in vido_url:
+				vido_url=mydecode.decode(url,html)	
 	return vido_url
 	
 def getScheduleSE():
@@ -324,8 +391,8 @@ def getScheduleSW():
 	for id,day,date in iddaydate:
 
 		result = parseDOM(html,'div',attrs = {'id':id})[0]
-		xxx=re.findall('(\d+:\d+)\s*<a class="([^"]+)" href="([^"]+)">([^>]+)</a>',result,re.DOTALL)
-
+		result=result.replace('a class=""','a class=" "')
+		xxx=re.findall('(\d+:\d+).*<a class="([^"]+)" href="([^"]+)">([^>]+)</a>',result)
 		if xxx:
 			day=('kiedy|%s %s'%(day,date)).replace('FIRDAY','FRIDAY')	
 			out.append({'href':day})	
@@ -400,7 +467,7 @@ def getSWlink(url):
 	playt=True
 	html=getUrl(url,BASEURL3)
 	if 'streamamg.com' in html:
-		iframes= parseDOM(html,'iframe',ret='src')#[0]
+		iframes = parseDOM(html,'iframe',ret='src')#[0]
 		for iframe in iframes:
 			if 'streamamg.' in iframe:
 				html2=getUrl(iframe,url)	
@@ -432,3 +499,169 @@ def getSWlink2(url):
 	html=getUrl(url,BASEURL3)
 	stream=getUnblocked(html)
 	return stream,False
+
+	
+def getLiveSport():
+	out =[]
+		#try:
+	html=getUrl(BASEURL5,BASEURL5)
+	
+	result = parseDOM(html,'ul',attrs = {'class':"drop-list"})
+	#<ul class="drop-list">
+	acts = parseDOM(result,'li',attrs = {'class':"active"})
+	for act in acts:
+		
+		
+		#kiedy = parseDOM(act,'div',attrs = {'class':"opener"})#<div class="opener">
+		#print kiedy
+		
+		kiedy = re.findall('"text">(.+?)<\/span><\/a>',act)[0] #>12 September, Today</span></a>
+		day='kiedy|%s'%kiedy
+		out.append({'href':day})	
+		
+		act=act.replace("\'",'"')
+		links = parseDOM(act,'li')#[0]
+		for link in links:
+		#	print link
+			href = parseDOM(link,'a',ret='href')[0]
+			href = 'https://livesport.ws'+href if href.startswith('/') else href
+			try:
+				team1 = re.findall('right;">(.+?)<\/div>',link)[0]
+				team2 = re.findall('left;">(.+?)<\/div>',link)[0]
+				mecz='%s vs %s'%(team1,team2)
+			except:
+				mecz=re.findall('center;.+?>(.+?)<',link)[0]
+			dysc = re.findall('"competition">(.+?)</',link)#[0]
+			dysc =dysc[0] if dysc else ''
+			ikon = parseDOM(link,'img',ret='src')[0]
+			datas = parseDOM(link,'span',attrs = {'class':"date"})[0] #<span class="date">
+			liv = parseDOM(datas,'i')[0]
+			
+			online= '[COLOR lime]► [/COLOR]' if 'live' in liv.lower() else '[COLOR orangered]■ [/COLOR]'
+			id = parseDOM(link,'i',ret='id')#[0]
+			if id:
+				postid=re.findall('(\d+)',href)[0]
+				eventid=id[0]
+				href+='|event_id=%s|post_id=%s|'%(eventid,postid)
+			#if 'live' in liv.lower():
+			#	online = 
+			czas = parseDOM(datas,'i',ret='data-datetime')[0]#attrs = {'class':"date"})
+			st=re.findall('(\d+:\d+)',czas)[0]
+			czas1 = str(int(st.split(':')[0])-1)
+			czas = re.sub('\d+:', czas1+':', czas)
+			title = '[B][COLOR khaki]%s%s : [/COLOR][/B][COLOR gold][B]%s[/B][/COLOR]'%(online,czas,mecz)
+			out.append({'title':title,'href':href,'image':ikon,'code':dysc})
+	#except:
+	#	pass
+	return out
+
+def getLinksLiveSport(url,tytul):
+	out=[]
+
+	ref=url.split('|')[0]
+	evpo = re.findall('(\d+)\|post_id=(\d+)\|',url)[0]
+
+	event_id=evpo[0]
+	post_id=evpo[1]
+	cookies = {
+		'dle_time_zone_offset': '7200',
+	}
+
+	headers = {
+		'User-Agent': UA,
+		'Accept': 'application/json, text/javascript, */*; q=0.01',
+		'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+		'X-Requested-With': 'XMLHttpRequest',
+
+		'Referer': ref,
+
+	}
+	
+	dane = (
+		('from', 'event'),
+		('event_id', event_id),
+		('tab_id', 'undefined'),
+		('post_id', post_id),
+		('lang', 'en'),
+	)
+
+	response = sess.get('https://livesport.ws/engine/modules/sports/sport_refresh.php', headers=headers, params=dane, cookies=cookies,verify=False,timeout=30).json()
+	try:
+		broadcast=response['broadcast']
+		flashes = parseDOM(broadcast,'li',attrs = {'class':"flashtable",'id':'.+?'})#[0]
+		if flashes:
+			flashes  = parseDOM(flashes[0],'tbody')
+		links = parseDOM(flashes,'tr')
+		co=1
+		for link in links:
+			code = parseDOM(link,'img',ret='title')#[0]
+			code = code[0] if code else ''
+			href = parseDOM(link,'a',ret='href')
+			href = href[0] if href else ''
+			
+			tyt = 'Link %s - [COLOR violet]%s[/COLOR]'%(co,code)
+
+			if href:
+				out.append({'title':tyt,'href':href,'image':'','code':code})	
+				co+=1
+			else:
+				continue
+	except:
+		pass
+	return out
+	
+	
+	
+	
+def getStreamLiveSport(url):
+
+
+	headers = {
+		'Host': 'stream.livesport.ws',
+		'User-Agent': UA,
+		'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+		'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+		'DNT': '1',
+		'Upgrade-Insecure-Requests': '1',
+	}
+
+	html = sess.get(url, headers=headers,verify=False,timeout=30).text
+	
+	iframe = parseDOM(html,'iframe',ret='src')[0]
+	if 'vamosplay' in iframe:
+		headers = {
+			'User-Agent': UA,
+			'Accept': '*/*',
+			'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+			'Connection': 'keep-alive',
+			'Referer': iframe,
+		}
+		
+		html = sess.get('http://vamosplay.tech/js/config-stream.js', headers=headers,verify=False,timeout=30).text
+		html=html.replace("\'",'"')
+		servers = re.findall('var servers\s*=\s*"([^"]+)"',html)
+		
+		headers = {
+			'User-Agent': UA,
+			'Accept': 'application/json, text/javascript, */*; q=0.01',
+			'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+			'Origin': 'http://vamosplay.tech',
+			'Connection': 'keep-alive',
+			'Referer': iframe,
+	
+		}
+		
+		response = sess.get(servers[0], headers=headers,verify=False,timeout=30).json()
+		stream_adr=response['data']['url']
+		rodzaj = re.findall('(\/\w+)',iframe)[-1]
+		source = 'http://' + stream_adr + '/channels' + rodzaj + '/stream.m3u8'
+
+	else:
+
+		source=mydecode.decode(url,html)
+
+	return source
+	
+	
+
+	

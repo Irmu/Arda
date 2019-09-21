@@ -144,7 +144,7 @@ if action == "Defaults":
                   '2ddl', '300mbdownload', '300mbfilms', 'ddlspot', 'directdl', 'ganool',
                   'maxrls', 'moviesleak', 'mvrls', 'myvideolink', 'rapidmoviez', 'rlsbb', 'sceneddl', 'scenerls',
                   'scenerlscom', 'ultrahd',
-                  'warezmovies', '1337x', 'btdb', 'btscene', 'digbt', 'doublr', 'eztv', 'glodls', 'kickass2',
+                  'warezmovies', '1337x', 'btdb', 'btscene', 'doublr', 'eztv', 'glodls', 'kickass2',
                   'limetorrents',
                   'magnetdl', 'mkvcage', 'piratebay', 'torrentapi', 'torrentdownloads', 'yify',
                   'yifyddl',

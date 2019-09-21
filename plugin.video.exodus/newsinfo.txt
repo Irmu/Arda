@@ -1,10 +1,10 @@
-[B]Recently Updated:[/B] September 6, 2019
+[B]Recently Updated:[/B] September 20, 2019
 
-Exodus has now just updated with new fixes to improve
-scraping and reliability.
+Those of you who have been having problems will be
+pleased by the latest stability fix.
 
-[B]If you're still having problems[/B], it is very likely
-that [B]you will need a VPN[/B] moving forward.
+Exodus users should be [B]using a VPN to avoid site
+blocking issues[/B], we can't stress this enough!!!
 
 We encourage you to [B]subscribe to VPN service through
 the link below[/B], to also support the add-on community:

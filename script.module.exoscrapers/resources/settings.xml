@@ -201,7 +201,7 @@
         <setting id="provider.1337x" type="bool" label="$NUMBER[1337]X" default="true"/>
         <setting id="provider.btdb" type="bool" label="BTDB" default="true"/>
         <setting id="provider.btscene" type="bool" label="BTSCENE" default="true"/>
-        <setting id="provider.digbt" type="bool" label="DIGBT" default="true"/>
+        <setting id="provider.digbt" type="bool" label="DIGBT" default="false"/>
         <setting id="provider.doublr" type="bool" label="DOUBLR" default="true"/>
         <setting id="provider.eztv" type="bool" label="EZTV" default="true"/>
         <setting id="provider.glodls" type="bool" label="GLODLS" default="true"/>
