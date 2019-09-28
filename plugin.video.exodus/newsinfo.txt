@@ -1,12 +1,12 @@
-[B]Recently Updated:[/B] September 20, 2019
+[B]Recently Updated:[/B] September 25, 2019
 
-Those of you who have been having problems will be
-pleased by the latest stability fix.
+Thank you for choosing Exodus. I am working very
+hard to keep things going for everyone.
 
-Exodus users should be [B]using a VPN to avoid site
-blocking issues[/B], we can't stress this enough!!!
+If you are having trouble streaming, I strongly
+[B]suggest using a VPN[/B] to unblock links.
 
-We encourage you to [B]subscribe to VPN service through
-the link below[/B], to also support the add-on community:
+Visit this link to get a discount on the best VPN
+for Kodi, while supporting Kodi add-on community:
 
 [B]https://www.tvaddons.co/vpn[/B]

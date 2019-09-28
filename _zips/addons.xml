@@ -929,6 +929,29 @@ v2.3.14 (2019-02-10)
 
 </addon>
 
+<addon id="plugin.video.1x2"
+  version="1.0.13"
+  name="1x2"
+  provider-name="Team NS">
+  <requires>
+    <import addon="xbmc.python" version="2.25.0"/>
+    <import addon="script.module.requests" version="2.19.1"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="es">Los videos son proporcionados por personas ... en línea ... en algún lugar...</summary>
+    <description lang="es">Los videos son proporcionados por personas ... en línea ... en algún lugar...</description>
+    <disclaimer lang="es">El autor no almacena ni distribuye ninguno de los contenidos que se muestran en este addon. El autor no tiene ninguna afiliación con el proveedor de contenidos.</disclaimer>
+    <assets>
+      <icon>icon.gif</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
+
 <addon id="plugin.video.aliunde" name="[COLOR aqua]Aliunde[/COLOR]" version="0.4.99" provider-name="Aliunde">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
@@ -1104,7 +1127,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.exodus" version="8.1.0" name="Exodus" provider-name="Exodus">
+<addon id="plugin.video.exodus" version="8.1.1" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.exodus" />
@@ -1326,6 +1349,37 @@ Initial Release
 </news>
   </extension>
 
+</addon>
+
+<addon id="plugin.video.loki" name="loki add-on" version="3.1" provider-name="loki god of mischief">
+    <requires>
+        <import addon="xbmc.python" version="2.19.0" />
+        <import addon="script.module.universalscrapers" version="1.0.0" />
+        <import addon="script.module.python.koding.aio" version="0.9.6.6" />
+        <import addon="script.module.beautifulsoup" version="3.2.1" />
+        <import addon="script.module.requests" version="2.9.1" />
+        <import addon="script.module.addon.common" version="2.0.0" />
+        <import addon="script.module.xmltodict" version="0.9.0" />
+        <import addon="plugin.video.youtube" version="3.0.0"/>
+	   <import addon="script.module.dateutil" />
+		<import addon="script.module.feedparser" version="5.1.3"/>
+        <!--<import addon="script.module.web-pdb" version="1.0"/>-->
+        <import addon="script.module.resolveurl" />
+        <!--<import addon="script.module.urlresolver" />-->
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>audio video</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" start="[login|startup]" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Loki add-on</summary>
+        <description lang="en">Movies / TV Shows / Docs / Music / WWE</description>
+        <disclaimer lang="en">The author is not responsible for the use of this addon. The author is not responsible for the content found using this addon. The author does not host or own any content found within this addon.[CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
+        <platform>all</platform>
+        <website/>
+        <video_guide></video_guide>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
+    </extension>
 </addon>
 
 <addon id="plugin.video.masteraniredux" name="Masterani Redux" version="1.2.2" provider-name="Wilson Magic">
@@ -1987,7 +2041,7 @@ Fixed CM options not showing if context menu addon not installed
 	</extension>
 </addon>
 
-<addon id="plugin.video.sport365.live" name="Sport365" version="2.6.1" provider-name="Bugatsinho">
+<addon id="plugin.video.sport365.live" name="Sport365" version="2.6.3.1" provider-name="Bugatsinho">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.19.1"/>
@@ -2011,8 +2065,10 @@ Fixed CM options not showing if context menu addon not installed
     <icon>icon.png</icon>
     <fanart>fanart.png</fanart>
   </assets>
-  <news>2.6.1 07-06-2019
-- Fix links resolver</news>
+  <news>2.6.3 09-09-2019
+- Add new Alternative source
+- Default playback method INPUTSTREAM and F4M for older kodi versions
+- Auto enable-install inputstream addons</news>
   </extension>
 </addon>
 
@@ -2078,6 +2134,42 @@ Fixed CM options not showing if context menu addon not installed
 - removed: Spotify-Regional because Website turned off
 		</news>
 	</extension>
+</addon>
+
+<addon id="plugin.video.thecrew" version="0.0.37" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
+    <requires>
+        <import addon="xbmc.python" version="2.19.0" />
+        <import addon="script.module.thecrew" />
+        <import addon="script.thecrew.artwork" />
+        <import addon="script.thecrew.metadata" />
+        <import addon="script.module.resolveurl" />
+        <import addon="script.module.metahandler" version="1.0.0" />
+        <import addon="plugin.video.youtube" />
+        <import addon="script.crew.sports" />
+        <import addon="script.module.inputstreamhelper" version="0.3.3"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="thecrew.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" start="startup" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">The Crew is a team of highly skilled talent that provides you with the best of the best.</summary>
+        <description lang="en">Many come, Many go. The true and dedicated are here. Enjoy Your Entertainment.</description>
+        <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <forum></forum>
+        <website></website>
+        <source></source>
+        <disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+            <screenshot>resources/art/ss/1.png</screenshot>
+            <screenshot>resources/art/ss/2.png</screenshot>
+            <screenshot>resources/art/ss/3.png</screenshot>
+        </assets>
+        <news></news>
+    </extension>
 </addon>
 
 <addon id="plugin.video.tvone" name="tvOne" version="17" provider-name="RACC">
@@ -2637,6 +2729,45 @@ Fixed CM options not showing if context menu addon not installed
 	</extension>
 </addon>
 
+<addon id="repository.Loki" name="Loki Repository" version="0.0.6" provider-name="Loki">
+    <requires>
+        <import addon="xbmc.addon" version="12.0.0"/>
+    </requires>
+    <extension point="xbmc.addon.repository" name="Loki Repository">
+        <info compressed="false">http://builds.kodiuk.tv/development/lokirepo/_zips/addons.xml</info>
+        <checksum>http://builds.kodiuk.tv/development/lokirepo/_zips/addons.xml.md5</checksum>
+        <datadir zip="true">http://builds.kodiuk.tv/development/lokirepo/_zips</datadir>
+        <hashes>false</hashes>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/</datadir>
+            <hashes>false</hashes>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Loki Repository</summary>
+        <description>Official Loki Repository</description>
+        <platform>all</platform>
+        <genre>movies,usa</genre>
+    </extension>
+</addon>
+
 <addon id="repository.lunatixz" name="Lunatixz Beta Repository" version="1.0.6" provider-name="Lunatixz">
     <extension point="xbmc.addon.repository" name="Lunatixz Beta Repository">
         <info compressed="false">http://raw.github.com/Lunatixz/KODI_Addons/master/addons.xml</info>
@@ -2873,6 +3004,43 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
+<addon id="repository.thecrew" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew" version="0.0.8">
+	<requires>
+		<import addon="xbmc.addon" version="12.0.0"/>
+	</requires>
+	<extension name="The Crew" point="xbmc.addon.repository">
+		<dir>
+			<info compressed="false">https://bitbucket.org/threw/the-crew/raw/master/_zips/addons.xml</info>
+			<checksum>https://bitbucket.org/threw/the-crew/raw/master/_zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://bitbucket.org/threw/the-crew/raw/master/_zips/</datadir>
+		</dir>
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
+		</dir>
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+		</dir>
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/</datadir>
+		</dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>The Crew is a team of highly skilled talent that provide you with the best of the best.</summary>
+		<description>This addon does not form part of the Kodi Media Centre. Please do not seek assistance with this addon from any of the Official Kodi Support Channels.The author does not host any of the content in this addon and takes no responsibility for content found.</description>
+		<platform>all</platform>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon>
+
 <addon id="repository.ukturk" name="UKTurk Addon Repository" version="2.0.0" provider-name="UKTurk">
 		<extension point="xbmc.addon.repository" name="UKTurk Addon Repository">
 				<info compressed="false">https://addoncloud.org/ukturk/repofiles/addons.xml</info>
@@ -2919,6 +3087,28 @@ The author is not responsible for the use of this addon. The author is not respo
         <summary lang="en">Install add-ons from Zomboided repository</summary>
         <description lang="en">Add-ons for Kodi</description>
     </extension>
+</addon>
+
+﻿<addon id="script.crew.sports"  name="[COLOR deeppink]THE CREW SPORTS[/COLOR]" version="0.0.19" provider-name="The Crew">
+	<requires>
+		<import addon="xbmc.python" version="2.25.0"/>
+		<import addon="script.module.addon.common"/>
+		<import addon="script.module.requests"/>
+		<import addon="script.module.httplib2"/>
+		<import addon="script.module.arrow"/>
+		<import addon="script.module.beautifulsoup4"/>
+		<import addon="script.module.resolveurl"/>
+		<import addon="script.module.python.koding.aio" version="0.0.1"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>all</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">The Crew is a team of highly skilled talent that provides you with the best of the best We Thank GoldenHat for this plugin.</summary>
+		<description lang="en">Many come, Many go. The true and dedicated are here. Enjoy Your Entertainment.</description>
+		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="script.extendedinfo" name="[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od" version="999.9.9a" provider-name="Modded by KoDIY, original work by phil65">
@@ -3119,7 +3309,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="1.0.7" provider-name="Exodus">
+<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="1.0.8" provider-name="Exodus">
     <requires>
         <import addon="xbmc.python" version="2.25.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -3139,7 +3329,7 @@ The author is not responsible for the use of this addon. The author is not respo
         <icon>icon.png</icon>
         <fanart></fanart>
     </assets>
-    <news>v1.0.6 - Cache reset</news>
+    <news>v1.0.8 - Added dom_parser2.py module</news>
     </extension>
 </addon>
 
@@ -3479,6 +3669,21 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
+<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.37" provider-name="The Crew">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0" />
+        <import addon="script.module.beautifulsoup4"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="en">The Crew Module</summary>
+        <assets>
+          <icon>icon.png</icon>
+        </assets>
+    </extension>
+</addon>
+
 <addon id="script.module.thetvdb"
        name="The TVDB API v2"
        version="1.0.27"
@@ -3658,6 +3863,33 @@ The author is not responsible for the use of this addon. The author is not respo
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
         </assets>
+    </extension>
+</addon>
+
+<addon id="script.thecrew.artwork" version="0.0.9" name="[COLOR deeppink]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
+    <requires>
+        <import addon="xbmc.python" version="2.19.0"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.addon.metadata">
+        <summary>The Crew Artwork</summary>
+        <description></description>
+        <platform>all</platform>
+        <assets>
+          <icon>icon.png</icon>
+        </assets>
+    </extension>
+</addon>
+
+<addon id="script.thecrew.metadata" version="0.0.2a" name="[COLOR deeppink]THE CREW METADATA[/COLOR]" provider-name="The Crew">
+    <requires>
+        <import addon="xbmc.python" version="2.19.0"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.addon.metadata">
+        <summary>The Crew</summary>
+        <description></description>
+        <platform>all</platform>
     </extension>
 </addon>
 
