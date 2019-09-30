@@ -2136,7 +2136,7 @@ Fixed CM options not showing if context menu addon not installed
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.37" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.39" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.thecrew" />
@@ -3089,7 +3089,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"  name="[COLOR deeppink]THE CREW SPORTS[/COLOR]" version="0.0.19" provider-name="The Crew">
+﻿<addon id="script.crew.sports"  name="[COLOR deeppink]THE CREW SPORTS[/COLOR]" version="0.0.19b" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -3108,7 +3108,11 @@ The author is not responsible for the use of this addon. The author is not respo
 		<description lang="en">Many come, Many go. The true and dedicated are here. Enjoy Your Entertainment.</description>
 		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
 		<platform>all</platform>
-	</extension>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon>
 
 <addon id="script.extendedinfo" name="[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od" version="999.9.9a" provider-name="Modded by KoDIY, original work by phil65">
@@ -3249,28 +3253,6 @@ The author is not responsible for the use of this addon. The author is not respo
     <website>https://www.crummy.com/software/BeautifulSoup/</website>
     <assets>
       <icon>icon.png</icon>
-    </assets>
-  </extension>
-</addon>
-
-<addon id="script.module.certifi"
-       name="certifi"
-       version="2019.6.16"
-       provider-name="Kenneth Reitz">
-  <requires>
-    <import addon="xbmc.python" version="2.25.0"/>
-  </requires>
-  <extension point="xbmc.python.module"
-             library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Python package for providing Mozilla's CA Bundle.</summary>
-    <description lang="en_GB">Certifi is a carefully curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts. It has been extracted from the Requests project.</description>
-    <license>MPL-2.0</license>
-    <website>https://certifi.io</website>
-    <source>https://github.com/certifi/python-certifi</source>
-    <email>freso.dk AT gmail.com</email>
-    <assets>
-      <icon>resources/icon.png</icon>
     </assets>
   </extension>
 </addon>
@@ -3669,7 +3651,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.37" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.39" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -3866,7 +3848,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="script.thecrew.artwork" version="0.0.9" name="[COLOR deeppink]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
+<addon id="script.thecrew.artwork" version="0.0.10" name="[COLOR deeppink]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.19.0"/>
     </requires>

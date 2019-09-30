@@ -1713,3 +1713,7 @@ msgstr ""
 msgctxt "#90149"
 msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]100 Great Halloween Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
 msgstr ""
+
+msgctxt "#90150"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]Chains Of Absolution[/COLOR][/B]"
+msgstr ""

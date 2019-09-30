@@ -71,12 +71,14 @@ class navigator:
             self.addDirectoryItem(90012, 'goldenhat', 'main_goldenhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.standup') == True:         
             self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.absolution') == True:         
+            self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
         adult = True if control.setting('adult_pw') == 'lol' else False
         if adult == True:
             self.addDirectoryItem(90008, 'porn', 'main_pinkhat.png', 'DefaultMovies.png')
 
        
-        if not control.setting('furk.api') == '':
+        if not control.setting('furk.ai') == '':
             self.addDirectoryItem('Furk.net', 'furkNavigator', 'movies.png', 'movies.png')
         
         self.addDirectoryItem(32008, 'toolNavigator', 'main_tools.png', 'DefaultAddonProgram.png')

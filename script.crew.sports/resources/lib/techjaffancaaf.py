@@ -1,57 +1,9 @@
-import requests
-import re
-from bs4 import BeautifulSoup
-import sys
 
-game_list = []
-def get_games():
-    agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
-    html = requests.get('http://crackstreams.com/cfbstreams/',headers={'user-agent':agent})
-    soup = BeautifulSoup(html.content,'html.parser')
-    a = soup.find_all('a',class_={'btn btn-default btn-lg btn-block'})
-    for data in a:
-        title = data.find('h4',class_={'media-heading'}).text
-        title = title.encode('ascii','ignore')
-        title = title.decode('utf-8','ignore')
-        game_list.append({'title':title})
-
-    return game_list
-
-#print(get_games())
-
-stream = []
-
-def get_stream(game):
-    agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
-    html = requests.get('http://crackstreams.com/cfbstreams/',headers={'user-agent':agent})
-    soup = BeautifulSoup(html.content,'html.parser')
-    a = soup.find_all('a',class_={'btn btn-default btn-lg btn-block'})
-    for data in a:
-        title = data.find('h4',class_={'media-heading'}).text
-        title = title.encode('ascii','ignore')
-        title = title.decode('utf-8','ignore')
-        if game in title:
-            url = data['href']
-            url = 'http://crackstreams.com' + url
-            html = requests.get(url,headers={'user-agent':agent}).content
-            soup = BeautifulSoup(html,'html.parser')
-            frame = soup.find('iframe')
-            if frame:
-                frame = frame['src']
-                source = url + frame
-                master = requests.get(source,headers={'referer':url}).content
-                soup = BeautifulSoup(master,'html.parser')
-                m3u8 = re.compile('source: "(.+?)"',re.DOTALL).findall(str(soup.prettify))
-                m3u8 = m3u8[0]
-                m3u8 = m3u8 + '|referer=' + source
-                stream.append({'title':title,'stream':m3u8})
-                break
-            else:
-                break
-        else:
-            continue
-
-    return stream
-
-
-#print(get_stream('Rice at Army CFB streams live'))
+import base64, codecs
+thecrew = 'aW1wb3J0IHJlcXVlc3RzDQppbXBvcnQgcmUNCmZyb20gYnM0IGltcG9ydCBCZWF1dGlmdWxTb3VwDQppbXBvcnQgc3lzDQoNCmdhbWVfbGlzdCA9IFtdDQpkZWYgZ2V0X2dhbWVzKCk6DQogICAgYWdlbnQgPSAnTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgNi4xOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvNzYuMC4zODA5LjEzMiBTYWZhcmkvNTM3LjM2Jw0KICAgIGh0bWwgPSByZXF1ZXN0cy5nZXQoJ2h0dHA6Ly9jcmFja3N0cmVhbXMuY29tL2NmYnN0cmVhbXMvJyxoZWFkZXJzPXsndXNlci1hZ2VudCc6YWdlbnR9KQ0KICAgIHNvdXAgPSBCZWF1dGlmdWxTb3VwKGh0bWwuY29udGVudCwnaHRtbC5wYXJzZXInKQ0KICAgIGEgPSBzb3VwLmZpbmRfYWxsKCdhJyxjbGFzc189eydidG4gYnRuLWRlZmF1bHQgYnRuLWxnIGJ0bi1ibG9jayd9KQ0KICAgIGZvciBkYXRhIGluIGE6DQogICAgICAgIHRpdGxlID0gZGF0YS5maW5kKCdoNCcsY2xhc3NfPXsnbWVkaWEtaGVhZGluZyd9KS50ZXh0DQogICAgICAgIHRpdGxlID0gdGl'
+doesnt = '0oTHhMJ5wo2EyXPqup2AcnFpfW2yaoz9lMFpcQDbtVPNtVPNtVUEcqTkyVQ0tqTy0oTHhMTIwo2EyXPq1qTLgBPpfW2yaoz9lMFpcQDbtVPNtVPNtVTquoJIsoTymqP5upUOyozDbrlq0nKEfMFp6qTy0oTI9XD0XQDbtVPNtpzI0qKWhVTquoJIsoTymqN0XQDbwpUWcoaDbM2I0K2quoJImXPxcQDbAPaA0pzIuoFN9VSgqQDbAPzEyMvOaMKEsp3ElMJSgXTquoJHcBt0XVPNtVTSaMJ50VQ0tW01irzyfoTRiAF4jVPuKnJ5xo3qmVR5HVQLhZGftI2yhAwD7VUt2APxtDKOjoTIKMJWYnKDiAGZ3YwZ2VPuYFSEAGPjtoTyeMFOUMJAeolxtD2ulo21yYmp2YwNhZmtjBF4kZmVtH2SzLKWcYmHmAl4mAvpAPvNtVPObqT1fVQ0tpzIkqJImqUZhM2I0XPqbqUEjBv8iL3WuL2gmqUWyLJ1mYzAioF9wMzWmqUWyLJ1mYlpfnTIuMTIlpm17W3ImMKVgLJqyoaDaBzSaMJ50sFxAPvNtVPOmo3IjVQ0tDzIuqKEcMaIfH291pPubqT1fYzAioaEyoaDfW2u0oJjhpTSlp2IlWlxAPvNtVPOuVQ0tp291pP5znJ5xK2SfoPtaLFpfL2kup3AsCKfaLaEhVTW0ov1xMJMuqJk0VTW0ov1fMlOvqT4gLzkiL2fasFxAPv'
+do = 'AgICBmb3IgZGF0YSBpbiBhOg0KICAgICAgICB0aXRsZSA9IGRhdGEuZmluZCgnaDQnLGNsYXNzXz17J21lZGlhLWhlYWRpbmcnfSkudGV4dA0KICAgICAgICB0aXRsZSA9IHRpdGxlLmVuY29kZSgnYXNjaWknLCdpZ25vcmUnKQ0KICAgICAgICB0aXRsZSA9IHRpdGxlLmRlY29kZSgndXRmLTgnLCdpZ25vcmUnKQ0KICAgICAgICBpZiBnYW1lIGluIHRpdGxlOg0KICAgICAgICAgICAgdXJsID0gZGF0YVsnaHJlZiddDQogICAgICAgICAgICB1cmwgPSAnaHR0cDovL2NyYWNrc3RyZWFtcy5jb20nICsgdXJsDQogICAgICAgICAgICBodG1sID0gcmVxdWVzdHMuZ2V0KHVybCxoZWFkZXJzPXsndXNlci1hZ2VudCc6YWdlbnR9KS5jb250ZW50DQogICAgICAgICAgICBzb3VwID0gQmVhdXRpZnVsU291cChodG1sLCdodG1sLnBhcnNlcicpDQogICAgICAgICAgICBmcmFtZSA9IHNvdXAuZmluZCgnaWZyYW1lJykNCiAgICAgICAgICAgIGlmIGZyYW1lOg0KICAgICAgICAgICAgICAgIGZyYW1lID0gZnJhbWVbJ3NyYyddDQogICAgICAgICAgICAgICAgc291cmNlID0gdXJsICsgZnJhbWUNC'
+drama = 'vNtVPNtVPNtVPNtVPNtVPOgLKA0MKVtCFOlMKS1MKA0pl5aMKDbp291pzAyYTuyLJEypaZ9rlqlMJMypzIlWmc1pzk9XF5wo250MJ50QDbtVPNtVPNtVPNtVPNtVPNtp291pPN9VRWyLKI0nJM1oSAiqKNboJSmqTIlYPqbqT1fYaOupaAypvpcQDbtVPNtVPNtVPNtVPNtVPNtoGA1BPN9VUWyYzAioKOcoTHbW3AiqKWwMGbtVvthXm8cVvpfpzHhER9HDHkZXF5znJ5xLJkfXUA0pvumo3IjYaOlMKE0nJM5XFxAPvNtVPNtVPNtVPNtVPNtVPOgZ3H4VQ0toGA1BSfjKD0XVPNtVPNtVPNtVPNtVPNtVT0mqGttCFOgZ3H4VPftW3klMJMypzIlCFptXlOmo3IlL2HAPvNtVPNtVPNtVPNtVPNtVPOmqUWyLJ0hLKOjMJ5xXUfaqTy0oTHaBaEcqTkyYPqmqUWyLJ0aBz0mqGu9XD0XVPNtVPNtVPNtVPNtVPNtVTWlMJSeQDbtVPNtVPNtVPNtVPOyoUAyBt0XVPNtVPNtVPNtVPNtVPNtVTWlMJSeQDbtVPNtVPNtVTIfp2H6QDbtVPNtVPNtVPNtVPOwo250nJ51MD0XQDbtVPNtpzI0qKWhVUA0pzIuoD0XQDbAPvAjpzyhqPuaMKEsp3ElMJSgXPqFnJAyVTS0VRSloKxtD0MPVUA0pzIuoKZtoTy2MFpcXD0X'
+respect = '\x72\x6f\x74\x31\x33'
+usandyou = eval('\x74\x68\x65\x63\x72\x65\x77') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x64\x6f\x65\x73\x6e\x74\x2c\x20\x72\x65\x73\x70\x65\x63\x74\x29') + eval('\x64\x6f') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x64\x72\x61\x6d\x61\x2c\x20\x72\x65\x73\x70\x65\x63\x74\x29')
+eval(compile(base64.b64decode(eval('\x75\x73\x61\x6e\x64\x79\x6f\x75')),'<string>','exec'))

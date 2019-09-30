@@ -120,6 +120,10 @@ elif action == 'greyhat':
     from resources.lib.indexers import lists
     lists.indexer().root_greyhat()
 
+elif action == 'absolution':
+    from resources.lib.indexers import lists
+    lists.indexer().root_absolution()
+
 elif action == 'redhat':
     from resources.lib.indexers import lists
     lists.indexer().root_redhat()

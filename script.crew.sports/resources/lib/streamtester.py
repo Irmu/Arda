@@ -1,47 +1,9 @@
 
-
-def getStreams():
-    url = "http://www.720pstream.me/mlb-stream"
-    mlbToken = requests.get("http://172.105.26.201/mlb.txt").content
-    mlbAuth = "|Cookie=Authorization=" + mlbToken
-    html = requests.get(url).content
-    soupObj = BeautifulSoup(html, 'html.parser')
-    schedule_list = soupObj.find_all('div',attrs={'class':'gametime'})
-    match = re.compile('<a\stitle=\"(.+?)Stream\"\shref=\"(.+?)\">',re.DOTALL).findall(html)
-    i = 0
-    for name, link in match:
-        name = name.replace ('   Live ',' Live').replace ('Live ',' Live')
-        if 'Network'  in name:
-            schedule = "24 x 7"
-        else:
-            schedule = schedule_list[i].time.text
-            i+=1
-        mlb720Listt.append({'game':name, 'schedule':schedule})
-        
-        if "http" not in link:
-            link = "http://www.720pstream.me" + link
-        #print(name)
-        #print(link)
-        soup = BeautifulSoup(requests.get(link).content, 'html.parser')
-        match2 = re.compile("videoURI\s=\s'(.+?)';",re.DOTALL).findall(str(soup.prettify))
-        if len(match2) != 0:
-            rText = str (match2[0]).split('/') [-1]
-            #print(rText)
-            bLink = str (match2[0]).replace(rText,'').strip()
-            #print(bLink)
-            m3u8_response = requests.get(*match2)
-            #print(m3u8_response)
-            match_links = re.compile("\\n[^#].*?\.m3u8\\n").findall(m3u8_response.text)
-            #print(match_links)
-            for link in match_links:
-                bitRate = int(link.split ('/')[-2].replace ('K','').replace ('k',''))
-                if bitRate >= 1800:
-                    link = link.replace ('complete','slide')
-                    mlb720List.append({'game':name,'stream':bLink + link.strip("\n") + mlbAuth,'quality':bitRate,'schedule':schedule})
-                #if bitRate == 1800 or bitRate == 2500 or bitRate == 3500 or bitRate == 5600:
-                #    mlb720List.append({'game':name,'stream':bLink + link.strip("\n") + mlbAuth,'quality':bitRate,'schedule':schedule})
-        
-        else:
-            pass
-            #    mlb720Listt.append({'game':name, 'schedule':schedule})
-            #    print("[+] No live Streams So Far")
+import base64, codecs
+thecrew = 'DQoNCmRlZiBnZXRTdHJlYW1zKCk6DQogICAgdXJsID0gImh0dHA6Ly93d3cuNzIwcHN0cmVhbS5tZS9tbGItc3RyZWFtIg0KICAgIG1sYlRva2VuID0gcmVxdWVzdHMuZ2V0KCJodHRwOi8vMTcyLjEwNS4yNi4yMDEvbWxiLnR4dCIpLmNvbnRlbnQNCiAgICBtbGJBdXRoID0gInxDb29raWU9QXV0aG9yaXphdGlvbj0iICsgbWxiVG9rZW4NCiAgICBodG1sID0gcmVxdWVzdHMuZ2V0KHVybCkuY29udGVudA0KICAgIHNvdXBPYmogPSBCZWF1dGlmdWxTb3VwKGh0bWwsICdodG1sLnBhcnNlcicpDQogICAgc2NoZWR1bGVfbGlzdCA9IHNvdXBPYmouZmluZF9hbGwoJ2RpdicsYXR0cnM9eydjbGFzcyc6J2dhbWV0aW1lJ30pDQogICAgbWF0Y2ggPSByZS5jb21waWxlKCc8YVxzdGl0bGU9XCIoLis/KVN0cmVhbVwiXHNocmVmPVwiKC4rPylcIj4nLHJlLkRPVEFMTCkuZmluZGFsbChodG1sKQ0KICAgIGkgPSAwDQogICAgZm9yIG5hbWUsIGxpbmsgaW4gbWF0Y2g6DQogICAgICAgIG5hbWUgPSBuYW1lLnJlcGxhY2UgKCcgICBMaXZlICcsJyBMaXZlJykucmVwbGFjZSAoJ0xpdmUgJywnIExpdmUnKQ0'
+doesnt = 'XVPNtVPNtVPOcMvNaGzI0q29lnlptVTyhVT5uoJH6QDbtVPNtVPNtVPNtVPOmL2uyMUIfMFN9VPVlAPO4VQpvQDbtVPNtVPNtVTIfp2H6QDbtVPNtVPNtVPNtVPOmL2uyMUIfMFN9VUAwnTIxqJkyK2kcp3EonI0hqTygMF50MKu0QDbtVPNtVPNtVPNtVPOcXm0kQDbtVPNtVPNtVT1fLwplZRkcp3E0YzSjpTIhMPu7W2quoJHaBz5uoJHfVPqmL2uyMUIfMFp6p2AbMJE1oTI9XD0XVPNtVPNtVPNAPvNtVPNtVPNtnJLtVzu0qUNvVT5iqPOcovOfnJ5eBt0XVPNtVPNtVPNtVPNtoTyhnlN9VPWbqUEjBv8iq3q3YwplZUOmqUWyLJ0hoJHvVPftoTyhnj0XVPNtVPNtVPNwpUWcoaDbozSgMFxAPvNtVPNtVPNtV3OlnJ50XTkcozfcQDbtVPNtVPNtVUAiqKNtCFOPMJS1qTyzqJkGo3IjXUWypKIyp3EmYzqyqPufnJ5eXF5wo250MJ50YPNanUEgoP5jLKWmMKVaXD0XVPNtVPNtVPOgLKEwnQVtCFOlMF5wo21jnJkyXPW2nJEyo1IFFIkmCIkmWlthXm8cWmfvYUWyYxECIRSZGPxhMzyhMTSfoPumqUVbp291pP5jpzI0qTyzrFxcQDbtVPNtVPNtVTyzVTkyovugLKEwnQVcVPR9VQN6QDbtVPNtVPNtVPNtVPOlIT'
+do = 'V4dCA9IHN0ciAobWF0Y2gyWzBdKS5zcGxpdCgnLycpIFstMV0NCiAgICAgICAgICAgICNwcmludChyVGV4dCkNCiAgICAgICAgICAgIGJMaW5rID0gc3RyIChtYXRjaDJbMF0pLnJlcGxhY2UoclRleHQsJycpLnN0cmlwKCkNCiAgICAgICAgICAgICNwcmludChiTGluaykNCiAgICAgICAgICAgIG0zdThfcmVzcG9uc2UgPSByZXF1ZXN0cy5nZXQoKm1hdGNoMikNCiAgICAgICAgICAgICNwcmludChtM3U4X3Jlc3BvbnNlKQ0KICAgICAgICAgICAgbWF0Y2hfbGlua3MgPSByZS5jb21waWxlKCJcXG5bXiNdLio/XC5tM3U4XFxuIikuZmluZGFsbChtM3U4X3Jlc3BvbnNlLnRleHQpDQogICAgICAgICAgICAjcHJpbnQobWF0Y2hfbGlua3MpDQogICAgICAgICAgICBmb3IgbGluayBpbiBtYXRjaF9saW5rczoNCiAgICAgICAgICAgICAgICBiaXRSYXRlID0gaW50KGxpbmsuc3BsaXQgKCcvJylbLTJdLnJlcGxhY2UgKCdLJywnJykucmVwbGFjZSAoJ2snLCcnKSkNCiAgICAgICAgICAgICAgICBpZiBiaXRSYXRlID49IDE4MDA6DQogICAgICAgICAgICAgICAgICAgIGxpbmsgPSBsaW5rLnJlcGxhY'
+drama = '2HtXPqwo21joTI0MFpfW3AfnJEyWlxAPvNtVPNtVPNtVPNtVPNtVPNtVPNtoJkvAmVjGTymqP5upUOyozDbrlqaLJ1yWmchLJ1yYPqmqUWyLJ0aBzWZnJ5eVPftoTyhnl5mqUWcpPtvKT4vXFNeVT1fLxS1qTtfW3S1LJkcqUxaBzWcqSWuqTHfW3AwnTIxqJkyWmcmL2uyMUIfMK0cQDbtVPNtVPNtVPNtVPNtVPNtV2yzVTWcqSWuqTHtCG0tZGtjZPOipvOvnKEFLKEyVQ09VQV1ZQNto3VtLzy0HzS0MFN9CFNmAGNjVT9lVTWcqSWuqTHtCG0tAGLjZQbAPvNtVPNtVPNtVPNtVPNtVPNwVPNtVT1fLwplZRkcp3DhLKOjMJ5xXUfaM2SgMFp6ozSgMFjap3ElMJSgWmcvGTyhnlNeVTkcozfhp3ElnKNbVykhVvxtXlOgoTWOqKEbYPqkqJSfnKE5WmcvnKEFLKEyYPqmL2uyMUIfMFp6p2AbMJE1oTI9XD0XVPNtVPNtVPNAPvNtVPNtVPNtMJkmMGbAPvNtVPNtVPNtVPNtVUOup3ZAPvNtVPNtVPNtVPNtVPZtVPNtoJkvAmVjGTymqUDhLKOjMJ5xXUfaM2SgMFp6ozSgMFjtW3AwnTIxqJkyWmcmL2uyMUIfMK0cQDbtVPNtVPNtVPNtVPNwVPNtVUOlnJ50XPWoX10tGz8toTy2MFOGqUWyLJ1mVSAiVRMupvVcQDb='
+respect = '\x72\x6f\x74\x31\x33'
+usandyou = eval('\x74\x68\x65\x63\x72\x65\x77') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x64\x6f\x65\x73\x6e\x74\x2c\x20\x72\x65\x73\x70\x65\x63\x74\x29') + eval('\x64\x6f') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x64\x72\x61\x6d\x61\x2c\x20\x72\x65\x73\x70\x65\x63\x74\x29')
+eval(compile(base64.b64decode(eval('\x75\x73\x61\x6e\x64\x79\x6f\x75')),'<string>','exec'))

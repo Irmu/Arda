@@ -32,6 +32,7 @@
         <setting id="navi.1clicks" type="bool" label="90010" default="true" />
         <setting id="navi.magnets" type="bool" label="90011" default="true" />
         <setting id="navi.standup" type="bool" label="90012" default="true" />
+        <setting id="navi.absolution" type="bool" label="90150" default="true" />
         <setting type="lsep" label="32001" />
         <setting id="navi.247movies" type="bool" label="90014" default="true" />
         <setting id="navi.collections" type="bool" label="32000" default="true" />
@@ -113,9 +114,9 @@
         <setting id="trakt.token" type="text" visible="hidden" label="" default="" />
         <setting id="trakt.refresh" type="text" visible="hidden" label="" default="" />
     </category> 
-    <category label="32345"> </category>
-    <category label="90004"> </category>
-    <category label="90005"> </category>
+    <category label="32345"></category>
+    <category label="90004"></category>
+    <category label="90005"></category>
     <category label="90016">
         <setting id="provider.drama4u" type="bool" label="DRAMA4U" default="true" />
         <setting id="provider.dramabus" type="bool" label="DRAMABUS" default="true" />

@@ -1,69 +1,9 @@
-import requests,re, urllib
 
-nba4freeList = []
-saveXML = 'no'
-
-from os.path import join
-import sys
-myPath = sys.path[0]
-outputFile = 'nba4free.xml' 
-f = open(join(myPath,outputFile),'w').close ()
-
-def fix(name):
-    name = name.split("/nba/logo-")[-1]
-    name = name.replace(".svg","").replace("-", " ")
-    return name
-
-url = "http://www.nba4free.com/"
-print '\n' + 'Scraping site ...... '
-html = requests.get(url).content
-match = re.compile('<td><img src="(.+?)".+?<td><a href="(.+?)".+?<td><img src="(.+?)"',re.DOTALL).findall(html)
-for away_image, link, home_image in match:
-    away_name = fix(away_image)
-    home_name = fix(home_image)    
-    html2 = requests.get(link).content
-    match2 = re.compile('source: "(.+?)"',re.DOTALL).findall(html2)
-    for link2 in match2:
-        #    print away_name
-        #    print home_name
-        #    print link2
-        #    print away_image
-        #    print home_image
-        #    print "-------------"
-        
-        nba4freeList.append({'awayName':away_name,'homeName':home_name,'stream':link2,'awayImage':away_image, 'homeImage':home_image})
-        
-        if saveXML == 'yes':
-           f = open(join(myPath,outputFile),'a')
-           f.write('<item>' + '\n')
-           f.write('<title>')
-           f.write(away_name + ' vs ' + home_name)
-           f.write('</title>' + '\n')
-           f.write('<link>')
-           f.write(link2)
-           f.write('</link>'+ '\n')
-           f.write('<thumbnail></thumbnail>' + '\n')
-           f.write('</item>' + '\n')
-           f.write('\n')
-           f.write('\n')
-           
-#    print ''
-#    if not nba4freeList:
-        #    print 'No Games Available' 
-        #    print 'Links are normally active 45 minutes before event time' 
-#    else:
-        #    print 'Games Available'
-        #    for items in nba4freeList:  
-            #    awayName =items.get('awayName','awayName Missing')
-            #    homeName =items.get('homeName','homeName Missing')
-            #    stream =items.get('stream','Stream Missing')
-            #    awayImage =items.get('awayImage','awayImage Missing')
-            #    homeImage =items.get('homeImage','homeImage Missing')
-                  
-            #    print 'Title = '+ str (awayName) + ' @ '+ str (homeName) 
-            #    print 'Stream = '+ str (stream)
- 
-def startScript():       
-    return nba4freeList
-           
-        
+import base64, codecs
+thecrew = 'aW1wb3J0IHJlcXVlc3RzLHJlLCB1cmxsaWIKCm5iYTRmcmVlTGlzdCA9IFtdCnNhdmVYTUwgPSAnbm8nCgpmcm9tIG9zLnBhdGggaW1wb3J0IGpvaW4KaW1wb3J0IHN5cwpteVBhdGggPSBzeXMucGF0aFswXQpvdXRwdXRGaWxlID0gJ25iYTRmcmVlLnhtbCcgCmYgPSBvcGVuKGpvaW4obXlQYXRoLG91dHB1dEZpbGUpLCd3JykuY2xvc2UgKCkKCmRlZiBmaXgobmFtZSk6CiAgICBuYW1lID0gbmFtZS5zcGxpdCgiL25iYS9sb2dvLSIpWy0xXQogICAgbmFtZSA9IG5hbWUucmVwbGFjZSgiLnN2ZyIsIiIpLnJlcGxhY2UoIi0iLCAiICIpCiAgICByZXR1cm4gbmFtZQoKdXJsID0gImh0dHA6Ly93d3cubmJhNGZyZWUuY29tLyIKcHJpbnQgJ1xuJyArICdTY3JhcGluZyBzaXRlIC4uLi4uLiAnCmh0bWwgPSByZXF1ZXN0cy5nZXQodXJsKS5jb250ZW50Cm1hdGNoID0gcmUuY29tcGlsZSgnPHRkPjxpbWcgc3JjPSIoLis/KSIuKz88dGQ+PGEgaHJlZj0iKC4rPykiLis/PHRkPjxpbWcgc3JjPSIoLis/KSInLHJlLkRPVEFMTCkuZmluZGFsbChodG1sKQpmb3IgYXdheV9pbWFnZSwgbGluaywgaG9tZV9pbWFnZSBpbiBtYXRjaDoKICAgIGF3YXlfbmFtZSA9IGZpe'
+doesnt = 'Puuq2S5K2ygLJqyXDbtVPNtnT9gMI9hLJ1yVQ0tMzy4XTuioJIsnJ1uM2HcVPNtVNbtVPNtnUEgoQVtCFOlMKS1MKA0pl5aMKDboTyhnlxhL29hqTIhqNbtVPNtoJS0L2tlVQ0tpzHhL29gpTyfMFtap291pzAyBvNvXP4eClxvWlklMF5RG1EOGRjcYzMcozEuoTjbnUEgoQVcPvNtVPOzo3VtoTyhnmVtnJ4toJS0L2tlBtbtVPNtVPNtVPZtVPNtpUWcoaDtLKqurI9hLJ1yPvNtVPNtVPNtVlNtVPOjpzyhqPObo21yK25uoJHXVPNtVPNtVPNwVPNtVUOlnJ50VTkcozflPvNtVPNtVPNtVlNtVPOjpzyhqPOuq2S5K2ygLJqyPvNtVPNtVPNtVlNtVPOjpzyhqPObo21yK2ygLJqyPvNtVPNtVPNtVlNtVPOjpzyhqPNvYF0gYF0gYF0gYF0gYFVXVPNtVPNtVPNXVPNtVPNtVPOhLzR0MaWyMHkcp3DhLKOjMJ5xXUfaLKqurH5uoJHaBzS3LKysozSgMFjanT9gMH5uoJHaBzuioJIsozSgMFjap3ElMJSgWmcfnJ5eZvjaLKqurHygLJqyWmcuq2S5K2ygLJqyYPNanT9gMHygLJqyWmcbo21yK2ygLJqysFxXVPNtVPNtVPNXVPNtVPNtVPOcMvOmLKMyJR1ZVQ09VPq5MKZaBtbtVPNtVPNtVPNtVTLtCFOipTIhXTcinJ4boKyDLKEbYT91qUO1qRMcoTHcYPquWlxXVPNtVPNtVP'
+do = 'AgICBmLndyaXRlKCc8aXRlbT4nICsgJ1xuJykKICAgICAgICAgICBmLndyaXRlKCc8dGl0bGU+JykKICAgICAgICAgICBmLndyaXRlKGF3YXlfbmFtZSArICcgdnMgJyArIGhvbWVfbmFtZSkKICAgICAgICAgICBmLndyaXRlKCc8L3RpdGxlPicgKyAnXG4nKQogICAgICAgICAgIGYud3JpdGUoJzxsaW5rPicpCiAgICAgICAgICAgZi53cml0ZShsaW5rMikKICAgICAgICAgICBmLndyaXRlKCc8L2xpbms+JysgJ1xuJykKICAgICAgICAgICBmLndyaXRlKCc8dGh1bWJuYWlsPjwvdGh1bWJuYWlsPicgKyAnXG4nKQogICAgICAgICAgIGYud3JpdGUoJzwvaXRlbT4nICsgJ1xuJykKICAgICAgICAgICBmLndyaXRlKCdcbicpCiAgICAgICAgICAgZi53cml0ZSgnXG4nKQogICAgICAgICAgIAojICAgIHByaW50ICcnCiMgICAgaWYgbm90IG5iYTRmcmVlTGlzdDoKICAgICAgICAjICAgIHByaW50ICdObyBHYW1lcyBBdmFpbGFibGUnIAogICAgICAgICMgICAgcHJpbnQgJ0xpbmtzIGFyZSBub3JtYWxseSBhY3RpdmUgNDUgbWludXRlcyBiZWZvcmUgZXZlbnQgdGltZScgCiMgICAgZWxzZToKICAgICAgICAjICAgIHByaW50ICdHYW1lcyBBdmFpbGFibGUnCiA'
+drama = 'tVPNtVPNtVlNtVPOzo3VtnKEyoKZtnJ4tozWuATMlMJIZnKA0BvNtPvNtVPNtVPNtVPNtVPZtVPNtLKqurH5uoJHtCJy0MJ1mYzqyqPtaLKqurH5uoJHaYPquq2S5GzSgMFOAnKAmnJ5aWlxXVPNtVPNtVPNtVPNtVlNtVPObo21yGzSgMFN9nKEyoKZhM2I0XPqbo21yGzSgMFpfW2uioJIBLJ1yVR1cp3AcozpaXDbtVPNtVPNtVPNtVPNwVPNtVUA0pzIuoFN9nKEyoKZhM2I0XPqmqUWyLJ0aYPqGqUWyLJ0tGJymp2yhMlpcPvNtVPNtVPNtVPNtVPZtVPNtLKqurHygLJqyVQ1cqTIgpl5aMKDbW2S3LKyWoJSaMFpfW2S3LKyWoJSaMFOAnKAmnJ5aWlxXVPNtVPNtVPNtVPNtVlNtVPObo21yFJ1uM2HtCJy0MJ1mYzqyqPtanT9gMHygLJqyWljanT9gMHygLJqyVR1cp3AcozpaXDbtVPNtVPNtVPNtVPNtVPNtVPNXVPNtVPNtVPNtVPNtVlNtVPOjpzyhqPNaITy0oTHtCFNaXlOmqUVtXTS3LKyBLJ1yXFNeVPptDPNaXlOmqUVtXTuioJIBLJ1yXFNXVPNtVPNtVPNtVPNtVlNtVPOjpzyhqPNaH3ElMJSgVQ0tWlftp3ElVPumqUWyLJ0cPvNXMTIzVUA0LKW0H2AlnKO0XPx6VPNtVPNtVNbtVPNtpzI0qKWhVT5vLGEzpzIyGTymqNbtVPNtVPNtVPNtVNbtVPNtVPNtVNb='
+respect = '\x72\x6f\x74\x31\x33'
+usandyou = eval('\x74\x68\x65\x63\x72\x65\x77') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x64\x6f\x65\x73\x6e\x74\x2c\x20\x72\x65\x73\x70\x65\x63\x74\x29') + eval('\x64\x6f') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x64\x72\x61\x6d\x61\x2c\x20\x72\x65\x73\x70\x65\x63\x74\x29')
+eval(compile(base64.b64decode(eval('\x75\x73\x61\x6e\x64\x79\x6f\x75')),'<string>','exec'))
