@@ -27,7 +27,6 @@ import re
 import urllib
 import urlparse
 
-from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import debrid
 from exoscrapers.modules import source_utils

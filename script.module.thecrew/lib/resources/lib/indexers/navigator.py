@@ -464,6 +464,8 @@ class navigator:
         self.addDirectoryItem(90142, 'lfl', 'lfl.png', 'lfl.png')
         self.addDirectoryItem(90136, 'tennis', 'tennis.png', 'tennis.png')
         self.addDirectoryItem(90047, 'motogp', 'motogp.png', 'motogp.png')
+        self.addDirectoryItem(90151, 'f1', 'f1.png', 'f1.png')
+        self.addDirectoryItem(90152, 'nascar', 'nascar.png', 'nascar.png')
         self.addDirectoryItem(90049, 'wwe', 'wwe.png', 'wwe.png')
         self.addDirectoryItem(90115, 'boxing', 'boxing.png', 'boxing.png')
         self.addDirectoryItem(90114, 'misc_sports', 'misc_sports.png', 'misc_sports.png')

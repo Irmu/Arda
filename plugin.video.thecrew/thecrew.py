@@ -204,6 +204,14 @@ elif action == 'rugby':
     from resources.lib.indexers import lists
     lists.indexer().root_rugby()
 
+elif action == 'f1':
+    from resources.lib.indexers import lists
+    lists.indexer().root_f1()
+
+elif action == 'nascar':
+    from resources.lib.indexers import lists
+    lists.indexer().root_nascar()
+
 elif action == 'sports_channels':
     from resources.lib.indexers import lists
     lists.indexer().root_sports_channels()

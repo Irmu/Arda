@@ -25,7 +25,6 @@
 
 
 import re
-import traceback
 import urllib
 import urlparse
 
@@ -33,7 +32,6 @@ from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import control
 from exoscrapers.modules import debrid
-from exoscrapers.modules import log_utils
 from exoscrapers.modules import source_utils
 
 

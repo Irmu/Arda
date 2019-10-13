@@ -28,7 +28,6 @@ import urllib
 import urlparse
 
 from exoscrapers.modules import client
-from exoscrapers.modules import control
 from exoscrapers.modules import debrid
 from exoscrapers.modules import source_utils
 
@@ -40,7 +39,6 @@ class source:
         self.domains = ['www.skytorrents.lol']
         self.base_link = 'https://www.skytorrents.lol/'
         self.search_link = '?query=%s'
-        self.min_seeders = int(control.setting('torrent.min.seeders'))
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -86,9 +84,8 @@ class source:
             hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
 
             query = '%s s%02de%02d' % (
-                data['tvshowtitle'], int(data['season']),
-                int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (
-                data['title'], data['year'])
+            data['tvshowtitle'], int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (
+            data['title'], data['year'])
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
 
             url = self.search_link % urllib.quote_plus(query)

@@ -1717,3 +1717,11 @@ msgstr ""
 msgctxt "#90150"
 msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]Chains Of Absolution[/COLOR][/B]"
 msgstr ""
+
+msgctxt "#90151"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]FORMULA 1[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90152"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]NASCAR[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr ""
