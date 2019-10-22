@@ -70,8 +70,9 @@
         <setting id="progress.dialog" type="enum" label="32335" lvalues="32336|32337" default="0" />
         <setting id="returned.sources" type="slider" label="Returned Sources" enable="true" default="100" range="1,1000" option="int" />
         <setting id="sourcelist.multiline" type="bool" label="90119" default="false" />
+        <setting id="sec.identify" type="select" label="Secondary Line Color" enable="eq(-1,true)" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="4" />
         <setting id="sources.extrainfo" type="bool" label="32587" default="true" />
-        <setting id="prem.identify" type="enum" label="32588" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="3" />
+        <setting id="prem.identify" type="select" label="32588" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="3" />
         <setting type="lsep" label="32338" />
         <setting id="hosts.quality" type="enum" label="32339" values="4K|1440p|1080p|720p|480p" default="0" />
         <setting id="debrid.only" type="bool" label="90120" default="" />
@@ -84,7 +85,7 @@
         <setting id="hosts.sort.provider" type="bool" label="32342" default="false" />
         <setting type="lsep" label="32635" />
         <setting id="torrent.enabled" type="bool" label="32636" default="true" />
-        <setting id="torrent.identify" type="enum" label="32634"  enable="eq(-1,true)" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="7" />
+        <setting id="torrent.identify" type="select" label="32634"  enable="eq(-1,true)" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="7" />
         <setting id="torrent.min.seeders" type="slider" label="32638" enable="eq(-2,true)" default="10" range="1,100" option="int" />
         <setting id="torrent.sort.the.crew" type="bool" label="32639" enable="eq(-3,true)"  default="true" />
         <setting id="torrent.resolveurl" type="action" label="32637" enable="eq(-4,true)" option="close" action="RunPlugin(plugin://plugin.video.thecrew/?action=ResolveUrlTorrent&query=1.58)" />
@@ -114,83 +115,9 @@
         <setting id="trakt.token" type="text" visible="hidden" label="" default="" />
         <setting id="trakt.refresh" type="text" visible="hidden" label="" default="" />
     </category> 
-    <category label="32345">
-        <setting id="provider.animetoon" type="bool" label="ANIMETOON" default="true" />
-        <setting id="provider.bnwmovies" type="bool" label="BNWMOVIES" default="true" />
-        <setting id="provider.cartoonhd" type="bool" label="CARTOONHD" default="true" />
-        <setting id="provider.cmovieshd" type="bool" label="CMOVIESHD" default="true" />
-        <setting id="provider.coolmoviezone" type="bool" label="COOLMOVIEZONE" default="true" />
-        <setting id="provider.divxcrawler" type="bool" label="DIVXCRAWLER" default="true" />
-        <setting id="provider.extramovies" type="bool" label="EXTRAMOVIES" default="true" />
-        <setting id="provider.fmovies" type="bool" label="FMOVIES" default="true" />
-        <setting id="provider.freefmovies" type="bool" label="FREEFMOVIES" default="true" />
-        <setting id="provider.furk" type="bool" label="FURK" default="true" />
-        <setting id="provider.geektv" type="bool" label="GEEKTV" default="true" />
-        <setting id="provider.genvideos" type="bool" label="GENVIDEOS" default="true" />
-        <setting id="provider.gomoviesink" type="bool" label="GOMOVIESINK" default="true" />
-        <setting id="provider.gowatchseries" type="bool" label="GOWATCHSERIES" default="true" />
-        <setting id="provider.hdmto" type="bool" label="HDMTO" default="true" />
-        <setting id="provider.hdpopcorneu" type="bool" label="HDPOPCORNEU" default="true" />
-        <setting id="provider.iwaatch" type="bool" label="IWAATCH" default="true" />
-        <setting id="provider.iwannawatch" type="bool" label="IWANNAWATCH" default="true" />
-        <setting id="provider.movie4kis" type="bool" label="MOVIE4KIS" default="true" />
-        <setting id="provider.moviescouch" type="bool" label="MOVIESCOUCH" default="true" />
-        <setting id="provider.ororo" type="bool" label="ORORO" default="true" />
-        <setting id="provider.plockers" type="bool" label="PLOCKERS" default="true" />
-        <setting id="provider.primewire" type="bool" label="PRIMEWIRE" default="true" />
-        <setting id="provider.projectfreetv" type="bool" label="PROJECTFREETV" default="true" />
-        <setting id="provider.pron" type="bool" label="PRON" default="true" />
-        <setting id="provider.putlockerfree" type="bool" label="PUTLOCKERFREE" default="true" />
-        <setting id="provider.seehd" type="bool" label="SEEHD" default="true" />
-        <setting id="provider.series9" type="bool" label="SERIES9" default="true" />
-        <setting id="provider.seriesonline" type="bool" label="SERIESONLINE" default="true" />
-        <setting id="provider.solarmoviefree" type="bool" label="SOLARMOVIEFREE" default="true" />
-        <setting id="provider.swatchseries" type="bool" label="SWATCHSERIES" default="true" />
-        <setting id="provider.timewatch" type="bool" label="TIMEWATCH" default="true" />
-        <setting id="provider.tvbox" type="bool" label="TVBOX" default="true" />
-        <setting id="provider.watch32" type="bool" label="WATCH32" default="true" />
-        <setting id="provider.watchepisodes" type="bool" label="WATCHEPISODES" default="true" />
-        <setting id="provider.wsunblock" type="bool" label="WSUNBLOCK" default="true" />
-        <setting id="provider.xwatchseries" type="bool" label="XWATCHSERIES" default="true" />
-        <setting id="provider.yesmoviesgg" type="bool" label="YESMOVIESGG" default="true" />
-    </category>
-    <category label="90004">
-        <setting id="provider.0day" type="bool" label="0DAY" default="true" />
-        <setting id="provider.2ddl" type="bool" label="2DDL" default="true" />
-        <setting id="provider.300mbdownload" type="bool" label="300MBDOWNLOAD" default="true" />
-        <setting id="provider.300mbfilms" type="bool" label="300MBFILMS" default="true" />
-        <setting id="provider.ddlspot" type="bool" label="DDLSPOT" default="true" />
-        <setting id="provider.ganool" type="bool" label="GANOOL" default="true" />
-        <setting id="provider.maxrls" type="bool" label="MAXRLS" default="true" />
-        <setting id="provider.mvrls" type="bool" label="MVRLS" default="true" />
-        <setting id="provider.onlineseries" type="bool" label="ONLINESERIES" default="true" />
-        <setting id="provider.rapidmoviez" type="bool" label="RAPIDMOVIEZ" default="true" />
-        <setting id="provider.rlsbb" type="bool" label="RLSBB" default="true" />
-        <setting id="provider.sceneddl" type="bool" label="SCENEDDL" default="true" />
-        <setting id="provider.scenerls" type="bool" label="SCENERLS" default="true" />
-        <setting id="provider.scenerlscom" type="bool" label="SCENERLSCOM" default="true" />
-        <setting id="provider.tvdownload" type="bool" label="TVDOWNLOAD" default="true" />
-        <setting id="provider.ultrahd" type="bool" label="ULTRAHD" default="true" />
-    </category>
-    <category label="90005">
-        <setting id="provider.1337x" type="bool" label="1337X" default="true" />
-        <setting id="provider.btscene" type="bool" label="BTSCENE" default="true" />
-        <setting id="provider.digbt" type="bool" label="DIGBT" default="true" />
-        <setting id="provider.doublr" type="bool" label="DOUBLR" default="true" />
-        <setting id="provider.eztv" type="bool" label="EZTV" default="true" />
-        <setting id="provider.glodls" type="bool" label="GLODLS" default="true" />
-        <setting id="provider.kickass2" type="bool" label="KICKASS2" default="true" />
-        <setting id="provider.limetorrents" type="bool" label="LIMETORRENTS" default="true" />
-        <setting id="provider.magnetdl" type="bool" label="MAGNETDL" default="true" />
-        <setting id="provider.piratebay" type="bool" label="PIRATEBAY" default="true" />
-        <setting id="provider.skytorrents" type="bool" label="SKYTORRENTS" default="true" />
-        <setting id="provider.torrentapi" type="bool" label="TORRENTAPI" default="true" />
-        <setting id="provider.torrentdownloads" type="bool" label="TORRENTDOWNLOADS" default="true" />
-        <setting id="provider.torrentgalaxy" type="bool" label="TORRENTGALAXY" default="true" />
-        <setting id="provider.yify" type="bool" label="YIFY" default="true" />
-        <setting id="provider.yifyddl" type="bool" label="YIFYDDL" default="true" />
-        <setting id="provider.zoogle" type="bool" label="ZOOGLE" default="true" />
-    </category>
+    <category label="32345"></category>
+    <category label="90004"></category>
+    <category label="90005"></category>
     <category label="90016">
         <setting id="provider.drama4u" type="bool" label="DRAMA4U" default="true" />
         <setting id="provider.dramabus" type="bool" label="DRAMABUS" default="true" />

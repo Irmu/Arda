@@ -1128,7 +1128,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.exodus" version="8.1.5" name="Exodus" provider-name="Exodus">
+<addon id="plugin.video.exodus" version="8.1.6" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.exodus" />
@@ -1591,19 +1591,17 @@ Initial Release
 	</extension>
 </addon>
 
-<addon id="plugin.video.plutotv" version="1.1.4" name="Pluto.TV" provider-name="Lunatixz">
+<addon id="plugin.video.plutotv" version="1.1.5b" name="Pluto.TV" provider-name="Lunatixz">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.simplecache" version="1.0.0"/>
-        <import addon="script.module.youtube.dl" version="17.0.0"/>
         <import addon="script.module.uepg" version="1.0.6"/>
-        <import addon="plugin.video.youtube" version="5.1.8" optional="true"/>
-        <import addon="plugin.video.vimeo" version="4.1.4" optional="true"/>
         <import addon="script.module.inputstreamhelper" version="0.3.3"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>video</provides>
     </extension>
+    <extension point="xbmc.service" library="pseudotv_recommended.py" start="startup"/>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">TV channels devoted to your favorite things, made from blockbuster movies from Paramount, ... “The genius of Pluto TV: This is real internet television”.</summary>
         <description lang="en_GB">Watch Free TV on Kodi! Stream Pluto TV's 100+ channels of news, sports, and the Internet's best, completely free on your Kodi device.</description>
@@ -1612,7 +1610,7 @@ Initial Release
         <source>https://github.com/Lunatixz/KODI_Addons/tree/master/plugin.video.plutotv</source>
         <website>http://pluto.tv/</website>
         <forum>http://forum.kodi.tv/showthread.php?tid=315513</forum>
-        <news>v1.1.4[CR]- Back-end updates[CR]-v1.1.2[CR]- Improved usability[CR]v1.1.0[CR]- Improved UWP check [CR]- Added automatic region detection[CR]- Improved guide load times[CR]- Improved overall performance[CR]v1.0.9[CR]- Added UWP check[CR]- Improved Playback[CR]v1.0.8[CR]- Fixed parsing errors[CR]- Added uEPG guide[CR]v1.0.7[CR]- init. uEPG support.[CR]- New menu items.[CR]- Misc. Tweaks.[CR]v1.0.7[CR]- Improved browsing speed[CR]- General tweaks and improvements.[CR]v1.0.6[CR]- Added Guest Login.[CR]- Added Geoblock warning.[CR]v1.0.5[CR]- Fixed Android Login[CR]v1.0.4[CR]- Added Region Selection and Improved Region Filter[CR]- Added Startup Wizard and Improved Login Verification.[CR]v1.0.3[CR]- Fixed Menu and Tweaked cache.[CR]v1.0.2[CR]- Fixed cookie issue on android devices.[CR]- Updated cache life.[CR]v1.0.1[CR]- Fixed login cache issue.</news>
+        <news>v1.1.5[CR]- Moved to API v2+[CR]- Added PY3 Support[CR]- Major Code Refactoring[CR]v1.1.4[CR]- Back-end updates[CR]-v1.1.2[CR]- Improved usability[CR]v1.1.0[CR]- Improved UWP check [CR]- Added automatic region detection[CR]- Improved guide load times[CR]- Improved overall performance[CR]v1.0.9[CR]- Added UWP check[CR]- Improved Playback[CR]v1.0.8[CR]- Fixed parsing errors[CR]- Added uEPG guide[CR]v1.0.7[CR]- init. uEPG support.[CR]- New menu items.[CR]- Misc. Tweaks.[CR]v1.0.7[CR]- Improved browsing speed[CR]- General tweaks and improvements.[CR]v1.0.6[CR]- Added Guest Login.[CR]- Added Geoblock warning.[CR]v1.0.5[CR]- Fixed Android Login[CR]v1.0.4[CR]- Added Region Selection and Improved Region Filter[CR]- Added Startup Wizard and Improved Login Verification.[CR]v1.0.3[CR]- Fixed Menu and Tweaked cache.[CR]v1.0.2[CR]- Fixed cookie issue on android devices.[CR]- Updated cache life.[CR]v1.0.1[CR]- Fixed login cache issue.</news>
         <assets>
             <icon>resources/images/icon.png</icon>
             <fanart>resources/images/fanart.jpg</fanart>
@@ -2137,7 +2135,7 @@ Fixed CM options not showing if context menu addon not installed
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.41" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.43" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.thecrew" />
@@ -2362,7 +2360,7 @@ Fixed CM options not showing if context menu addon not installed
     </extension>
 </addon>
 
-    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.87" provider-name="Aliunde">
+    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.88" provider-name="Aliunde">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2786,7 +2784,7 @@ Fixed CM options not showing if context menu addon not installed
     </extension>
 </addon>
 
-	<addon id="repository.mbebe" name="mbebe" version="0.4" provider-name="mbebe">
+	<addon id="repository.mbebe" name="mbebe" version="0.5" provider-name="mbebe">
 		<extension point="xbmc.addon.repository" name="mbebe">
 			<info compressed="false">https://raw.githubusercontent.com/mbebe/blomqvist/master/zips/addons.xml</info>
 			<checksum>https://raw.githubusercontent.com/mbebe/blomqvist/master/zips/addons.xml.md5</checksum>
@@ -3090,7 +3088,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"  name="[COLOR deeppink]THE CREW SPORTS[/COLOR]" version="0.0.25" provider-name="The Crew">
+﻿<addon id="script.crew.sports"  name="[COLOR deeppink]THE CREW SPORTS[/COLOR]" version="0.0.27a" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -3455,7 +3453,7 @@ The author is not responsible for the use of this addon. The author is not respo
 
 <addon id="script.module.kodi-six"
        name="Kodi Six"
-       version="0.1.1"
+       version="0.1.2"
        provider-name="Roman V.M.">
   <requires>
     <import addon="xbmc.python" version="2.26.0"/>
@@ -3471,7 +3469,9 @@ The author is not responsible for the use of this addon. The author is not respo
     <assets>
       <icon>icon.png</icon>
     </assets>
-    <news>0.1.1
+    <news>0.1.2:
+- Use different method for Unicode error handling.
+0.1.1:
 - Fixed UnicodeDecodeErrors when Kodi API returns non-UTF-8 byte strings.
 0.1.0:
 - Implemented lazy patching of Kodi API functions and classes.
@@ -3688,7 +3688,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.41" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.43" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -3815,7 +3815,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="5.0.39" provider-name="tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="5.0.41" provider-name="tvaddons">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="plugin.video.youtube" optional="true" />
@@ -4117,7 +4117,7 @@ v5.2.14 (2017-01-23)
   </extension>
 </addon>
 
-<addon id="weather.yahoo" name="Yahoo! Weather" version="5.0.5" provider-name="ronie">
+<addon id="weather.yahoo" name="Yahoo! Weather" version="5.0.6" provider-name="ronie">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.requests" version="2.19.1"/>
