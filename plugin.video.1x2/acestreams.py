@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from libs.tools import *
+import urlparse
 
 def mainmenu(item):
     itemlist = list()
@@ -38,6 +39,15 @@ def mainmenu(item):
             icon=os.path.join(image_path, 'acespa.png'),
             plot='Basada en el grupo de Telegram: https://t.me/acestream_spanish'
         ))
+
+    if get_KPRICORNIO(item):
+        itemlist.append(item.clone(
+            label='Canales KPRICORNIO',
+            action='get_KPRICORNIO',
+            icon=os.path.join(image_path, 'kapricornio.png'),
+            plot='Canales recopilados por KPRICORNIO'
+        ))
+
 
     itemlist.append(item.clone(
         label='Acestream ID',
@@ -92,13 +102,14 @@ def download_arenavision(tipo='guide'):
         set_setting('arena_url', url)
 
     data = response.data
+
     if not data:
         xbmcgui.Dialog().ok('1x2',
                             'Ups!  Parece que la página %s no funciona.' % url,
                             'Intentelo cambiando el dominio dentro de Ajustes.')
 
     elif tipo == 'guide':
-        url_guide = re.findall('<a href="([^"]+)">EVENTS GUIDE', response.data)
+        url_guide = re.findall('<a href="([^"]+)">.*?Guide.*?</a>', data, re.IGNORECASE)
         if url_guide:
             data = httptools.downloadpage(url + url_guide[0]).data
         else:
@@ -343,18 +354,94 @@ def get_id(item):
     return None
 
 
+def get_KPRICORNIO(item):
+    itemlist = []
+    ids = list()
+    ids_canales = dict()
+    info_canales = dict()
+
+    url = 'https://pastebin.com/raw/v7crBBsi'
+    data = httptools.downloadpage(url).data
+    data = re.sub(r"\n|\r|\t|\s{2}|&nbsp;", "", data)
+
+    # Caducidad 2 dias
+    try:
+        fecha_str = re.findall('(\d{2}\/\d{2}\/\d{4})', data)[0]
+        fecha_date = datetime.datetime.strptime(fecha_str, '%d/%m/%Y')
+        if fecha_date + datetime.timedelta(days=2) < datetime.datetime.fromtimestamp(time.time()):
+            return itemlist
+    except:
+        return itemlist
+
+    patron = '#EXTINF:-1 .*?tvg-logo="([^"]+)".*?audio-track="([^"]+)",\s?\.?(.*?)\s?\(.*?acestream:\/\/(\w{40})'
+    for logo, idioma, title, id in re.findall(patron, data, re.DOTALL):
+        descartado = [p for p in ['cuatro', 'la 1', 'antena 3', 'arenavision'] if p in title.lower()]
+        if id in ids or descartado:
+            continue
+
+        ids.append(id)
+        if title not in ids_canales.keys():
+            ids_canales[title] = [id]
+            info_canales[title] = (logo, idioma)
+        else:
+            ids_canales[title].append(id)
+
+    for title, ids in ids_canales.items():
+        titulo = '%s [%s]' % (title, info_canales[title][1].upper())
+        new_item = item.clone(
+            label ='',
+            title = titulo,
+            icon=  info_canales[title][0]
+        )
+
+        if len(ids) > 1:
+            new_item.label= '%s (%s)' % (titulo, len(ids))
+            new_item.options = ids
+            new_item.action = 'get_canales_KPRICORNIO'
+            itemlist.append(new_item)
+
+        elif len(ids) == 1:
+            new_item.isPlayable= True
+            new_item.action = 'play'
+            new_item.tipo_url = [['id', ids[0]]]
+            itemlist.append(new_item)
+
+    if itemlist:
+        itemlist.sort(key=lambda i: i.title)
+        itemlist.insert(0, item.clone(label='[B][COLOR gold]%s[/COLOR][/B]' %fecha_str, action=''))
+
+    return itemlist
+
+
+def get_canales_KPRICORNIO(item):
+    itemlist = list()
+    itemlist.append(item.clone(
+        action='',
+        label='[B][COLOR gold]%s[/COLOR][/B]' % item.title))
+
+    for n, id in enumerate(item.options):
+        itemlist.append(item.clone(
+            label='Enlace %s ' % (n+1),
+            action='play',
+            isPlayable=True,
+            tipo_url=[['id', id]]
+        ))
+
+    return itemlist
+
+
 def play(item):
     ret = None
 
     if not item.tipo_url:
         data = httptools.downloadpage(item.url).data
         item.tipo_url = re.findall('(id:|url=)"([^"]+)',data)
-        item.label = 'Arenavision' + item.label
+        item.label = 'Arenavision ' + item.label
 
     if item.tipo_url:
         ret = {'action': 'play',
                'url': item.tipo_url[0][1],
-               'titulo': item.label}
+               'titulo': item.title or item.label}
 
         if 'id' in item.tipo_url[0][0]:
             ret['VideoPlayer'] = 'plexus'

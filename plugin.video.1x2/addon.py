@@ -19,10 +19,13 @@ def mainmenu(item):
     ))
 
     itemlist.append(item.clone(
-        label='S365',
+        #label='S365',
+        label='[COLOR FFB0C4DE]%s[/COLOR] [COLOR FFFAFAD2](En mantenimiento)[/COLOR]' % 'S365',
         channel='s365',
-        action='mainmenu',
-        icon=os.path.join(image_path, 'sport365_logo.png')
+        #action='mainmenu',
+        action='mantenimiento',
+        isFolder=False, # Para mantenimiento
+        icon=os.path.join(image_path, 'mantenimiento.png')
     ))
 
 
@@ -33,6 +36,16 @@ def mainmenu(item):
         icon=os.path.join(image_path, 'sports_icon.png')
     ))
 
+
+
+    itemlist.append(item.clone(
+        label='SportOline',
+        channel='sportonline',
+        action='mainmenu',
+        icon=os.path.join(image_path, 'sportoline.png')
+    ))
+
+
     itemlist.append(item.clone(
         label='SportsTube',
         channel='pastube',
@@ -40,6 +53,15 @@ def mainmenu(item):
         url='https://pastebin.com/raw/bR2UkLvN',
         icon=os.path.join(image_path, 'pastu.png')
     ))
+
+
+    itemlist.append(item.clone(
+        label='Buscar Actualizaciones',
+        action='forceUpdate',
+        icon=os.path.join(image_path, 'update.png'),
+        plot="Version actual: %s\nHaz click para buscar nuevas actualizaciones." % xbmcaddon.Addon().getAddonInfo('version')
+    ))
+
 
     itemlist.append(item.clone(
         label='Ajustes',
@@ -54,6 +76,7 @@ def mainmenu(item):
             channel='test',
             action='mainmenu',
         ))
+
 
     return itemlist
 
@@ -99,15 +122,20 @@ def run(item):
         elif item.action == 'open_settings':
             xbmcaddon.Addon(id=sys.argv[0][9:-1]).openSettings()
 
+        elif item.action == 'forceUpdate':
+                xbmc.executebuiltin('UpdateAddonRepos()')
+                xbmc.executebuiltin('UpdateLocalAddons()')
+                xbmcgui.Dialog().notification('1x2', "Salga del addon para aplicar la actualizacion.")
+
         elif item.action == 'mantenimiento':
             xbmcgui.Dialog().ok('1x2 En mantenimiento',
                                 'Ups!  Esta sección no esta operativa.',
                                 'Estamos trabajando para encontrar una solución.',
                                 'Disculpen las molestias.')
 
-
     if itemlist:
         for item in itemlist:
+            #logger(item)
             listitem = xbmcgui.ListItem(item.label or item.title)
             listitem.setInfo('video', {'title': item.label or item.title, 'mediatype': 'video'})
             if item.plot:
@@ -141,16 +169,22 @@ def run(item):
 
 
 def play(video_item):
-    #logger(video_item)
+    logger(video_item)
 
-    listitem = xbmcgui.ListItem()
-    listitem.setInfo('video', {'title': video_item['titulo']})
-    listitem.setProperty('IsPlayable', 'true')
+    if video_item['VideoPlayer'].lower() == 'directo':
+        listitem = xbmcgui.ListItem()
+        listitem.setInfo('video', {'title': video_item['titulo']})
+        listitem.setProperty('IsPlayable', 'true')
+        listitem.setPath(video_item['url'])
+        xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, listitem)
+        return
 
-    if video_item['VideoPlayer'] == 'plexus':
-        url = 'plugin://program.plexus/?mode=1&url=acestream://%s&name=Arenavision %s' % \
+    elif video_item['VideoPlayer'] == 'plexus':
+        url = 'plugin://program.plexus/?mode=1&url=acestream://%s&name=%s' % \
               (video_item['url'], video_item['titulo'])
-        listitem.setPath(url)
+
+        if video_item.get('iconImage'):
+            url += '&iconimage=' + video_item.get('iconImage')
 
     elif video_item['VideoPlayer'] == 'f4mtester':
         url = 'plugin://plugin.video.f4mTester/?streamtype=HLSRETRY&url=%s&name=%s' % \
@@ -162,19 +196,16 @@ def play(video_item):
         if video_item.get('iconImage'):
             url += '&iconImage=' + video_item.get('iconImage')
 
-        xbmcplugin.endOfDirectory(handle=int(sys.argv[1]), succeeded=False)
-        xbmc.executebuiltin('RunPlugin(' + url + ')')
-        return
-
     elif video_item['VideoPlayer'] == 'youtube':
         url = 'plugin://plugin.video.youtube/%s' % video_item['url']
-        listitem.setPath(url)
 
-    else:
-        # video_item['VideoPlayer'] == Directo'
-        listitem.setPath(video_item['url'])
 
-    xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, listitem)
+    xbmcplugin.endOfDirectory(handle=int(sys.argv[1]), succeeded=False)
+    xbmc.executebuiltin('Dialog.Close(all,true)')
+    if url:
+        xbmc.executebuiltin('RunPlugin(' + url + ')')
+
+
 
 
 
@@ -190,7 +221,7 @@ if __name__ == '__main__':
             import hashlib
             hash = hashlib.md5(open(F4mProxy_path, 'rb').read()).hexdigest()
 
-            if hash != '85fe93a44fb3c13876a5f78099d00194':
+            if hash != '1d3f071bce0b59079bb86c9d3cc8b7b4':
                 logger(hash)
                 if xbmcgui.Dialog().yesno('1x2',
                                           'Para poder disfrutar de todo el contenido de sport365',

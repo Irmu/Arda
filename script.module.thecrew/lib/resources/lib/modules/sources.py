@@ -159,14 +159,11 @@ class sources:
 
         downloadMenu = control.lang(32403).encode('utf-8')
 
-        multiline = control.setting('sourcelist.multiline')
-
         for i in range(len(items)):
             try:
-                if multiline == 'true':
+                label = str(items[i]['label'])
+                if control.setting('sourcelist.multiline') == 'true':
                     label = str(items[i]['multiline_label'])
-                else:
-                    label = str(items[i]['label'])
 
                 syssource = urllib.quote_plus(json.dumps([items[i]]))
 
@@ -265,9 +262,17 @@ class sources:
                     w.start()
 
                     #offset = 60 * 2 if items[i].get('source') in self.hostcapDict else 0
+                    if items[i].get('debrid').lower() == 'real-debrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'alldebrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'premiumize.me':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'linksnappy':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('LinksnappyResolver_cached_only') == 'false'
 
                     if items[i].get('source') in self.hostcapDict: offset = 60 * 2
-                    elif items[i].get('source').lower() == 'torrent' : offset = float('inf')
+                    elif items[i].get('source').lower() == 'torrent' and no_skip: offset = float('inf')
                     else: offset = 0
                     m = ''
 
@@ -1038,7 +1043,7 @@ class sources:
             else:
                 filter += [dict(i.items() + [('debrid', d.name)]) for i in self.sources if i['source'] in valid_hoster or 'magnet:' in i['url']]
 
-        if debrid_only == 'false' or  debrid.status() is False:
+        if debrid_only == 'false' or  debrid.status() == False:
             filter += [i for i in self.sources if not i['source'].lower() in self.hostprDict and i['debridonly'] is False]
         self.sources = filter
 
@@ -1106,16 +1111,14 @@ class sources:
         extra_info = control.setting('sources.extrainfo')
 
         prem_identify = control.setting('prem.identify')
+        if prem_identify == '':
+            prem_identify = 'blue'
         prem_identify = self.getPremColor(prem_identify)
-        if prem_identify == '': prem_identify = 'blue'
 
         torr_identify = control.setting('torrent.identify')
+        if torr_identify == '':
+            torr_identify = 'cyan'
         torr_identify = self.getPremColor(torr_identify)
-        if torr_identify == '': torr_identify = 'magenta'
-
-        sec_color = control.setting('sec.identify')
-        sec_identify = self.getPremColor(sec_color)
-        if sec_identify == '': sec_identify = 'lawngreen'
 
         for i in range(len(self.sources)):
 
@@ -1126,19 +1129,19 @@ class sources:
 
             u = self.sources[i]['url']
 
-            p = self.sources[i]['provider'].upper()
+            p = self.sources[i]['provider']
 
             q = self.sources[i]['quality']
 
-            s = self.sources[i]['source'].upper()
+            s = self.sources[i]['source']
 
             s = s.rsplit('.', 1)[0]
 
             l = self.sources[i]['language']
 
             try:
-                f = (' / '.join(['%s ' % info.strip() for info in self.sources[i]['info'].split('|')]))
-            except:
+                f = (' | '.join(['[I]%s [/I]' % info.strip() for info in self.sources[i]['info'].split('|')]))
+            except Exception:
                 f = ''
 
             try:
@@ -1154,40 +1157,62 @@ class sources:
                 d = 'AD'
             if d.lower() == 'linksnappy':
                 d = 'LS'
-            prem_color = 'nocolor'
-            if d:
-                if 'torrent' in s.lower() and torr_identify != 'nocolor':
-                    prem_color = torr_identify
-                elif 'torrent' not in s.lower() and prem_identify != 'nocolor':
-                    prem_color = prem_identify
-
-            if d != '':
-                label = '[COLOR %s]%02d  |  [B]%s[/B]  |  %s  |  %s  |  [B]%s[/B][/COLOR]' % (prem_color, int(i + 1), q, d, p, s)
+            if not d == '':
+                label = '%02d | %s | %s | %s | ' % (int(i+1), d, q, p)
             else:
-                label = '%02d  |  %s  |  %s  |  %s' % (int(i + 1), q, p, s)
+                label = '%02d | %s | %s | ' % (int(i+1), q, p)
 
-            if l != 'en':
-                label += '[COLOR %s]  |  [B]%s[/B][/COLOR]' % (prem_color, l.upper())
+            if multi is True and not l == 'en':
+                label += '%s | ' % l
 
             multiline_label = label
 
-            if t != '':
-                if f != '' and f != '0 ' and f != ' ':
-                    multiline_label += '\n       [COLOR %s][I]%s / %s[/I][/COLOR]' % (sec_identify, f, t)
-                    label += '[COLOR %s] / %s / %s[/COLOR]' % (prem_color, f, t)
+            if not t is None:
+                if not f is None:
+                    multiline_label += '%s \n       %s | %s' % (s, f, t)
+                    label += '%s | %s | %s' % (s, f, t)
                 else:
-                    multiline_label += '\n       [COLOR %s][I]%s[/I][/COLOR]' % (sec_identify, t)
-                    label += '[COLOR %s] / %s[/COLOR]' % (prem_color, t)
+                    multiline_label += '%s \n       %s' % (s, t)
+                    label += '%s | %s' % (s, t)
             else:
-                if f != '' and f != '0 ' and f != ' ':
-                    multiline_label += '\n       [COLOR %s][I]%s[/I][/COLOR]' % (sec_identify, f)
-                    label += '[COLOR %s] / %s[/COLOR]' % (prem_color, f)
+                if not f == None:
+                    multiline_label += '%s \n       %s' % (s, f)
+                    label += '%s | %s' % (s, f)
+                else:
+                    multiline_label += '%s' % s
+                    label += '%s' % s
+            label = label.replace('| 0 |', '|').replace(' | [I]0 [/I]', '')
+            label = re.sub('\[I\]\s+\[/I\]', ' ', label)
+            label = re.sub('\|\s+\|', '|', label)
+            label = re.sub('\|(?:\s+|)$', '', label)
 
-            self.sources[i]['multiline_label'] = multiline_label
-            self.sources[i]['label'] = label
+            if d:
+                if 'torrent' in s.lower():
+                    if not torr_identify == 'nocolor':
+                        self.sources[i]['multiline_label'] = ('[COLOR %s]' % (torr_identify)) + multiline_label.upper() + '[/COLOR]'
+                        self.sources[i]['label'] = ('[COLOR %s]' % (torr_identify)) + label.upper() + '[/COLOR]'
+                    else:
+                        self.sources[i]['multiline_label'] = multiline_label.upper()
+                        self.sources[i]['label'] = label.upper()
+                else:
+                    if not prem_identify == 'nocolor':
+                        self.sources[i]['multiline_label'] = ('[COLOR %s]' % (prem_identify)) + multiline_label.upper() + '[/COLOR]'
+                        self.sources[i]['label'] = ('[COLOR %s]' % (prem_identify)) + label.upper() + '[/COLOR]'
+                    else:
+                        self.sources[i]['multiline_label'] = multiline_label.upper()
+                        self.sources[i]['label'] = label.upper()
+            else:
+                self.sources[i]['multiline_label'] = multiline_label.upper()
+                self.sources[i]['label'] = label.upper()
+
+        try:
+            if not HEVC == 'true':
+                self.sources = [i for i in self.sources if not 'HEVC' or 'multiline_label' in i]
+                self.sources = [i for i in self.sources if not 'X265' or 'multiline_label' in i]
+        except Exception:
+            pass
 
         self.sources = [i for i in self.sources if 'label' or 'multiline_label' in i['label']]
-        return self.sources
 
         return self.sources
 
@@ -1204,7 +1229,7 @@ class sources:
             provider = item['provider']
             call = [i[1] for i in self.sourceDict if i[0] == provider][0]
             u = url = call.resolve(url)
-            if url is None or ('://' not in url and not local and 'magnet:' not in url):
+            if url == None or not '://' in url and not local and not 'magnet:' in url: 
                 raise Exception()
 
             if not local:
@@ -1213,7 +1238,7 @@ class sources:
                 urls = []
                 for part in url.split(' , '):
                     u = part
-                    if d == '':
+                    if not d == '':
                         part = debrid.resolver(part, d)
                     elif direct is not True:
                         hmf = resolveurl.HostedMediaFile(url=u, include_disabled=True, include_universal=False)
@@ -1294,6 +1319,14 @@ class sources:
                     except:
                         progressDialog.update(int((100 / float(len(items))) * i), str(header2), str(items[i]['label']))
 
+                    if items[i].get('debrid').lower() == 'real-debrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'alldebrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'premiumize.me':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'linksnappy':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('LinksnappyResolver_cached_only') == 'false'
 
                     if items[i].get('source') in self.hostcapDict: offset = 60 * 2
                     elif items[i].get('source').lower() == 'torrent' and no_skip: offset = float('inf')
@@ -1540,4 +1573,3 @@ class sources:
         else:
             n == 'blue'
         return n
-

@@ -158,17 +158,18 @@ class Deportes:
             Competition('Bundesliga 2',['Germany - 2.Bundesliga', '2.Bundesliga'],os.path.join(image_path, 'soccer_budesliga2.png')),
             Competition('Primera División de México',['Mexico - Liga MX', 'MEXICO LIGA MX', 'MEXICO PRIMERA'],os.path.join(image_path, 'soccer_liga_mexico.png')),
             Competition('Major League Soccer',['USA MLS', 'USA - MLS'],os.path.join(image_path, 'soccer_liga_usa.png')),
-            Competition('Primera División de Chile','CHILE PRIMERA',os.path.join(image_path, 'soccer_liga_chile.png')),
+            Competition('Primera División de Chile',['CHILE PRIMERA','CHILE LEAGUE'],os.path.join(image_path, 'soccer_liga_chile.png')),
+            Competition('Copa Chile','CHILE COPA',os.path.join(image_path, 'Copachilemtslogo.png')),
             Competition('Primera División de Argentina',['ARGENTINA SUPERLIGA', 'ARGENTINA PRIMERA', 'Argentina - Primera Division'],os.path.join(image_path, 'soccer_liga_argentina.png')),
             Competition('Supercopa de los Países Bajos','DUTCH SUPERCUP',os.path.join(image_path, 'soccer_dutch_cup.png')),
             Competition('Serie A',['ITALY SERIE A','Italy - Serie A'],os.path.join(image_path, 'soccer_liga_italia.png')),
             Competition('Liga de las Naciones de la UEFA','UEFA NATIONS LEAGUE',os.path.join(image_path, 'soccer_uefa_nation_league.png')),
-            Competition('Clasificación para la Eurocopa 2020','UEFA EURO 2020 QUALIFIERS',os.path.join(image_path, 'soccer_eurocopa.png')),
+            Competition('Clasificación para la Eurocopa 2020',['UEFA EURO 2020 QUALIFIERS','UEFA EURO QUALIFIERS'],os.path.join(image_path, 'soccer_eurocopa.png')),
             Competition('Primeira Liga',['PORTUGAL LEAGUE','PORTUGAL SUPERLIGA', 'Portugal - Primeira Liga'],os.path.join(image_path, 'soccer_liga_portugal.png')),
             Competition('Eredivisie',['EREDIVISIE','HOLLAND EREDIVISIE','Netherlands - Eredivisie'],os.path.join(image_path, 'soccer_liga_holanda.png')),
             Competition('Derde Divisie','Netherlands - Tweede Divisie',os.path.join(image_path, 'soccer_tweededivisie.png')),
-            Competition('A-League','AUSTRALIA A-LEAGUE',os.path.join(image_path, 'soccer_liga_australiana.png')),
-            Competition('Copa México','MEXICO COPA MX',os.path.join(image_path, 'soccer_copa_mexico.png')),
+            Competition('A-League',['Australia - A-League','AUSTRALIA A-LEAGUE'],os.path.join(image_path, 'soccer_liga_australiana.png')),
+            Competition('Copa México',['MEXICO COPA MX','MEXICO COPA'],os.path.join(image_path, 'soccer_copa_mexico.png')),
             Competition('Ekstraklasa','Poland - Ekstraklasa',os.path.join(image_path, 'soccer_polaco.png')),
             Competition('Campeonato Brasileño de Serie A', 'BRAZIL BRASILEIRAO',os.path.join(image_path, 'soccer_liga_brasil.png')),
             Competition('Superliga de Grecia', 'Greece - Super League',os.path.join(image_path, 'soccer_Super_League_Greece.png')),
@@ -181,7 +182,7 @@ class Deportes:
             Competition('Liga Premier de Ucrania','Ukraine - Premier League',os.path.join(image_path, 'soccer_ucrania.png')),
             Competition('Copa Libertadores de América',['COPA LIBERTADORES','South America - Copa Libertadores'],os.path.join(image_path, 'soccer_comenbol_libertadores.png')),
             Competition('Superliga de China',['CHINESE SUPER LEAGUE','China - Super League'],os.path.join(image_path, 'soccer_liga_China.png')),
-            Competition('Superliga de Turquia',['TURKISH SUPERLIG','Turkey - Super Lig'],os.path.join(image_path, 'soccer_liga_turquia.png')),
+            Competition('Superliga de Turquia',['TURKISH SUPERLIG','TURKISH LEAGUE','Turkey - Super Lig'],os.path.join(image_path, 'soccer_liga_turquia.png')),
             Competition('Liga I','Romania - Liga 1',os.path.join(image_path, 'soccer_rumania.png')),
             Competition('Copa de la Liga de Francia','FRENCH LEAGUE CUP',os.path.join(image_path, 'soccer_copa_francia.png')),
             Competition('Copa de Alemania',['DFB POKAL','Germany - DFB Pokal'],os.path.join(image_path, 'soccer_copa_alemania.png')),
@@ -216,6 +217,10 @@ class Deportes:
             Competition('Liga Premier de Azerbaiyán','Azerbaijan - Premier League',os.path.join(image_path, 'spccer_Azerbaijan_Premier_League.png')),
             Competition('La Super League Femenina','England - FA WSL',os.path.join(image_path, 'soccer_the_fa.png')),
             Competition('National League',['England - National League','ENGLISH CHAMPIONSHIP'],os.path.join(image_path, 'soccer_national_league.png')),
+            Competition('FFA Cup','Australia - FFA Cup',os.path.join(image_path, 'soccer_australia.png')),
+            Competition('Campeonato Europeo Femenino de la UEFA','Europe - UEFA European Championship - Women',os.path.join(image_path, 'UEFA_Women_Champions_League.png')),
+            Competition('Amistosos Internacinal Femenino','International Friendlies - Women',os.path.join(image_path, 'soccer_amistoso.png')),
+            Competition('Copa de Naciones de la WAFU','Africa - WAFU Nations Cup',os.path.join(image_path, 'soccer_WAFU_Nations_Cup.png')),
             Competition('Eurocopa Sub-21',['Europe - U21 European Championship','European Championship'],os.path.join(image_path, 'soccer_sub_21.png')),
             Competition('Amistoso',['Club Friendlies','FRIENDLY MATCH','International Friendlies'],os.path.join(image_path, 'soccer_amistoso.png'))
         ]
@@ -227,6 +232,7 @@ class Deportes:
         self.FORMULA1 = Deporte(label='Formula 1', names=['FORMULA1','FORMULA 1'], icon=os.path.join(image_path, 'formula_1.png'), time_max=180)
         self.MOTOR = Deporte(label='Campeonato Mundial de Rally', names=['MOTOR', 'MOTORSPORT'], icon=os.path.join(image_path, 'wrc.png'), time_max=180)
         self.RUGBY = Deporte(label='Rugby', names='RUGBY', icon=os.path.join(image_path, 'rugby.png'), time_max=120)
+        self.FUTSAL = Deporte(label='Fútbol Sala', names='FUTSAL', icon=os.path.join(image_path, 'futbol-sala.png'), time_max=120)
         self.FOOTBALL = Deporte(label='Futbol americano', names=['American Football', 'FOOTBALL'], icon=os.path.join(image_path, 'america.png'), time_max=120)
         self.AUSSIE_RULES = Deporte(label='Australian Football League', names='Aussie Rules', icon=os.path.join(image_path, 'soccer_Australian_League.png'), time_max=120)
         self.MMA = Deporte(label='Lucha', names=['MMA', 'Mixed Martial Arts'], icon=os.path.join(image_path, 'mma.png'), time_max=120)
@@ -284,11 +290,12 @@ class Evento(object):
 
         if {'fecha', 'hora', 'sport', 'title', 'competition'} - set(self.__dict__):
             raise()
-
+        #logger(self.fecha)
         if not 'formatTime' in self.__dict__:
             self.formatTime = 'UTC'
         self.datetime = date_to_local(self.fecha.replace(".", "/"), self.hora, self.formatTime)
         self.fecha = self.datetime.date().strftime("%d-%m-%Y")
+        #logger(self.fecha)
         self.hora = self.datetime.time().strftime("%H:%M")
 
         self.sport = DEPORTES.get_deporte(self.sport)
@@ -328,36 +335,36 @@ class Evento(object):
 # Funciones auxiliares
 
 def date_to_local(fecha, hora, formatTime):
-        def get_utc_offset():
-            utc_offset = xbmcgui.Window(10000).getProperty('utc_offset')
-            if not utc_offset:
-                data = httptools.downloadpage('https://time.is/es/UTC').data
-                utc = re.findall('<div id="twd">(\d+):', data, re.DOTALL)[0]
-                cest = re.findall('<span id="favt4">(\d+):', data, re.DOTALL)[0]
-                utc_offset = str(int(cest) - int(utc))
-                xbmcgui.Window(10000).setProperty('utc_offset', utc_offset)
+    def get_utc_offset():
+        utc_offset = xbmcgui.Window(10000).getProperty('utc_offset')
+        if not utc_offset:
+            data = httptools.downloadpage('https://time.is/es/UTC').data
+            utc = re.findall('<div id="twd">(\d+):', data, re.DOTALL)[0]
+            cest = re.findall('<span id="favt4">(\d+):', data, re.DOTALL)[0]
+            utc_offset = str(int(cest) - int(utc))
+            xbmcgui.Window(10000).setProperty('utc_offset', utc_offset)
 
-            return int(utc_offset)
+        return int(utc_offset)
 
-        aux = re.findall('(\d{1,2}/\d{1,2}/)(\d{2})$', fecha)
-        if aux:
-            fecha = aux[0][0] + '20' + aux[0][1]
+    aux = re.findall('(\d{1,2}/\d{1,2}/)(\d{2})$', fecha)
+    if aux:
+        fecha = aux[0][0] + '20' + aux[0][1]
 
 
-        if formatTime == 'CEST':
-            cest_datetime = datetime.datetime.strptime("%s %s" % (fecha, hora), '%d/%m/%Y %H:%M')
+    if formatTime == 'CEST':
+        cest_datetime = datetime.datetime.strptime("%s %s" % (fecha, hora), '%d/%m/%Y %H:%M')
 
-            utc_datetime = cest_datetime - datetime.timedelta(hours=get_utc_offset())
+        utc_datetime = cest_datetime - datetime.timedelta(hours=get_utc_offset())
 
-        else:
-            utc_datetime = datetime.datetime.strptime("%s %s" % (fecha, hora), '%d/%m/%Y %H:%M')
+    else:
+        utc_datetime = datetime.datetime.strptime("%s %s" % (fecha, hora), '%d/%m/%Y %H:%M')
 
-        now_timestamp = time.time()
-        local = utc_datetime + (
-                datetime.datetime.fromtimestamp(now_timestamp) - datetime.datetime.utcfromtimestamp(
-            now_timestamp))
+    now_timestamp = time.time()
+    local = utc_datetime + (
+            datetime.datetime.fromtimestamp(now_timestamp) - datetime.datetime.utcfromtimestamp(
+        now_timestamp))
 
-        return local
+    return local
 
 
 def logger(message, level=None):
