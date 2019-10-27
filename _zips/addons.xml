@@ -118,7 +118,7 @@ v2.3.14 (2019-02-10)
 
 <addon
   id="inputstream.rtmp"
-  version="2.0.5"
+  version="2.0.6"
   name="RTMP Input"
   provider-name="spiff">
   <requires>
@@ -931,7 +931,7 @@ v2.3.14 (2019-02-10)
 </addon>
 
 <addon id="plugin.video.1x2"
-  version="1.0.18"
+  version="1.0.19"
   name="1x2"
   provider-name="Team NS">
   <requires>
@@ -2360,7 +2360,7 @@ Fixed CM options not showing if context menu addon not installed
     </extension>
 </addon>
 
-    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.88" provider-name="Aliunde">
+    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.89" provider-name="Aliunde">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>

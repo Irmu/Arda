@@ -19,13 +19,10 @@ def mainmenu(item):
     ))
 
     itemlist.append(item.clone(
-        #label='S365',
-        label='[COLOR FFB0C4DE]%s[/COLOR] [COLOR FFFAFAD2](En mantenimiento)[/COLOR]' % 'S365',
+        label='S365',
         channel='s365',
-        #action='mainmenu',
-        action='mantenimiento',
-        isFolder=False, # Para mantenimiento
-        icon=os.path.join(image_path, 'mantenimiento.png')
+        action='mainmenu',
+        icon=os.path.join(image_path, 'sport365_logo.png')
     ))
 
 
@@ -37,9 +34,8 @@ def mainmenu(item):
     ))
 
 
-
     itemlist.append(item.clone(
-        label='SportOline',
+        label='SportOnline',
         channel='sportonline',
         action='mainmenu',
         icon=os.path.join(image_path, 'sportoline.png')

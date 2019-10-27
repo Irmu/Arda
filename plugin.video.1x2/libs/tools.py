@@ -186,7 +186,7 @@ class Deportes:
             Competition('Liga I','Romania - Liga 1',os.path.join(image_path, 'soccer_rumania.png')),
             Competition('Copa de la Liga de Francia','FRENCH LEAGUE CUP',os.path.join(image_path, 'soccer_copa_francia.png')),
             Competition('Copa de Alemania',['DFB POKAL','Germany - DFB Pokal'],os.path.join(image_path, 'soccer_copa_alemania.png')),
-            Competition('Categoría Primera A',['COLOMBIA PRIMERA','COLOMBIA'],os.path.join(image_path, 'soccer_liga_colombia.png')),
+            Competition('Categoría Primera A',['COLOMBIA PRIMERA','COLOMBIA','COLOMBIA PRIMERA A'],os.path.join(image_path, 'soccer_liga_colombia.png')),
             Competition('Scottish Premiership','Scotland - Scottish Premiership',os.path.join(image_path, 'soccer_scot.png')),
             Competition('Copa de la Liga de Escocia','Scotland - Scottish League Cup',os.path.join(image_path, 'soccer_scotland_cup.png')),
             Competition('Copa Sudamericana',['COPA SUDAMERICANA','South America - Copa Sudamericana'],os.path.join(image_path, 'soccer_comenbol_sudamerica.png')),
@@ -220,7 +220,9 @@ class Deportes:
             Competition('FFA Cup','Australia - FFA Cup',os.path.join(image_path, 'soccer_australia.png')),
             Competition('Campeonato Europeo Femenino de la UEFA','Europe - UEFA European Championship - Women',os.path.join(image_path, 'UEFA_Women_Champions_League.png')),
             Competition('Amistosos Internacinal Femenino','International Friendlies - Women',os.path.join(image_path, 'soccer_amistoso.png')),
+            Competition('Liga de Fútbol de Marruecos','Morocco - Botola 1',os.path.join(image_path, 'Botola_Pro.png')),
             Competition('Copa de Naciones de la WAFU','Africa - WAFU Nations Cup',os.path.join(image_path, 'soccer_WAFU_Nations_Cup.png')),
+            Competition('Liga Concacaf','CONCACAF League',os.path.join(image_path, 'CONCACAF_league.png')),
             Competition('Eurocopa Sub-21',['Europe - U21 European Championship','European Championship'],os.path.join(image_path, 'soccer_sub_21.png')),
             Competition('Amistoso',['Club Friendlies','FRIENDLY MATCH','International Friendlies'],os.path.join(image_path, 'soccer_amistoso.png'))
         ]
