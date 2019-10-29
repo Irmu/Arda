@@ -1,13 +1,13 @@
-[B]Recently Updated:[/B] October 18, 2019
+[B]Recently Updated:[/B] October 28, 2019
 
-Greetings from Kodi Bae. More updates live!
+After careful consideration of feedback,
+I've [B]removed TV ADDONS dependencies[/B] from
+Exodus. Rest assured, development will
+continue more actively than ever!
 
-Please note that if you wish to get the
-most out of your Exodus add-on, a [B]VPN
-is necessary[/B]...
+I've spent the past week [B]testing many
+VPNs[/B], and am now [B]promoting the one that
+gave me the best results[/B]. Please consider
+[B]supporting me by subscribing[/B] today:
 
-* Bypass [B]Site Blocking[/B]
-* More [B]Working Streams[/B]
-* Hide Your [B]IP Address[/B] & [B]Location[/B]
-
-Signup Here: [B]https://www.tvaddons.co/vpn[/B]
+Signup Now: [B]https://www.exodusvpn.com[/B]
