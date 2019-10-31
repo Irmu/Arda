@@ -76,12 +76,14 @@ def read_guide():
     idioma_esp = {
         'ITALIAN': 'Italiano',
         'ENGLISH': 'Inglés',
-        'DUTCH': 'Alemán',
+        'DUTCH': 'Holandes',
         'GERMAN': 'Alemán',
         'POLISH': 'Polaco',
         'FRENCH': 'Francés',
         'SPANISH': 'Español',
         'GREEK': 'Griego',
+        'BRAZILIAN': 'Portugues',
+        'ROMANIAN': 'Rumano',
         'TURKISH': 'Turco'}
     week = ['MONDAY','TUESDAY','WENSDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY']
 
@@ -90,7 +92,7 @@ def read_guide():
     #logger(data)
 
     # dia actualizacion
-    fecha_up = re.findall('LAST UPDATE : (\d{1,2}-\d{1,2}-)', data)[0] + '2019'
+    fecha_up = re.findall('LAST UPDATE\s?:\s?(\d{1,2}-\d{1,2}-)', data)[0] + '2019'
     up_datetime = datetime.datetime.strptime(fecha_up, '%d-%m-%Y')
     #logger(week[up_datetime.weekday()])
 
@@ -139,7 +141,7 @@ def read_guide():
             guide.append({
                 'fecha': fecha_hora_local.date(),
                 'hora': fecha_hora_local.time(),
-                'title': titulo.strip().replace(' x ', ' vs. '),
+                'title': titulo.strip().replace(' x ', ' vs ').replace(' @ ', ' vs. '),
                 'url': url + '.php',
                 'idioma': idioma})
 

@@ -124,9 +124,9 @@ def read_guide_arenavision():
     data = download_arenavision()
     if data:
         data = re.sub(r"\n|\r|\t|\s{2}|&nbsp;", "", data)
+        patron = '<tr><td class="auto-style3">(\d+/\d+/\d+)</td><td class="auto-style3">(\d+:\d+) ([^<]+)</td><td class="auto-style3">(.*?)</td><td class="auto-style3">(.*?)</td><td class="auto-style3">(.*?)</td><td class="auto-style3">(.*?)</td></tr>'
 
-        patron = '<tr><td class="auto-style3">(\d+/\d+/\d+)</td><td class="auto-style3">(\d+:\d+) CEST</td><td class="auto-style3">(.*?)</td><td class="auto-style3">(.*?)</td><td class="auto-style3">(.*?)</td><td class="auto-style3">(.*?)</td></tr>'
-        for fecha, hora, tipo, competicion, titulo, canales in re.findall(patron, data):
+        for fecha, hora, huso, tipo, competicion, titulo, canales in re.findall(patron, data):
             channels = list()
             try:
                 for canal_idioma in canales.split('<br />'):
@@ -137,7 +137,7 @@ def read_guide_arenavision():
                 pass
 
             evento = Evento(fecha=fecha, hora=hora, formatTime='CEST', sport=tipo,
-                   competition=competicion, title=titulo, channels=channels)
+                   competition=competicion.replace('<br />', ' '), title=titulo.replace('<br />', ' '), channels=channels)
 
             if evento and (not evento.isFinished() or not get_setting('arena_hide')):
                 guide.append(evento)

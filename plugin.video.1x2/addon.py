@@ -25,13 +25,21 @@ def mainmenu(item):
         icon=os.path.join(image_path, 'sport365_logo.png')
     ))
 
-
     itemlist.append(item.clone(
         label='Canales 24',
         channel='canales24',
         action='list_all_channels',
         icon=os.path.join(image_path, 'sports_icon.png')
     ))
+
+    itemlist.append(item.clone(
+        label='Canales SD',
+        action='main',
+        channel='tvtap',
+        icon=os.path.join(image_path, 'canalesd.png'),
+        plot="Basado en TV Tap"
+    ))
+
 
 
     itemlist.append(item.clone(
@@ -165,7 +173,7 @@ def run(item):
 
 
 def play(video_item):
-    logger(video_item)
+    #logger(video_item)
 
     if video_item['VideoPlayer'].lower() == 'directo':
         listitem = xbmcgui.ListItem()

@@ -141,8 +141,8 @@ class Deporte:
 class Deportes:
     def __init__(self):
         competiciones_soccer=[
-            Competition('La Liga',['SPANISH LEAGUE', 'Spain - Primera Division'],os.path.join(image_path, 'soccer_liga_espana.png')),
-            Competition('La Liga 123',['SPANISH LEAGUE 2','Spain - Segunda Division'],os.path.join(image_path, 'socccer_liga_123.png')),
+            Competition('La Liga',['SPANISH LEAGUE', 'Spain - Primera Division','SPANISH LA LIGA'],os.path.join(image_path, 'soccer_liga_espana.png')),
+            Competition('La Liga 123',['SPANISH LEAGUE 2','Spain - Segunda Division','SPANISH LA LIGA 2'],os.path.join(image_path, 'socccer_liga_123.png')),
             Competition('Copa del Rey','COPA DEL REY',os.path.join(image_path, 'soccer_copa_del_rey.png')),
             Competition('Liga de Campeones de la UEFA',['UEFA CHAMPIONS LEAGUE','Europe - UEFA Champions League'],os.path.join(image_path, 'soccer_champions_league.png')),
             Competition('Liga Europa de la UEFA',['UEFA EUROPA LEAGUE','Europe - UEFA Europa League'],os.path.join(image_path, 'soccer_europa_league.png')),
@@ -165,7 +165,7 @@ class Deportes:
             Competition('Serie A',['ITALY SERIE A','Italy - Serie A'],os.path.join(image_path, 'soccer_liga_italia.png')),
             Competition('Liga de las Naciones de la UEFA','UEFA NATIONS LEAGUE',os.path.join(image_path, 'soccer_uefa_nation_league.png')),
             Competition('Clasificación para la Eurocopa 2020',['UEFA EURO 2020 QUALIFIERS','UEFA EURO QUALIFIERS'],os.path.join(image_path, 'soccer_eurocopa.png')),
-            Competition('Primeira Liga',['PORTUGAL LEAGUE','PORTUGAL SUPERLIGA', 'Portugal - Primeira Liga'],os.path.join(image_path, 'soccer_liga_portugal.png')),
+            Competition('Primeira Liga',['PORTUGAL LEAGUE','PORTUGAL SUPERLIGA', 'Portugal - Primeira Liga','PORTUGAL A LIGA'],os.path.join(image_path, 'soccer_liga_portugal.png')),
             Competition('Eredivisie',['EREDIVISIE','HOLLAND EREDIVISIE','Netherlands - Eredivisie'],os.path.join(image_path, 'soccer_liga_holanda.png')),
             Competition('Derde Divisie','Netherlands - Tweede Divisie',os.path.join(image_path, 'soccer_tweededivisie.png')),
             Competition('A-League',['Australia - A-League','AUSTRALIA A-LEAGUE'],os.path.join(image_path, 'soccer_liga_australiana.png')),
@@ -223,6 +223,10 @@ class Deportes:
             Competition('Liga de Fútbol de Marruecos','Morocco - Botola 1',os.path.join(image_path, 'Botola_Pro.png')),
             Competition('Copa de Naciones de la WAFU','Africa - WAFU Nations Cup',os.path.join(image_path, 'soccer_WAFU_Nations_Cup.png')),
             Competition('Liga Concacaf','CONCACAF League',os.path.join(image_path, 'CONCACAF_league.png')),
+            Competition('Liga Eliteserien','Norway - Eliteserien',os.path.join(image_path, 'soccer_noruega.png')),
+            Competition('Liga Allsvenskan','Sweden - Allsvenskan',os.path.join(image_path, 'soccer_sweden_superettan.png')),
+            Competition('Superliga de Serbia','Serbia - Super Liga',os.path.join(image_path, 'Soccer_uperLiga.png')),
+            Competition('Primera Liga de Croacia','Croatia - 1. HNL',os.path.join(image_path, 'soccer_croatia-prva-hnl.png')),
             Competition('Eurocopa Sub-21',['Europe - U21 European Championship','European Championship'],os.path.join(image_path, 'soccer_sub_21.png')),
             Competition('Amistoso',['Club Friendlies','FRIENDLY MATCH','International Friendlies'],os.path.join(image_path, 'soccer_amistoso.png'))
         ]
