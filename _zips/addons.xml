@@ -1129,7 +1129,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.exodus" version="8.2.0" name="Exodus" provider-name="Exodus">
+<addon id="plugin.video.exodus" version="8.2.1" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.exodus" />
@@ -2131,7 +2131,7 @@ Fixed CM options not showing if context menu addon not installed
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.44" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.45" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.thecrew" />
@@ -3084,7 +3084,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"  name="[COLOR deeppink]THE CREW SPORTS[/COLOR]" version="0.0.27b" provider-name="The Crew">
+﻿<addon id="script.crew.sports"  name="[COLOR deeppink]THE CREW SPORTS[/COLOR]" version="0.0.27c" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -3320,7 +3320,7 @@ The author is not responsible for the use of this addon. The author is not respo
 	</extension>
 </addon>
 
-<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="1.1.0" provider-name="Exodus">
+<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="2.0.0" provider-name="Exodus">
     <requires>
         <import addon="xbmc.python" version="2.25.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -3340,7 +3340,7 @@ The author is not responsible for the use of this addon. The author is not respo
         <icon>icon.png</icon>
         <fanart></fanart>
     </assets>
-    <news>v1.1.0 - Scraper cleanup and EOL fixes</news>
+    <news>v2.0.0 - Scraper updates and language additions</news>
     </extension>
 </addon>
 
@@ -3734,7 +3734,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.44" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.45a" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -3885,7 +3885,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="5.0.41" provider-name="tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="5.0.42" provider-name="tvaddons">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="plugin.video.youtube" optional="true" />

@@ -10,6 +10,7 @@
 #  ..#######.##.......#######.##....#..######..######.##.....#.##.....#.##.......#######.##.....#..######.
 
 '''
+    ExoScrapers Project
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -30,7 +31,6 @@ import urlparse
 
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
-from exoscrapers.modules import control
 from exoscrapers.modules import debrid
 from exoscrapers.modules import source_utils
 
@@ -42,7 +42,7 @@ class source:
         self.domains = ['yts.am', 'yts.lt']  # Old yts.ag
         self.base_link = 'https://yts.lt'
         self.search_link = '/browse-movies/%s/all/all/0/latest'
-        self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.min_seeders = 1
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
