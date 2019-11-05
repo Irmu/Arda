@@ -49,8 +49,8 @@ class navigator:
     LOCALNEWS     = os.path.join(THISADDONPATH, 'whatsnew.txt')
 
     def root(self):
-        if self.getMenuEnabled('navi.holiday') == True:        
-            self.addDirectoryItem(90144, 'holidayNavigator', 'halloween.png', 'halloween.png')
+        #if self.getMenuEnabled('navi.holiday') == True:        
+            #self.addDirectoryItem(90144, 'holidayNavigator', 'halloween.png', 'halloween.png')
         if self.getMenuEnabled('navi.movies') == True:
             self.addDirectoryItem(32001, 'movieNavigator', 'main_movies.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.tvshows') == True:
@@ -73,6 +73,8 @@ class navigator:
             self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.absolution') == True:         
             self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.titan') == True:         
+            self.addDirectoryItem(90155, 'titan', 'titan.png', 'DefaultMovies.png')
         adult = True if control.setting('adult_pw') == 'lol' else False
         if adult == True:
             self.addDirectoryItem(90008, 'porn', 'main_pinkhat.png', 'DefaultMovies.png')
@@ -457,17 +459,20 @@ class navigator:
         self.addDirectoryItem(90023, 'ncaa', 'ncaa.png', 'ncaa.png')
         self.addDirectoryItem(90024, 'mlb', 'mlb.png', 'mlb.png')
         self.addDirectoryItem(90025, 'nfl', 'nfl.png', 'nfl.png')
+        self.addDirectoryItem(90156, 'ncaab', 'ncaab.png', 'ncaab.png')
         self.addDirectoryItem(90026, 'nhl', 'nhl.png', 'nhl.png')
         self.addDirectoryItem(90027, 'nba', 'nba.png', 'nba.png')
         self.addDirectoryItem(90028, 'ufc', 'ufc.png', 'ufc.png')
+        self.addDirectoryItem(90049, 'wwe', 'wwe.png', 'wwe.png')
+        self.addDirectoryItem(90115, 'boxing', 'boxing.png', 'boxing.png')
         self.addDirectoryItem(90046, 'fifa', 'fifa.png', 'fifa.png')
         self.addDirectoryItem(90142, 'lfl', 'lfl.png', 'lfl.png')
         self.addDirectoryItem(90136, 'tennis', 'tennis.png', 'tennis.png')
         self.addDirectoryItem(90047, 'motogp', 'motogp.png', 'motogp.png')
         self.addDirectoryItem(90151, 'f1', 'f1.png', 'f1.png')
         self.addDirectoryItem(90152, 'nascar', 'nascar.png', 'nascar.png')
-        self.addDirectoryItem(90049, 'wwe', 'wwe.png', 'wwe.png')
-        self.addDirectoryItem(90115, 'boxing', 'boxing.png', 'boxing.png')
+        self.addDirectoryItem(90153, 'pga', 'pga.png', 'pga.png')
+        self.addDirectoryItem(90154, 'cricket', 'cricket.png', 'cricket.png')
         self.addDirectoryItem(90114, 'misc_sports', 'misc_sports.png', 'misc_sports.png')
         self.addDirectoryItem(90030, 'sports_channels', 'sports_schannels.png', 'sports_schannels.png')
         self.addDirectoryItem(90031, 'sreplays', 'sports_replays.png', 'sports_replays.png')

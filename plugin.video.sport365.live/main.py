@@ -21,6 +21,7 @@ import xbmc
 import xbmcgui
 import xbmcaddon
 import xbmcplugin
+
 dialog = xbmcgui.Dialog()
 
 base_url        = sys.argv[0]
@@ -44,6 +45,8 @@ fname = args.get('foldername', [''])[0]
 ex_link = args.get('ex_link', [''])[0]
 params = args.get('params', [{}])[0]
 
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 def play_stream(params):
     params = eval(params)
@@ -61,17 +64,18 @@ def play_stream(params):
 
 
 def get_streams_play(params):
+    import sport365 as mod
     params = eval(params)
     orig_title = params.get('title')
-    import sport365 as mod
     frames = mod.getStreams(ex_link)
     if frames:
         for frame in frames:
             params.update({"title": orig_title})
-            addLinkItem(frame.get('title', ''), json.dumps(frame), mode='take_stream',
+            addLinkItem(frame.get('title', ''), str(frame), mode='take_stream',
                         params=params, iconimage=ICON, fanart=FANART,  IsPlayable=True)
             # addDir(frame.get('title', ''), json.dumps(frame), params=params,
             #        mode='take_stream', iconImage=ICON, fanart=FANART)
+
 
 def enable_silent_inputstream():
     try:
@@ -81,33 +85,35 @@ def enable_silent_inputstream():
         return
 
 
-
-
-
 def take_stream(params):
+    import sport365 as mod
     params = eval(params)
     orig_title = params.get('title')
-    import sport365 as mod
-    busy()
-    stream_url, url, header, title = mod.getChannelVideo(json.loads(ex_link))
-    xbmc.log(stream_url, level=xbmc.LOGNOTICE)
-    xbmc.log(url, level=xbmc.LOGNOTICE)
-    xbmc.log(str(header), level=xbmc.LOGNOTICE)
+    # busy()
+    xbmc.log(str(ex_link), level=xbmc.LOGNOTICE)
+    stream_url, url, header, title, ref = mod.getChannelVideo(str(ex_link))
+    # xbmc.log(stream_url, level=xbmc.LOGNOTICE)
+    # xbmc.log(ref, level=xbmc.LOGNOTICE)
     # xbmc.log(title, level=xbmc.LOGNOTICE)
 
     if stream_url:
+        UA = 'Mozilla/5.0 (Linux; Android 8.0; Nexus 6P Build/OPP3.170518.006) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.121 Mobile Safari/537.36'
+        hdrs = 'User-Agent={}&Referer={}'.format(urllib.quote(UA), urllib.quote('http://h5.adshell.net/peer5'))
         liz = xbmcgui.ListItem(label=orig_title)
         liz.setArt({"fanart": FANART, "icon": ICON})
-        liz.setInfo(type="Video", infoLabels={"title": orig_title})
+        liz.setInfo(type="Video", infoLabels={"title": orig_title,
+                                              'mediatype': 'video'})
         liz.setProperty("IsPlayable", "true")
         idle()
         if my_addon.getSetting('play') == 'Inputstream':
+
             stream_url = stream_url.replace('/i', '/index.m3u8') if stream_url.endswith('/i') else stream_url
+            stream_url += '|' + hdrs
             liz.setPath(stream_url)
             if float(xbmc.getInfoLabel('System.BuildVersion')[0:4]) >= 17.5:
                 liz.setMimeType('application/vnd.apple.mpegurl')
                 liz.setProperty('inputstream.adaptive.manifest_type', 'hls')
-                liz.setProperty('inputstream.adaptive.stream_headers', str(header))
+                liz.setProperty('inputstream.adaptive.stream_headers', str(hdrs))
             else:
                 liz.setProperty('inputstreamaddon', None)
                 liz.setContentLookup(True)
@@ -118,17 +124,15 @@ def take_stream(params):
                 # thread = threading.Thread(name='sport356Thread', target=sport356Thread2, args=[url, header])
                 # thread.start()
                 # xbmc.Player().play(stream_url, liz)
-                ok = xbmcplugin.setResolvedUrl(addon_handle, True, liz)
+                xbmcplugin.setResolvedUrl(addon_handle, True, liz)
                 #ok = xbmcplugin.addDirectoryItem(handle=addon_handle, url=stream_url, listitem=liz, isFolder=False)
-                return ok
             except BaseException:
                 pass
 
         elif my_addon.getSetting('play') == 'Streamlink':
-            # stream_url = 'hls://' + stream_url.replace('/i', '/master.m3u8')
             import streamlink.session
             session = streamlink.session.Streamlink()
-            stream_url, hdrs = stream_url.split('|')
+
             stream_url = 'hls://' + stream_url.replace('/i', '/index.m3u8') if stream_url.endswith('/i') else\
                 'hls://' + stream_url
             hdrs += '&Origin=http://h5.adshell.net'
@@ -143,87 +147,26 @@ def take_stream(params):
             # import threading
             # thread = threading.Thread(name='sport356Thread', target=sport356Thread2, args=[url, header])
             # thread.start()
-            ok = xbmcplugin.setResolvedUrl(addon_handle, False, liz)
-            return ok
+            xbmcplugin.setResolvedUrl(addon_handle, False, liz)
 
         else:
-            stream_url = 'plugin://plugin.video.f4mTester/?streamtype=HLSRETRY&url={0}&name={1}'.format(
-                urllib.quote_plus(stream_url), urllib.quote_plus(orig_title))
-            liz.setPath(stream_url)
-            idle()
             try:
+                stream_url = 'plugin://plugin.video.f4mTester/?streamtype=HLSRETRY&url={0}&name={1}'.format(
+                    urllib.quote_plus(stream_url), urllib.quote_plus(orig_title))
+                liz.setPath(stream_url)
+                idle()
+                xbmcplugin.endOfDirectory(addon_handle, succeeded=False)
                 xbmc.executebuiltin('RunPlugin(' + stream_url + ')')
+                return
             except BaseException:
                 pass
 
-        # xbmcplugin.setResolvedUrl(addon_handle, False, liz)
     else:
         xbmcgui.Dialog().ok("Sorry for that", 'plz contact Dev')
 
 
 def resolve_stream(name, url, description):
     pass
-
-
-# def sport356Thread(url):
-#     import sport365 as s
-#     from time import gmtime, strftime
-#     href, headers= url.split('|')
-#     header={}
-#     header['Referer']= urllib.unquote(re.compile('Referer=(.*?)&').findall(headers)[0])
-#     header['User-Agent']= urllib.unquote(re.compile('User-Agent=(.*?)&').findall(headers)[0])
-#     header['Origin']= 'http://h5.adshell.net'
-#     header['If-Modified-Since']= strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime())
-#     header['Connection']= 'keep-alive'
-#     header['etag']= '"5820cda8-2b9"'
-#     print '#'*25
-#     print '#'*25
-#     xbmc.sleep(2000)    # speep
-#     player = xbmc.Player()
-#     player.pause()
-#     print 'sport356Thread: passed url: [%s] '% href
-#     #print header
-#     h=header
-#     while player.isPlaying():
-#         print 'sport356Thread: KODI IS PLAYING, sleeping 1s'
-#         a,hret=s.getUrlrh(href,header=header)
-#         header['etag'] = hret.get('etag','')
-#         header['date'] = hret.get('date','')
-#
-#         #h.update(header)
-#         print a,hret
-#         xbmc.sleep(1000)
-#     print 'sport356Thread: KODI STOPPED, OUTSIDE WHILE LOOP ... EXITING'
-
-
-def sport356Thread2(url, header):
-    import re, sport365 as s
-    xbmc.log("sport356Thread2 url: %s" % url, level=xbmc.LOGNOTICE)
-    player = xbmc.Player()
-    xbmc.sleep(2000) #3minutes
-    player.pause()
-    while player.isPlaying():
-        ##########################
-        #print 'sport356Thread: KODI IS PLAYING, sleeping ...'
-        # try:
-        xbmc.log("sport356Thread: KODI IS PLAYING, sleeping ...", level=xbmc.LOGNOTICE)
-        a, c = s.getUrlc(url, header=header, usecookies=True)
-        if not a:
-            break
-        xbmc.log(a, level=xbmc.LOGNOTICE)
-        banner = re.compile('url\s*:\s*["\'](.*?)[\'"]').findall(a)[0]
-        xbmc.log(banner, level=xbmc.LOGNOTICE)
-        xbmc.sleep(2000)
-        s.getUrlc(banner)
-        xbmc.sleep(2000)
-        # except BaseException:
-        #     pass
-        # data, c = s.getUrlc(banner)
-        # banner = re.findall(r'window.location.replace\("([^"]+)"\);\s*}\)<\/script><div', data)[0]
-        # s.getUrlc(urllib.quote(banner, ':/()!@#$%^&;><?'))
-        # xbmc.sleep(20000)
-    #print 'sport356Thread: KODI STOPED, OUTSIDE WHILE LOOP ... EXITING'
-    xbmc.log("sport356Thread: KODI STOPED, OUTSIDE WHILE LOOP ... EXITING", level=xbmc.LOGNOTICE)
 
 
 ## COMMON Functions
@@ -259,7 +202,7 @@ def addDir(name, ex_link=None, params=1, mode='folder', iconImage='DefaultFolder
            contextmenu=None):
     url = build_url({'mode': mode, 'foldername': name, 'ex_link': ex_link, 'params': params})
 
-    nofolders = ['take_stream', 'opensettings', 'enable_input', 'forceupdate', 'open_news']
+    nofolders = ['take_stream', 'opensettings', 'enable_input', 'forceupdate', 'open_news', 'ccache', 'showalts']
     folder = False if mode in nofolders else True
 
     li = xbmcgui.ListItem(name)
@@ -294,7 +237,6 @@ def encoded_dict(in_dict):
 
 def build_url(query):
     return base_url + '?' + urllib.urlencode(encoded_dict(query))
-
 
 
 def idle():
@@ -444,6 +386,14 @@ def rtmp_enable():
     except Exception:
         dialog.notification(addonName, 'Inputstream RTMP addon could not be enabled')
 
+def show_alt():
+    if my_addon.getSetting('domain') == 'false':
+        my_addon.setSetting('domain', 'true')
+    else:
+        my_addon.setSetting('domain', 'false')
+    xbmc.sleep(100)
+    xbmc.executebuiltin('Container.Refresh')
+
 
 if mode is None:
     if addon_version('xbmc.python') < 2250:
@@ -458,26 +408,32 @@ if mode is None:
 
     addDir('News - Updates', ex_link='', mode='open_news', iconImage=ICON, fanart=FANART)
     addDir('Sport365 LIVE', ex_link='',
-           params={'_service': 'sport365', '_act': 'ListChannels', '_url': 'http://www.sport365.sx/'}, mode='site2',
+           params={'_service': 'sport365', '_act': 'ListChannels', '_url': 'http://www.sport365.live/'}, mode='site2',
            iconImage=ICON, fanart=FANART)
-    # addDir('[COLORcyan]Alternative Domains[/COLOR]', ex_link='', mode='opensettings',
-    #        iconImage=ICON, fanart=FANART)
 
-    addDir('Sport247 LIVE', ex_link='',
-           params={'_service': 'sport365', '_act': 'ListChannels', '_url': 'http://www.sport247.live/'}, mode='site2',
+    addDir('[COLORcyan]Alternative Domains[/COLOR]', ex_link='', mode='showalts',
            iconImage=ICON, fanart=FANART)
-    addDir('s365 LIVE(alt)', ex_link='',
-           params={'_service': 'sport365', '_act': 'ListChannels', '_url': 'http://www.s365.live/'}, mode='site2',
-           iconImage=ICON, fanart=FANART)
+    if my_addon.getSetting('domain') == 'true':
+        addDir('Sport365 SX', ex_link='',
+               params={'_service': 'sport365', '_act': 'ListChannels', '_url': 'http://www.sport365.sx/'}, mode='site2',
+               iconImage=ICON, fanart=FANART)
+        addDir('Sport247 LIVE', ex_link='',
+               params={'_service': 'sport365', '_act': 'ListChannels', '_url': 'http://www.sport247.live/'}, mode='site2',
+               iconImage=ICON, fanart=FANART)
+        addDir('s365 LIVE(alt)', ex_link='',
+               params={'_service': 'sport365', '_act': 'ListChannels', '_url': 'http://www.s365.live/'}, mode='site2',
+               iconImage=ICON, fanart=FANART)
     # addDir('LiveSportStreams', ex_link='',
     #        params={'_service': 'sport365', '_act': 'ListChannels', '_url': 'http://www.livesportstreams.tv/'},
     #        mode='site2', iconImage=ICON, fanart=FANART)
 
     addDir('Settings', ex_link='', mode='opensettings', iconImage=ICON, fanart=FANART)
+    addDir('Clear Cache', ex_link='', mode='ccache', iconImage=ICON, fanart=FANART)
     addDir('[COLOR gold][B]Version: [COLOR lime]%s[/COLOR][/B]' % VERSION, ex_link='', mode='forceupdate',
            iconImage=ICON, fanart=FANART)
     #li = xbmcgui.ListItem(label = '[COLOR blue]aktywuj PVR Live TV[/COLOR]', iconImage=RESOURCES+'PVR.png')
     #xbmcplugin.addDirectoryItem(handle=addon_handle, url=build_url({'mode': 'Opcje'}) ,listitem=li)
+
 
 elif mode[0] == 'site2':
     play_stream(params)
@@ -493,7 +449,9 @@ elif mode[0] == 'get_streams_play':
 
 elif mode[0] == 'opensettings':
     Settings()
-
+elif mode[0] == 'ccache':
+    from resources.lib import cache
+    cache.delete()
 elif mode[0] == 'enable_adaptive':
    isa_enable()
    Settings()
@@ -506,13 +464,16 @@ elif mode[0] == 'open_news':
     import newsbox
     newsbox.welcome()
 
+elif mode[0] == 'showalts':
+    show_alt()
+
 elif mode[0] == 'forceupdate':
     dialog = xbmcgui.Dialog()
     dialog.notification(addonName, "Triggered a request for addon updates", ICON, 5000, sound=True)
     xbmc.executebuiltin('UpdateAddonRepos')
 
 else:
-    xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem(path=''))
+    pass
 
 xbmcplugin.endOfDirectory(addon_handle)
 

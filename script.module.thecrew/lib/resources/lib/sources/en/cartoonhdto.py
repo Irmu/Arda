@@ -18,10 +18,10 @@
 
 import re
 
-from openscrapers.modules import cfscrape
-from openscrapers.modules import cleantitle
-from openscrapers.modules import more_sources
-from openscrapers.modules import source_utils
+from resources.lib.modules import cfscrape
+from resources.lib.modules import cleantitle
+from resources.lib.modules import more_sources
+from resources.lib.modules import source_utils
 
 
 class source:

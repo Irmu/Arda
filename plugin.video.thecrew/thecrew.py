@@ -108,13 +108,17 @@ elif action == 'cctv':
     from resources.lib.indexers import lists
     lists.indexer().root_cctv()
 
+elif action == 'titan':
+    from resources.lib.indexers import lists
+    lists.indexer().root_titan()
+
 elif action == 'porn':
     from resources.lib.indexers import lists
     lists.indexer().root_porn()
 
 elif action == 'faith':
     from resources.lib.indexers import lists
-    lists.indexer().root_faith()    
+    lists.indexer().root_faith()
 
 elif action == 'greyhat':
     from resources.lib.indexers import lists
@@ -140,13 +144,21 @@ elif action == 'blackhat':
     from resources.lib.indexers import lists
     lists.indexer().root_blackhat()
 
+elif action == 'cricket':
+    from resources.lib.indexers import lists
+    lists.indexer().root_cricket()
+
 elif action == 'food':
     from resources.lib.indexers import lists
-    lists.indexer().root_food()    
+    lists.indexer().root_food()
 
 elif action == 'ncaa':
     from resources.lib.indexers import lists
     lists.indexer().root_ncaa()
+
+elif action == 'ncaab':
+    from resources.lib.indexers import lists
+    lists.indexer().root_ncaab()
 
 elif action == 'lfl':
     from resources.lib.indexers import lists
@@ -190,11 +202,11 @@ elif action == 'mma':
 
 elif action == 'fifa':
     from resources.lib.indexers import lists
-    lists.indexer().root_fifa()    
+    lists.indexer().root_fifa()
 
 elif action == 'wwe':
     from resources.lib.indexers import lists
-    lists.indexer().root_wwe()    
+    lists.indexer().root_wwe()
 
 elif action == 'motogp':
     from resources.lib.indexers import lists
@@ -211,6 +223,10 @@ elif action == 'f1':
 elif action == 'nascar':
     from resources.lib.indexers import lists
     lists.indexer().root_nascar()
+
+elif action == 'pga':
+    from resources.lib.indexers import lists
+    lists.indexer().root_pga()
 
 elif action == 'sports_channels':
     from resources.lib.indexers import lists
