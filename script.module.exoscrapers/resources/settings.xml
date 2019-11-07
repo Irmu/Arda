@@ -59,7 +59,7 @@
         <setting id="provider.ororo" type="bool" label="ORORO" default="false"/>
         <setting id="provider.primewire" type="bool" label="PRIMEWIRE" default="true"/>
         <setting id="provider.projectfreetv" type="bool" label="PROJECTFREETV" default="true"/>
-        <setting id="provider.putlockerfree" type="bool" label="PUTLOCKERFREE" default="true"/>
+        <setting id="provider.putlockerfree" type="bool" label="PUTLOCKERFREE" default="false"/>
         <setting id="provider.putlockeronl" type="bool" label="PUTLOCKERONL" default="true"/>
         <setting id="provider.putlockeronline" type="bool" label="PUTLOCKERONLINE" default="true"/>
         <setting id="provider.seehd" type="bool" label="SEEHD" default="true"/>
