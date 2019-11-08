@@ -1130,7 +1130,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.exodus" version="8.2.3" name="Exodus" provider-name="Exodus">
+<addon id="plugin.video.exodus" version="8.2.4" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.exodus" />
@@ -3319,7 +3319,7 @@ The author is not responsible for the use of this addon. The author is not respo
 	</extension>
 </addon>
 
-<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="2.0.2" provider-name="Exodus">
+<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="2.0.3" provider-name="Exodus">
     <requires>
         <import addon="xbmc.python" version="2.25.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -3339,7 +3339,7 @@ The author is not responsible for the use of this addon. The author is not respo
         <icon>icon.png</icon>
         <fanart></fanart>
     </assets>
-    <news>v2.0.1 - Scraper updates and language additions</news>
+    <news>v2.0.3 - New scrapers</news>
     </extension>
 </addon>
 
@@ -3861,22 +3861,19 @@ The author is not responsible for the use of this addon. The author is not respo
 
 <addon id="script.module.urllib3"
        name="urllib3"
-       version="1.25.3"
-       provider-name="shazow">
+       version="1.25.6"
+       provider-name="Andrey Petrov">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
   </requires>
   <extension point="xbmc.python.module"
              library="lib" />
   <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">urllib3 is a powerful, sanity-friendly HTTP client for Python</summary>
+    <summary lang="en_GB">HTTP library with thread-safe connection pooling, file post, and more.</summary>
     <description lang="en_GB">Packed for KODI from https://pypi.org/project/urllib3/</description>
-    <platform>all</platform>
-    <language></language>
     <license>MIT</license>
-    <forum></forum>
     <website>https://urllib3.readthedocs.io/en/latest/</website>
-    <source>https://github.com/Freso/script.module.urllib3</source>
+    <source>https://github.com/urllib3/urllib3</source>
     <email>freso.dk AT gmail.com</email>
     <assets>
       <icon>resources/icon.png</icon>

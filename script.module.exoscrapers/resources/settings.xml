@@ -29,6 +29,7 @@
         <setting type="sep"/>
         <setting id="provider.1putlocker" type="bool" label="$NUMBER[1]PUTLOCKER" default="true"/>
         <setting id="provider.5movies" type="bool" label="$NUMBER[5]MOVIES" default="true"/>
+        <setting id="provider.123123movies" type="bool" label="$NUMBER[123123]MOVIES" default="true" />
         <setting id="provider.123movieshubz" type="bool" label="$NUMBER[123]MOVIESHUBZ" default="true"/>
         <setting id="provider.allucxyz" type="bool" label="ALLUCXYZ" default="true"/>
         <setting id="provider.animetoon" type="bool" label="ANIMETOON" default="true"/>
@@ -37,11 +38,14 @@
         <setting id="provider.cartoonhd" type="bool" label="CARTOONHD" default="true"/>
         <setting id="provider.cartoonhdto" type="bool" label="CARTOONHDTO" default="true"/>
         <setting id="provider.cmovieshd" type="bool" label="CMOVIESHD" default="true"/>
+        <setting id="provider.cmovieshdbz" type="bool" label="CMOVIESHDBZ" default="true" />
         <setting id="provider.coolmoviezone" type="bool" label="COOLMOVIEZONE" default="true"/>
+        <setting id="provider.couchtuner2" type="bool" label="COUCHTUNER2" default="true" />
         <setting id="provider.divxcrawler" type="bool" label="DIVXCRAWLER" default="true"/>
         <setting id="provider.extramovies" type="bool" label="EXTRAMOVIES" default="true"/>
         <setting id="provider.filmxy" type="bool" label="FILMXY" default="true"/>
         <setting id="provider.fmovies" type="bool" label="FMOVIES" default="true"/>
+        <setting id="provider.fmoviesio" type="bool" label="FMOVIESIO" default="true" />
         <setting id="provider.freefmovies" type="bool" label="FREEFMOVIES" default="true"/>
         <setting id="provider.furk" type="bool" label="FURK" default="false"/>
         <setting id="provider.ganoolcam" type="bool" label="GANOOLCAM" default="true"/>
@@ -53,27 +57,34 @@
         <setting id="provider.hubmovie" type="bool" label="hubmovie" default="true"/>
         <setting id="provider.iwaatch" type="bool" label="IWAATCH" default="true"/>
         <setting id="provider.iwannawatch" type="bool" label="IWANNAWATCH" default="true"/>
+        <setting id="provider.letmewatchthis" type="bool" label="LETMEWATCHTHIS" default="true" />
         <setting id="provider.library" type="bool" label="LIBRARY" default="false"/>
         <setting id="provider.movie4kis" type="bool" label="MOVIE4KIS" default="true"/>
+        <setting id="provider.mycoolmoviezone" type="bool" label="MYCOOLMOVIEZONE" default="true" />
         <setting id="provider.myhdpopcorn" type="bool" label="MYHDPOPCORN" default="true"/>
+        <setting id="provider.myswatchseri" type="bool" label="MYWATCHSERI" default="true" />
+        <setting id="provider.mywatchep4" type="bool" label="MYWATCHEP4" default="true" />
         <setting id="provider.ororo" type="bool" label="ORORO" default="false"/>
         <setting id="provider.primewire" type="bool" label="PRIMEWIRE" default="true"/>
         <setting id="provider.projectfreetv" type="bool" label="PROJECTFREETV" default="true"/>
         <setting id="provider.putlockerfree" type="bool" label="PUTLOCKERFREE" default="false"/>
         <setting id="provider.putlockeronl" type="bool" label="PUTLOCKERONL" default="true"/>
         <setting id="provider.putlockeronline" type="bool" label="PUTLOCKERONLINE" default="true"/>
+        <setting id="provider.putlockersio" type="bool" label="PUTLOCKERSIO" default="true" />
         <setting id="provider.seehd" type="bool" label="SEEHD" default="true"/>
         <setting id="provider.series9" type="bool" label="SERIES9" default="true"/>
 		<setting id="provider.seriesonline" type="bool" label="SERIESONLINE" default="true"/>
         <setting id="provider.sharemovies" type="bool" label="SHAREMOVIES" default="true"/>
         <setting id="provider.solarmoviefree" type="bool" label="SOLARMOVIEFREE" default="true"/>
         <setting id="provider.streamdreams" type="bool" label="STREAMDREAMS" default="true"/>
+        <setting id="provider.telepisodes" type="bool" label="TELEPISODES" default="true" />
         <setting id="provider.timewatch" type="bool" label="TIMEWATCH" default="true"/>
         <setting id="provider.toonget" type="bool" label="TOONGET" default="true"/>
         <setting id="provider.tvbox" type="bool" label="TVBOX" default="true"/>
         <setting id="provider.tvmovieflix" type="bool" label="TVMOVIEFLIX" default="true"/>
         <setting id="provider.watchepisodes" type="bool" label="WATCHEPISODES" default="true"/>
         <setting id="provider.watchserieshd" type="bool" label="WATCHSERIESHD" default="true"/>
+        <setting id="provider.watchseriestv" type="bool" label="WATCHSERIESTV" default="true" />
         <setting id="provider.xwatchseries" type="bool" label="XWATCHSERIES" default="true"/>
         <setting id="provider.yesmoviesgg" type="bool" label="YESMOVIESGG" default="true"/>
     </category>

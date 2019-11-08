@@ -1,47 +1,22 @@
 # -*- coding: UTF-8 -*-
-# -Cleaned and Checked on 06-17-2019 by JewBMX in Scrubs.
+# -Cleaned and Checked on 10-16-2019 by Exodus in Exodus.
 
-#  ..#######.########.#######.##....#..######..######.########....###...########.#######.########..######.
-#  .##.....#.##.....#.##......###...#.##....#.##....#.##.....#...##.##..##.....#.##......##.....#.##....##
-#  .##.....#.##.....#.##......####..#.##......##......##.....#..##...##.##.....#.##......##.....#.##......
-#  .##.....#.########.######..##.##.#..######.##......########.##.....#.########.######..########..######.
-#  .##.....#.##.......##......##..###.......#.##......##...##..########.##.......##......##...##........##
-#  .##.....#.##.......##......##...##.##....#.##....#.##....##.##.....#.##.......##......##....##.##....##
-#  ..#######.##.......#######.##....#..######..######.##.....#.##.....#.##.......#######.##.....#..######.
-
-'''
-    ExoScrapers Project
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
-
-
-import re
-import urllib
-import urlparse
-
-from exoscrapers.modules import cleantitle
+import re, requests, urllib, urlparse
 from exoscrapers.modules import client
+from exoscrapers.modules import cleantitle
 from exoscrapers.modules import directstream
+from exoscrapers.modules import getSum
+from exoscrapers.modules import source_utils
 
 
 class source:
     def __init__(self):
         self.priority = 1
-        self.language = ['en']
+        self.language = ['en']  # Removed  seriesonline.io  series9.co  series9.io
         self.domains = ['series9.to']
         self.base_link = 'https://www5.series9.to'
         self.search_link = '/movie/search/%s'
+
 
     def matchAlias(self, title, aliases):
         try:
@@ -51,6 +26,7 @@ class source:
         except:
             return False
 
+
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             aliases.append({'country': 'us', 'title': title})
@@ -58,7 +34,8 @@ class source:
             url = urllib.urlencode(url)
             return url
         except:
-            return
+            return  
+
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
@@ -67,7 +44,8 @@ class source:
             url = urllib.urlencode(url)
             return url
         except:
-            return
+            return  
+
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
@@ -79,7 +57,8 @@ class source:
             url = urllib.urlencode(url)
             return url
         except:
-            return
+            return  
+
 
     def searchShow(self, title, season, aliases, headers):
         try:
@@ -95,7 +74,8 @@ class source:
             url = urlparse.urljoin(self.base_link, '%s/watching.html' % url)
             return url
         except:
-            return
+            return  
+
 
     def searchMovie(self, title, year, aliases, headers):
         try:
@@ -116,21 +96,22 @@ class source:
             url = urlparse.urljoin(self.base_link, '%s/watching.html' % url)
             return url
         except:
-            return
+            return  
+
 
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
             if url == None:
                 return sources
+            hostDict = hostDict + hostprDict
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             aliases = eval(data['aliases'])
             headers = {}
             if 'tvshowtitle' in data:
                 ep = data['episode']
-                url = '%s/film/%s-season-%01d/watching.html?ep=%s' % (
-                self.base_link, cleantitle.geturl(data['tvshowtitle']), int(data['season']), ep)
+                url = '%s/film/%s-season-%01d/watching.html?ep=%s' % (self.base_link, cleantitle.geturl(data['tvshowtitle']), int(data['season']), ep)
                 r = client.request(url, headers=headers, timeout='10', output='geturl')
                 if url == None:
                     url = self.searchShow(data['tvshowtitle'], data['season'], aliases, headers)
@@ -148,32 +129,40 @@ class source:
             else:
                 links = client.parseDOM(r, 'a', ret='player-data')
             for link in links:
-                if '123movieshd' in link or 'seriesonline' in link:
+                link = "https:" + link if not link.startswith('http') else link
+                if 'vidcloud' in link:
+                    r = client.request(link, headers=headers, timeout='10')
+                    match = getSum.findSum(r)
+                    for url in match:
+                        url = "https:" + url if not url.startswith('http') else url
+                        url = requests.get(url).url if 'api.vidnode' in url else url
+                        valid, host = source_utils.is_host_valid(url, hostDict)
+                        if valid:
+                            quality, info = source_utils.get_release_quality(url, url)
+                            sources.append({'source': host, 'quality': quality, 'language': 'en', 'info': info, 'url': url, 'direct': False, 'debridonly': False})
+                elif '123movieshd' in link or 'seriesonline' in link:
                     r = client.request(link, headers=headers, timeout='10')
                     r = re.findall('(https:.*?redirector.*?)[\'\"]', r)
                     for i in r:
-                        try:
-                            sources.append({'source': 'gvideo', 'quality': directstream.googletag(i)[0]['quality'],
-                                            'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
-                        except:
-                            pass
+                        sources.append({'source': 'gvideo', 'quality': directstream.googletag(i)[0]['quality'], 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
                 else:
-                    try:
-                        host = re.findall('([\w]+[.][\w]+)$', urlparse.urlparse(link.strip().lower()).netloc)[0]
-                        if not host in hostDict:
-                            raise Exception()
-                        host = client.replaceHTMLCodes(host)
-                        host = host.encode('utf-8')
-                        sources.append({'source': host, 'quality': 'SD', 'language': 'en', 'url': link, 'direct': False,
-                                        'debridonly': False})
-                    except:
-                        pass
+                    valid, host = source_utils.is_host_valid(link, hostDict)
+                    if valid:
+                        quality, info = source_utils.get_release_quality(link, link)
+                        sources.append({'source': host, 'quality': quality, 'language': 'en', 'info': info, 'url': link, 'direct': False, 'debridonly': False})
             return sources
         except:
             return sources
 
+
     def resolve(self, url):
-        if "google" in url:
+        if 'google' in url:
             return directstream.googlepass(url)
+        elif 'vidcloud' in url:
+            r = client.request(url)
+            url = re.findall("file: '(.+?)'", r)[0]
+            return url
         else:
             return url
+
+

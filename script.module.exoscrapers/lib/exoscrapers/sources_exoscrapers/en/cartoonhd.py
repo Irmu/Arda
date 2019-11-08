@@ -1,40 +1,9 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
+# -Cleaned and Checked on 10-16-2019 by Exodus in Exodus.
 
-#  ..#######.########.#######.##....#..######..######.########....###...########.#######.########..######.
-#  .##.....#.##.....#.##......###...#.##....#.##....#.##.....#...##.##..##.....#.##......##.....#.##....##
-#  .##.....#.##.....#.##......####..#.##......##......##.....#..##...##.##.....#.##......##.....#.##......
-#  .##.....#.########.######..##.##.#..######.##......########.##.....#.########.######..########..######.
-#  .##.....#.##.......##......##..###.......#.##......##...##..########.##.......##......##...##........##
-#  .##.....#.##.......##......##...##.##....#.##....#.##....##.##.....#.##.......##......##....##.##....##
-#  ..#######.##.......#######.##....#..######..######.##.....#.##.....#.##.......#######.##.....#..######.
-
-'''
-    ExoScrapers Project
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
-
-
-
-import base64
-import json
-import re
-import time
-import urllib
-import urlparse
-
-from exoscrapers.modules import cleantitle
+import re, urllib, urlparse, base64, json, time
 from exoscrapers.modules import client
+from exoscrapers.modules import cleantitle
 from exoscrapers.modules import directstream
 from exoscrapers.modules import source_utils
 
@@ -42,9 +11,9 @@ from exoscrapers.modules import source_utils
 class source:
     def __init__(self):
         self.priority = 1
-        self.language = ['en']
-        self.domains = ['cartoonhd.com', 'cartoonhd.care']
-        self.base_link = 'https://cartoonhd.com'  # .care dont seem to work no more.
+        self.language = ['en'] # Old  cartoonhd.care  cartoonhd.it  cartoonhd.de  cartoonhd.cz
+        self.domains = ['cartoonhd.com']
+        self.base_link = 'https://cartoonhd.com'
 
 
     def movie(self, imdb, title, localtitle, aliases, year):
@@ -84,7 +53,7 @@ class source:
         try:
             for alias in aliases:
                 url = '%s/show/%s/season/%01d/episode/%01d' % (self.base_link, cleantitle.geturl(title), int(season), int(episode))
-                url = client.request(url, headers=headers,output='geturl', timeout='10')
+                url = client.request(url, headers=headers, output='geturl', timeout='10')
                 if not url is None and url != self.base_link:
                     break
             return url
@@ -132,10 +101,7 @@ class source:
             try:
                 r = re.findall('(https:.*?redirector.*?)[\'\"]', result)
                 for i in r:
-                    try:
-                        sources.append({'source': 'gvideo', 'quality': directstream.googletag(i)[0]['quality'], 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
-                    except:
-                        pass
+                    sources.append({'source': 'gvideo', 'quality': directstream.googletag(i)[0]['quality'], 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
             except:
                 pass
             try:
@@ -154,46 +120,37 @@ class source:
             idEl = re.findall('elid\s*=\s*"([^"]+)', result)[0]
             post = {'action': action, 'idEl': idEl, 'token': token, 'nopop': '', 'elid': elid}
             post = urllib.urlencode(post)
-            cookie += ';%s=%s'%(idEl,elid)
+            cookie += ';%s=%s'%(idEl, elid)
             headers['Cookie'] = cookie
             r = client.request(u, post=post, headers=headers, cookie=cookie, XHR=True)
             r = str(json.loads(r))
             r = re.findall('\'(http.+?)\'', r) + re.findall('\"(http.+?)\"', r)
             for i in r:
-                try:
-                    if 'google' in i:
-                        quality = 'SD'
-                        if 'googleapis' in i:
-                            try:
-                                quality = source_utils.check_sd_url(i)
-                            except:
-                                pass
-                        if 'googleusercontent' in i:
-                            i = directstream.googleproxy(i)
-                            try:
-                                quality = directstream.googletag(i)[0]['quality']
-                            except:
-                                pass
-                        sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
-                    elif 'llnwi.net' in i or 'vidcdn.pro' in i:
-                        try:
-                            quality = source_utils.check_sd_url(i)
-                            sources.append({'source': 'CDN', 'quality': quality, 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
-                        except:
-                            pass
-                    else:
-                        valid, hoster = source_utils.is_host_valid(i, hostDict)
-                        if not valid:
-                            continue
-                        sources.append({'source': hoster, 'quality': '720p', 'language': 'en', 'url': i, 'direct': False, 'debridonly': False})
-                except:
-                    pass
+                if 'google' in i:
+                    quality = 'SD'
+                    if 'googleapis' in i:
+                        quality = source_utils.check_sd_url(i)
+                    elif 'googleusercontent' in i:
+                        i = directstream.googleproxy(i)
+                        quality = directstream.googletag(i)[0]['quality']
+                    sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
+                elif 'llnwi.net' in i or 'vidcdn.pro' in i:
+                    quality = source_utils.check_sd_url(i)
+                    sources.append({'source': 'CDN', 'quality': quality, 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
+                else:
+                    valid, hoster = source_utils.is_host_valid(i, hostDict)
+                    if valid:
+                        quality = source_utils.check_sd_url(i)
+                        sources.append({'source': hoster, 'quality': quality, 'language': 'en', 'url': i, 'direct': False, 'debridonly': False})
             return sources
         except:
             return sources
 
+
     def resolve(self, url):
-        if 'google' in url and 'googleapis' not in url:
+        if 'google' in url and not 'googleapis' in url:
             return directstream.googlepass(url)
         else:
             return url
+
+
