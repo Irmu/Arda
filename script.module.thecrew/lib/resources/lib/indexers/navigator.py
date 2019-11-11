@@ -49,8 +49,10 @@ class navigator:
     LOCALNEWS     = os.path.join(THISADDONPATH, 'whatsnew.txt')
 
     def root(self):
-        #if self.getMenuEnabled('navi.holiday') == True:        
-            #self.addDirectoryItem(90144, 'holidayNavigator', 'halloween.png', 'halloween.png')
+        if self.getMenuEnabled('navi.holidays') == True:        
+            self.addDirectoryItem(90157, 'holidaysNavigator', 'holidays.png', 'holidays.png')
+        #if self.getMenuEnabled('navi.halloween') == True:        
+            #self.addDirectoryItem(90144, 'halloweenNavigator', 'halloween.png', 'halloween.png')
         if self.getMenuEnabled('navi.movies') == True:
             self.addDirectoryItem(32001, 'movieNavigator', 'main_movies.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.tvshows') == True:
@@ -71,6 +73,8 @@ class navigator:
             self.addDirectoryItem(90012, 'goldenhat', 'main_goldenhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.standup') == True:         
             self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
+        #if self.getMenuEnabled('navi.kiddo') == True:         
+            #self.addDirectoryItem(90163, 'kiddo', 'kiddo.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.absolution') == True:         
             self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.titan') == True:         
@@ -457,9 +461,9 @@ class navigator:
     
     def bluehat(self):
         self.addDirectoryItem(90023, 'ncaa', 'ncaa.png', 'ncaa.png')
+        self.addDirectoryItem(90156, 'ncaab', 'ncaab.png', 'ncaab.png')
         self.addDirectoryItem(90024, 'mlb', 'mlb.png', 'mlb.png')
         self.addDirectoryItem(90025, 'nfl', 'nfl.png', 'nfl.png')
-        self.addDirectoryItem(90156, 'ncaab', 'ncaab.png', 'ncaab.png')
         self.addDirectoryItem(90026, 'nhl', 'nhl.png', 'nhl.png')
         self.addDirectoryItem(90027, 'nba', 'nba.png', 'nba.png')
         self.addDirectoryItem(90028, 'ufc', 'ufc.png', 'ufc.png')
@@ -527,13 +531,22 @@ class navigator:
 
         self.endDirectory()
 
-    def holiday(self):
+    def holidays(self):
+        self.addDirectoryItem(90161, 'movies&url=top50_holiday', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90162, 'movies&url=best_holiday', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90158, 'movies&url=https://api.trakt.tv/users/movistapp/lists/christmas-movies/items', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90159, 'movies&url=https://api.trakt.tv/users/cjcope/lists/hallmark-christmas/items', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90160, 'movies&url=https://api.trakt.tv/users/mkadam68/lists/christmas-list/items', 'holidays.png', 'holidays.png')
+
+        self.endDirectory()
+
+    def halloween(self):
         self.addDirectoryItem(90146, 'movies&url=halloween_imdb', 'halloween.png', 'halloween.png')
         self.addDirectoryItem(90147, 'movies&url=halloween_top_100', 'halloween.png', 'halloween.png')
         self.addDirectoryItem(90148, 'movies&url=halloween_best', 'halloween.png', 'halloween.png')
         self.addDirectoryItem(90149, 'movies&url=halloween_great', 'halloween.png', 'halloween.png')
         self.addDirectoryItem(90145, 'movies&url=https://api.trakt.tv/users/petermesh/lists/halloween-movies/items', 'halloween.png', 'halloween.png')
-        
+
         self.endDirectory()
 
     def traktlist(self):

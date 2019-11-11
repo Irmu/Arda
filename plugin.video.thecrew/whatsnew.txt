@@ -6,8 +6,8 @@
 
  [COLOR deeppink]**************************************************************************************[/COLOR]
  
-[B][COLOR limegreen]V0.0.37[/COLOR][/B]
-[B][COLOR deeppink]¤ [/COLOR][/B] added Halloween area
+[B][COLOR limegreen]V0.0.49[/COLOR][/B]
+[B][COLOR deeppink]¤ [/COLOR][/B] Holidays Added
 
 
  [COLOR deeppink]**************************************************************************************[/COLOR]

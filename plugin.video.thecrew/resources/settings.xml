@@ -10,6 +10,7 @@
         <setting id="providers.lang" type="select" label="32360" values="English|German|German+English|French|French+English|Polish|Polish+English|Korean|Korean+English|Russian|Russian+English|Spanish|Spanish+English|Italian|Italian+English|Greek|Greek+English" default="English" />
         <setting id="fanart" type="bool" label="32318" default="true" />
         <setting id="tv.specials" type="bool" label="90116" default="false" />
+        <setting id="showunaired" type="bool" label="32570" default="false" />
         <setting id="unaired.identify" type="enum" label="90003" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="1" />
         <setting id="flatten.tvshows" type="bool" label="32317" default="false" />
         <setting type="lsep" label="32319" />
@@ -22,7 +23,8 @@
         <setting id="adult_pw" type="text" label="90033" default="Enter Here!" />
         <setting type="lsep" label="90137" />
         <!--
-        <setting id="navi.holiday" type="bool" label="90144" default="true" /> -->
+        <setting id="navi.halloween" type="bool" label="90144" default="true" /> -->
+        <setting id="navi.holidays" type="bool" label="90157" default="true" />
         <setting id="navi.movies" type="bool" label="32001" default="true" />
         <setting id="navi.tvshows" type="bool" label="32002" default="true" />
         <setting id="navi.sports" type="bool" label="90006" default="true" />
@@ -30,9 +32,10 @@
         <setting id="navi.iptv" type="bool" label="90007" default="true" />
         <setting id="navi.fitness" type="bool" label="90010" default="true" />
         <setting id="navi.food" type="bool" label="90143" default="true" />
-        <setting id="navi.1clicks" type="bool" label="90010" default="true" />
-        <setting id="navi.magnets" type="bool" label="90011" default="true" />
-        <setting id="navi.standup" type="bool" label="90012" default="true" />
+        <setting id="navi.1clicks" type="bool" label="90011" default="true" />
+        <setting id="navi.magnets" type="bool" label="90012" default="true" />
+        <setting id="navi.standup" type="bool" label="90113" default="true" />
+        <!--<setting id="navi.kiddo" type="bool" label="90163" default="true" />-->
         <setting id="navi.absolution" type="bool" label="90150" default="true" />
         <setting id="navi.titan" type="bool" label="90155" default="true" />
         <setting type="lsep" label="32001" />

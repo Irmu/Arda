@@ -3,7 +3,7 @@
 # Lazy Module to make life a little easier.
 
 import re, time, traceback
-from openscrapers.modules import log_utils
+from resources.lib.modules import log_utils
 import HTMLParser
 
 headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3555.0 Safari/537.36"}
@@ -77,10 +77,10 @@ def get(url, Type=None):
     if not url:
         return
     if Type == 'client' or Type == None:
-        from openscrapers.modules import client
+        from resources.lib.modules import client
         content = client.request(url, headers=headers)
     if Type == 'cfscrape':
-        from openscrapers.modules import cfscrape
+        from resources.lib.modules import cfscrape
         cfscraper = cfscrape.create_scraper()
         content = cfscraper.get(url, headers=headers).content
     if Type == 'redirect':
@@ -191,9 +191,9 @@ def replaceHTMLCodes(text):
 
 def unpacked(url):
     try:
-        from openscrapers.modules import client
-        from openscrapers.modules import jsunpack
-        from openscrapers.modules import log_utils
+        from resources.lib.modules import client
+        from resources.lib.modules import jsunpack
+        from resources.lib.modules import log_utils
         unpacked = ''
         html = client.request(url)
         if jsunpack.detect(html):
@@ -208,8 +208,8 @@ def unpacked(url):
 
 def TEST_RUN():
     import re
-    from openscrapers.modules import jsunpack
-    from openscrapers.modules import log_utils
+    from resources.lib.modules import jsunpack
+    from resources.lib.modules import log_utils
     log_utils.log('#####################################')
     url = 'https://site.com'
     data = get(url, Type='cfscrape')

@@ -74,6 +74,7 @@ content = params.get('content')
 windowedtrailer = params.get('windowedtrailer')
 windowedtrailer = int(windowedtrailer) if windowedtrailer in ("0","1") else 0
 
+
 if action == None:
     from resources.lib.indexers import navigator
     from resources.lib.modules import cache
@@ -127,6 +128,10 @@ elif action == 'greyhat':
 elif action == 'absolution':
     from resources.lib.indexers import lists
     lists.indexer().root_absolution()
+
+elif action == 'kiddo':
+    from resources.lib.indexers import lists
+    lists.indexer().root_kiddo()
 
 elif action == 'redhat':
     from resources.lib.indexers import lists
@@ -723,6 +728,10 @@ elif action == 'collections':
     from resources.lib.indexers import collections
     collections.collections().get(url)
 
-elif action == 'holidayNavigator':
+elif action == 'holidaysNavigator':
     from resources.lib.indexers import navigator
-    navigator.navigator().holiday()
+    navigator.navigator().holidays()
+
+elif action == 'halloweenNavigator':
+    from resources.lib.indexers import navigator
+    navigator.navigator().halloween()

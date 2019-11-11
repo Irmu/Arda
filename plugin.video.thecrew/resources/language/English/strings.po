@@ -1741,3 +1741,31 @@ msgstr ""
 msgctxt "#90156"
 msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]NCAAB[/COLOR][/B]"
 msgstr ""
+
+msgctxt "#90157"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR red]Holiday Cheer[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90158"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Holiday Related Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90159"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Hallmark Christmas[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90160"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Random Christmas Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90161"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Top 50 Holiday Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90162"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Best Holiday Movies of All Times (as well as some rare finds)[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90163"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Kiddo (CDTV)[/COLOR][/B]"
+msgstr ""

@@ -117,11 +117,15 @@ class movies:
         self.imdbwatchlist_link = 'http://www.imdb.com/user/ur%s/watchlist?sort=alpha,asc' % self.imdb_user
         self.imdbwatchlist2_link = 'http://www.imdb.com/user/ur%s/watchlist?sort=date_added,desc' % self.imdb_user
 
-#######HOLIDAY########
+#######HALLOWEN########
         self.halloween_imdb_link = 'https://www.imdb.com/list/ls066334100/?sort=user_rating,desc&st_dt=&mode=detail&page=1' 
         self.halloween_top_100_link = 'https://www.imdb.com/list/ls000091321/?sort=user_rating,desc&st_dt=&mode=detail&page=1'       
         self.halloween_best_link = 'https://www.imdb.com/list/ls052042029/?sort=user_rating,desc&st_dt=&mode=detail&page=1'
         self.halloween_great_link = 'https://www.imdb.com/list/ls050722485/?sort=user_rating,desc&st_dt=&mode=detail&page=1'
+#######HOLIDAY########
+        self.top50_holiday_link = 'https://www.imdb.com/list/ls003988974/?sort=user_rating,desc&st_dt=&mode=detail&page=1'
+        self.best_holiday_link = 'https://www.imdb.com/list/ls053245198/?sort=user_rating,desc&st_dt=&mode=detail&page=1'
+
 
 
     def get(self, url, idx=True, create_directory=True):
@@ -270,28 +274,28 @@ class movies:
 
     def genres(self):
         genres = [
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Action[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'action', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Adventure[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'adventure', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Animation[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'animation', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Anime[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'anime', False),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Biography[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'biography', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Comedy[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'comedy', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Crime[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'crime', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Documentary[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'documentary', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Drama[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'drama', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Family[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'family', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Fantasy[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'fantasy', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]History[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'history', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Horror[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'horror', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Music[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'music', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Musical[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'musical', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Mystery[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'mystery', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Romance[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'romance', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Science Fiction[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'sci_fi', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Sport[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'sport', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Thriller[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'thriller', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]War[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'war', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Western[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'western', True)
+            ('Action', 'action', True),
+            ('Adventure', 'adventure', True),
+            ('Animation', 'animation', True),
+            ('Anime', 'anime', False),
+            ('Biography', 'biography', True),
+            ('Comedy', 'comedy', True),
+            ('Crime', 'crime', True),
+            ('Documentary', 'documentary', True),
+            ('Drama', 'drama', True),
+            ('Family', 'family', True),
+            ('Fantasy', 'fantasy', True),
+            ('History', 'history', True),
+            ('Horror', 'horror', True),
+            ('Music ', 'music', True),
+            ('Musical', 'musical', True),
+            ('Mystery', 'mystery', True),
+            ('Romance', 'romance', True),
+            ('Science Fiction', 'sci_fi', True),
+            ('Sport', 'sport', True),
+            ('Thriller', 'thriller', True),
+            ('War', 'war', True),
+            ('Western', 'western', True)
         ]
 
         for i in genres: self.list.append(
