@@ -52,9 +52,9 @@ class swift:
         self.User_Agent = 'okhttp/3.10.0'
         self.Play_User_Agent = 'Lavf/56.15.102'
 
-        self.base_api_url = 'http://swiftstreamz.com/SwiftPanel/api.php?get_category'
-        self.base_dta_url = 'http://swiftstreamz.com/SwiftPanel/swiftlive.php'
-        self.base_cat_url = 'http://swiftstreamz.com/SwiftPanel/api.php?get_channels_by_cat_id=%s'
+        self.base_api_url = 'https://swiftstreamz.com/SwiftPanel/api.php?get_category'
+        self.base_dta_url = 'https://swiftstreamz.com/SwiftPanel/swiftlive.php'
+        self.base_cat_url = 'https://swiftstreamz.com/SwiftPanel/api.php?get_channels_by_cat_id=%s'
 
         self.filter_mov = control.setting('tv.swift.filtermov')
         self.filter_spo = control.setting('tv.swift.filtersports')
@@ -151,7 +151,7 @@ class swift:
         token = tmp[2]
 
         data = {"data": get_post_data()}
-        token_url = 'http://swiftstreamz.com/newapptoken%s.php' % (token)
+        token_url = 'https://swiftstreamz.com/newapptoken%s.php' % (token)
         get_token = requests.post(token_url, headers={"User-Agent": self.User_Agent}, data=data, timeout=10)
         auth_token = get_token.text.partition('=')[2]
 

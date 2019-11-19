@@ -56,11 +56,12 @@ class seasons:
         self.tvdb_key = control.setting('tvdb.user')
         if self.tvdb_key == '' or self.tvdb_key == None:
             self.tvdb_key = '1D62F2F90030C444'
-        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/all/%s.zip' % (self.tvdb_key, '%s', '%s')
-        self.tvdb_by_imdb = 'http://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
-        self.tvdb_by_query = 'http://thetvdb.com/api/GetSeries.php?seriesname=%s'
-        self.tvdb_image = 'http://thetvdb.com/banners/'
-        self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
+            self.tvdb_key, '%s', '%s')
+        self.tvdb_by_imdb = 'https://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
+        self.tvdb_by_query = 'https://thetvdb.com/api/GetSeries.php?seriesname=%s'
+        self.tvdb_image = 'https://thetvdb.com/banners/'
+        self.tvdb_poster = 'https://thetvdb.com/banners/_cache/'
 
 
     def get(self, tvshowtitle, year, imdb, tvdb, idx=True, create_directory=True):
@@ -541,8 +542,8 @@ class episodes:
     def __init__(self):
         self.list = []
 
-        self.trakt_link = 'http://api.trakt.tv'
-        self.tvmaze_link = 'http://api.tvmaze.com'
+        self.trakt_link = 'https://api.trakt.tv'
+        self.tvmaze_link = 'https://api.tvmaze.com'
         self.tvdb_key = control.setting('tvdb.user')
         if self.tvdb_key == '' or self.tvdb_key == None:
             self.tvdb_key = '1D62F2F90030C444'
@@ -553,22 +554,23 @@ class episodes:
         self.lang = control.apiLanguage()['tvdb']
         self.showunaired = control.setting('showunaired') or 'true'
 
-        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/all/%s.zip' % (self.tvdb_key, '%s', '%s')
-        self.tvdb_image = 'http://thetvdb.com/banners/'
-        self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
+            self.tvdb_key, '%s', '%s')
+        self.tvdb_image = 'https://thetvdb.com/banners/'
+        self.tvdb_poster = 'https://thetvdb.com/banners/_cache/'
 
-        self.added_link = 'http://api.tvmaze.com/schedule'
+        self.added_link = 'https://api.tvmaze.com/schedule'
         #https://api.trakt.tv/calendars/all/shows/date[30]/31 #use this for new episodes?
-        #self.mycalendar_link = 'http://api.trakt.tv/calendars/my/shows/date[29]/60/'
-        self.mycalendar_link = 'http://api.trakt.tv/calendars/my/shows/date[30]/31/' #go back 30 and show all shows aired until tomorrow
-        self.trakthistory_link = 'http://api.trakt.tv/users/me/history/shows?limit=300'
-        self.progress_link = 'http://api.trakt.tv/users/me/watched/shows'
-        self.hiddenprogress_link = 'http://api.trakt.tv/users/hidden/progress_watched?limit=1000&type=show'
-        self.calendar_link = 'http://api.tvmaze.com/schedule?date=%s'
-        self.onDeck_link = 'http://api.trakt.tv/sync/playback/episodes?extended=full&limit=10'
-        self.traktlists_link = 'http://api.trakt.tv/users/me/lists'
-        self.traktlikedlists_link = 'http://api.trakt.tv/users/likes/lists?limit=1000000'
-        self.traktlist_link = 'http://api.trakt.tv/users/%s/lists/%s/items'
+        #self.mycalendar_link = 'https://api.trakt.tv/calendars/my/shows/date[29]/60/'
+        self.mycalendar_link = 'https://api.trakt.tv/calendars/my/shows/date[30]/31/' #go back 30 and show all shows aired until tomorrow
+        self.trakthistory_link = 'https://api.trakt.tv/users/me/history/shows?limit=300'
+        self.progress_link = 'https://api.trakt.tv/users/me/watched/shows'
+        self.hiddenprogress_link = 'https://api.trakt.tv/users/hidden/progress_watched?limit=1000&type=show'
+        self.calendar_link = 'https://api.tvmaze.com/schedule?date=%s'
+        self.onDeck_link = 'https://api.trakt.tv/sync/playback/episodes?extended=full&limit=10'
+        self.traktlists_link = 'https://api.trakt.tv/users/me/lists'
+        self.traktlikedlists_link = 'https://api.trakt.tv/users/likes/lists?limit=1000000'
+        self.traktlist_link = 'https://api.trakt.tv/users/%s/lists/%s/items'
 
 
     def get(self, tvshowtitle, year, imdb, tvdb, season=None, episode=None, idx=True, create_directory=True):
@@ -1080,7 +1082,7 @@ class episodes:
                 data = urllib2.urlopen(url, timeout=10).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.xml' % lang)
+                result = zip.read('%s.zip.xml' % lang)
                 artwork = zip.read('banners.xml')
                 zip.close()
 

@@ -331,6 +331,14 @@ def aliases_to_array(aliases, filter=None):
     except:
         return []
 
+def get_titles_for_search(title, localtitle, aliases):
+    try:
+        if "country':" in str(aliases): aliases = aliases_to_array(aliases)
+        titles = [localtitle, title] + aliases
+        titles = [i for i in titles if not i == '']
+        return list(set(titles))
+    except:
+        exit()                                                      
 
 def append_headers(headers):
     return '|%s' % '&'.join(['%s=%s' % (key, urllib.quote_plus(headers[key])) for key in headers])

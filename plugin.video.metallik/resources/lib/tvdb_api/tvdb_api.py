@@ -179,8 +179,8 @@ class Tvdb:
         for series in seriesEt:
             result = dict((k.tag.lower(), k.text) for k in series.getchildren())
             result['id'] = int(result['id'])
-            if 'aliasnames' in result:
-                result['aliasnames'] = result['aliasnames'].split("|")
+            if 'SeriesName' in result:
+                result['SeriesName'] = result['SeriesName'].split("|")
 
             if year:
                 try:
@@ -215,7 +215,7 @@ class Tvdb:
             url = self.url_sid_full(sid, language)
             response = self._loadZip(url)
 
-            fullDataEt = self._parseXML(response["%s.xml" % language])
+            fullDataEt = self._parseXML(response["%s.zip.xml" % language])
             self._parseSeriesData(sid, fullDataEt)
             self._parseEpisodesData(sid, fullDataEt)
 

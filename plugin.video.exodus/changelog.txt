@@ -1,3 +1,4 @@
 Exodus Changelog:
-8.2.5
-- Scraper updates
+8.2.6
+- TVDB Fix
+- Cache Improvements

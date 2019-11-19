@@ -23,6 +23,7 @@ import ast
 import hashlib
 import re
 import time
+import pickle
 
 from exoscrapers.modules import control
 
@@ -38,7 +39,7 @@ This module is used to get/set cache for every action done in the system
 cache_table = 'cache'
 
 
-def get(function, duration, *args):
+def get(function, duration, *args, **kwargs):
     # type: (function, int, object) -> object or None
     """
     Gets cached value for provided function with optional arguments, or executes and stores the result
@@ -48,22 +49,34 @@ def get(function, duration, *args):
     """
 
     try:
-        key = _hash_function(function, args)
+        key = _hash_function(function, args, kwargs)
         cache_result = cache_get(key)
         if cache_result:
             if _is_cache_valid(cache_result['date'], duration):
-                return ast.literal_eval(cache_result['value'].encode('utf-8'))
+                return pickle.loads(cache_result['value'])
+            else:
+                cache_delete(key)
 
-        fresh_result = repr(function(*args))
+        fresh_result = function(*args, **kwargs)
         if not fresh_result:
             # If the cache is old, but we didn't get fresh result, return the old cache
             if cache_result:
                 return cache_result
             return None
 
-        cache_insert(key, fresh_result)
-        return ast.literal_eval(fresh_result.encode('utf-8'))
+        cache_insert(key, pickle.dumps(fresh_result))
+
+        return fresh_result
     except Exception:
+        return None
+
+def cache_delete(key):
+    # type: (str, str) -> dict or None
+    try:
+        cursor = _get_connection_cursor()
+        cursor.execute("DELETE FROM %s WHERE key = ?" % cache_table, [key])
+        cursor.connection.commit()
+    except OperationalError:
         return None
 
 
