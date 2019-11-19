@@ -32,6 +32,7 @@ from resources.lib.modules import playcount
 from resources.lib.modules import workers
 from resources.lib.modules import views
 from resources.lib.modules import utils
+from resources.lib.modules import sources
 
 import os,sys,re,json,zipfile,StringIO,urllib,urllib2,urlparse,datetime
 
@@ -47,10 +48,15 @@ class seasons:
         self.list = []
 
         self.lang = control.apiLanguage()['tvdb']
+
+        #fixed by 9 - 18-11-2019
         self.showunaired = control.setting('showunaired') or 'true'
         self.unairedcolor = control.setting('unaired.identify')
         if self.unairedcolor == '':
-            self.unairedcolor = 'red'
+            self.unairedcolor = '32590' #Defaults to Red in language .po file
+        self.colorlist = [32589, 32590, 32591, 32592, 32593, 32594, 32595, 32596, 32597, 32598]
+        self.colornr = self.colorlist[int(control.setting('unaired.identify'))]
+
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
         self.tvdb_key = control.setting('tvdb.user')
@@ -441,15 +447,22 @@ class seasons:
 
         addToLibrary = control.lang(32551).encode('utf-8')
 
+        #fixed by 9 - 18-11-2019
+        unairedcolor = re.sub("\][\w\s]*\[", "][I]%s[/I][", control.lang(int(self.colornr)).encode('utf-8'))
+
+        if unairedcolor == '':
+            unairedcolor = self.unairedcolor
 
         for i in items:
             try:
                 label = '%s %s' % (labelMenu, i['season'])
+                #fixed by 9 - 18-11-2019
                 try:
-                    if i['unaired'] == 'true':
-                        label = '[COLOR darkred][I]%s[/I][/COLOR]' % label
+                    if i['unaired'] == 'true' and (self.showunaired == 'true') :
+                        label = unairedcolor % label
                 except:
-                    pass
+                    label = label
+
                 systitle = sysname = urllib.quote_plus(i['tvshowtitle'])
 
                 imdb, tvdb, year, season = i['imdb'], i['tvdb'], i['year'], i['season']
@@ -474,9 +487,7 @@ class seasons:
                 except:
                     pass
 
-
                 url = '%s?action=episodes&tvshowtitle=%s&year=%s&imdb=%s&tvdb=%s&season=%s' % (sysaddon, systitle, year, imdb, tvdb, season)
-
 
                 cm = []
                 
@@ -521,7 +532,10 @@ class seasons:
 
                 item.setArt(art)
                 item.addContextMenuItems(cm)
-                item.setInfo(type='Video', infoLabels = meta)
+
+                #fixed by 9 - 18-11-2019
+                meta = control.metadataClean(meta)
+                item.setInfo(type='Video', infoLabels=meta)
 
                 video_streaminfo = {'codec': 'h264'}
                 item.addStreamInfo('video', video_streaminfo)
@@ -552,7 +566,15 @@ class episodes:
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
         self.trakt_user = control.setting('trakt.user').strip()
         self.lang = control.apiLanguage()['tvdb']
+
+        #fixed by 9 - 18-11-2019
         self.showunaired = control.setting('showunaired') or 'true'
+        self.unairedcolor = control.setting('unaired.identify')
+        if self.unairedcolor == '':
+            self.unairedcolor = '32590' #Defaults to Red in language .po file
+        self.colorlist = [32589, 32590, 32591, 32592, 32593, 32594, 32595, 32596, 32597, 32598]
+        self.colornr = self.colorlist[int(control.setting('unaired.identify'))]
+        #fixed by 9 - 18-11-2019
 
         self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
             self.tvdb_key, '%s', '%s')
@@ -1424,13 +1446,11 @@ class episodes:
 
         addToLibrary = control.lang(32551).encode('utf-8')
 
-        #fixed by 9 - 2019-08-13
-        colorlist = [32589, 32590, 32591, 32592, 32593, 32594, 32595, 32596, 32597, 32598]
-        colornr = colorlist[int(control.setting('unaired.identify'))]
-        unairedcolor = re.sub("\][\w\s]*\[", "][I]%s[/I][", control.lang(int(colornr)).encode('utf-8'))
+        #fixed by 9 - 18-11-2019
+        unairedcolor = re.sub("\][\w\s]*\[", "][I]%s[/I][", control.lang(int(self.colornr)).encode('utf-8'))
 
         if unairedcolor == '':
-            unairedcolor = '32590' # 32590 = red = default
+            unairedcolor = self.unairedcolor
 
         for i in items:
             try:
@@ -1443,13 +1463,12 @@ class episodes:
                 if multi == True:
                     label = '%s - %s' % (i['tvshowtitle'], label)
 
-                try:
-                    #fixed by 9 - 2019-08-13
-                    if i['unaired'] == 'true':
+                #fixed by 9 - 18-11-2019
+                if i['unaired'] == 'true' and (self.showunaired == 'true') :
+                    try:
                         label = unairedcolor % label
-
-                except:
-                    pass
+                    except:
+                        label = label
 
                 imdb, tvdb, year, season, episode = i['imdb'], i['tvdb'], i['year'], i['season'], i['episode']
 
@@ -1545,7 +1564,10 @@ class episodes:
                 item.setArt(art)
                 item.addContextMenuItems(cm)
                 item.setProperty('IsPlayable', isPlayable)
-                item.setInfo(type='Video', infoLabels = meta)
+
+                #fixed by 9 - 18-11-2019
+                meta = control.metadataClean(meta)
+                item.setInfo(type='Video', infoLabels=meta)
 
                 video_streaminfo = {'codec': 'h264'}
                 item.addStreamInfo('video', video_streaminfo)
@@ -1600,5 +1622,4 @@ class episodes:
 
         control.content(syshandle, 'addons')
         control.directory(syshandle, cacheToDisc=True)
-
 
