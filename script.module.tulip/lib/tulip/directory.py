@@ -17,25 +17,18 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
+import traceback, sys
 from tulip.compat import urlencode, quote_plus, iteritems, basestring, parse_qsl
 from tulip import control
+from kodi_six.xbmc import log
 
 
-def add(items, cacheToDisc=True, content=None, mediatype=None, infotype='video', argv=None):
-
-    """
-    Creates a directory of items
-
-    :param items: A list of dictionaries of items, each item must have at least two keys, action and title
-    :param cacheToDisc: Deprecated in Krypton, no effect there
-    :param content: String
-    :param mediatype: String
-    :param infotype: String
-    :param argv: List of sys.argv
-    :return: None
-    """
+def add(
+    items, cacheToDisc=True, content=None, mediatype=None, infotype='video', argv=None, as_playlist=False, auto_play=False,
+    pd_heading=None, pd_message='', clear_first=True, progress=False, category=None
+):
 
     if argv is None:
 
@@ -47,19 +40,48 @@ def add(items, cacheToDisc=True, content=None, mediatype=None, infotype='video',
         syshandle = int(argv[1])
 
     if items is None or len(items) == 0:
+        log('Directory not added, reason of failure: ' + 'Empty or null list of items')
         return
 
     # sysicon = control.join(control.addonInfo('path'), 'resources', 'media')
     sysimage = control.addonInfo('icon')
     sysfanart = control.addonInfo('fanart')
 
-    for i in items:
+    if progress:
+
+        pd = control.progressDialogGB
+        pd.create(heading=control.name() if not pd_heading else pd_heading, message=pd_message)
+
+    else:
+
+        pd = None
+
+    if as_playlist and clear_first:
+
+        control.playlist(1 if infotype == 'video' else 0).clear()
+
+    meta_tags = [
+        'count', 'size', 'date', 'genre', 'country', 'year', 'episode', 'season', 'sortepisode', 'sortseason',
+        'episodeguide', 'showlink', 'top250', 'setid', 'tracknumber', 'rating', 'userrating', 'watched', 'playcount',
+        'overlay', 'cast', 'castandrole', 'director', 'mpaa', 'plot', 'plotoutline', 'title', 'originaltitle',
+        'sorttitle', 'duration', 'studio', 'tagline', 'writer', 'tvshowtitle', 'premiered', 'status', 'set', 'gameclient',
+        'setoverview', 'tag', 'imdbnumber', 'code', 'aired', 'credits', 'lastplayed', 'album', 'artist', 'votes',
+        'path', 'trailer', 'dateadded', 'mediatype', 'dbid', 'tracknumber', 'discnumber', 'lyrics', 'listeners',
+        'musicbrainztrackid', 'comment', 'picturepath', 'platform', 'genres', 'publisher', 'developer', 'overview'
+    ]
+
+    for c, i in list(enumerate(items)):
 
         try:
 
+            if progress:
+
+                p = control.per_cent(c, len(items))
+                pd.update(p)
+
             try:
                 label = control.lang(i['title']).encode('utf-8')
-            except BaseException:
+            except Exception:
                 label = i['title']
 
             if 'label' in i and not i['label'] == '0':
@@ -96,89 +118,101 @@ def add(items, cacheToDisc=True, content=None, mediatype=None, infotype='video',
 
                 isFolder = False
 
-            url = '%s?action=%s' % (sysaddon, i['action'])
+            try:
+                action = '{0}?action={1}'.format(sysaddon, i['action'])
+            except KeyError:
+                return
 
             try:
-                url += '&url=%s' % quote_plus(i['url'])
-            except BaseException:
-                pass
-            try:
-                url += '&title=%s' % quote_plus(i['title'])
-            except KeyError:
-                try:
-                    url += '&title=%s' % quote_plus(i['title'].encode('utf-8'))
-                except KeyError:
-                    pass
-            except BaseException:
-                pass
+                url = 'url={0}'.format(quote_plus(i['url']))
+            except Exception:
+                url = None
 
             try:
-                url += '&image=%s' % quote_plus(i['image'])
+                title = 'title={0}'.format(quote_plus(i['title']))
             except KeyError:
                 try:
-                    url += '&image=%s' % quote_plus(i['image'].encode('utf-8'))
+                    title = 'title={0}'.format(quote_plus(i['title'].encode('utf-8')))
                 except KeyError:
-                    pass
-            except BaseException:
-                pass
+                    title = None
+            except Exception:
+                title = None
+
             try:
-                url += '&name=%s' % quote_plus(i['name'])
+                icon = 'image={0}'.format(quote_plus(i['image']))
             except KeyError:
                 try:
-                    url += '&name=%s' % quote_plus(i['name'].encode('utf-8'))
+                    icon = 'image={0}'.format(quote_plus(i['image'].encode('utf-8')))
                 except KeyError:
-                    pass
-            except BaseException:
-                pass
+                    icon = None
+            except Exception:
+                icon = None
             try:
-                url += '&year=%s' % quote_plus(i['year'])
-            except BaseException:
-                pass
-            try:
-                url += '&plot=%s' % quote_plus(i['plot'])
+                name = 'name={0}'.format(quote_plus(i['name']))
             except KeyError:
                 try:
-                    url += '&plot=%s' % quote_plus(i['plot'].encode('utf-8'))
+                    name = 'name={0}'.format(quote_plus(i['name'].encode('utf-8')))
                 except KeyError:
-                    pass
-            except BaseException:
-                pass
+                    name = None
+            except Exception:
+                name = None
             try:
-                url += '&genre=%s' % quote_plus(i['genre'])
+                year = 'year={0}'.format(quote_plus(i['year']))
+            except Exception:
+                year = None
+            try:
+                plot = 'plot={0}'.format(quote_plus(i['plot']))
             except KeyError:
                 try:
-                    url += '&genre=%s' % quote_plus(i['genre'].encode('utf-8'))
+                    plot = 'plot={0}'.format(quote_plus(i['plot'].encode('utf-8')))
                 except KeyError:
-                    pass
-            except BaseException:
-                pass
+                    plot = None
+            except Exception:
+                plot = None
             try:
-                url += '&dash=%s' % quote_plus(i['dash'])
-            except BaseException:
-                pass
+                genre = 'genre={0}'.format(quote_plus(i['genre']))
+            except KeyError:
+                try:
+                    genre = 'genre={0}'.format(quote_plus(i['genre'].encode('utf-8')))
+                except KeyError:
+                    genre = None
+            except Exception:
+                genre = None
             try:
-                url += '&query=%s' % quote_plus(i['query'])
-            except BaseException:
-                pass
+                dash = 'dash={0}'.format(quote_plus(i['dash']))
+            except Exception:
+                dash = None
+            try:
+                query = 'query={0}'.format(quote_plus(i['query']))
+            except Exception:
+                query = None
+
+            parts = [foo for foo in [action, url, title, icon, name, year, plot, genre, dash, query] if foo]
+
+            uri = '&'.join(parts)
 
             cm = []
             menus = i['cm'] if 'cm' in i else []
 
             for menu in menus:
+
                 try:
+
                     try:
                         tmenu = control.lang(menu['title']).encode('utf-8')
-                    except BaseException:
+                    except Exception:
                         tmenu = menu['title']
                     try:
                         qmenu = urlencode(menu['query'])
                     except Exception:
                         qmenu = urlencode(dict((k, v.encode('utf-8')) for k, v in menu['query'].items()))
-                    cm.append((tmenu, 'RunPlugin(%s?%s)' % (sysaddon, qmenu)))
-                except BaseException:
+                    cm.append((tmenu, 'RunPlugin({0}?{1})'.format(sysaddon, qmenu)))
+
+                except Exception:
+
                     pass
 
-            meta = dict((k, v) for k, v in iteritems(i) if not k == 'cm' and not v == '0')
+            meta = dict((k, v) for k, v in iteritems(i) if k in meta_tags and (not v == '0' or v is None))
 
             if mediatype is not None:
                 meta['mediatype'] = mediatype
@@ -193,7 +227,7 @@ def add(items, cacheToDisc=True, content=None, mediatype=None, infotype='video',
             )
 
             item.addContextMenuItems(cm)
-            item.setInfo(type=infotype, infoLabels=meta)
+            item.setInfo(type=infotype if 'infotype' not in i else i['infotype'], infoLabels=meta)
 
             if isPlayable:
 
@@ -201,14 +235,37 @@ def add(items, cacheToDisc=True, content=None, mediatype=None, infotype='video',
                     item.setProperty('IsPlayable', 'true')
                 else:
                     item.setProperty('IsPlayable', 'false')
-                if not i['action'] == 'pvr_client' and infotype == 'video':
-                    item.addStreamInfo('video', {'codec': 'h264'})
 
-            control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder, totalItems=len(items))
+                if not i['action'] == 'pvr_client':
+                    if 'streaminfo' not in i and infotype == 'video':
+                        item.addStreamInfo(infotype, {'codec': 'h264'})
+                    else:
+                        item.addStreamInfo(infotype, i.get('streaminfo'))
 
-        except BaseException as reason:
-            from xbmc import log
-            log('The reason of failure: ' + repr(reason))
+            if as_playlist and isPlayable:
+                control.playlist(1 if infotype == 'video' else 0).add(url=uri, listitem=item, index=c)
+            else:
+                control.addItem(handle=syshandle, url=uri, listitem=item, isFolder=isFolder, totalItems=len(items))
+
+        except Exception as reason:
+
+            _, __, tb = sys.exc_info()
+
+            print(traceback.print_tb(tb))
+            log('Directory not added, reason of failure: ' + repr(reason))
+
+    if progress:
+        pd.update(100)
+        pd.close()
+
+    if as_playlist:
+
+        if not auto_play:
+            control.openPlaylist(1 if infotype == 'video' else 0)
+        else:
+            control.execute('Action(Play)')
+
+        return
 
     try:
 
@@ -216,7 +273,7 @@ def add(items, cacheToDisc=True, content=None, mediatype=None, infotype='video',
         if i['next'] == '':
             raise Exception()
 
-        url = '%s?action=%s&url=%s' % (sysaddon, i['nextaction'], quote_plus(i['next']))
+        url = '{0}?action={1}&url={2}'.format(sysaddon, i['nextaction'], quote_plus(i['next']))
         icon = i['nexticon'] if 'nexticon' in i else control.addonmedia('next.png')
         fanart = i['nextfanart'] if 'nextfanart' in i else sysfanart
 
@@ -243,86 +300,90 @@ def add(items, cacheToDisc=True, content=None, mediatype=None, infotype='video',
     if content is not None:
         control.content(syshandle, content)
 
+    if category is not None:
+        control.setcategory(syshandle, category)
+
     control.directory(syshandle, cacheToDisc=cacheToDisc)
 
 
-def m3u_maker(items=None, argv=None):
-
-    """
-    Converts a list into an m3u playlist in string form, use builtin open method to save it somewhere
-    :param items: list
-    :return: str
-    """
+def playlist_maker(items=None, argv=None):
 
     if items is None:
         return
 
     if argv is None:
 
-        from lib.tulip.init import sysaddon, syshandle
+        from tulip.init import sysaddon
 
     else:
 
         sysaddon = argv[0]
 
-    m3u_list = []
+    m3u_list = [u'#EXTM3U\n']
 
     for i in items:
 
         try:
-            url = '%s?action=%s' % (sysaddon, i['action'])
+            action = '{0}?action={1}'.format(sysaddon, i['action'])
         except KeyError:
             return
         try:
-            url += '&url=%s' % quote_plus(i['url'])
-        except BaseException:
-            pass
+            url = '&url={0}'.format(quote_plus(i['url']))
+        except Exception:
+            url = None
         try:
-            url += '&title=%s' % quote_plus(i['title'])
+            title = '&title={0}'.format(quote_plus(i['title']))
         except KeyError:
             try:
-                url += '&title=%s' % quote_plus(i['title'].encode('utf-8'))
+                title = '&title={}'.format(quote_plus(i['title'].encode('utf-8')))
             except KeyError:
-                pass
-        except BaseException:
-            pass
-        try:
-            url += '&image=%s' % quote_plus(i['image'])
-        except KeyError:
-            try:
-                url += '&image=%s' % quote_plus(i['image'].encode('utf-8'))
-            except KeyError:
-                pass
-        except BaseException:
-            pass
-        try:
-            url += '&name=%s' % quote_plus(i['name'])
-        except KeyError:
-            try:
-                url += '&name=%s' % quote_plus(i['name'].encode('utf-8'))
-            except KeyError:
-                pass
-        except BaseException:
-            pass
-        try:
-            url += '&year=%s' % quote_plus(i['year'])
-        except BaseException:
-            pass
-        try:
-            url += '&plot=%s' % quote_plus(i['plot'])
-        except KeyError:
-            try:
-                url += '&plot=%s' % quote_plus(i['plot'].encode('utf-8'))
-            except KeyError:
-                pass
-        except BaseException:
-            pass
+                title = None
+        except Exception:
+            title = None
 
-        m3u_list.append(u'#EXTINF:0,{0}\n'.format(i['title']) + url + '\n')
+        try:
+            icon = '&image={0}'.format(quote_plus(i['image']))
+        except KeyError:
+            try:
+                icon = '&image={0}'.format(quote_plus(i['image'].encode('utf-8')))
+            except KeyError:
+                icon = None
+        except Exception:
+            icon = None
 
-    m3u = [u'#EXTM3U\n'] + m3u_list
+        try:
+            name = '&name={0}'.format(quote_plus(i['name']))
+        except KeyError:
+            try:
+                name = '&name={0}'.format(quote_plus(i['name'].encode('utf-8')))
+            except KeyError:
+                name = None
+        except Exception:
+            name = None
+        try:
+            year = '&year={0}'.format(quote_plus(i['year']))
+        except Exception:
+            year = None
+        try:
+            plot = '&plot={0}'.format(quote_plus(i['plot']))
+        except KeyError:
+            try:
+                plot = '&plot={0}'.format(quote_plus(i['plot'].encode('utf-8')))
+            except KeyError:
+                plot = None
+        except Exception:
+            plot = None
 
-    return ''.join(m3u)
+        parts = [foo for foo in [action, url, title, icon, name, year, plot] if foo]
+
+        uri = '&'.join(parts)
+
+        if icon:
+            m3u_list.append(u'#EXTINF:0 tvg-logo="{0}",{1}\n'.format(icon, i['title']) + uri + '\n')
+        else:
+            m3u_list.append(u'#EXTINF:0,{0}\n'.format(i['title']) + uri + '\n')
+
+    return ''.join(m3u_list)
 
 
 def resolve(
@@ -348,13 +409,12 @@ def resolve(
 
     # Fail gracefully instead of making Kodi complain.
     if url is None:
-        from xbmc import log, LOGDEBUG
-        log('URL was not provided, failure to resolve stream', LOGDEBUG)
+        from kodi_six.xbmc import log
+        log('URL was not provided, failure to resolve stream')
         return
 
     if not headers and '|' in url:
-        url = url.rpartition('|')[0]
-        headers = url.rpartition('|')[2]
+        url, sep, headers = url.rpartition('|')
     elif headers:
         if isinstance(headers, basestring):
             if headers.startswith('|'):
@@ -388,9 +448,9 @@ def resolve(
         item.setContentLookup(False)
         item.setMimeType('{0}'.format(mimetype))
         item.setProperty('inputstreamaddon', 'inputstream.{}'.format(inputstream_type))
-        item.setProperty('inputstream.{}.manifest_type'.format(inputstream_type), manifest_type)
+        item.setProperty('inputstream.{0}.manifest_type'.format(inputstream_type), manifest_type)
         if headers:
-            item.setProperty("inputstream.{}.stream_headers".format(inputstream_type), headers)
+            item.setProperty("inputstream.{0}.stream_headers".format(inputstream_type), headers)
     elif mimetype:
         item.setContentLookup(False)
         item.setMimeType('{0}'.format(mimetype))
@@ -401,10 +461,13 @@ def resolve(
     if resolved_mode:
         control.resolve(syshandle, True, item)
     else:
-        control.player.play(url, item)
+        control.player().play(url, item)
 
 
-def run_builtin(addon_id=control.addonInfo('id'), action=None, mode=None, content_type=None, url=None, query=None, path_history='', get_url=False, command=('ActivateWindow', 'Container.Update')):
+def run_builtin(
+        addon_id=control.addonInfo('id'), action=None, mode=None, content_type=None, url=None, query=None, image=None,
+        path_history='', get_url=False, command=('ActivateWindow', 'Container.Update'), *args
+):
 
     """
     This function will construct a url starting with plugin:// attached to the addon_id, then passed into either
@@ -427,18 +490,32 @@ def run_builtin(addon_id=control.addonInfo('id'), action=None, mode=None, conten
         query_string = ''
 
         if content_type:
-            query_string += 'content_type={0}{1}'.format(content_type, '&' if action is not None or mode is not None or query is not None else '')
 
-        if action and not mode:
+            query_string += 'content_type={0}{1}'.format(content_type, '' if action is None and mode is None and query is None else '&')
+
+        if action:
+
             query_string += 'action={0}'.format(action)
-        elif mode and not action:
+
+        if mode:
+
             query_string += 'mode={0}'.format(mode)
 
         if url:
+
             query_string += '&url={0}'.format(quote_plus(url))
 
         if query:
-            query_string += '&{0}'.format(query)
+
+            query_string += '&query={0}'.format(query)
+
+        if image:
+
+            query_string += '&image={0}'.format(query)
+
+        if args:
+
+            query_string += '&' + '&'.join(args)
 
     if 'content_type=video' in query_string:
         window_id = 'videos'
@@ -451,22 +528,22 @@ def run_builtin(addon_id=control.addonInfo('id'), action=None, mode=None, conten
     elif 'content_type' in query_string and dict(parse_qsl(query_string))['content_type'] not in ['video', 'audio', 'image', 'executable']:
         raise AttributeError('Incorrect content_type specified')
 
-    addon_id = 'plugin://' + addon_id + '/'
+    addon_url = ''.join(['plugin://', addon_id, '/'])
 
     if 'content_type' in query_string and isinstance(command, tuple):
 
         # noinspection PyUnboundLocalVariable
-        executable = '{0}({1},"{2}?{3}"{4})'.format(command[0], window_id, addon_id, query_string, ',return' if not path_history else path_history)
+        executable = '{0}({1},"{2}?{3}"{4})'.format(command[0], window_id, addon_url, query_string, ',return' if not path_history else path_history)
 
     else:
 
         if isinstance(command, tuple):
 
-            executable = '{0}({1}?{2}{3})'.format(command[1], addon_id, query_string, ',return' if not path_history else path_history)
+            executable = '{0}({1}?{2}{3})'.format(command[1], addon_url, query_string, ',return' if not path_history else path_history)
 
         else:
 
-            executable = '{0}({1}?{2}{3})'.format(command, addon_id, query_string, ',return' if not path_history else path_history)
+            executable = '{0}({1}?{2}{3})'.format(command, addon_url, query_string, ',return' if not path_history else path_history)
 
     if get_url:
 
@@ -477,4 +554,4 @@ def run_builtin(addon_id=control.addonInfo('id'), action=None, mode=None, conten
         control.execute(executable)
 
 
-__all__ = ["add", "resolve", "m3u_maker", "run_builtin"]
+__all__ = ["add", "resolve", "playlist_maker", "run_builtin"]

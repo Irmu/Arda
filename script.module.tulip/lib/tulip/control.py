@@ -17,10 +17,11 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-from __future__ import absolute_import
+
+from __future__ import absolute_import, division
 
 from kodi_six import xbmc, xbmcaddon, xbmcplugin, xbmcgui, xbmcvfs
-import os, json, time, re
+import os, json, time
 from tulip.init import syshandle
 from tulip.compat import basestring
 
@@ -37,6 +38,7 @@ addItems = xbmcplugin.addDirectoryItems
 directory = xbmcplugin.endOfDirectory
 content = xbmcplugin.setContent
 setproperty = xbmcplugin.setProperty
+setcategory = xbmcplugin.setPluginCategory
 resolve = xbmcplugin.setResolvedUrl
 sortmethod = xbmcplugin.addSortMethod
 
@@ -47,12 +49,11 @@ keyboard = xbmc.Keyboard
 sleep = xbmc.sleep
 execute = xbmc.executebuiltin
 skin = xbmc.getSkinDir()
-player = xbmc.Player()
-playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
-playlist_music = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
-monitor = xbmc.Monitor()
-wait = monitor.waitForAbort
-aborted = monitor.abortRequested
+player = xbmc.Player
+monitor = xbmc.Monitor
+wait = monitor().waitForAbort
+aborted = monitor().abortRequested
+cleanmovietitle = xbmc.getCleanMovieTitle
 
 transPath = xbmc.translatePath
 skinPath = transPath('special://skin/')
@@ -75,6 +76,8 @@ verify = xbmcgui.PASSWORD_VERIFY
 item = xbmcgui.ListItem
 
 openFile = xbmcvfs.File
+read = openFile.read
+readbytes = openFile.readBytes
 makeFile = xbmcvfs.mkdir
 makeFiles = xbmcvfs.mkdirs
 deleteFile = xbmcvfs.delete
@@ -82,6 +85,7 @@ deleteDir = xbmcvfs.rmdir
 listDir = xbmcvfs.listdir
 exists = xbmcvfs.exists
 copy = xbmcvfs.copy
+rename = xbmcvfs.rename
 
 join = os.path.join
 settingsFile = os.path.join(dataPath, 'settings.xml')
@@ -109,16 +113,16 @@ def icon():
     return addonInfo('icon')
 
 
-def infoDialog(message, heading=addonInfo('name'), icon='', time=3000):
+def infoDialog(message, heading=addonInfo('name'), icon='', time=3000, sound=False):
 
     if icon == '':
         icon = addonInfo('icon')
 
     try:
 
-        dialog.notification(heading, message, icon, time, sound=False)
+        dialog.notification(heading, message, icon, time, sound=sound)
 
-    except BaseException:
+    except Exception:
 
         execute("Notification({0}, {1}, {2}, {3})".format(heading, message, time, icon))
 
@@ -128,7 +132,7 @@ def okDialog(heading, line1):
     return dialog.ok(heading, line1)
 
 
-def yesnoDialog(line1, line2='', line3='', heading=addonInfo('name'), nolabel=None, yeslabel=None):
+def yesnoDialog(line1, line2='', line3='', heading=addonInfo('name'), nolabel='', yeslabel=''):
 
     return dialog.yesno(heading, line1, line2, line3, nolabel, yeslabel)
 
@@ -151,20 +155,28 @@ class WorkingDialog(object):
     wd = None
 
     def __init__(self):
+
         try:
+
             self.wd = xbmcgui.DialogBusy()
             self.wd.create()
             self.update(0)
+
         except:
+
             busy()
 
     def __enter__(self):
         return self
 
     def __exit__(self, type, value, traceback):
+
         if self.wd is not None:
+
             self.wd.close()
+
         else:
+
             idle()
 
     def is_canceled(self):
@@ -233,16 +245,21 @@ class CountdownDialog(object):
     pd = None
 
     def __init__(self, heading, line1='', line2='', line3='', active=True, countdown=60, interval=5):
+
         self.heading = heading
         self.countdown = countdown
         self.interval = interval
         self.line3 = line3
+
         if active:
             pd = xbmcgui.DialogProgress()
+
             if not self.line3:
                 line3 = 'Expires in: %s seconds' % countdown
+
             pd.create(self.heading, line1, line2, line3)
             pd.update(100)
+
             self.pd = pd
 
     def __enter__(self):
@@ -265,13 +282,22 @@ class CountdownDialog(object):
         interval = self.interval
 
         while time_left > 0:
+
             for _ in list(range(CountdownDialog.INTERVALS)):
-                sleep(interval * 1000 / CountdownDialog.INTERVALS)
-                if self.is_canceled(): return
+
+                sleep(int(round(interval * 1000 / CountdownDialog.INTERVALS)))
+
+                if self.is_canceled():
+                    return
+
                 time_left = expires - int(time.time() - start)
-                if time_left < 0: time_left = 0
-                progress = time_left * 100 / expires
+
+                if time_left < 0:
+                    time_left = 0
+
+                progress = int(round(time_left * 100 / expires))
                 line3 = 'Expires in: %s seconds' % time_left if not self.line3 else ''
+
                 self.update(progress, line3=line3)
 
             result = func(*args, **kwargs)
@@ -287,6 +313,70 @@ class CountdownDialog(object):
     def update(self, percent, line1='', line2='', line3=''):
         if self.pd is not None:
             self.pd.update(percent, line1, line2, line3)
+
+
+class Player(player):
+
+    def __init__(self):
+
+        player.__init__(self)
+
+    def play(self, item='', listitem=None, windowed=False, startpos=-1):
+
+        return self
+
+    def onPlayBackStarted(self):
+
+        pass
+
+    def onPlayBackEnded(self):
+
+        pass
+
+    def onPlayBackStopped(self):
+
+        pass
+
+    def onPlayBackError(self):
+
+        pass
+
+    def isPlaying(self):
+
+        pass
+
+
+class Monitor(monitor):
+
+    def __init__(self):
+
+        monitor.__init__(self)
+
+    def onSettingsChanged(self):
+
+        pass
+
+    def onAbortRequested(self):
+
+        pass
+
+    def onNotification(self, sender, method, data):
+
+        pass
+
+    def waitForAbort(self, timeout=-1):
+
+        pass
+        # return self
+
+    def abortRequested(self):
+
+        pass
+        # return self
+
+def per_cent(count, total):
+
+    return min(int(round(count * 100 / total)), 100)
 
 
 def openSettings(query=None, id=addonInfo('id')):
@@ -320,9 +410,29 @@ def Settings(id=addonInfo('id')):
     addon(id).openSettings()
 
 
-def openPlaylist():
+def playlist(mode=1):
 
-    return execute('ActivateWindow(VideoPlaylist)')
+    """
+    # mode=1 for video and mode=0 for music/audio
+    """
+
+    return xbmc.PlayList(mode)
+
+
+def openPlaylist(playlist_type=None):
+
+    if not playlist_type or playlist_type == 1:
+        playlist_type = 'videoplaylist'
+    elif playlist_type == 0:
+        playlist_type = 'musicplaylist'
+
+    return execute('ActivateWindow({0})'.format(playlist_type))
+
+
+def move(source, destination):
+
+    copy(source, destination)
+    deleteFile(source)
 
 
 def refresh():
@@ -414,7 +524,7 @@ def sortmethods(method='unsorted', mask='%D'):
     elif method == 'year':
         try:
             return sortmethod(handle=syshandle, sortMethod=xbmcplugin.SORT_METHOD_YEAR)
-        except BaseException:
+        except Exception:
             return sortmethod(handle=syshandle, sortMethod=xbmcplugin.SORT_METHOD_VIDEO_YEAR)
     elif method == 'video_rating':
         return sortmethod(handle=syshandle, sortMethod=xbmcplugin.SORT_METHOD_VIDEO_RATING)
@@ -523,7 +633,7 @@ def addon_details(addon_id, fields=None):
 
 
 def enable_addon(addon_id, enable=True):
-    
+
     """Enable/Disable an addon via json-rpc"""
 
     command = {
@@ -629,10 +739,15 @@ def quit_kodi():
     execute('Quit')
 
 
+def reload_skin():
+
+    execute('ReloadSkin()')
+
+
 def android_activity(url, package=''):
 
     if package:
-        package = '"' + package + '"'
+        package = ''.join(['"', package, '"'])
 
     return execute('StartAndroidActivity({0},"android.intent.action.VIEW","","{1}")'.format(package, url))
 

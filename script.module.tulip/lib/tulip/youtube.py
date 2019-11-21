@@ -20,8 +20,9 @@
 from __future__ import absolute_import
 
 import re, json
+from datetime import datetime
 from tulip.compat import urlparse, parse_qs, quote_plus, range
-from tulip import client, workers, control, directory
+from tulip import client, workers, control, directory, iso8601
 
 
 class youtube(object):
@@ -36,12 +37,12 @@ class youtube(object):
 
         self.key_link = '&key={0}'.format(control.setting(api_key_setting) or key)
 
-        self.playlists_link = self.google_base_link + 'playlists?part=snippet&maxResults=50&channelId=%s'
-        self.playlist_link = self.google_base_link + 'playlistItems?part=snippet&maxResults=50&playlistId=%s'
-        self.videos_link = self.google_base_link + 'search?part=snippet&order=date&maxResults=50&channelId=%s'
-        self.content_link = self.google_base_link + 'videos?part=contentDetails&id=%s'
-        self.search_link = self.google_base_link + 'search?part=snippet&type=video&maxResults=5&q=%s'
-        self.youtube_search = self.google_base_link + 'search?q='
+        self.playlists_link = ''.join([self.google_base_link, 'playlists?part=snippet&maxResults=50&channelId={}'])
+        self.playlist_link = ''.join([self.google_base_link, 'playlistItems?part=snippet&maxResults=50&playlistId={}'])
+        self.videos_link = ''.join([self.google_base_link, 'search?part=snippet&order=date&maxResults=50&channelId={}'])
+        self.content_link = ''.join([self.google_base_link, 'videos?part=contentDetails&id={}'])
+        self.search_link = ''.join([self.google_base_link, 'search?part=snippet&type=video&maxResults=5&q={}'])
+        self.youtube_search = ''.join([self.google_base_link, 'search?q={}'])
 
         if not replace_url:
             self.play_link = self.base_link + 'watch?v={}'
@@ -50,19 +51,19 @@ class youtube(object):
 
     def playlists(self, url, limit=5):
 
-        url = self.playlists_link % url + self.key_link
+        url = self.playlists_link.format(''.join([url, self.key_link]))
         return self._playlist(url, limit)
 
     def playlist(self, url, pagination=False, limit=5):
 
         cid = url.split('&')[0]
-        url = self.playlist_link % url + self.key_link
+        url = self.playlist_link.format(''.join([url, self.key_link]))
         return self._video_list(cid, url, pagination, limit)
 
     def videos(self, url, pagination=False, limit=5):
 
         cid = url.split('&')[0]
-        url = self.videos_link % url + self.key_link
+        url = self.videos_link.format(''.join([url, self.key_link]))
         return self._video_list(cid, url, pagination, limit)
 
     def _playlist(self, url, limit):
@@ -71,18 +72,18 @@ class youtube(object):
             result = client.request(url)
             result = json.loads(result)
             items = result['items']
-        except BaseException:
+        except Exception:
             pass
 
         for i in list(range(1, limit)):
             try:
                 if not 'nextPageToken' in result:
-                    raise BaseException()
+                    raise Exception
                 next = url + '&pageToken=' + result['nextPageToken']
                 result = client.request(next)
                 result = json.loads(result)
                 items += result['items']
-            except BaseException:
+            except Exception:
                 pass
 
         for item in items:
@@ -101,14 +102,14 @@ class youtube(object):
 
                 image = item['snippet']['thumbnails']['high']['url']
                 if '/default.jpg' in image:
-                    raise BaseException()
+                    raise Exception
                 try:
                     image = image.encode('utf-8')
                 except AttributeError:
                     pass
 
                 self.list.append({'title': title, 'url': url, 'image': image})
-            except BaseException:
+            except Exception:
                 pass
 
         return self.list
@@ -119,28 +120,28 @@ class youtube(object):
             result = client.request(url)
             result = json.loads(result)
             items = result['items']
-        except BaseException:
+        except Exception:
             pass
 
         for i in list(range(1, limit)):
 
             try:
                 if pagination is True:
-                    raise BaseException()
+                    raise Exception
                 if not 'nextPageToken' in result:
-                    raise BaseException()
+                    raise Exception
                 page = url + '&pageToken=' + result['nextPageToken']
                 result = client.request(page)
                 result = json.loads(result)
                 items += result['items']
-            except BaseException:
+            except Exception:
                 pass
 
         try:
             if pagination is False:
-                raise BaseException()
+                raise Exception
             next = cid + '&pageToken=' + result['nextPageToken']
-        except BaseException:
+        except Exception:
             next = ''
 
         for item in items:
@@ -163,23 +164,36 @@ class youtube(object):
 
                 image = item['snippet']['thumbnails']['high']['url']
                 if '/default.jpg' in image:
-                    raise BaseException()
+                    raise Exception
                 try:
                     image = image.encode('utf-8')
                 except AttributeError:
                     pass
 
-                append = {'title': title, 'url': url, 'image': image}
+                try:
+                    dateadded = item['snippet']['publishedAt']
+                    dateadded = str(iso8601.parse_date(dateadded).strftime('%Y-%m-%d %H:%M:%S'))
+                except Exception:
+                    dateadded = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+                date = '.'.join(dateadded.split()[0].split('-')[::-1])
+
+                data = {
+                    'title': title, 'url': url, 'image': image, 'dateadded': dateadded, 'date': date,
+                    'premiered': dateadded.split()[0], 'aired': dateadded.split()[0], 'year': int(dateadded[:4])
+                }
+
                 if next != '':
-                    append['next'] = next
-                self.list.append(append)
-            except BaseException:
+                    data['next'] = next
+                self.list.append(data)
+
+            except Exception:
                 pass
 
         try:
             u = [list(range(0, len(self.list)))[i:i+50] for i in list(range(len(list(range(0, len(self.list))))))[::50]]
             u = [','.join([self.list[x]['url'] for x in i]) for i in u]
-            u = [self.content_link % i + self.key_link for i in u]
+            u = [self.content_link.format(''.join([i, self.key_link])) for i in u]
 
             threads = []
             for i in list(range(0, len(u))):
@@ -191,7 +205,7 @@ class youtube(object):
             items = []
             for i in self.data:
                 items += json.loads(i)['items']
-        except BaseException:
+        except Exception:
             pass
 
         for item in list(range(0, len(self.list))):
@@ -206,21 +220,21 @@ class youtube(object):
 
                 duration = 0
                 try:
-                    duration += 60 * 60 * int(re.findall('(\d*)H', d)[0])
-                except BaseException:
+                    duration += 60 * 60 * int(re.findall(r'(\d*)H', d)[0])
+                except Exception:
                     pass
                 try:
-                    duration += 60 * int(re.findall('(\d*)M', d)[0])
-                except BaseException:
+                    duration += 60 * int(re.findall(r'(\d*)M', d)[0])
+                except Exception:
                     pass
                 try:
-                    duration += int(re.findall('(\d*)S', d)[0])
-                except BaseException:
+                    duration += int(re.findall(r'(\d*)S', d)[0])
+                except Exception:
                     pass
                 duration = str(duration)
 
                 self.list[item]['duration'] = duration
-            except BaseException:
+            except Exception:
                 pass
 
         return self.list
@@ -230,7 +244,7 @@ class youtube(object):
         try:
             result = client.request(url)
             self.data[i] = result
-        except BaseException:
+        except Exception:
             return
 
     def play(self, name, url=None, as_script=True, append_string=''):
@@ -250,7 +264,7 @@ class youtube(object):
 
             try:
                 item.setArt({'icon': icon})
-            except BaseException:
+            except Exception:
                 pass
 
             item.setInfo(type='Video', infoLabels={'title': title})
@@ -260,7 +274,7 @@ class youtube(object):
             else:
                 directory.resolve(url, meta={'title': title}, icon=icon)
 
-        except BaseException:
+        except Exception:
 
             pass
 
@@ -271,21 +285,21 @@ class youtube(object):
             if url.startswith(self.base_link):
                 url = self.resolve(url)
                 if url is None:
-                    raise BaseException()
+                    raise Exception
                 return url
             elif not url.startswith('http://'):
                 url = self.play_link.format(url)
                 url = self.resolve(url)
                 if url is None:
-                    raise BaseException()
+                    raise Exception
                 return url
             else:
-                raise BaseException()
+                raise Exception
 
-        except BaseException:
+        except Exception:
 
-            query = name + append_string
-            query = self.youtube_search + query
+            query = ''.join([name, append_string])
+            query = self.youtube_search.format(query)
             url = self.search(query)
 
             if url is None:
@@ -298,7 +312,7 @@ class youtube(object):
         try:
             query = parse_qs(urlparse(url).query)['q'][0]
 
-            url = self.search_link % quote_plus(query) + self.key_link
+            url = self.search_link.format(''.join([quote_plus(query), self.key_link]))
 
             result = client.request(url)
 
@@ -309,15 +323,15 @@ class youtube(object):
                 url = self.resolve(url)
                 if url is not None:
                     return url
-        except BaseException:
+        except Exception:
             return
 
     def resolve(self, url):
 
         try:
 
-            id = url.split('?v=')[-1].split('/')[-1].split('?')[0].split('&')[0]
-            result = client.request('http://www.youtube.com/watch?v=%s' % id)
+            vid = url.split('?v=')[-1].split('/')[-1].split('?')[0].split('&')[0]
+            result = client.request(''.join([self.base_link, 'watch?v={}'.format(vid)]))
 
             message = client.parseDOM(result, 'div', attrs={'id': 'unavailable-submessage'})
             message = ''.join(message)
@@ -325,15 +339,15 @@ class youtube(object):
             alert = client.parseDOM(result, 'div', attrs={'id': 'watch7-notification-area'})
 
             if len(alert) > 0:
-                raise BaseException()
+                raise Exception
             if re.search('[a-zA-Z]', message):
-                raise BaseException()
+                raise Exception
 
             url = self.play_link.format(id)
 
             return url
 
-        except BaseException:
+        except Exception:
 
             return
 
@@ -347,6 +361,7 @@ class youtube(object):
             plot = item['snippet']['description']
 
             data = {'title': title, 'url': url, 'image': image, 'plot': plot}
+
             self.list.append(data)
 
         return self.list

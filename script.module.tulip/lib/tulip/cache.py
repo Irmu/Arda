@@ -17,35 +17,41 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+
 from __future__ import absolute_import
 
 import re, hashlib, time
-
+from ast import literal_eval as evaluate
 from tulip import control
 from tulip.compat import str, database
 
 
 # noinspection PyUnboundLocalVariable
 def get(function_, time_out, *args, **table):
+
     try:
+
         response = None
 
         f = repr(function_)
-        f = re.sub('.+\smethod\s|.+function\s|\sat\s.+|\sof\s.+', '', f)
+        f = re.sub(r'.+\smethod\s|.+function\s|\sat\s.+|\sof\s.+', '', f)
 
         a = hashlib.md5()
         for i in args:
             a.update(str(i))
         a = str(a.hexdigest())
-    except BaseException:
+
+    except Exception:
+
         pass
 
     try:
         table = table['table']
-    except BaseException:
+    except Exception:
         table = 'rel_list'
 
     try:
+
         control.makeFile(control.dataPath)
         dbcon = database.connect(control.cacheFile)
         dbcur = dbcon.cursor()
@@ -53,41 +59,47 @@ def get(function_, time_out, *args, **table):
         match = dbcur.fetchone()
 
         try:
-            response = eval(match[2].encode('utf-8'))
+            response = evaluate(match[2].encode('utf-8'))
         except AttributeError:
-            response = eval(match[2])
+            response = evaluate(match[2])
 
         t1 = int(match[3])
         t2 = int(time.time())
         update = (abs(t2 - t1) / 3600) >= int(time_out)
         if not update:
             return response
-    except BaseException:
+
+    except Exception:
+
         pass
 
     try:
+
         r = function_(*args)
         if (r is None or r == []) and response is not None:
             return response
         elif r is None or r == []:
             return r
-    except BaseException:
+
+    except Exception:
         return
 
     try:
+
         r = repr(r)
         t = int(time.time())
         dbcur.execute("CREATE TABLE IF NOT EXISTS {} (""func TEXT, ""args TEXT, ""response TEXT, ""added TEXT, ""UNIQUE(func, args)"");".format(table))
         dbcur.execute("DELETE FROM {0} WHERE func = '{1}' AND args = '{2}'".format(table, f, a))
         dbcur.execute("INSERT INTO {} Values (?, ?, ?, ?)".format(table), (f, a, r, t))
         dbcon.commit()
-    except BaseException:
+
+    except Exception:
         pass
 
     try:
-        return eval(r.encode('utf-8'))
-    except BaseException:
-        return eval(r)
+        return evaluate(r.encode('utf-8'))
+    except Exception:
+        return evaluate(r)
 
 
 # noinspection PyUnboundLocalVariable
@@ -97,17 +109,18 @@ def timeout(function_, *args, **table):
         response = None
 
         f = repr(function_)
-        f = re.sub('.+\smethod\s|.+function\s|\sat\s.+|\sof\s.+', '', f)
+        f = re.sub(r'.+\smethod\s|.+function\s|\sat\s.+|\sof\s.+', '', f)
 
         a = hashlib.md5()
-        for i in args: a.update(str(i))
+        for i in args:
+            a.update(str(i))
         a = str(a.hexdigest())
-    except BaseException:
+    except Exception:
         pass
 
     try:
         table = table['table']
-    except BaseException:
+    except Exception:
         table = 'rel_list'
 
     try:
@@ -117,7 +130,7 @@ def timeout(function_, *args, **table):
         dbcur.execute("SELECT * FROM {tn} WHERE func = '{f}' AND args = '{a}'".format(tn=table, f=f, a=a))
         match = dbcur.fetchone()
         return int(match[3])
-    except BaseException:
+    except Exception:
         return
 
 
@@ -134,7 +147,7 @@ def clear(table=None, withyes=True):
 
             try:
                 yes = control.yesnoDialog(control.lang(30401).encode('utf-8'), '', '')
-            except BaseException:
+            except Exception:
                 yes = control.yesnoDialog(control.lang(30401), '', '')
 
             if not yes:
@@ -149,14 +162,14 @@ def clear(table=None, withyes=True):
 
         for t in table:
             try:
-                dbcur.execute("DROP TABLE IF EXISTS %s" % t)
+                dbcur.execute("DROP TABLE IF EXISTS {0}".format(t))
                 dbcur.execute("VACUUM")
                 dbcon.commit()
-            except BaseException:
+            except Exception:
                 pass
 
         control.infoDialog(control.lang(30402).encode('utf-8'))
-    except BaseException:
+    except Exception:
         pass
 
 
