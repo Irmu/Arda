@@ -33,7 +33,7 @@ import xbmcplugin
 from resources.lib.modules import control, log_utils
 
 HOME = xbmc.translatePath('special://home/')
-FILENAME = os.path.join(HOME, 'userdata/addon_data/plugin.video.13clowns/bookmarks.json')
+FILENAME = os.path.join(HOME, 'userdata/addon_data/plugin.video.thecrew/bookmarks.json')
 
 defaults = {'Channels': {},
             'Documentaries': {},

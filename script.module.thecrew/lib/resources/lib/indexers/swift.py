@@ -30,7 +30,7 @@ import time
 import traceback
 import urllib
 
-
+# from Cryptodome.Cipher import AES
 from hashlib import md5
 from binascii import b2a_hex
 
@@ -38,7 +38,7 @@ import xbmc
 import xbmcgui
 import xbmcplugin
 
-from resources.lib.modules import client, control, jsonbm, log_utils, pyaes
+from resources.lib.modules import client, control, log_utils, pyaes
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -52,9 +52,9 @@ class swift:
         self.User_Agent = 'okhttp/3.10.0'
         self.Play_User_Agent = 'Lavf/56.15.102'
 
-        self.base_api_url = 'https://swiftstreamz.com/SwiftPanel/api.php?get_category'
-        self.base_dta_url = 'https://swiftstreamz.com/SwiftPanel/swiftlive.php'
-        self.base_cat_url = 'https://swiftstreamz.com/SwiftPanel/api.php?get_channels_by_cat_id=%s'
+        self.base_api_url = 'http://swiftstreamz.com/SwiftPanel/api.php?get_category'
+        self.base_dta_url = 'http://swiftstreamz.com/SwiftPanel/swiftlive.php'
+        self.base_cat_url = 'http://swiftstreamz.com/SwiftPanel/api.php?get_channels_by_cat_id=%s'
 
         self.filter_mov = control.setting('tv.swift.filtermov')
         self.filter_spo = control.setting('tv.swift.filtersports')
@@ -118,18 +118,6 @@ class swift:
                     item.setProperty("IsPlayable", "true")
                     item.setArt({"thumb": icon, "icon": icon})
                     item.setInfo(type="video", infoLabels={"Title": name, "mediatype": "video"})
-
-                    '''
-                    Let's build out this context menu bitches
-                    '''
-                    try:
-                        cm = jsonbm.jsonBookmarks().build_cm('Channels', name=name, id=a['id'], action='swiftPlay', icon=icon, url=playencode.encode('base64'))
-                        if len(cm) > 0:
-                            item.addContextMenuItems(cm)
-                    except Exception:
-                        failure = traceback.format_exc()
-                        log_utils.log('Swift Streamz - BM Exception: \n' + str(failure))
-
                     try:
                         item.setContentLookup(False)
                     except AttributeError:
@@ -151,7 +139,7 @@ class swift:
         token = tmp[2]
 
         data = {"data": get_post_data()}
-        token_url = 'https://swiftstreamz.com/newapptoken%s.php' % (token)
+        token_url = 'http://swiftstreamz.com/newapptoken%s.php' % (token)
         get_token = requests.post(token_url, headers={"User-Agent": self.User_Agent}, data=data, timeout=10)
         auth_token = get_token.text.partition('=')[2]
 
@@ -222,7 +210,7 @@ class swift:
 
     def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
         control.content(syshandle, contentType)
-        sort_the_crew = control.setting('tv.swift.sortthe_crew')
+        sort_the_crew = control.setting('tv.swift.sort_the_crew')
         if sort_the_crew == '' or sort_the_crew == 'true':
             control.sortMethod(syshandle, xbmcplugin.SORT_METHOD_LABEL)
         else:

@@ -104,7 +104,7 @@
         <setting id="tv.swift.filtermov" type="bool" label="32676" default="false" />
         <setting id="tv.swift.filtersports" type="bool" label="32677" default="false" />
         <setting id="tv.swift.filtertv" type="bool" label="32678" default="false" />
-        <setting id="tv.swift.sorttheclowns" type="bool" label="32672" default="true" />
+        <setting id="tv.swift.sort_the_crew" type="bool" label="32672" default="true" />
     </category>
     <category label ="32315">
         <setting type="lsep" label="32315" />
