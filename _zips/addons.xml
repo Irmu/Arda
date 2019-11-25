@@ -420,7 +420,7 @@ v2.3.14 (2019-02-10)
 
 <addon id="metadata.themoviedb.org"
        name="The Movie Database"
-       version="5.1.9"
+       version="5.1.10"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -535,9 +535,8 @@ v2.3.14 (2019-02-10)
     <description lang="zh_TW">themoviedb.org是一個免費和開放的電影資料庫。它是完全由與您一樣的廣大使用者來更新資訊。 TMDb目前擁有數以百萬計的使用人次並且有著強大的API，許多受歡迎的媒體中心平台像Kodi藉由TMDb獲取電影的數據資料庫，海報和影片資訊，以豐富使用者體驗。</description>
     <platform>all</platform>
     <license>GPL v2.0</license>
-    <forum></forum>
+    <forum>https://forum.kodi.tv/showthread.php?tid=339672</forum>
     <website>https://www.themoviedb.org</website>
-    <email></email>
     <assets>
       <icon>icon.png</icon>
     </assets>
@@ -546,7 +545,7 @@ v2.3.14 (2019-02-10)
 
 <addon id="metadata.tvdb.com"
        name="The TVDB"
-       version="3.2.0"
+       version="3.2.1"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -1130,7 +1129,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.exodus" version="8.2.7" name="Exodus" provider-name="Exodus">
+<addon id="plugin.video.exodus" version="8.2.8" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.exodus" />
@@ -3389,7 +3388,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.exodus" name="Exodus Module" version="3.2.2" provider-name="Exodus">
+<addon id="script.module.exodus" name="Exodus Module" version="3.2.3" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>
@@ -3521,7 +3520,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.jor-el" name="Jor-El Module" version="1.4.3" provider-name="KoDIY">
+<addon id="script.module.jor-el" name="Jor-El Module" version="1.4.4" provider-name="KoDIY">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
@@ -3828,7 +3827,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.52" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.53" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.beautifulsoup4"/>

@@ -124,7 +124,7 @@ class seasons:
             data = urllib2.urlopen(url, timeout=30).read()
 
             zip = zipfile.ZipFile(StringIO.StringIO(data))
-            result = zip.read('%s.zip.xml' % 'en')
+            result = zip.read('%s.xml' % 'en')
             artwork = zip.read('banners.xml')
             zip.close()
 
@@ -138,7 +138,7 @@ class seasons:
                 data = urllib2.urlopen(url, timeout=30).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.zip.xml' % 'en')
+                result = zip.read('%s.xml' % 'en')
                 artwork = zip.read('banners.xml')
                 zip.close()
 
@@ -147,7 +147,7 @@ class seasons:
                 data = urllib2.urlopen(url, timeout=30).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result2 = zip.read('%s.zip.xml' % lang)
+                result2 = zip.read('%s.xml' % lang)
                 zip.close()
             else:
                 result2 = result
@@ -857,7 +857,7 @@ class episodes:
                 data = urllib2.urlopen(url, timeout=10).read()
 
                 zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.zip.xml' % lang)
+                result = zip.read('%s.xml' % lang)
                 artwork = zip.read('banners.xml')
                 zip.close()
 
