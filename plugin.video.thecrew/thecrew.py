@@ -129,6 +129,14 @@ elif action == 'absolution':
     from resources.lib.indexers import lists
     lists.indexer().root_absolution()
 
+elif action == 'eyecandy':
+    from resources.lib.indexers import lists
+    lists.indexer().root_eyecandy()
+
+elif action == 'retribution':
+    from resources.lib.indexers import lists
+    lists.indexer().root_retribution()
+
 elif action == 'kiddo':
     from resources.lib.indexers import lists
     lists.indexer().root_kiddo()

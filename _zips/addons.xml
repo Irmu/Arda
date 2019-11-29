@@ -852,7 +852,7 @@ v2.3.14 (2019-02-10)
 
 </addon>
 
-<addon id="plugin.program.indigo" version="4.0.13" name="Indigo" provider-name="tvaddons">
+<addon id="plugin.program.indigo" version="4.0.14" name="Indigo" provider-name="tvaddons">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
 	</requires>
@@ -1129,7 +1129,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.exodus" version="8.2.8" name="Exodus" provider-name="Exodus">
+<addon id="plugin.video.exodus" version="8.2.9" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.exodus" />
@@ -2162,7 +2162,7 @@ Fixed CM options not showing if context menu addon not installed
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.52" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.54" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.thecrew" />
@@ -3066,7 +3066,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="repository.thecrew" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew" version="0.1.0">
+<addon id="repository.thecrew" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew" version="0.1.1">
 	<requires>
 		<import addon="xbmc.addon" version="12.0.0"/>
 	</requires>
@@ -3090,11 +3090,6 @@ The author is not responsible for the use of this addon. The author is not respo
 			<info compressed="false">https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/addons.xml</info>
 			<checksum>https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/addons.xml.md5</checksum>
 			<datadir zip="true">https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/</datadir>
-		</dir>
-		<dir>
-			<info compressed="false">https://repo.orionoid.com/addons.xml?v=3.3.0</info>
-			<checksum>https://repo.orionoid.com/addons.xml.md5?v=3.3.0</checksum>
-			<datadir zip="true">https://repo.orionoid.com</datadir>
 		</dir>
 		<dir>
 			<info compressed="false">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml</info>
@@ -3827,7 +3822,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.53" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.54a" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -3997,7 +3992,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="5.0.44" provider-name="tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="5.0.45" provider-name="tvaddons">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="plugin.video.youtube" optional="true" />
@@ -4067,7 +4062,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="script.thecrew.artwork" version="0.0.17" name="[COLOR deeppink]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
+<addon id="script.thecrew.artwork" version="0.0.18" name="[COLOR deeppink]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.19.0"/>
     </requires>

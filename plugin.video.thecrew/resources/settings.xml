@@ -36,7 +36,9 @@
         <setting id="navi.magnets" type="bool" label="90012" default="true" />
         <setting id="navi.standup" type="bool" label="90113" default="true" />
         <!--<setting id="navi.kiddo" type="bool" label="90163" default="true" />-->
-        <setting id="navi.absolution" type="bool" label="90150" default="true" />
+        <!--setting id="navi.absolution" type="bool" label="90150" default="true" />-->
+        <setting id="navi.eyecandy" type="bool" label="90164" default="true" />
+        <setting id="navi.retribution" type="bool" label="90165" default="true" />
         <setting id="navi.titan" type="bool" label="90155" default="true" />
         <setting type="lsep" label="32001" />
         <setting id="navi.247movies" type="bool" label="90014" default="true" />

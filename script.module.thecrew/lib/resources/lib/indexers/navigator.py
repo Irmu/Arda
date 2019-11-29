@@ -75,8 +75,12 @@ class navigator:
             self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
         #if self.getMenuEnabled('navi.kiddo') == True:         
             #self.addDirectoryItem(90163, 'kiddo', 'kiddo.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.absolution') == True:         
-            self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
+        #if self.getMenuEnabled('navi.absolution') == True:         
+            #self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.eyecandy') == True:         
+            self.addDirectoryItem(90164, 'eyecandy', 'eyecandy.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.retribution') == True:         
+            self.addDirectoryItem(90165, 'retribution', 'retribution.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.titan') == True:         
             self.addDirectoryItem(90155, 'titan', 'titan.png', 'DefaultMovies.png')
         adult = True if control.setting('adult_pw') == 'lol' else False
