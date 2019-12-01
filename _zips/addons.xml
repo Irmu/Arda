@@ -930,14 +930,19 @@ v2.3.14 (2019-02-10)
 </addon>
 
 <addon id="plugin.video.1x2"
-  version="1.0.24"
+  version="1.0.25"
   name="1x2"
   provider-name="Team NS">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.requests" version="2.19.1"/>
     <import addon="script.module.routing" />
+    <import addon="inputstream.adaptive" />
+    <import addon="plugin.video.youtube" />
+    <import addon="script.video.F4mProxy" version="2.8.8"/>
+    <import addon="plugin.video.f4mTester" version="2.7.2"/>
     <import addon="script.module.TvTap" />
+    <import addon="program.plexus" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
     <provides>video</provides>
@@ -1410,7 +1415,7 @@ Initial Release
     </extension>
 </addon>
 
-<addon id="plugin.video.metallik" name="[COLOR ff0084ff]M[/COLOR]etalliK" version="1.0.8" provider-name="KoDIY Help">
+<addon id="plugin.video.metallik" name="[COLOR ff0084ff]M[/COLOR]etalliK" version="1.0.9" provider-name="KoDIY Help">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="script.module.requests" version="2.9.1"/>
@@ -3603,6 +3608,32 @@ The author is not responsible for the use of this addon. The author is not respo
 		<platform>all</platform>
 		<source>https://github.com/jjlee/mechanize</source>
 	</extension>
+</addon>
+
+<addon id="script.module.metahandler"
+     name="metahandler"
+     version="3.99.02"
+     provider-name="Eldorado">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0" />
+    <import addon="script.module.simplejson" version="3.3.0"/>
+    <import addon="script.module.addon.common" version="2.0.0"/>
+    <import addon="script.module.myconnpy" version="1.1.6"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.python.pluginsource" library="lib/default.py" />
+  <extension point="xbmc.addon.metadata">
+      <platform>all</platform>
+      <summary lang="en">Downloads Artwork for TV shows, Movies and Music videos for addons and stores them in a local SQLITE database</summary>
+      <description lang="en">Queries, stores, and returns metadata for TV shows, Movies and Musicvideos. [CR]Sources:[CR]www.thetvdb.com[CR]www.themoviedb.org[CR]www.imdb.com[CR]www.omdbapi.com[CR]This product uses the TMDb API but is not endorsed or certified by TMDb.</description>
+      <disclaimer lang="en"></disclaimer>
+      <language></language>
+      <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+      <forum></forum>
+      <website></website>
+      <email></email>
+      <source></source>
+  </extension>
 </addon>
 
 <addon id="script.module.overeasy" name="Overeasy Module" version="2.7.1" provider-name="Eggman">

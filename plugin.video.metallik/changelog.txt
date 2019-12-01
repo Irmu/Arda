@@ -1,5 +1,8 @@
+v 1.0.9
+- tvdb/search fixed (Thanks Erik)
+
 v 1.0.8
-- tvdb/Trakt Fixes
+- Trakt Fixes
 
 v 1.0.7
 - Fixed Prefered Player in Settings

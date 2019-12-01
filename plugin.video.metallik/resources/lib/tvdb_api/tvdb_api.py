@@ -152,7 +152,7 @@ class Tvdb:
         config['url_search'] = u"%(base_url)s/api/GetSeries.php?seriesname=%%s&language=%%s" % config
         config['url_search_by_imdb'] = u"%(base_url)s/api/GetSeriesByRemoteID.php?imdbid=%%s&language=%%s" % config
         config['url_sid_full'] = u"%(base_url)s/api/%(apikey)s/series/%%s/all/%%s.zip" % config
-        config['url_sid_base'] = u"%(base_url)s/api/%(apikey)s/series/%%s/%%s.xml" % config
+        config['url_sid_base'] = u"%(base_url)s/api/%(apikey)s/series/%%s/%%s.zip.xml" % config
         config['url_artwork_prefix'] = u"%(base_url)s/banners/%%s" % config
             
         self.config = config
@@ -215,7 +215,7 @@ class Tvdb:
             url = self.url_sid_full(sid, language)
             response = self._loadZip(url)
 
-            fullDataEt = self._parseXML(response["%s.zip.xml" % language])
+            fullDataEt = self._parseXML(response["%s.xml" % language])
             self._parseSeriesData(sid, fullDataEt)
             self._parseEpisodesData(sid, fullDataEt)
 
