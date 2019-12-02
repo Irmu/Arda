@@ -1,3 +1,4 @@
 Exodus Changelog:
-8.2.9
-- Clear cache
+8.3.1
+- Version bump
+- Cache clear
