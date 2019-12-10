@@ -1095,7 +1095,7 @@ msgid "Torrent Providers"
 msgstr ""
 
 msgctxt "#90000"
-msgid "[COLOR dodgerblue]¤[/COLOR] [COLOR hotpink]Information[/COLOR] [COLOR dodgerblue]¤[/COLOR]"
+msgid "[COLOR hotpink]INFORMATION[/COLOR]"
 msgstr ""
 
 msgctxt "#90001"
@@ -1143,7 +1143,7 @@ msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/
 msgstr ""
 
 msgctxt "#90012"
-msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Magnet 1 Clicks [/COLOR][/B]"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Radio[/COLOR][/B]"
 msgstr ""
 
 msgctxt "#90013"
@@ -1776,4 +1776,24 @@ msgstr ""
 
 msgctxt "#90165"
 msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]Retribution[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90166"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Disney +[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90167"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Personal List[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90168"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Personal List URL[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90169"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Enable Personal List[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90170"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Apple TV +[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
 msgstr ""

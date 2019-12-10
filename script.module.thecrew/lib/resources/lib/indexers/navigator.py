@@ -69,14 +69,10 @@ class navigator:
             self.addDirectoryItem(90143, 'food', 'food.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.1clicks') == True:     
             self.addDirectoryItem(90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.magnets') == True:     
-            self.addDirectoryItem(90012, 'goldenhat', 'main_goldenhat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.radio') == True:     
+            self.addDirectoryItem(90012, 'yellowhat', 'radio.png', 'radio.png')
         if self.getMenuEnabled('navi.standup') == True:         
             self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
-        #if self.getMenuEnabled('navi.kiddo') == True:         
-            #self.addDirectoryItem(90163, 'kiddo', 'kiddo.png', 'DefaultMovies.png')
-        #if self.getMenuEnabled('navi.absolution') == True:         
-            #self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.eyecandy') == True:         
             self.addDirectoryItem(90164, 'eyecandy', 'eyecandy.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.retribution') == True:         
@@ -86,19 +82,17 @@ class navigator:
         adult = True if control.setting('adult_pw') == 'lol' else False
         if adult == True:
             self.addDirectoryItem(90008, 'porn', 'main_pinkhat.png', 'DefaultMovies.png')
-
-       
+        if self.getMenuEnabled('navi.personal.list') == True:
+            self.addDirectoryItem(90167, 'plist', 'userlists.png', 'userlists.png')
         if not control.setting('furk.ai') == '':
             self.addDirectoryItem('Furk.net', 'furkNavigator', 'movies.png', 'movies.png')
-        
         self.addDirectoryItem(32008, 'toolNavigator', 'main_tools.png', 'DefaultAddonProgram.png')
-
         downloads = True if control.setting('downloads') == 'true' and (len(control.listDir(control.setting('movie.download.path'))[0]) > 0 or len(control.listDir(control.setting('tv.download.path'))[0]) > 0) else False
         if downloads == True:
             self.addDirectoryItem(32009, 'downloadNavigator', 'downloads.png', 'DefaultFolder.png')
 
         self.addDirectoryItem(32010, 'searchNavigator', 'main_search.png', 'DefaultFolder.png')
-        self.addDirectoryItem(90000, 'newsNavigator', 'info.png', 'DefaultAddonProgram.png')
+
         self.endDirectory()
 
     def furk(self):
@@ -161,6 +155,8 @@ class navigator:
             self.addDirectoryItem(32017, 'movies&url=trending', 'people-watching.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.moviepopular') == True:
             self.addDirectoryItem(32018, 'movies&url=popular', 'most-popular.png', 'DefaultMovies.png') 
+        if self.getMenuEnabled('navi.disneym') == True:
+            self.addDirectoryItem(90166, 'movies&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items', 'disney.png', 'disney.png')
         if self.getMenuEnabled('navi.traktlist') == True:
             self.addDirectoryItem(90051, 'traktlist', 'trakt.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.imdblist') == True:
@@ -240,6 +236,10 @@ class navigator:
             self.addDirectoryItem(32017, 'tvshows&url=trending', 'people-watching2.png', 'DefaultRecentlyAddedEpisodes.png')
         if self.getMenuEnabled('navi.tvPopular') == True:
             self.addDirectoryItem(32018, 'tvshows&url=popular', 'most-popular2.png', 'DefaultTVShows.png')
+        if self.getMenuEnabled('navi.disney') == True:
+            self.addDirectoryItem(90166, 'tvshows&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items', 'disney.png', 'disney.png')
+        if self.getMenuEnabled('navi.applet') == True:
+            self.addDirectoryItem(90170, 'tvshows&url=https://api.trakt.tv/users/mediashare2000/lists/apple-tv/items', 'apple.png', 'apple.png')
         self.addDirectoryItem(90015, '247tvshows', '247_shows.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32700, 'docuNavigator', 'documentaries.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.tvGenres') == True:
@@ -309,6 +309,7 @@ class navigator:
 
 
     def tools(self):
+        self.addDirectoryItem(90000, 'newsNavigator', 'info.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32073, 'authTrakt', 'trakt.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32609, 'ResolveUrlTorrent', 'resolveurl.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32043, 'openSettings&query=0.0', 'tools.png', 'DefaultAddonProgram.png')

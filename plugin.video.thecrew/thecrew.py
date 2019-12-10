@@ -149,9 +149,13 @@ elif action == 'greenhat':
     from resources.lib.indexers import lists
     lists.indexer().root_greenhat()
 
-elif action == 'goldenhat':
+elif action == 'yellowhat':
     from resources.lib.indexers import lists
-    lists.indexer().root_goldenhat()
+    lists.indexer().root_yellowhat()
+
+elif action == 'plist':
+    from resources.lib.indexers import lists
+    lists.indexer().root_personal()
 
 elif action == 'blackhat':
     from resources.lib.indexers import lists

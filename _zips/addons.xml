@@ -673,11 +673,12 @@ v2.3.14 (2019-02-10)
 
 <addon id="metadata.tvshows.themoviedb.org"
        name="The Movie Database"
-       version="3.1.3"
+       version="3.2.0"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
     <import addon="metadata.common.fanart.tv" version="3.1.0"/>
+    <import addon="metadata.common.imdb.com" version="2.9.2"/>
   </requires>
   <extension point="xbmc.metadata.scraper.tvshows"
              language="en"
@@ -1134,7 +1135,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.exodus" version="8.3.1" name="Exodus" provider-name="Exodus">
+<addon id="plugin.video.exodus" version="8.3.3" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.exodus" />
@@ -2203,7 +2204,7 @@ Fixed CM options not showing if context menu addon not installed
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.55a" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.59" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.thecrew" />
@@ -2291,7 +2292,7 @@ Fixed CM options not showing if context menu addon not installed
 
 <addon id="plugin.video.uwc"
        name="Ultimate Whitecream"
-       version="1.2.4"
+       version="1.2.5"
        provider-name="Whitecream, holisticdioxide">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -2315,12 +2316,9 @@ Fixed CM options not showing if context menu addon not installed
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
 		</assets>
-        <news>[B]Version 1.2.4[/B]
-Room info added to Cam4
-Added: Cumloader
-Fixed: Eroticage
-Fixed: Spankbang
-Fixed: XvideoSpanish
+        <news>[B]Version 1.2.5[/B]
+Fixed: xHamster
+Various other fixes
 </news>
     </extension>
 </addon>
@@ -3197,7 +3195,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="script.common.plugin.cache" name="Common plugin cache" provider-name="anxdpanic, TheCollective" version="2.6.0">
+<addon id="script.common.plugin.cache" name="Common plugin cache" provider-name="anxdpanic, TheCollective" version="2.6.1">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
     </requires>
@@ -3205,12 +3203,8 @@ The author is not responsible for the use of this addon. The author is not respo
     <extension point="xbmc.python.module" library="resources/lib/storage_server/"/>
     <extension point="xbmc.addon.metadata">
         <news>
-- Kodi 19 / Python 3 ready
-- convert strings.xml to strings.po
-- use new language paths ie. ../resource.language.en_gb
-- refactor
-- housekeeping
-- replace icon to resolve transparency issue
+[fix] shutdown taking longer than 5 seconds
+[fix] ignore encoding issues for socket data
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -3914,7 +3908,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.55a" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.59" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -4019,20 +4013,19 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.unidecode" name="unidecode" version="0.4.16" provider-name="Tomaz Solc (Tomaz.solc@tablix.org)">
+<addon id="script.module.unidecode" name="unidecode" version="1.1.1" provider-name="Tomaz Solc (Tomaz.solc@tablix.org)">
 	<requires>
-		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="xbmc.python" version="2.14.0"/>
 	</requires>
 	<extension point="xbmc.python.module" library="lib" />
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
-		<language></language>
 		<summary lang="en">ASCII transliterations of Unicode text by Sean M. Burke and Tomaz Solc</summary>
 		<description lang="en">ASCII transliterations of Unicode text by Sean M. Burke and Tomaz Solc</description>
-		<disclaimer lang="en">Code taken from https://pypi.python.org/pypi/Unidecode</disclaimer>
-		<license>GNU General Public License v.2</license>
-		<website>https://pypi.python.org/pypi/Unidecode</website>
-		<source>https://pypi.python.org/pypi/Unidecode</source>
+		<disclaimer lang="en">Code taken from https://pypi.org/project/Unidecode</disclaimer>
+		<license>GPL-2.0-or-later</license>
+		<website>https://pypi.org/project/Unidecode</website>
+		<source>https://pypi.org/project/Unidecode</source>
 	</extension>
 </addon>
 
@@ -4154,7 +4147,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="script.thecrew.artwork" version="0.0.18" name="[COLOR deeppink]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
+<addon id="script.thecrew.artwork" version="0.0.22" name="[COLOR deeppink]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.19.0"/>
     </requires>

@@ -98,6 +98,7 @@ class tvshows:
         self.imdbwatchlist_link = 'https://www.imdb.com/user/ur%s/watchlist?sort=alpha,asc' % self.imdb_user
         self.imdbwatchlist2_link = 'https://www.imdb.com/user/ur%s/watchlist?sort=date_added,desc' % self.imdb_user
 
+
     def get(self, url, idx=True, create_directory=True):
         try:
             try:
@@ -328,6 +329,7 @@ class tvshows:
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Discovery Channel[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/66/discovery-channel', 'https://i.imgur.com/8UrXnAB.png'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Discovery ID[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/89/investigation-discovery', 'https://i.imgur.com/07w7BER.png'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Disney Channel[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/78/disney-channel', 'https://i.imgur.com/ZCgEkp6.png'),
+        ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Disney +[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/webchannels/287/disney', 'https://static.tvmaze.com/uploads/images/large_landscape/174/435560.jpg'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Disney XD[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/25/disney-xd', 'https://i.imgur.com/PAJJoqQ.png'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]E! Entertainment[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/43/e', 'https://i.imgur.com/3Delf9f.png'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]E4[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/41/e4', 'https://i.imgur.com/frpunK8.png'),
