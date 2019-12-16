@@ -26,7 +26,7 @@ import requests
 import _Edit
 import re,requests,base64,urllib
 import sys,xbmc,random,string,hashlib,pyaes
-import urlresolver
+import resolveurl
 
 global playlink
 global streamname
@@ -110,12 +110,11 @@ def OPEN_URL(url):
     return link
         
 def scrape():
-    html = OPEN_URL('https://footballhighlightsvideo.com/')
-    r='<div class="td-module-thumb"><a href="(.+?)".+? title="(.+?)">'
+    html = OPEN_URL('https://soccerhighlightshd.com/')
+    r='<a alt="(.+?)" .+? data-src="(.+?)" .+? href="(.+?)">'
     match = re.compile ( r , re.DOTALL).findall (html)
-    for url,name in match:
-        name1=name.replace('&amp;',' ')
-        addDir1('[B][COLOR white]%s[/COLOR][/B]'%name1,url,34,'http://google.com',FANART,'')
+    for name,image,url in match:
+        addDir1('[B][COLOR white]%s[/COLOR][/B]'%name,url,34,image,FANART,'')
 
 def HIGHLIGHTS_LINKS(name,url):
     xbmc.log('GETLINKS: %s'%url)
@@ -143,8 +142,8 @@ def PLAYLINKS(name,url,iconimage):
         xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
 
 def CHECKLINKS(name,url,iconimage):
-        if urlresolver.HostedMediaFile(url).valid_url():
-            url = urlresolver.HostedMediaFile(url).resolve()     
+        if resolveurl.HostedMediaFile(url).valid_url():
+            url = resolveurl.HostedMediaFile(url).resolve()     
             PLAYLINKS(name,url,iconimage)
         elif liveresolver.isValid(url)==True:
             url=liveresolver.resolve(url)
@@ -154,7 +153,7 @@ def CHECKLINKS(name,url,iconimage):
        
 
 def PLAYSTREAM(name,url,iconimage):
-        link=urlresolver.resolve(str(url))
+        link=resolveurl.resolve(str(url))
         resolve(name,link)
         if (xbmc.Player().isPlaying() == 0):
             quit()
@@ -166,9 +165,9 @@ def resolve(name,url):
         xbmc.Player().play(url,xbmcgui.ListItem(name))
     
 def play1(name,url):
-    import urlresolver
-    if urlresolver.HostedMediaFile(url).valid_url(): 
-        url = urlresolver.HostedMediaFile(url).resolve()
+    import resolveurl
+    if resolveurl.HostedMediaFile(url).valid_url(): 
+        url = resolveurl.HostedMediaFile(url).resolve()
     else:
         link  = OPEN_URL(url)
         link  = link
@@ -206,13 +205,46 @@ def SKindex():
 
 def get(url):
 
-    if url == 'swiftstreams':
+    if url == 'swiftstreamz':
         swiftstreams()
 
     elif 'SwiftStreamz/api.php?cat_id=' in url:
         swiftstreamschans(url)
     elif url == 'uktvnow':
         Main()
+
+def swiftstreams():
+    import json,requests
+    url = 'http://swiftstreamz.com/SwiftPanel/apiv1.php'
+    
+    headers = {'data=fc0f99abda74a1698f09b1147988a79033ef830aeed2ba0055fce99c4be516465b05660456d6eecb0071ebc943c1a9a7'}
+        
+    open = requests.session().get(url,headers=headers).text
+    js   = json.loads(open)
+    js   = js['LIVETV']
+    for a in js:
+        name = a['category_name']
+        id   = a['cid']
+        icon = a['category_image']
+        addDir1('[B][COLOR turquoise]%s[/COLOR][/B]'%name,'http://swiftstreamz.com/SwiftPanel/apiv1.php?cat_id='+id,4,'http://swiftstreamz.com/SwiftStream/images/thumbs' + icon,fanart,'')
+        
+        
+def swiftstreamschans(url):
+    import json,requests
+
+    headers = {'Authorization': 'Basic U25hcHB5OkBTbmFwcHlA',
+        'User-Agent': 'Dalvik/1.6.0 (Linux; U; Android 4.4.4; SM-G900F Build/KTU84Q)'}
+        
+    open = requests.session().get(url,headers=headers).text
+    js   = json.loads(open)
+    js   = js['LIVETV']
+    for a in js:
+        name = a['channel_title']
+        url  = a['channel_url']
+        icon = a['channel_thumbnail']
+        desc = a['channel_desc']
+        addDir1('[B][COLOR gold]%s[/COLOR][/B]'%name,'swiftstreams:'+url,10,'http://swiftstreamz.com/SwiftStream/images/thumbs/' + icon,fanart,desc)
+
 
 def play(url,name,pdialogue=None):
         from resources.root import resolvers
@@ -2223,7 +2255,7 @@ def rmFavorite(name):
 
 def urlsolver(url):
     if addon.getSetting('Updatecommonresolvers') == 'true':
-        l = os.path.join(home,'genesisresolvers.py')
+        l = os.path.join(home,'resolverers.py')
         if xbmcvfs.exists(l):
             os.remove(l)
 
@@ -2231,18 +2263,18 @@ def urlsolver(url):
         th= urllib.urlretrieve(genesis_url,l)
         addon.setSetting('Updatecommonresolvers', 'false')
     try:
-        import genesisresolvers
+        import resolverers
     except Exception:
         xbmc.executebuiltin("XBMC.Notification(RisingTides,Please enable Update Commonresolvers to Play in Settings. - ,10000)")
 
-    resolved=genesisresolvers.get(url).result
+    resolved=resolverers.get(url).result
     if url == resolved or resolved is None:
         #import
-        xbmc.executebuiltin("XBMC.Notification(RisingTides,Using Urlresolver module.. - ,5000)")
-        import urlresolver
-        host = urlresolver.HostedMediaFile(url)
+        xbmc.executebuiltin("XBMC.Notification(RisingTides,Using resolveurl module.. - ,5000)")
+        import resolveurl
+        host = resolveurl.HostedMediaFile(url)
         if host:
-            resolver = urlresolver.resolve(url)
+            resolver = resolveurl.resolve(url)
             resolved = resolver
     if resolved :
         if isinstance(resolved,list):
