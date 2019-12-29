@@ -45,7 +45,7 @@ class navigator:
     HOMEPATH      = xbmc.translatePath('special://home/')
     ADDONSPATH    = os.path.join(HOMEPATH, 'addons')
     THISADDONPATH = os.path.join(ADDONSPATH, ADDON_ID)
-    NEWSFILE      = base64.b64decode(b'aHR0cHM6Ly9iaXRidWNrZXQub3JnL3RocmV3L3RoZS1jcmV3L3Jhdy9tYXN0ZXIvd2hhdHNuZXcueG1s')
+    NEWSFILE      = base64.b64decode(b'aHR0cHM6Ly9iaXRidWNrZXQub3JnL3RlYW0tY3Jldy90ZXh0X2ZpbGVzL3Jhdy9tYXN0ZXIvd2hhdHNuZXcueG1s')
     LOCALNEWS     = os.path.join(THISADDONPATH, 'whatsnew.txt')
 
     def root(self):
@@ -73,12 +73,8 @@ class navigator:
             self.addDirectoryItem(90012, 'yellowhat', 'radio.png', 'radio.png')
         if self.getMenuEnabled('navi.standup') == True:         
             self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.eyecandy') == True:         
-            self.addDirectoryItem(90164, 'eyecandy', 'eyecandy.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.retribution') == True:         
-            self.addDirectoryItem(90165, 'retribution', 'retribution.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.titan') == True:         
-            self.addDirectoryItem(90155, 'titan', 'titan.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.add_addons') == True: 
+            self.addDirectoryItem(90181, 'nav_add_addons', 'add_addon.png', 'DefaultMovies.png')
         adult = True if control.setting('adult_pw') == 'lol' else False
         if adult == True:
             self.addDirectoryItem(90008, 'porn', 'main_pinkhat.png', 'DefaultMovies.png')
@@ -310,6 +306,7 @@ class navigator:
 
     def tools(self):
         self.addDirectoryItem(90000, 'newsNavigator', 'info.png', 'DefaultAddonProgram.png')
+        self.addDirectoryItem(90188, 'bugReports', 'bugs.png', 'DefaultMovies.png')
         self.addDirectoryItem(32073, 'authTrakt', 'trakt.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32609, 'ResolveUrlTorrent', 'resolveurl.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32043, 'openSettings&query=0.0', 'tools.png', 'DefaultAddonProgram.png')
@@ -463,42 +460,79 @@ class navigator:
         item.setArt({'icon': thumb, 'thumb': thumb})
         if not addonFanart == None: item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
-    
+   
+
+    def add_addons(self):
+        if self.getMenuEnabled('navi.eyecandy') == True:         
+            self.addDirectoryItem(90164, 'eyecandy', 'eyecandy.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.retribution') == True:         
+            self.addDirectoryItem(90165, 'retribution', 'retribution.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.titan') == True:         
+            self.addDirectoryItem(90155, 'titan', 'titan.png', 'DefaultMovies.png')
+
+        self.endDirectory()
+
+
     def bluehat(self):
-        self.addDirectoryItem(90023, 'ncaa', 'ncaa.png', 'ncaa.png')
-        self.addDirectoryItem(90156, 'ncaab', 'ncaab.png', 'ncaab.png')
-        self.addDirectoryItem(90024, 'mlb', 'mlb.png', 'mlb.png')
         self.addDirectoryItem(90025, 'nfl', 'nfl.png', 'nfl.png')
         self.addDirectoryItem(90026, 'nhl', 'nhl.png', 'nhl.png')
         self.addDirectoryItem(90027, 'nba', 'nba.png', 'nba.png')
+        self.addDirectoryItem(90024, 'mlb', 'mlb.png', 'mlb.png')
+        self.addDirectoryItem(90023, 'ncaa', 'ncaa.png', 'ncaa.png')
+        self.addDirectoryItem(90156, 'ncaab', 'ncaab.png', 'ncaab.png')
         self.addDirectoryItem(90028, 'ufc', 'ufc.png', 'ufc.png')
         self.addDirectoryItem(90049, 'wwe', 'wwe.png', 'wwe.png')
         self.addDirectoryItem(90115, 'boxing', 'boxing.png', 'boxing.png')
         self.addDirectoryItem(90046, 'fifa', 'fifa.png', 'fifa.png')
-        self.addDirectoryItem(90142, 'lfl', 'lfl.png', 'lfl.png')
         self.addDirectoryItem(90136, 'tennis', 'tennis.png', 'tennis.png')
         self.addDirectoryItem(90047, 'motogp', 'motogp.png', 'motogp.png')
         self.addDirectoryItem(90151, 'f1', 'f1.png', 'f1.png')
-        self.addDirectoryItem(90152, 'nascar', 'nascar.png', 'nascar.png')
         self.addDirectoryItem(90153, 'pga', 'pga.png', 'pga.png')
-        self.addDirectoryItem(90154, 'cricket', 'cricket.png', 'cricket.png')
+        self.addDirectoryItem(90142, 'lfl', 'lfl.png', 'lfl.png')
         self.addDirectoryItem(90114, 'misc_sports', 'misc_sports.png', 'misc_sports.png')
-        self.addDirectoryItem(90030, 'sports_channels', 'sports_schannels.png', 'sports_schannels.png')
+        #self.addDirectoryItem(90030, 'sports_channels', 'sports_schannels.png', 'sports_schannels.png')
         self.addDirectoryItem(90031, 'sreplays', 'sports_replays.png', 'sports_replays.png')
-
+        #self.addDirectoryItem(90154, 'cricket', 'cricket.png', 'cricket.png')
+        #self.addDirectoryItem(90152, 'nascar', 'nascar.png', 'nascar.png')
         self.endDirectory()
 
     def whitehat(self):
+        self.addDirectoryItem(90013, 'swiftNavigator', 'swift.png', 'swift.png')
+        self.addDirectoryItem(90187, 'gitNavigator', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90184, 'fluxNavigator', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90185, 'stratusNavigator', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
+        
+        self.endDirectory()
+  
+    def iptv_fluxus(self):
         self.addDirectoryItem(90035, 'iptv', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90036, 'iptv_lodge', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90037, 'stratus', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90038, 'spanish', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90038, 'spanish', 'iptv.png', 'iptv.png')  
         self.addDirectoryItem(90039, 'faith', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90040, 'cctv', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90013, 'swiftNavigator', 'swift.png', 'swift.png')
-
+        adult = True if control.setting('adult_pw') == 'lol' else False
+        if adult == True:
+            self.addDirectoryItem(90171, 'lust', 'main_pinkhat.png', 'DefaultMovies.png')
+       
         self.endDirectory()
-###   
+
+    def iptv_stratus(self):
+        self.addDirectoryItem(90037, 'stratus', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90179, 'arabic2', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90177, 'argentina', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90180, 'bp', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90174, 'chile', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90176, 'colombia', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90175, 'india', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90178, 'spain', 'iptv.png', 'iptv.png')
+        self.endDirectory()
+
+    def iptv_tvlodge(self):
+        self.addDirectoryItem(90036, 'iptv_lodge', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90172, 'spanish2', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90173, 'arabic', 'iptv.png', 'iptv.png')
+        self.endDirectory()
+
 
     def imdblist(self):
 

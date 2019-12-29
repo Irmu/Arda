@@ -32,7 +32,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['badshahuploads.net']
-        self.base_link = 'https://badshahuploads.net'
+        self.base_link = 'https://badshahuploads.xyz'
         self.search_link = '/search/%s/feed/rss2/'
         self.scraper = cfscrape.create_scraper()
 

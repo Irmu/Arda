@@ -1135,7 +1135,7 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
-<addon id="plugin.video.exodus" version="8.3.4" name="Exodus" provider-name="Exodus">
+<addon id="plugin.video.exodus" version="8.3.5" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.exodus" />
@@ -1542,7 +1542,7 @@ Initial Release
  </extension>
 </addon>
 
-<addon id="plugin.video.palantir" name="[COLOR gold]Palantir[/COLOR]" version="0.0.68" provider-name="TierraMedia">
+<addon id="plugin.video.palantir" name="[COLOR gold]Palantir[/COLOR]" version="0.0.71" provider-name="TierraMedia">
   <requires>
     <import addon="xbmc.python" version="2.24.0"/>
     <import addon="script.module.simple.downloader" version="1.9.5"/>
@@ -1560,8 +1560,12 @@ Initial Release
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>TV</summary>
-    <news>[COLOR lime][B] versión 0.0.68 [/B][/COLOR]
-        - [Interno] Añadidos servidores nuevos.
+    <news>[COLOR lime][B] versión 0.0.71 [/B][/COLOR]
+        - [Interno] Reparados servidores:
+		- Artic
+		- Koto
+		- Vike
+		- Omsk
     </news>
     <description>Visualiza el contenido de la nube, series, películas.</description>
     <disclaimer>[B][COLOR red]Todo el contenido disponible en este Addon esta sacado de servidores gratuitos, disponible en la red para todos los usuarios.[/B][/COLOR]</disclaimer>
@@ -1769,11 +1773,11 @@ v3.0.5
 
 <addon id="plugin.video.Rising.Tides"
 	name="[COLOR red][B]R[/B][/COLOR][COLOR white][B]ising[/B][/COLOR] [COLOR pink][B]T[/B][/COLOR][COLOR white][B]ides[/B][/COLOR]"
-	version="1.4.22"
+	version="1.4.22.1"
 	provider-name="[COLOR turquoise][B]mullafabz[/B][/COLOR]">
   <requires>
 	<import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.simple.downloader" optional="true"/>
+	<import addon="script.module.simple.downloader" optional="false"/>
 	<import addon="script.module.beautifulsoup" version="3.2.1"/>
 	<import addon="script.module.beautifulsoup4"/>
 	<import addon="script.module.requests"/>
@@ -2224,9 +2228,10 @@ More minor bugfixes (honestly could not list them all)
   </extension>
 </addon>
 
-<addon id="plugin.video.sovietmoviesonline" name="Sovietmoviesonline" version="1.0.1" provider-name="L0RE">
+<addon id="plugin.video.sovietmoviesonline" name="Sovietmoviesonline" version="1.0.2" provider-name="L0RE">
 	<requires>
-		<import addon="xbmc.python" version="2.24.0"/>
+		<import addon="xbmc.python" version="2.25.0"/>
+		<import addon="script.module.requests" version="2.12.4"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video</provides>
@@ -2235,9 +2240,9 @@ More minor bugfixes (honestly could not list them all)
 		<summary lang="de">Sowjetische und russische Filme mit englischen Untertiteln</summary>
 		<summary lang="en">Soviet and Russian movies with English subtitles</summary>
 		<summary lang="ru">Советские и русские фильмы с английскими субтитрами</summary>
-		<description lang="de">In den letzten drei Jahren haben wir die besten sowjetischen und russischen Filme ausgewählt, um sie unseren Zuschauern zur Verfügung zu stellen.[CR]Sie können Filme online ansehen, die eine breite Palette von sehr beliebten Bildern bis hin zu seltenen Funden umfassen.</description>
-		<description lang="en">For the last three years we have been selecting the best Soviet and Russian movies in order to make them available for our viewers.[CR]You can watch movies online that span a wide range of very popular images to rare finds.</description>
-		<description lang="ru">За последние три года мы отобрали лучшие советские и российские фильмы, чтобы сделать их доступными для наших зрителей.[CR]Вы можете смотреть фильмы онлайн, которые включают широкий спектр очень популярных изображений для редких находок.</description>
+		<description lang="de">[COLOR red]- KEINE Free-Full-Videos mehr erhältlich.[CR]- Preise für den Premiumzugang für diese Webseite unverhältnismäßig !!![CR]- Updates eingestellt.[/COLOR]</description>
+		<description lang="en">[COLOR red]- NO Free-Full-Videos available anymore.[CR]- Prices for premium access for this website disproportionate !!![CR]- Updates discontinued.[/COLOR]</description>
+		<description lang="ru">[COLOR red]- Полных бесплатных видео больше нет.[CR]- Цены на платный доступ к этому сайту непропорциональны !!![CR]- Обновления прекращены.[/COLOR]</description>
 		<disclaimer lang="de">Die von diesem Addon dargestellten Inhalte werden von den Erstellern des Addons weder gehostet oder verbreitet, noch stehen die Ersteller in irgendeiner Beziehung zu den Anbietern des Inhalts.</disclaimer>
 		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content providers.</disclaimer>
 		<disclaimer lang="ru">Содержимое, отображаемое этим дополнением, не размещается и не распространяется его создателями, равно как и создатели никак не связаны с поставщиками содержимого.</disclaimer>
@@ -2252,10 +2257,11 @@ More minor bugfixes (honestly could not list them all)
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
 		</assets>
-		<news>[B][COLOR orangered]Version 1.0.1  (23.02.2019)[/COLOR][/B] by realvito[CR]
-- fixed: Listing of the Categories-Subfolders
-- added: Categories = All-Movies, Movies by Decades and Movies by Directors
-- added: Switch complete Addon-Language between "EN" and "RU"
+		<broken>
+- KEINE Free-Full-Videos mehr erhältlich.[CR]- Preise für den Premiumzugang für diese Webseite unverhältnismäßig !!![CR]- Updates eingestellt.
+		</broken>
+		<news>[B][COLOR orangered]Version 1.0.2  (25.12.2019)[/COLOR][/B] by realvito[CR]
+- KEINE Free-Full-Videos mehr erhältlich.[CR]- Preise für den Premiumzugang für diese Webseite unverhältnismäßig !!![CR]- Updates eingestellt.
 		</news>
 	</extension>
 </addon>
@@ -2371,16 +2377,17 @@ More minor bugfixes (honestly could not list them all)
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.59a" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.61e" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
-        <import addon="xbmc.python" version="2.19.0" />
+        <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.thecrew" />
         <import addon="script.thecrew.artwork" />
         <import addon="script.thecrew.metadata" />
+        <import addon="script.module.requests" />
         <import addon="script.module.resolveurl" />
-        <import addon="script.module.metahandler" version="1.0.0" />
-        <import addon="plugin.video.youtube" />
-        <import addon="script.crew.sports" />
+        <import addon="script.module.metahandler" />
+        <import addon="plugin.video.youtube" optional="true" /> />
+        <import addon="script.crew.sports" optional="true" /> />
         <import addon="script.module.inputstreamhelper" version="0.3.3"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="thecrew.py">
@@ -2388,13 +2395,10 @@ More minor bugfixes (honestly could not list them all)
     </extension>
     <extension point="xbmc.service" library="service.py" start="startup" />
     <extension point="xbmc.addon.metadata">
-        <summary lang="en">The Crew is a team of highly skilled talent that provides you with the best of the best.</summary>
-        <description lang="en">Many come, Many go. The true and dedicated are here. Enjoy Your Entertainment.</description>
+        <summary lang="en">The Crew is a team of individuals that does what it can to provide others, you the best in entertainment.</summary>
+        <description lang="en">Many come, Many go. The true and dedicated are here.</description>
         <platform>all</platform>
         <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
-        <forum></forum>
-        <website></website>
-        <source></source>
         <disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
         <assets>
             <icon>icon.png</icon>
@@ -2403,7 +2407,6 @@ More minor bugfixes (honestly could not list them all)
             <screenshot>resources/art/ss/2.png</screenshot>
             <screenshot>resources/art/ss/3.png</screenshot>
         </assets>
-        <news></news>
     </extension>
 </addon>
 
@@ -3277,15 +3280,15 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="repository.thecrew" name="[COLOR deeppink]THE CREW[/COLOR]" provider-name="The Crew" version="0.1.1">
+<addon id="repository.thecrew" name="[COLOR orchid]THE CREW REPO[/COLOR]" provider-name="The Crew" version="0.2.6">
 	<requires>
 		<import addon="xbmc.addon" version="12.0.0"/>
 	</requires>
 	<extension name="The Crew" point="xbmc.addon.repository">
 		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/thecrewwh/zips/master/_zips/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/thecrewwh/zips/master/_zips/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/thecrewwh/zips/master/_zips</datadir>
+			<info compressed="false">https://raw.githubusercontent.com/thecrewwh/zips/master/_zip/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/thecrewwh/zips/master/_zip/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/thecrewwh/zips/master/_zip</datadir>
 		</dir>
 		<dir>
 			<info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
@@ -3307,14 +3310,24 @@ The author is not responsible for the use of this addon. The author is not respo
 			<checksum>https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml.md5</checksum>
 			<datadir zip="true">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/</datadir>
 		</dir>
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+		</dir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>The Crew is a team of highly skilled talent that provide you with the best of the best.</summary>
-		<description>This addon does not form part of the Kodi Media Centre. Please do not seek assistance with this addon from any of the Official Kodi Support Channels.The author does not host any of the content in this addon and takes no responsibility for content found.</description>
+		<summary lang="en">The Crew is a team of individuals that does what it can to provide others, you the best in entertainment.</summary>
+		<description lang="en">Many come, Many go. The true and dedicated are here. We here</description>
 		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
 		<assets>
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
+			<screenshot>resources/art/ss/1.png</screenshot>
+			<screenshot>resources/art/ss/2.png</screenshot>
+			<screenshot>resources/art/ss/3.png</screenshot>
 		</assets>
 	</extension>
 </addon>
@@ -3388,7 +3401,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"  name="[COLOR deeppink]THE CREW SPORTS[/COLOR]" version="0.0.29" provider-name="The Crew">
+﻿<addon id="script.crew.sports"  name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.31" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -3400,13 +3413,14 @@ The author is not responsible for the use of this addon. The author is not respo
 		<import addon="script.module.python.koding.aio" version="0.0.1"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>all</provides>
+        <provides>all</provides>
 	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">The Crew is a team of highly skilled talent that provides you with the best of the best We Thank GoldenHat for this plugin.</summary>
-		<description lang="en">Many come, Many go. The true and dedicated are here. Enjoy Your Entertainment.</description>
-		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
-		<platform>all</platform>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">The Crew is a team of individuals that does what it can to provide others, you the best in entertainment.</summary>
+        <description lang="en">Many come, Many go. The true and dedicated are here.</description>
+        <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
@@ -4170,17 +4184,21 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR deeppink]THE CREW MODULE[/COLOR]" version="0.0.59a" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.61a" provider-name="The Crew">
     <requires>
-        <import addon="xbmc.python" version="2.1.0" />
+        <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.beautifulsoup4"/>
     </requires>
     <extension point="xbmc.python.module" library="lib" />
     <extension point="xbmc.addon.metadata">
+        <summary lang="en">The Crew is a team of individuals that does what it can to provide others, you the best in entertainment.</summary>
+        <description lang="en">Many come, Many go. The true and dedicated are here.</description>
         <platform>all</platform>
-        <summary lang="en">The Crew Module</summary>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
         <assets>
-          <icon>icon.png</icon>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
 </addon>
@@ -4410,30 +4428,39 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="script.thecrew.artwork" version="0.0.23" name="[COLOR deeppink]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
+<addon id="script.thecrew.artwork" version="0.0.25" name="[COLOR orchid]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
     <requires>
-        <import addon="xbmc.python" version="2.19.0"/>
+        <import addon="xbmc.python" version="2.25.0"/>
     </requires>
     <extension point="xbmc.python.module" library="lib" />
     <extension point="xbmc.addon.metadata">
-        <summary>The Crew Artwork</summary>
-        <description></description>
+        <summary lang="en">The Crew is a team of individuals that does what it can to provide others, you the best in entertainment.</summary>
+        <description lang="en">Many come, Many go. The true and dedicated are here.</description>
         <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
         <assets>
-          <icon>icon.png</icon>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
 </addon>
 
-<addon id="script.thecrew.metadata" version="0.0.3" name="[COLOR deeppink]THE CREW METADATA[/COLOR]" provider-name="The Crew">
+<addon id="script.thecrew.metadata" version="0.0.5" name="[COLOR orchid]THE CREW METADATA[/COLOR]" provider-name="The Crew">
     <requires>
-        <import addon="xbmc.python" version="2.19.0"/>
+        <import addon="xbmc.python" version="2.25.0"/>
     </requires>
     <extension point="xbmc.python.module" library="lib" />
     <extension point="xbmc.addon.metadata">
-        <summary>The Crew</summary>
-        <description></description>
+        <summary lang="en">The Crew is a team of individuals that does what it can to provide others, you the best in entertainment.</summary>
+        <description lang="en">Many come, Many go. The true and dedicated are here.</description>
         <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
     </extension>
 </addon>
 
