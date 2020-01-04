@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    Jor-EL Add-on
+     Jor-El Add-on
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -132,8 +132,6 @@ key = "RgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6"
 
 iv = "p2s5v8y/B?E(H+Mb"
 
-#eggman or others have cloned me
-
 def addonIcon():
     theme = appearance() ; art = artPath()
     if not (art == None and theme in ['-', '']): return os.path.join(art, 'icon.png')
@@ -200,7 +198,7 @@ def artPath():
 
 
 def appearance():
-    appearance = setting('appearance.1').lower() if condVisibility('System.HasAddon(script.jor-el.artwork)') else setting('appearance.alt').lower()
+    appearance = setting('appearance.2').lower() if condVisibility('System.HasAddon(script.jor-el.artwork)') else setting('appearance.alt').lower()
     return appearance
 
 
@@ -225,9 +223,8 @@ def selectDialog(list, heading=addonInfo('name')):
 
 
 def moderator():
-    netloc = [urlparse.urlparse(sys.argv[0]).netloc, '', 'plugin.video.live.streamspro', 'plugin.video.metallik', 'script.extendedinfo', 'plugin.video.phstreams', 'plugin.video.cpstreams', 'plugin.video.tinklepad', 'script.tvguide.fullscreen', 'script.tvguide.assassins']
-
-    if not infoLabel('Container.PluginName') in netloc: pass
+    netloc = [urlparse.urlparse(sys.argv[0]).netloc, '', 'plugin.video.live.streamspro', 'plugin.video.phstreams', 'plugin.video.cpstreams', 'plugin.video.tinklepad', 'script.tvguide.fullscreen', 'script.tvguide.assassins']
+    #if not infoLabel('Container.PluginName') in netloc: sys.exit()
 
 
 def metaFile():

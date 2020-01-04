@@ -51,7 +51,7 @@
 		<setting id="save" type="bool" label="30161" default="false" />
 		<setting id="folder" type="folder" label="30162"/>
 		<setting label="" type="lsep" />
-		<setting id="shutdown-engine" type="bool" label="30163" default="true"/>
+		<setting id="shutdown-engine" type="bool" label="30163" default="false"/>
 		<setting id="kill_type" type="enum" values="Normal|Custom" label="30164" default="0" visible="!eq(-8,1)"/>
 		<setting id="custom_kill_ace" type="text" label="30165" default="" visible="eq(-2,true)+eq(-1,1)"/>
 		<!-- Android default port -->

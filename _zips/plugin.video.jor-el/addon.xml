@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.jor-el" version="1.3.5" name="Jor-El" provider-name="KoDIY">
+<addon id="plugin.video.jor-el" version="1.3.6" name="Jor-El" provider-name="KoDIY">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.jor-el" />
@@ -9,7 +9,7 @@
 		<import addon="script.module.requests" />
 		<import addon="script.module.metahandler" />
 		<import addon="script.realdebrid.mod" />
-		<import addon="script.module.python.koding.aio" version="0.9.6.6" />
+		<import addon="script.module.python.koding.aio" />
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="jorel.py">
 		<provides>video</provides>

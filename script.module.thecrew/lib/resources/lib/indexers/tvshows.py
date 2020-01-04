@@ -53,7 +53,7 @@ class tvshows:
         self.logo_link = 'https://i.imgur.com/'
         self.tvdb_key = control.setting('tvdb.user')
         if self.tvdb_key == '' or self.tvdb_key == None:
-            self.tvdb_key = '1D62F2F90030C444'
+            self.tvdb_key = '27bef29779bbffe947232dc310a91f0c'
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         self.trakt_user = control.setting('trakt.user').strip()
         self.imdb_user = control.setting('imdb.user').replace('ur', '')

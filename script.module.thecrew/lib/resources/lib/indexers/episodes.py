@@ -55,7 +55,7 @@ class seasons:
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
         self.tvdb_key = control.setting('tvdb.user')
         if self.tvdb_key == '' or self.tvdb_key == None:
-            self.tvdb_key = '1D62F2F90030C444'
+            self.tvdb_key = '27bef29779bbffe947232dc310a91f0c'
         self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
             self.tvdb_key, '%s', '%s')
         self.tvdb_by_imdb = 'https://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
@@ -546,7 +546,7 @@ class episodes:
         self.tvmaze_link = 'https://api.tvmaze.com'
         self.tvdb_key = control.setting('tvdb.user')
         if self.tvdb_key == '' or self.tvdb_key == None:
-            self.tvdb_key = '1D62F2F90030C444'
+            self.tvdb_key = '27bef29779bbffe947232dc310a91f0c'
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         self.systime = (self.datetime).strftime('%Y%m%d%H%M%S%f')
         self.today_date = (self.datetime).strftime('%Y-%m-%d')

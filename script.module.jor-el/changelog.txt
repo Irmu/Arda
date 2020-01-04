@@ -1,3 +1,6 @@
+[B]1.4.5[/B]
+- CFScrape Fix
+
 [B]1.4.4[/B]
 - Rolled Back TEMP Fix for TVDB
 

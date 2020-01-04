@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-"""
-    Jor-EL Add-on
+'''
+    Jor-El Add-on
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
+'''
 
 
 import threading
@@ -26,6 +26,6 @@ class Thread(threading.Thread):
         self._target = target
         self._args = args
         threading.Thread.__init__(self)
-
     def run(self):
         self._target(*self._args)
+

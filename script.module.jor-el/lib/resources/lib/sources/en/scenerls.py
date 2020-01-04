@@ -1,33 +1,44 @@
-# -*- coding: UTF-8 -*-
-#######################################################################
- # ----------------------------------------------------------------------------
- # "THE BEER-WARE LICENSE" (Revision 42):
- # @tantrumdev wrote this file.  As long as you retain this notice you
- # can do whatever you want with this stuff. If we meet some day, and you think
- # this stuff is worth it, you can buy me a beer in return. - Muad'Dib
- # ----------------------------------------------------------------------------
-#######################################################################
+# -*- coding: utf-8 -*-
 
-# Addon Name: Jor-El
-# Addon id: plugin.video.jor-el
-# Addon Provider: KoDIY
+"""
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-import re,traceback,urllib,urlparse
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
+import re, urllib, urlparse
 
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import debrid
-from resources.lib.modules import log_utils
+from resources.lib.modules import source_utils
 from resources.lib.modules import cfscrape
+
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['scene-rls.com','scene-rls.net']
-        self.base_link = 'http://scene-rls.net/'
-        self.search_link = '/search/%s/feed/rss2/'
-        self.search_link_2 = '/?s=%s&submit=Find'
+        self.domains = ['scene-rls.com', 'scene-rls.net']
+        self.base_link = 'http://scene-rls.net'
+        self.search_link = '/?s=%s&submit=Find'
+        self.scraper = cfscrape.create_scraper()
+
+    def movie(self, imdb, title, localtitle, aliases, year):
+        try:
+            url = {'imdb': imdb, 'title': title, 'year': year}
+            url = urllib.urlencode(url)
+            return url
+        except:
+            return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
@@ -35,8 +46,6 @@ class source:
             url = urllib.urlencode(url)
             return url
         except:
-            failure = traceback.format_exc()
-            log_utils.log('SceneRls - Exception: \n' + str(failure))
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
@@ -49,8 +58,6 @@ class source:
             url = urllib.urlencode(url)
             return url
         except:
-            failure = traceback.format_exc()
-            log_utils.log('SceneRls - Exception: \n' + str(failure))
             return
 
     def sources(self, url, hostDict, hostprDict):
@@ -68,69 +75,26 @@ class source:
 
             title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
 
-            hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
+            hdlr = 's%02de%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
 
-            query = '%s S%02dE%02d' % (data['tvshowtitle'], int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (data['title'], data['year'])
+            query = '%s s%02de%02d' % (data['tvshowtitle'], int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (data['title'], data['year'])
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
 
             try:
-                feed = True
-
                 url = self.search_link % urllib.quote_plus(query)
                 url = urlparse.urljoin(self.base_link, url)
 
-                r = client.request(url)
-                if r == None: feed = False
-
-                posts = client.parseDOM(r, 'item')
-                if not posts: feed = False
-
-                items = []
-
-                for post in posts:
-                    try:
-                        u = client.parseDOM(post, 'enclosure', ret='url')
-                        u = [(i.strip('/').split('/')[-1], i) for i in u]
-                        items += u
-                    except:
-                        pass
-            except:
-                pass
-
-            try:
-                if feed == True: raise Exception()
-
-                url = self.search_link_2 % urllib.quote_plus(query)
-                url = urlparse.urljoin(self.base_link, url)
-
-                r = client.request(url)
+                r = self.scraper.get(url).content
 
                 posts = client.parseDOM(r, 'div', attrs={'class': 'post'})
 
-                items = [] ; dupes = []
+                items = []; dupes = []
 
                 for post in posts:
                     try:
-                        t = client.parseDOM(post, 'a')[0]
-                        t = re.sub('<.+?>|</.+?>', '', t)
-
-                        x = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', t)
-                        if not cleantitle.get(title) in cleantitle.get(x): raise Exception()
-                        y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', t)[-1].upper()
-                        if not y == hdlr: raise Exception()
-
-                        fmt = re.sub('(.+)(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*)(\.|\)|\]|\s)', '', t.upper())
-                        fmt = re.split('\.|\(|\)|\[|\]|\s|\-', fmt)
-                        fmt = [i.lower() for i in fmt]
-                        if not any(i in ['1080p', '720p'] for i in fmt): raise Exception()
-
-                        if len(dupes) > 2: raise Exception()
-                        dupes += [x]
-
-                        u = client.parseDOM(post, 'a', ret='href')[0]
-
-                        r = client.request(u)
-                        u = client.parseDOM(r, 'a', ret='href')
+                        u = client.parseDOM(post, "div", attrs={"class": "postContent"})
+                        u = client.parseDOM(u, "h2")
+                        u = client.parseDOM(u, 'a', ret='href')
                         u = [(i.strip('/').split('/')[-1], i) for i in u]
                         items += u
                     except:
@@ -145,16 +109,13 @@ class source:
 
                     t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name)
 
-                    if not cleantitle.get(t) == cleantitle.get(title): raise Exception()
+                    if not cleantitle.get(t) == cleantitle.get(title): continue
 
-                    y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', name)[-1].upper()
-
-                    if not y == hdlr: raise Exception()
-
-                    quality,info = source_utils.get_release_quality(name, item[1])
+                    quality, info = source_utils.get_release_quality(name, item[1])
 
                     url = item[1]
-                    if any(x in url for x in ['.rar', '.zip', '.iso']): raise Exception()
+                    if any(x in url for x in ['.rar', '.zip', '.iso']):
+                        raise Exception()
                     url = client.replaceHTMLCodes(url)
                     url = url.encode('utf-8')
 
@@ -169,8 +130,6 @@ class source:
 
             return sources
         except:
-            failure = traceback.format_exc()
-            log_utils.log('SceneRls - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):

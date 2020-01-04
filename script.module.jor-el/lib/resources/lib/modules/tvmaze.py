@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-"""
-    Jor-EL Add-on
+'''
+    Jor-El Add-on
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,34 +15,36 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
+'''
 
 
-import urllib, json
+import urllib,json
 
 from resources.lib.modules import cache
 from resources.lib.modules import client
 
 
 class tvMaze:
-    def __init__(self, show_id=None):
-        self.api_url = "http://api.tvmaze.com/%s%s"
+    def __init__(self, show_id = None):
+        self.api_url = 'http://api.tvmaze.com/%s%s'
         self.show_id = show_id
 
-    def showID(self, show_id=None):
-        if show_id != None:
+
+    def showID(self, show_id = None):
+        if (show_id != None):
             self.show_id = show_id
             return show_id
 
         return self.show_id
 
-    def request(self, endpoint, query=None):
+
+    def request(self, endpoint, query = None):
         try:
             # Encode the queries, if there is any...
-            if query != None:
-                query = "?" + urllib.urlencode(query)
+            if (query != None):
+                query = '?' + urllib.urlencode(query)
             else:
-                query = ""
+                query = ''
 
             # Make the request
             request = self.api_url % (endpoint, query)
@@ -58,13 +60,14 @@ class tvMaze:
 
         return {}
 
+
     def showLookup(self, type, id):
         try:
-            result = self.request("lookup/shows", {type: id})
+            result = self.request('lookup/shows', {type: id})
 
             # Storing the show id locally
-            if "id" in result:
-                self.show_id = result["id"]
+            if ('id' in result):
+                self.show_id = result['id']
 
             return result
         except:
@@ -72,16 +75,17 @@ class tvMaze:
 
         return {}
 
-    def shows(self, show_id=None, embed=None):
+
+    def shows(self, show_id = None, embed = None):
         try:
-            if not self.showID(show_id):
+            if (not self.showID(show_id)):
                 raise Exception()
 
-            result = self.request("shows/%d" % self.show_id)
+            result = self.request('shows/%d' % self.show_id)
 
             # Storing the show id locally
-            if "id" in result:
-                self.show_id = result["id"]
+            if ('id' in result):
+                self.show_id = result['id']
 
             return result
         except:
@@ -89,66 +93,61 @@ class tvMaze:
 
         return {}
 
-    def showSeasons(self, show_id=None):
+
+    def showSeasons(self, show_id = None):
         try:
-            if not self.showID(show_id):
+            if (not self.showID(show_id)):
                 raise Exception()
 
-            result = self.request("shows/%d/seasons" % int(self.show_id))
+            result = self.request('shows/%d/seasons' % int( self.show_id ))
 
-            if len(result) > 0 and "id" in result[0]:
+            if (len(result) > 0 and 'id' in result[0]):
                 return result
         except:
             pass
 
         return []
+
 
     def showSeasonList(self, show_id):
         return {}
 
-    def showEpisodeList(self, show_id=None, specials=False):
+
+    def showEpisodeList(self, show_id = None, specials = False):
         try:
-            if not self.showID(show_id):
+            if (not self.showID(show_id)):
                 raise Exception()
 
-            result = self.request(
-                "shows/%d/episodes" % int(self.show_id),
-                "specials=1" if specials else "",
-            )
+            result = self.request('shows/%d/episodes' % int( self.show_id ), 'specials=1' if specials else '')
 
-            if len(result) > 0 and "id" in result[0]:
+            if (len(result) > 0 and 'id' in result[0]):
                 return result
         except:
             pass
 
         return []
 
+
     def episodeAbsoluteNumber(self, thetvdb, season, episode):
         try:
-            url = "http://thetvdb.com/api/%s/series/%s/default/%01d/%01d" % (
-                "MUQ2MkYyRjkwMDMwQzQ0NA==".decode("base64"),
-                thetvdb,
-                int(season),
-                int(episode),
-            )
-            return int(client.parseDOM(client.request(url), "absolute_number")[0])
+            url = 'http://thetvdb.com/api/%s/series/%s/default/%01d/%01d' % ('MUQ2MkYyRjkwMDMwQzQ0NA=='.decode('base64'), thetvdb, int(season), int(episode))
+            return int(client.parseDOM(client.request(url), 'absolute_number')[0])
         except:
             pass
 
         return episode
 
+
     def getTVShowTranslation(self, thetvdb, lang):
         try:
-            url = "http://thetvdb.com/api/%s/series/%s/%s.xml" % (
-                "MUQ2MkYyRjkwMDMwQzQ0NA==".decode("base64"),
-                thetvdb,
-                lang,
-            )
+            url = 'http://thetvdb.com/api/%s/series/%s/%s.xml' % ('MUQ2MkYyRjkwMDMwQzQ0NA=='.decode('base64'), thetvdb, lang)
             r = client.request(url)
-            title = client.parseDOM(r, "SeriesName")[0]
+            title = client.parseDOM(r, 'SeriesName')[0]
             title = client.replaceHTMLCodes(title)
-            title = title.encode("utf-8")
+            title = title.encode('utf-8')
 
             return title
         except:
             pass
+
+
