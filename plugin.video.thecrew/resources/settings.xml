@@ -25,18 +25,19 @@
         <setting id="adult_pw" type="text" label="90033" default="Enter Here!" />
         <setting type="lsep" label="90137" />
         <!--
-        <setting id="navi.halloween" type="bool" label="90144" default="true" /> -->
-        <setting id="navi.holidays" type="bool" label="90157" default="true" />
+        <setting id="navi.halloween" type="bool" label="90144" default="true" />
+        <setting id="navi.holidays" type="bool" label="90157" default="true" />-->
         <setting id="navi.movies" type="bool" label="32001" default="true" />
         <setting id="navi.tvshows" type="bool" label="32002" default="true" />
         <setting id="navi.sports" type="bool" label="90006" default="true" />
-        <setting id="navi.kids" type="bool" label="90009" default="true" />
         <setting id="navi.iptv" type="bool" label="90007" default="true" />
+        <setting id="navi.kids" type="bool" label="90009" default="true" />
+        <setting id="navi.1clicks" type="bool" label="90011" default="true" />
+        <setting id="navi.purplehat" type="bool" label="90189" default="true" />
+        <setting id="navi.standup" type="bool" label="90113" default="true" />
         <setting id="navi.fitness" type="bool" label="90010" default="true" />
         <setting id="navi.food" type="bool" label="90143" default="true" />
-        <setting id="navi.1clicks" type="bool" label="90011" default="true" />
         <setting id="navi.radio" type="bool" label="90012" default="true" />
-        <setting id="navi.standup" type="bool" label="90113" default="true" />
         <setting id="navi.add_addons" type="bool" label="90181" default="true" />
         <setting id="navi.eyecandy" type="bool" label="90164" default="true" />
         <setting id="navi.retribution" type="bool" label="90165" default="true" />

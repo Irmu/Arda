@@ -184,6 +184,10 @@ elif action == 'eyecandy':
     from resources.lib.indexers import lists
     lists.indexer().root_eyecandy()
 
+elif action == 'purplehat':
+    from resources.lib.indexers import lists
+    lists.indexer().root_purplehat()
+
 elif action == 'retribution':
     from resources.lib.indexers import lists
     lists.indexer().root_retribution()

@@ -43,11 +43,12 @@ init_contents = 'aW1wb3J0IG9zCmZyb20gcmVzb3VyY2VzLmxpYi5jb21tb24gaW1wb3J0IHRvb2x
                 'ICAgIGV4Y2VwdDoKICAgICAgICAgICAgaW1wb3J0IHRyYWNlYmFjawogICAgICAgICAgICB0cmFjZWJhY2sucHJpbnRfZXhjKCkK' \
                 'ICAgICAgICAgICAgY29udGludWUKCiAgICByZXR1cm4gKHRvcnJlbnRfc291cmNlcywgaG9zdGVyX3NvdXJjZXMpCg=='
 
-import os
-import sys
-import json
-import shutil
 import base64
+import json
+import os
+import shutil
+import sys
+
 import requests
 import xbmc
 
@@ -61,16 +62,37 @@ else:
 
 
 class providers:
+
     def __init__(self):
         self.deploy_init()
         self.pre_update_collection = []
         self.language = 'en'
-        self.known_providers = database.get_providers()
         self.known_packages = database.get_provider_packages()
-        self.update_known_providers()
+        self.known_providers = database.get_providers()
+
         self.providers_path = os.path.join(tools.dataPath, 'providers')
         self.modules_path = os.path.join(tools.dataPath, 'providerModules')
         self.meta_path = os.path.join(tools.dataPath, 'providerMeta')
+
+        self.update_known_providers()
+        self.update_known_packages()
+
+    def poll_database(self):
+        self.known_providers = database.get_providers()
+        self.known_packages = database.get_provider_packages()
+
+    def update_known_packages(self):
+        for root, _, filenames in os.walk(self.meta_path):
+            for filename in filenames:
+                if filename.endswith('.json'):
+                    with open(os.path.join(root, filename)) as file:
+                        try:
+                            meta = json.loads(file.read())
+                            database.add_provider_package(meta['name'], meta['author'], meta['remote_meta'],
+                                                          meta['version'])
+                        except:
+                            pass
+        self.poll_database()
 
     def update_known_providers(self):
         provider_types = ['torrent', 'hosters']
@@ -82,58 +104,45 @@ class providers:
                          'hosters': all_providers[1]}
 
         for provider_type in provider_types:
-
             for provider in all_providers[provider_type]:
-                database.add_provider(provider[1], provider[2], 'enabled', self.language,
-                                      provider_type)
+                if not self._provider_exists(provider[1], provider[2]):
+                    database.add_provider(provider[1], provider[2], 'enabled', self.language,
+                                          provider_type)
 
-        self.known_providers = database.get_providers()
+        for known_provider in self.known_providers:
+            provider_exists = False
+            for provider in all_providers[known_provider['provider_type']]:
+                if known_provider['provider_name'] == provider[1] and known_provider['package'] == provider[2]:
+                    provider_exists = True
+                    break
 
-    def adjust_providers(self, status, package_disable=False):
+            if not provider_exists:
+                database.remove_individual_provider(known_provider['provider_name'], known_provider['package'])
 
-        if status == 'disabled':
-            action = 'enabled'
-        if status == 'enabled':
-            action = 'disabled'
-        if len(self.known_providers) == 0:
-            self.known_providers = database.get_providers()
+        self.poll_database()
 
-        known_packages = [i for i in self.known_packages]
+    def _provider_exists(self, provider_name, package):
+        for provider in self.known_providers:
+            if provider['provider_name'] == provider_name and provider['package'] == package:
+                return True
+        return False
 
-        package_display = list(set(['%s - %s' % (pack['pack_name'], pack['version']) for pack in known_packages]))
+    def flip_provider_status(self, package_name, provider_name, status_overide=None):
 
-        if len(known_packages) == 0:
-            tools.showDialog.ok(tools.addonName, tools.lang(32074))
-            return
+        current_status = [i for i in database.get_providers()
+                          if i['package'] == package_name and i['provider_name'] == provider_name][0]['status']
 
-        selection = tools.showDialog.select("%s: %s Providers" %
-                                            (tools.addonName, action[:-1].title()), package_display)
+        if not status_overide:
+            if current_status == 'enabled':
+                database.adjust_provider_status(provider_name, package_name, 'disabled')
+                return 'disabled'
+            else:
+                database.adjust_provider_status(provider_name, package_name, 'enabled')
+                return 'enabled'
 
-        if selection == -1:
-            return
-
-        providers = [i for i in self.known_providers
-                     if i['package'] == known_packages[selection]['pack_name']
-                     and i['status'] == status
-                     and i['country'] == self.language]
-
-        if package_disable is False:
-            display_list = ["%s - %s" % (tools.colorString(i['provider_name'].upper()), i['provider_type'].title())
-                            for i in providers if i['status'] == status]
-
-            selection = tools.showDialog.multiselect("%s: %s Providers" %
-                                                     (tools.addonName, action[:-1].title()), display_list)
-
-            if selection is None:
-                return
-
-            for i in selection:
-                provider = providers[i]
-                database.adjust_provider_status(provider['provider_name'], provider['package'], action)
-
-        elif package_disable is True:
-            for i in providers:
-                database.adjust_provider_status(i['provider_name'], i['package'], action)
+        else:
+            database.adjust_provider_status(provider_name, package_name, status_overide)
+            return status_overide
 
     def uninstall_package(self, package=None, silent=False):
         import shutil
@@ -142,8 +151,8 @@ class providers:
             if len(packages) == 0:
                 tools.showDialog.ok(tools.addonName, tools.lang(32074))
                 return
-            selection = tools.showDialog.select("%s: %s Providers" %
-                                                (tools.addonName, tools.lang(32075)), packages)
+            selection = tools.showDialog.select("%s: %s %s" %
+                                                (tools.addonName, tools.lang(32075), tools.lang(40068)), packages)
             if selection == -1:
                 return
             package_name = packages[selection]
@@ -178,15 +187,15 @@ class providers:
         self.deploy_init()
 
         if url is None:
-            if install_style == None:
-                install_style = tools.showDialog.select(tools.addonName, ['Browse...', 'Web Location...'])
+            if install_style is None:
+                install_style = tools.showDialog.select(tools.addonName, [tools.lang(40302), tools.lang(40303)])
             else:
                 install_style = int(install_style)
 
             if install_style == 0:
-                zip_location = tools.fileBrowser(1, 'Locate Provider Zip', 'files', '.zip', True, False)
+                zip_location = tools.fileBrowser(1, tools.lang(40304), 'files', '.zip', True, False)
             elif install_style == 1:
-                zip_location = tools.showKeyboard('', '%s: Enter Zip URL' % tools.addonName)
+                zip_location = tools.showKeyboard('', '%s: %s' % (tools.addonName, tools.lang(40305)))
                 zip_location.doModal()
                 if zip_location.isConfirmed() and zip_location.getText() != '':
                     zip_location = zip_location.getText()
@@ -355,7 +364,7 @@ class providers:
                 try:
                     install_progress.close()
                     tools.showDialog.ok(tools.addonName, '%s - %s' % (tools.lang(33012), pack_name),
-                                    tools.lang(33011))
+                                        tools.lang(33011))
                 except:
                     pass
             return
@@ -549,4 +558,3 @@ class providers:
         selection = update[selection]
 
         self.update(selection)
-

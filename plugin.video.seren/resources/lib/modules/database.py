@@ -18,17 +18,17 @@
 import ast
 import hashlib
 import re
-import threading
 import time
 
 from resources.lib.common import tools
 
 try:
-    from sqlite3 import dbapi2 as db, OperationalError
+    from sqlite3 import dbapi2 as db, OperationalError, IntegrityError
 except ImportError:
-    from pysqlite2 import dbapi2 as db, OperationalError
+    from pysqlite2 import dbapi2 as db, OperationalError, IntegrityError
 
 cache_table = 'cache'
+
 
 def get(function, duration, *args, **kwargs):
     # type: (function, int, object) -> object or None
@@ -59,8 +59,10 @@ def get(function, duration, *args, **kwargs):
                         return return_data
                     except:
                         return ast.literal_eval(cache_result['value'])
+
         fresh_result = repr(function(*args, **kwargs))
-        if not fresh_result or fresh_result is None:
+
+        if fresh_result is None or fresh_result == 'None':
             # If the cache is old, but we didn't get fresh result, return the old cache
             if cache_result:
                 return cache_result
@@ -69,8 +71,12 @@ def get(function, duration, *args, **kwargs):
         data = ast.literal_eval(fresh_result)
 
         # Because I'm lazy, I've added this crap code so sources won't cache if there are no results
-        if not sources or len(data[1]) > 0:
+        if not sources:
             cache_insert(key, fresh_result)
+        elif len(data[1]) > 0:
+            cache_insert(key, fresh_result)
+        else:
+            return None
 
         return data
 
@@ -78,6 +84,7 @@ def get(function, duration, *args, **kwargs):
         import traceback
         traceback.print_exc()
         return None
+
 
 def timeout(function, *args):
     try:
@@ -87,9 +94,10 @@ def timeout(function, *args):
     except Exception:
         return None
 
+
 def cache_get(key):
-    # type: (str, str) -> dict or None
     try:
+        tools.cacheFile_lock.acquire()
         cursor = _get_connection_cursor(tools.cacheFile)
         cursor.execute("SELECT * FROM %s WHERE key = ?" % cache_table, [key])
         results = cursor.fetchone()
@@ -97,39 +105,38 @@ def cache_get(key):
         return results
     except OperationalError:
         return None
+    finally:
+        tools.try_release_lock(tools.cacheFile_lock)
+
 
 def cache_insert(key, value):
-
+    tools.cacheFile_lock.acquire()
     try:
-        # type: (str, str) -> None
         cursor = _get_connection_cursor(tools.cacheFile)
         now = int(time.time())
         cursor.execute(
             "CREATE TABLE IF NOT EXISTS %s (key TEXT, value TEXT, date INTEGER, UNIQUE(key))"
             % cache_table
         )
-        update_result = cursor.execute(
-            "UPDATE %s SET value=?,date=? WHERE key=?"
-            % cache_table, (value, now, key))
-
-        if update_result.rowcount is 0:
-            cursor.execute(
-                "INSERT INTO %s Values (?, ?, ?)"
-                % cache_table, (key, value, now)
-            )
-
+        cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_%s ON %s (key)" % (cache_table, cache_table))
+        cursor.execute("REPLACE INTO %s (key, value, date) VALUES (?, ?, ?)" % cache_table, (key, value, now))
         cursor.connection.commit()
         cursor.close()
     except:
-        try:cursor.close()
-        except: pass
+        try:
+            cursor.close()
+        except:
+            pass
         import traceback
         traceback.print_exc()
         pass
+    finally:
+        tools.try_release_lock(tools.cacheFile_lock)
 
 
 def cache_clear():
     try:
+        tools.cacheFile_lock.acquire()
         cursor = _get_connection_cursor(tools.cacheFile)
 
         for t in [cache_table, 'rel_list', 'rel_lib']:
@@ -139,16 +146,21 @@ def cache_clear():
                 cursor.connection.commit()
             except:
                 pass
-        tools.showDialog.notification(tools.addonName + ': Cache', tools.lang(32078), time=5000)
+        tools.showDialog.notification('{}: {}'.format(tools.addonName, tools.lang(40306)), tools.lang(32078), time=5000)
     except:
         pass
+    finally:
+        tools.try_release_lock(tools.cacheFile_lock)
+
 
 def cache_clear_all():
     cache_clear()
-        
+
+
 def _get_connection_cursor(filepath):
     conn = _get_connection(filepath)
     return conn.cursor()
+
 
 def _get_connection(filepath):
     tools.makeFile(tools.dataPath)
@@ -156,11 +168,17 @@ def _get_connection(filepath):
     conn.row_factory = _dict_factory
     return conn
 
+
 def getSearchHistory(media_type):
     try:
+        tools.searchHistoryDB_lock.acquire()
         cursor = _get_connection_cursor(tools.searchHistoryDB)
-        cursor.execute("CREATE TABLE IF NOT EXISTS %s (value TEXT, media_type TEXT)" % "history")
-        cursor.execute("SELECT * FROM history WHERE media_type = ?", [media_type])
+        cursor.execute('CREATE TABLE IF NOT EXISTS show (value TEXT)')
+        cursor.execute('CREATE TABLE IF NOT EXISTS movie (value TEXT)')
+        cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_history ON movie (value)")
+        cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_history ON show (value)")
+
+        cursor.execute("SELECT * FROM %s" % media_type)
         history = cursor.fetchall()
         cursor.close()
         history.reverse()
@@ -172,42 +190,80 @@ def getSearchHistory(media_type):
 
         return filter
     except:
-        try:cursor.close()
-        except: pass
+        try:
+            cursor.close()
+        except:
+            pass
         import traceback
         traceback.print_exc()
         return []
+    finally:
+        tools.try_release_lock(tools.searchHistoryDB_lock)
+
 
 def addSearchHistory(search_string, media_type):
-    cursor = _get_connection_cursor(tools.searchHistoryDB)
-    cursor.execute('CREATE TABLE IF NOT EXISTS %s (value TEXT, media_type TEXT)' % "history")
+    try:
+        tools.searchHistoryDB_lock.acquire()
+        cursor = _get_connection_cursor(tools.searchHistoryDB)
+        cursor.execute('CREATE TABLE IF NOT EXISTS show (value TEXT)')
+        cursor.execute('CREATE TABLE IF NOT EXISTS movie (value TEXT)')
+        cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_history ON movie (value)")
+        cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_history ON show (value)")
 
-    cursor.execute(
-        "INSERT INTO %s Values (?, ?)"
-        % "history", (search_string, str(media_type))
-    )
+        cursor.execute(
+            "REPLACE INTO %s Values (?)"
+            % media_type, (search_string,)
+        )
 
-    cursor.connection.commit()
-    cursor.close()
+        cursor.connection.commit()
+        cursor.close()
+    except:
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+        return []
+    finally:
+        tools.try_release_lock(tools.searchHistoryDB_lock)
+
 
 def clearSearchHistory():
-
-    cursor = _get_connection_cursor(tools.searchHistoryDB)
-    cursor.execute("DROP TABLE IF EXISTS history")
     try:
-        cursor.execute("VACCUM")
+        tools.searchHistoryDB_lock.acquire()
+        confirmation = tools.showDialog.yesno(tools.addonName, tools.lang(40169))
+        if not confirmation:
+            return
+        cursor = _get_connection_cursor(tools.searchHistoryDB)
+        cursor.execute("DROP TABLE IF EXISTS movie")
+        cursor.execute("DROP TABLE IF EXISTS show")
+        try:
+            cursor.execute("VACCUM")
+        except:
+            pass
+        cursor.connection.commit()
+        cursor.close()
+        tools.showDialog.notification(tools.addonName, tools.lang(40259), time=5000)
     except:
-        pass
-    cursor.connection.commit()
-    cursor.close()
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+        return []
+    finally:
+        tools.try_release_lock(tools.searchHistoryDB_lock)
 
 
 def getTorrents(item_meta):
     if tools.getSetting('general.torrentCache') == 'false':
         return []
+    tools.torrentScrapeCacheFile_lock.acquire()
     try:
         cursor = _get_connection_cursor(tools.torrentScrapeCacheFile)
-
+        _try_create_torrent_cache(cursor)
         if 'showInfo' in item_meta:
             season = item_meta['info']['season']
             episode = item_meta['info']['episode']
@@ -241,65 +297,82 @@ def getTorrents(item_meta):
         import traceback
         traceback.print_exc()
         return []
+    finally:
+        tools.try_release_lock(tools.torrentScrapeCacheFile_lock)
+
+
+def _try_create_torrent_cache(cursor):
+    cursor.execute(
+        "CREATE TABLE IF NOT EXISTS %s ("
+        "trakt_id TEXT, "
+        "meta TEXT, "
+        "hash TEXT, "
+        "season TEXT, "
+        "episode TEXT, "
+        "package, "
+        "UNIQUE(hash))"
+        % cache_table
+    )
+    cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_%s ON %s (hash)" % (cache_table, cache_table))
+
 
 def addTorrent(item_meta, torrent_objects):
-    if tools.getSetting('general.torrentCache') == 'false':
-        return
-
-    if 'showInfo' in item_meta:
-        season = item_meta['info']['season']
-        episode = item_meta['info']['episode']
-        trakt_id = item_meta['showInfo']['ids']['trakt']
-    else:
-        season = 0
-        episode = 0
-        trakt_id = item_meta['ids']['trakt']
-
-    cursor = _get_connection_cursor(tools.torrentScrapeCacheFile)
-
     try:
-        # Confirm we are on the newer version of the torrent cache database
-        columns = [i['name'] for i in cursor.execute("PRAGMA table_info(cache);").fetchall()]
-        if 'trakt_id' not in columns:
-            raise Exception
-    except:
-        cursor.execute("DROP TABLE IF EXISTS cache")
-        cursor.execute(
-            "CREATE TABLE IF NOT EXISTS %s ("
-            "trakt_id TEXT, "
-            "meta TEXT, "
-            "hash TEXT, "
-            "season TEXT, "
-            "episode TEXT, "
-            "package, "
-            "UNIQUE(hash))"
-            % cache_table
-        )
+        if tools.getSetting('general.torrentCache') == 'false':
+            return
 
-    for torrent_object in torrent_objects:
+        if 'showInfo' in item_meta:
+            season = item_meta['info']['season']
+            episode = item_meta['info']['episode']
+            trakt_id = item_meta['showInfo']['ids']['trakt']
+        else:
+            season = 0
+            episode = 0
+            trakt_id = item_meta['ids']['trakt']
+
+        tools.torrentScrapeCacheFile_lock.acquire()
+        cursor = _get_connection_cursor(tools.torrentScrapeCacheFile)
+
         try:
-            hash = torrent_object['hash']
-            pack = torrent_object['package']
-            update_result = cursor.execute(
-                "UPDATE %s SET trakt_id=?, meta=?, season=?, episode=?, package=? WHERE hash=?"
-                % cache_table, (trakt_id, str(torrent_object), season, episode, pack,
-                                hash))
-
-            if update_result.rowcount is 0:
-                cursor.execute(
-                    "INSERT INTO %s Values (?, ?, ?, ?, ?, ?)"
-                    % cache_table, (trakt_id, str(torrent_object), hash, season, episode, pack)
-                )
+            # Confirm we are on the newer version of the torrent cache database
+            columns = [i['name'] for i in cursor.execute("PRAGMA table_info(cache);").fetchall()]
+            if 'trakt_id' not in columns:
+                raise Exception
         except:
-            import traceback
-            traceback.print_exc()
+            cursor.execute("DROP TABLE IF EXISTS cache")
 
-    cursor.connection.commit()
-    cursor.close()
+        _try_create_torrent_cache(cursor)
+        for torrent_object in torrent_objects:
+            try:
+                hash = torrent_object['hash']
+                pack = torrent_object['package']
+                cursor.execute("REPLACE INTO %s (trakt_id, meta, hash, season, episode, package) "
+                               "VALUES (?, ?, ?, ?, ?, ?)" % cache_table,
+                               (trakt_id, str(torrent_object), hash, season, episode, pack))
+            except:
+                import traceback
+                traceback.print_exc()
+
+        cursor.connection.commit()
+        cursor.close()
+    except:
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+        return []
+    finally:
+        tools.try_release_lock(tools.torrentScrapeCacheFile_lock)
+
 
 def torrent_cache_clear():
+    confirmation = tools.showDialog.yesno(tools.addonName, tools.lang(32043))
+    if not confirmation:
+        return
     try:
-
+        tools.torrentScrapeCacheFile_lock.acquire()
         cursor = _get_connection_cursor(tools.torrentScrapeCacheFile)
         for t in [cache_table, 'rel_list', 'rel_lib']:
             try:
@@ -309,52 +382,94 @@ def torrent_cache_clear():
             except:
                 pass
     except:
-        pass
-    cursor.close()
-    tools.showDialog.notification(tools.addonName + ': Cache', tools.lang(32079), time=5000)
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.torrentScrapeCacheFile_lock)
+
+    tools.showDialog.notification('{}: {}'.format(tools.addonName, tools.lang(40306)), tools.lang(32079), time=5000)
+
 
 def get_assist_torrents():
     try:
+        tools.activeTorrentsDBFile_lock.acquire()
         cursor = _get_connection_cursor(tools.activeTorrentsDBFile)
         cursor.execute("SELECT * FROM torrents")
         results = cursor.fetchall()
         cursor.close()
         return results
     except:
-        try:cursor.close()
-        except: pass
-        return None
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.activeTorrentsDBFile_lock)
+
 
 def clear_non_active_assist():
-    cursor = _get_connection_cursor(tools.activeTorrentsDBFile)
-    cursor.execute(
-        "DELETE FROM torrents WHERE status = 'failed'"
-    )
-    cursor.execute(
-        "DELETE FROM torrents WHERE status = 'finished'"
-    )
-    cursor.connection.commit()
-    cursor.close()
+    try:
+        tools.activeTorrentsDBFile_lock.acquire()
+        cursor = _get_connection_cursor(tools.activeTorrentsDBFile)
+        cursor.execute(
+            "DELETE FROM torrents WHERE status = 'failed'"
+        )
+        cursor.execute(
+            "DELETE FROM torrents WHERE status = 'finished'"
+        )
+        cursor.connection.commit()
+        cursor.close()
+    except:
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.activeTorrentsDBFile_lock)
 
-def add_assist_torrent(debrid_id, provider, status, release_title, progress):
-    cursor = _get_connection_cursor(tools.activeTorrentsDBFile)
+
+def _try_create_torrent_table(cursor):
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS torrents "
         "(debrid_id TEXT PRIMARY KEY, provider TEXT, status TEXT, release_title TEXT, progress TEXT)"
     )
-    update_result = cursor.execute(
-        "UPDATE torrents SET status=?, progress=? WHERE debrid_id=?", (status, progress, debrid_id))
 
-    if update_result.rowcount is 0:
-        cursor.execute(
-            "INSERT INTO torrents Values (?, ?, ?, ?, ?)",
-            (debrid_id, provider, status, release_title, progress))
+    cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_torrents ON torrents (debrid_id)")
 
-    cursor.connection.commit()
-    cursor.close()
+
+def add_assist_torrent(debrid_id, provider, status, release_title, progress):
+    try:
+        tools.activeTorrentsDBFile_lock.acquire()
+        cursor = _get_connection_cursor(tools.activeTorrentsDBFile)
+        _try_create_torrent_table(cursor)
+        cursor.execute("REPLACE INTO torrents (debrid_id, provider, status, release_title, progress) "
+                       "VALUES (?, ?, ?, ?, ?)",
+                       (debrid_id, provider, status, release_title, progress))
+
+        cursor.connection.commit()
+        cursor.close()
+    except:
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.activeTorrentsDBFile_lock)
+
 
 def clear_assist_torrents():
     try:
+        tools.activeTorrentsDBFile_lock.acquire()
         cursor = _get_connection_cursor(tools.activeTorrentsDBFile)
 
         for t in [cache_table, 'rel_list', 'rel_lib']:
@@ -366,184 +481,226 @@ def clear_assist_torrents():
             except:
                 pass
     except:
-        pass
-    try:
-        cursor.close()
-    except:
-        pass
-    tools.showDialog.notification(tools.addonName + ': Cache', tools.lang(32080), time=5000)
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.activeTorrentsDBFile_lock)
+    tools.showDialog.notification('{}: {}'.format(tools.addonName, tools.lang(40306)), tools.lang(32080), time=5000)
+
 
 def get_single_provider(provider_name, package, country):
     try:
+        tools.providersDB_lock.acquire()
         cursor = _get_connection_cursor(tools.providersDB)
-        cursor.execute(
-            "CREATE TABLE IF NOT EXISTS providers (hash TEXT,"
-            " provider_name TEXT, status TEXT, package TEXT, country TEXT, provider_type TEXT, UNIQUE(hash))"
-        )
+        _try_create_provider_table(cursor)
+
         cursor.execute("SELECT * FROM providers WHERE provider_name=? AND package=? AND country=?",
                        (provider_name, package, country))
         sources = cursor.fetchone()
         cursor.close()
         return sources
     except:
-        try:cursor.close()
-        except: pass
-        pass
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
+
 
 def get_providers():
     try:
+        tools.providersDB_lock.acquire()
         cursor = _get_connection_cursor(tools.providersDB)
-        cursor.execute(
-            "CREATE TABLE IF NOT EXISTS providers (hash TEXT,"
-            " provider_name TEXT, status TEXT, package TEXT, country TEXT, provider_type TEXT, UNIQUE(hash))"
-        )
+        _try_create_provider_table(cursor)
         cursor.execute("SELECT * FROM providers")
         sources = cursor.fetchall()
         cursor.close()
         return sources
     except:
-        try:cursor.close()
-        except: pass
-        pass
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
 
-def get_provider_packages():
-    tools.log('Getting provider packages')
-    cursor = _get_connection_cursor(tools.providersDB)
 
+def _try_create_package_table(cursor):
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS packages (hash TEXT,"
         " pack_name TEXT, author TEXT, remote_meta TEXT, version TEXT, UNIQUE(hash))"
     )
-    cursor.execute("SELECT * FROM packages")
-    packages = cursor.fetchall()
-    cursor.close()
-    return packages
+    cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_packages ON packages (hash)")
+
+
+def get_provider_packages():
+    try:
+        tools.log('Getting provider packages')
+        tools.providersDB_lock.acquire()
+        cursor = _get_connection_cursor(tools.providersDB)
+        _try_create_package_table(cursor)
+        cursor.execute("SELECT * FROM packages")
+        packages = cursor.fetchall()
+        cursor.close()
+        return packages
+    except:
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+        return None
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
+
 
 def add_provider_package(pack_name, author, remote_meta, version):
     try:
-
+        tools.providersDB_lock.acquire()
         hash = _hash_function('%s%s' % (pack_name, author))
         cursor = _get_connection_cursor(tools.providersDB)
+        _try_create_package_table(cursor)
+        cursor.execute("REPLACE INTO packages (hash, pack_name, author, remote_meta, version) "
+                       "VALUES (?, ?, ?, ?, ?)",
+                       (hash, pack_name, author, remote_meta, version))
 
-        cursor.execute(
-            "CREATE TABLE IF NOT EXISTS packages (hash TEXT,"
-            " pack_name TEXT, author TEXT, remote_meta TEXT, version TEXT, UNIQUE(hash))"
-        )
-
-        update_result = cursor.execute(
-            "UPDATE packages SET pack_name=?, author=?, remote_meta=?, version=? WHERE hash=?",
-            (pack_name, author, remote_meta, version, hash)
-        )
-
-        if update_result.rowcount is 0:
-            cursor.execute(
-                "INSERT INTO packages Values (?, ?, ?, ?, ?)",
-                (hash, pack_name, author, remote_meta, version)
-            )
         cursor.connection.commit()
         cursor.close()
     except:
-        try:cursor.close()
-        except: pass
+        try:
+            cursor.close()
+        except:
+            pass
         import traceback
         traceback.print_exc()
-        pass
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
+
 
 def remove_provider_package(pack_name):
     try:
+        tools.providersDB_lock.acquire()
         cursor = _get_connection_cursor(tools.providersDB)
         cursor.execute("DELETE FROM packages WHERE pack_name=?", (pack_name,))
         cursor.execute("DELETE FROM providers WHERE package=?", (pack_name,))
         cursor.connection.commit()
         cursor.close()
     except:
-        try:cursor.close()
-        except: pass
-        pass
-
-def add_provider(provider_name, package, status, language, provider_type):
-    try:
-
-        hash = _hash_function('%s%s' % (provider_name, package))
-        cursor = _get_connection_cursor(tools.providersDB)
-
-        cursor.execute(
-            "CREATE TABLE IF NOT EXISTS providers (hash TEXT,"
-            " provider_name TEXT, status TEXT, package TEXT, country TEXT, provider_type TEXT, UNIQUE(hash))"
-        )
-
-        cursor.execute('SELECT * FROM providers WHERE hash=?', (hash,))
-        current_settings = cursor.fetchall()
-
-        if len(current_settings) == 0:
-            cursor.execute(
-                "INSERT INTO providers Values (?, ?, ?, ?, ?, ?)",
-                (hash, provider_name, status, package, language, provider_type)
-            )
-
-        cursor.connection.commit()
-        cursor.close()
-    except:
-        try:cursor.close()
-        except: pass
+        try:
+            cursor.close()
+        except:
+            pass
         import traceback
         traceback.print_exc()
-        pass
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
 
-def adjust_provider_status(provider_name, package_name, state):
 
-    hash = _hash_function('%s%s' % (provider_name, package_name))
-    cursor = _get_connection_cursor(tools.providersDB)
-
+def _try_create_provider_table(cursor):
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS providers (hash TEXT,"
         " provider_name TEXT, status TEXT, package TEXT, country TEXT, provider_type TEXT, UNIQUE(hash))"
     )
-    cursor.execute('SELECT * FROM providers WHERE hash=?', (hash,))
-    current_settings = cursor.fetchall()
 
-    if len(current_settings) > 0:
-        cursor.execute(
-            "UPDATE providers SET status=? WHERE hash=?",
-            (state, hash)
-        )
+    cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_providers ON providers (hash)")
 
-    cursor.connection.commit()
-    cursor.close()
 
-def remove_individual_provider(provider_name, package_name):
+def add_provider(provider_name, package, status, language, provider_type):
     try:
-        hash = _hash_function('%s%s' % (provider_name, package_name))
+        tools.providersDB_lock.acquire()
+        hash = _hash_function('%s%s' % (provider_name, package))
         cursor = _get_connection_cursor(tools.providersDB)
-        cursor.execute(
-            "CREATE TABLE IF NOT EXISTS providers (hash TEXT,"
-            " provider_name TEXT, status TEXT, package TEXT, country TEXT, provider_type TEXT, UNIQUE(hash))"
-        )
-        cursor.execute("DELETE FROM providers WHERE hash=?", (hash,)
-                       )
+        _try_create_provider_table(cursor)
+        cursor.execute("REPLACE INTO providers (hash, provider_name, status, package, country, provider_type) "
+                       "VALUES (?, ?, ?, ?, ?, ?)",
+                       (hash, provider_name, status, package, language, provider_type))
+
         cursor.connection.commit()
         cursor.close()
     except:
+        try:
+            cursor.close()
+        except:
+            pass
         import traceback
         traceback.print_exc()
-        try:cursor.close()
-        except: pass
-        pass
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
+
+
+def adjust_provider_status(provider_name, package_name, state):
+    try:
+        tools.providersDB_lock.acquire()
+        cursor = _get_connection_cursor(tools.providersDB)
+        _try_create_provider_table(cursor)
+        cursor.execute(
+            "UPDATE providers SET status=? WHERE provider_name=? AND package=?",
+            (state, provider_name, package_name)
+        )
+        cursor.connection.commit()
+        cursor.close()
+    except:
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
+
+
+def remove_individual_provider(provider_name, package_name):
+    try:
+        tools.providersDB_lock.acquire()
+        hash = _hash_function('%s%s' % (provider_name, package_name))
+        cursor = _get_connection_cursor(tools.providersDB)
+        _try_create_provider_table(cursor)
+        cursor.execute("DELETE FROM providers WHERE hash=?", (hash,))
+        cursor.connection.commit()
+        cursor.close()
+    except:
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
 
 
 def remove_package_providers(package_name):
     try:
+        tools.providersDB_lock.acquire()
         cursor = _get_connection_cursor(tools.providersDB)
         cursor.execute("DELETE FROM providers WHERE package=?", (package_name,))
         cursor.connection.commit()
         cursor.close()
     except:
-        try:cursor.close()
-        except: pass
-        pass
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
+
 
 def clear_providers():
     try:
+        tools.providersDB_lock.acquire()
         cursor = _get_connection_cursor(tools.providersDB)
         for t in [cache_table, 'rel_list', 'rel_lib']:
             try:
@@ -561,12 +718,19 @@ def clear_providers():
         cursor.connection.commit()
         cursor.close()
     except:
-        try:cursor.close()
-        except: pass
-        pass
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.providersDB_lock)
+
 
 def get_premiumize_transfers():
     try:
+        tools.premiumizeDB_lock.acquire()
         cursor = _get_connection_cursor(tools.premiumizeDB)
         cursor.execute(
             "CREATE TABLE IF NOT EXISTS transfers (transfer_id TEXT)"
@@ -576,40 +740,52 @@ def get_premiumize_transfers():
         cursor.close()
         return transfers
     except:
-        try:cursor.close()
-        except: pass
-        pass
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.premiumizeDB_lock)
+
 
 def add_premiumize_transfer(transfer_id):
     try:
-
+        tools.premiumizeDB_lock.acquire()
         cursor = _get_connection_cursor(tools.premiumizeDB)
         cursor.execute("CREATE TABLE IF NOT EXISTS transfers (transfer_id TEXT)")
-
-        update_result = cursor.execute("UPDATE transfers SET transfer_id=? WHERE transfer_id=?",
-                                       (transfer_id, transfer_id))
-
-        if update_result.rowcount is 0:
-            cursor.execute("INSERT INTO transfers Values (?)", (transfer_id,))
-        cursor.connection.commit()
-        cursor.execute("SELECT * FROM transfers")
-        transfers = cursor.fetchall()
+        cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS ix_transfers ON transfers (transfer_id)")
+        cursor.execute("REPLACE INTO transfers (transfer_id) VALUES (?)", transfer_id)
         cursor.close()
     except:
-        try:cursor.close()
-        except: pass
-        pass
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.premiumizeDB_lock)
+
 
 def remove_premiumize_transfer(transfer_id):
     try:
+        tools.premiumizeDB_lock.acquire()
         cursor = _get_connection_cursor(tools.premiumizeDB)
         cursor.execute("DELETE FROM transfers WHERE transfer_id=?", (transfer_id,))
         cursor.connection.commit()
         cursor.close()
     except:
-        try:cursor.close()
-        except: pass
-        pass
+        try:
+            cursor.close()
+        except:
+            pass
+        import traceback
+        traceback.print_exc()
+    finally:
+        tools.try_release_lock(tools.premiumizeDB_lock)
+
 
 def _dict_factory(cursor, row):
     d = {}
@@ -640,26 +816,37 @@ def _is_cache_valid(cached_time, cache_timeout):
     diff = now - cached_time
     return (cache_timeout * 3600) > diff
 
-def cache_version_check():
 
+def cache_version_check():
     if _find_cache_version():
         cache_clear()
 
-        # cache_clear_meta(); cache_clear_providers()
-        # tools.infoDialog(tools.lang(32057).encode('utf-8'), sound=True, icon='INFO')
-        
-def _find_cache_version():
 
+def _find_cache_version():
     import os
     versionFile = os.path.join(tools.dataPath, 'cache.v')
-    try: 
-        with open(versionFile, 'rb') as fh: oldVersion = fh.read()
-    except: oldVersion = '0'
+    try:
+        with open(versionFile, 'rb') as fh:
+            oldVersion = fh.read()
+    except:
+        oldVersion = '0'
     try:
         curVersion = tools.addon('script.module.seren').getAddonInfo('version')
-        if oldVersion != curVersion: 
-            with open(versionFile, 'wb') as fh: fh.write(curVersion)
+        if oldVersion != curVersion:
+            with open(versionFile, 'wb') as fh:
+                fh.write(curVersion)
             return True
-        else: return False
-    except: return False
+        else:
+            return False
+    except:
+        return False
 
+
+def clear_local_bookmarks():
+    cursor = _get_connection_cursor(tools.get_video_database_path())
+    cursor.execute("SELECT * FROM files WHERE strFilename LIKE '%plugin.video.seren%'")
+    file_ids = [str(i['idFile']) for i in cursor.fetchall()]
+    for table in ["bookmark", "streamdetails", "files"]:
+        cursor.execute("DELETE FROM {} WHERE idFile IN ({})".format(table, ','.join(file_ids)))
+    cursor.connection.commit()
+    cursor.close()

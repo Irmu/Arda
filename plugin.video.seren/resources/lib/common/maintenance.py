@@ -3,19 +3,25 @@
 import time
 import requests
 import re
-import xbmcaddon
+import os
 
 from resources.lib.common import tools
 from resources.lib.modules import customProviders
 
 
+def update_themes():
+    if tools.getSetting('skin.updateAutomatic') == 'true':
+        from resources.lib.modules.skin_manager import SkinManager
+        SkinManager().check_for_updates(silent=True)
+
 def check_for_addon_update():
+
     try:
         if tools.getSetting('general.checkAddonUpdates') == 'false':
             return
-        update_timestamp = tools.getSetting('addon.updateCheckTimeStamp')
+        update_timestamp = float(tools.getSetting('addon.updateCheckTimeStamp'))
 
-        if time.time() > (update_timestamp - (24 * (60 * 60))):
+        if time.time() > (update_timestamp + (24 * (60 * 60))):
             repo_xml = requests.get('https://raw.githubusercontent.com/nixgates/nixgates/master/packages/addons.xml')
             if not repo_xml.status_code == 200:
                 tools.log('Could not connect to repo XML, status: %s' % repo_xml.status_code, 'error')
@@ -30,15 +36,21 @@ def check_for_addon_update():
 
 
 def update_provider_packages():
-    if tools.getSetting('providers.autoupdates') == 'false':
-        return
+
     try:
-        provider_check_stamp = int(tools.getSetting('provider.updateCheckTimeStamp'))
+        provider_check_stamp = float(tools.getSetting('provider.updateCheckTimeStamp'))
     except:
+        import traceback
+        traceback.print_exc()
         provider_check_stamp = 0
 
-    if time.time() > (provider_check_stamp - (30 * 60)):
-        customProviders.providers().check_for_updates(silent=True, automatic=True)
+    if time.time() > (provider_check_stamp + (24 * (60 * 60))):
+        if tools.getSetting('providers.autoupdates') == 'false':
+            available_updates = customProviders.providers().check_for_updates(silent=True, automatic=False)
+            if len(available_updates) > 0:
+                tools.showDialog.notification(tools.addonName, tools.lang(40239))
+        else:
+            customProviders.providers().check_for_updates(silent=True, automatic=True)
         tools.setSetting('provider.updateCheckTimeStamp', str(time.time()))
 
 
@@ -95,7 +107,7 @@ def premiumize_transfer_cleanup():
     from resources.lib.debrid import premiumize
     from resources.lib.modules import database
 
-    premiumize = premiumize.PremiumizeFunctions()
+    premiumize = premiumize.Premiumize()
     fair_usage = int(premiumize.get_used_space())
     threshold = int(tools.getSetting('premiumize.threshold'))
 
@@ -125,10 +137,55 @@ def account_notifications():
                                           tools.lang(32051))
 
     if tools.getSetting('premiumize.enabled') == 'true':
-        premium_status = premiumize.PremiumizeBase().account_info()['premium_until']
+        premium_status = premiumize.Premiumize().account_info()['premium_until']
         if time.time() > premium_status:
             tools.showDialog.notification('%s: Premiumize' % tools.addonName,
                                           tools.lang(32052))
+
+
+def clean_deprecated_settings():
+
+    settings_config_file = os.path.join(tools.ADDON_PATH, 'resources', 'settings.xml')
+    current_settings_file = os.path.join(tools.SETTINGS_PATH)
+
+    valid_settings = []
+
+    with open(settings_config_file, 'r') as config_file:
+        for i in config_file.readlines():
+            if '<!--' in i:
+                continue
+
+            try:
+                valid_settings.append(re.findall(r'id="(.*?)"', i)[0])
+            except:
+                pass
+
+    filtered_settings = []
+    valid_settings = set(valid_settings)
+
+    with open(current_settings_file, 'r') as settings_file:
+        current_setting_lines = settings_file.readlines()
+
+    open_line = current_setting_lines.pop(0)
+    closing_line = current_setting_lines.pop(-1)
+
+    for i in current_setting_lines:
+        if re.findall(r'id="(.*?)"', i)[0] in valid_settings:
+            filtered_settings.append(i)
+
+    filtered_settings = set(filtered_settings)
+
+    if len(valid_settings) != len(filtered_settings):
+        tools.log('Mismatch in valid settings, cancelling the removal of deprecated settings', 'error')
+
+    with open(current_settings_file, 'w+') as settings_file:
+        settings_file.write(open_line)
+        for i in filtered_settings:
+            settings_file.write(i)
+        settings_file.write(closing_line)
+
+    tools.log('Filtered settings, removed %s deprecated settings ' %
+              (len(current_setting_lines) - len(filtered_settings)))
 
 
 def run_maintenance():
@@ -160,9 +217,20 @@ def run_maintenance():
     except:
         pass
 
+    try:
+        update_themes()
+    except:
+        pass
+
     # Check Premiumize Fair Usage for cleanup
     try:
         if tools.getSetting('premiumize.enabled') == 'true' and tools.getSetting('premiumize.autodelete') == 'true':
             premiumize_transfer_cleanup()
     except:
         pass
+
+    try:
+        clean_deprecated_settings()
+    except:
+        import traceback
+        traceback.print_exc()

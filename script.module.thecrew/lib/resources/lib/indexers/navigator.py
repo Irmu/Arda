@@ -49,8 +49,8 @@ class navigator:
     LOCALNEWS     = os.path.join(THISADDONPATH, 'whatsnew.txt')
 
     def root(self):
-        if self.getMenuEnabled('navi.holidays') == True:        
-            self.addDirectoryItem(90157, 'holidaysNavigator', 'holidays.png', 'holidays.png')
+        #if self.getMenuEnabled('navi.holidays') == True:        
+            #self.addDirectoryItem(90157, 'holidaysNavigator', 'holidays.png', 'holidays.png')
         #if self.getMenuEnabled('navi.halloween') == True:        
             #self.addDirectoryItem(90144, 'halloweenNavigator', 'halloween.png', 'halloween.png')
         if self.getMenuEnabled('navi.movies') == True:
@@ -63,16 +63,18 @@ class navigator:
             self.addDirectoryItem(90007, 'whitehat', 'main_whitehat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.kids') == True:
             self.addDirectoryItem(90009, 'greyhat', 'main_greyhat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.1clicks') == True:     
+            self.addDirectoryItem(90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.purplehat') == True:         
+            self.addDirectoryItem(90189, 'purplehat', 'main_purplehat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.standup') == True:         
+            self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.fitness') == True: 
             self.addDirectoryItem(90010, 'blackhat', 'main_blackhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.food') == True: 
             self.addDirectoryItem(90143, 'food', 'food.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.1clicks') == True:     
-            self.addDirectoryItem(90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.radio') == True:     
             self.addDirectoryItem(90012, 'yellowhat', 'radio.png', 'radio.png')
-        if self.getMenuEnabled('navi.standup') == True:         
-            self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.add_addons') == True: 
             self.addDirectoryItem(90181, 'nav_add_addons', 'add_addon.png', 'DefaultMovies.png')
         adult = True if control.setting('adult_pw') == 'lol' else False
@@ -599,7 +601,7 @@ class navigator:
         self.addDirectoryItem(90053, 'movies&url=https://api.trakt.tv/users/movistapp/lists/action/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90054, 'movies&url=https://api.trakt.tv/users/movistapp/lists/adventure/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90055, 'movies&url=https://api.trakt.tv/users/movistapp/lists/animation/items', 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90056, 'movies&url=https://api.trakt.tv/users/movistapp/lists/comedy/items', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90056, 'movies&url=https://api.trakt.tv/users/ljransom/lists/comedy-movies/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90057, 'movies&url=https://api.trakt.tv/users/movistapp/lists/crime/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90058, 'movies&url=https://api.trakt.tv/users/movistapp/lists/drama/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90059, 'movies&url=https://api.trakt.tv/users/movistapp/lists/family/items', 'trakt.png', 'DefaultMovies.png')

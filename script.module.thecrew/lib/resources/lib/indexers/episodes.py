@@ -34,6 +34,7 @@ from resources.lib.modules import views
 from resources.lib.modules import utils
 
 import os,sys,re,json,zipfile,StringIO,urllib,urllib2,urlparse,datetime
+import requests 
 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?',''))) if len(sys.argv) > 1 else dict()
 
@@ -93,7 +94,8 @@ class seasons:
             if tvdb == '0' and not imdb == '0':
                 url = self.tvdb_by_imdb % imdb
 
-                result = client.request(url, timeout='10')
+                #result = client.request(url, timeout='10')
+                result = requests.get(url).content
 
                 try: tvdb = client.parseDOM(result, 'seriesid')[0]
                 except: tvdb = '0'
@@ -111,7 +113,8 @@ class seasons:
 
                 years = [str(year), str(int(year)+1), str(int(year)-1)]
 
-                tvdb = client.request(url, timeout='10')
+                #tvdb = client.request(url, timeout='10')
+                tvdb = requests.get(url).content
                 tvdb = re.sub(r'[^\x00-\x7F]+', '', tvdb)
                 tvdb = client.replaceHTMLCodes(tvdb)
                 tvdb = client.parseDOM(tvdb, 'Series')
@@ -130,10 +133,11 @@ class seasons:
             if tvdb == '0': return
 
             url = self.tvdb_info_link % (tvdb, 'en')
-            data = urllib2.urlopen(url, timeout=30).read()
-
-            zip = zipfile.ZipFile(StringIO.StringIO(data))
-            result = zip.read('%s.xml' % 'en')
+            #data = urllib2.urlopen(url, timeout=30).read()
+            #zip = zipfile.ZipFile(StringIO.StringIO(data))
+            data = requests.get(url)
+            zip = zipfile.ZipFile(StringIO.StringIO(data.content))
+            result = zip.read('en.xml')
             artwork = zip.read('banners.xml')
             zip.close()
 
@@ -142,25 +146,25 @@ class seasons:
 
             if len(dupe) > 0:
                 tvdb = str(dupe[0]).encode('utf-8')
-
                 url = self.tvdb_info_link % (tvdb, 'en')
-                data = urllib2.urlopen(url, timeout=30).read()
-
-                zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.xml' % 'en')
+                #data = urllib2.urlopen(url, timeout=30).read()
+                #zip = zipfile.ZipFile(StringIO.StringIO(data))
+                data = requests.get(url)
+                zip = zipfile.ZipFile(StringIO.StringIO(data.content))
+                result = zip.read('en.xml')
                 artwork = zip.read('banners.xml')
                 zip.close()
 
             if not lang == 'en':
                 url = self.tvdb_info_link % (tvdb, lang)
-                data = urllib2.urlopen(url, timeout=30).read()
-
-                zip = zipfile.ZipFile(StringIO.StringIO(data))
+                #data = urllib2.urlopen(url, timeout=30).read()
+                #zip = zipfile.ZipFile(StringIO.StringIO(data))
+                data = requests.get(url)
+                zip = zipfile.ZipFile(StringIO.StringIO(data.content))
                 result2 = zip.read('%s.xml' % lang)
                 zip.close()
             else:
                 result2 = result
-
 
             artwork = artwork.split('<Banner>')
             artwork = [i for i in artwork if '<Language>en</Language>' in i and '<BannerType>season</BannerType>' in i]
@@ -877,9 +881,10 @@ class episodes:
 
             try:
                 url = self.tvdb_info_link % (i['tvdb'], lang)
-                data = urllib2.urlopen(url, timeout=10).read()
-
-                zip = zipfile.ZipFile(StringIO.StringIO(data))
+                #data = urllib2.urlopen(url, timeout=10).read()
+                #zip = zipfile.ZipFile(StringIO.StringIO(data))
+                data = requests.get(url)
+                zip = zipfile.ZipFile(StringIO.StringIO(data.content))
                 result = zip.read('%s.xml' % lang)
                 artwork = zip.read('banners.xml')
                 zip.close()
@@ -1079,9 +1084,10 @@ class episodes:
 
             try:
                 url = self.tvdb_info_link % (i['tvdb'], lang)
-                data = urllib2.urlopen(url, timeout=10).read()
-
-                zip = zipfile.ZipFile(StringIO.StringIO(data))
+                #data = urllib2.urlopen(url, timeout=10).read()
+                #zip = zipfile.ZipFile(StringIO.StringIO(data))
+                data = requests.get(url)
+                zip = zipfile.ZipFile(StringIO.StringIO(data.content))
                 result = zip.read('%s.xml' % lang)
                 artwork = zip.read('banners.xml')
                 zip.close()

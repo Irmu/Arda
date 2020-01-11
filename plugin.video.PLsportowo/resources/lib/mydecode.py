@@ -66,7 +66,7 @@ def decode(url,data):
 
 		for query in srcs:	
 
-			query = query.replace('\n','').replace('\r','')
+			query = query.replace('\n','').replace('\r','').replace('\\n','').replace('\\r','')
 			if 'livecounter' in query or 'pagead2.google' in query or 'imgur.com' in query or 'platform.twitter' in query or 'googletagmanager.com' in query:
 				continue
 			if 'ripple.is' in query:
@@ -500,8 +500,7 @@ def _olimpappru(query,data,url)	:
 	vid_url+= '|User-Agent={ua}&Referer={ref}'.format(ua=UA, ref=query)	
 
 	return vid_url
-#def _crackstreamscom(query,data,url):
-#	web_pdb.set_trace()
+
 def _sportsbayorg(query,data,url):
 	headers = {'User-Agent': UA,'Referer': url}	
 	query = 'https:'+query if query.startswith('//') else query
@@ -581,12 +580,23 @@ def _tvsportws(query,data,url):
 def _yoursportsstream(query,data,url):
 	
 	headers = {'User-Agent': UA,'Referer': url}	
+	if 'yoursports' in url:
+		dod= '&'.join(['%s=%s' % (name, value) for (name, value) in headers.items()])
+	else:
+		headersx = {'User-Agent': UA,'Referer': query}	
+		dod= '&'.join(['%s=%s' % (name, value) for (name, value) in headersx.items()])
 	query = 'https:'+query if query.startswith('//') else query
 	contentVideo=getUrl(query,header=headers)	
 
 	html=contentVideo.replace("\'",'"')
+	match = re.compile("""mustave\s*=\s*atob\(['"](.+?)['"]""",  re.DOTALL).search(html)
 
-	vido_url=decode(query,html)
+	if match:   
+		vid = base64.b64decode(match.group(1))
+		dod = '|'+dod
+		vido_url = vid+dod
+	else:
+		vido_url=decode(query,html)
 	return vido_url 
 	
 	
@@ -630,6 +640,7 @@ def _yrsprts(query,data,url):
 	
 	
 def _wstreamto(query,data,url):
+
 	query = 'https:'+query if query.startswith('//') else query
 	headers = {'User-Agent': UA,'Referer': url}	
 	contentVideo=getUrl(query,header=headers)	
@@ -642,7 +653,7 @@ def _wstreamto(query,data,url):
 		video_url = clappr.findall(unpacked)[0]
 	except:
 		video_url = source.findall(unpacked)[0]
-	video_url += '|User-Agent={ua}&Referer={ref}'.format(ua=UA, ref=query)		
+	video_url += '|verifypeer=false&User-Agent={ua}&Referer={ref}'.format(ua=UA, ref=query)		
 	return video_url
 
 	#vido_url=decode(query,contentVideo)
@@ -1110,52 +1121,67 @@ def _telerium(query,data,url):
 	
 	unpacked = jsunpack.unpack(packed)	
 	ab=unpacked
-	pliki = (re.findall('doThePIayer\((.+?)\)',unpacked)[0]).split(',') 
-	patern3	='var '+pliki[1]+'=window.atob\((.+?)\)'
-	src6=re.compile(patern3).findall(unpacked)	
-	patern6=src6[0]+'="(.*?)"'	
+
+	mainurlliczbacdurl=re.findall('url:\s*window\.atob\((.+?)\).slice\((.+?)\)\s*\+\s*window.atob\((.+?)\)',unpacked)[0]
+	mainurl=mainurlliczbacdurl[0]
+	liczba=mainurlliczbacdurl[1]
+	cdurl=mainurlliczbacdurl[2]
+	mainurlpattern=(mainurl+"""\=['"](.+?)['"]""")
+	liczbapattern=(liczba+'\=(\d+)')
+	cdurlpattern=(cdurl+"""\=['"](.+?)['"]""")
 	
-	src7=re.compile(patern6).findall(unpacked)	 #poprawny poczatek adresu
-	d=src7[0]
-	d1=base64.b64decode(d)	
-	varNames = re.compile('url:window.atob\((.*?)\)\.slice\((\d+)\)\+window.atob\((.*?)\)')
-	vars = varNames.findall(unpacked)[0]
+	murl=re.findall(mainurlpattern,unpacked)[0]
+	licz=re.findall(liczbapattern,unpacked)[0]
+	curl=re.findall(cdurlpattern,unpacked)[0]
+
+	d1=(base64.b64decode(murl))[int(licz):]
+
+	d2=base64.b64decode(curl)
+	basurl='https://telerium.tv'
 	
-	part1Reversed = re.compile('{0}\s*=\s*[\'\"](.+?)[\'\"];'.format(vars[0])).findall(unpacked)[0]
-	part2Reversed = re.compile('{0}\s*=\s*[\'\"](.+?)[\'\"];'.format(vars[2])).findall(unpacked)[0]	
-	part1 = (base64.b64decode(part1Reversed))[int(vars[1]):]
-	part2 = base64.b64decode(part2Reversed) 	
-	obliczenia = re.findall('navigator.cookieEnabled\)\{(.+?);\$\.ajax',unpacked)[0]
-	sppech = re.findall('var speechless=(.+?)([-+])(.+?)$',obliczenia)[0]
-	reg1 = 'var '+sppech[0]+'=(.+?)([-+])(.+?);'
-	reg2 = 'var '+sppech[2]+'=(.+?)([-+])(.+?);'
-	ob1 =re.compile(reg1).findall(obliczenia)
-	ob2 =re.compile(reg2).findall(obliczenia)
-	ob11 = re.compile('var '+ob1[0][0]+'=(.+?);').findall(obliczenia)
-	ob12 = re.compile('var '+ob1[0][2]+'=(.+?);').findall(obliczenia)
+	m3url=re.findall('{if\(esMobiliar\){(.+?)=.+?};function',unpacked)[0]
+	m3url=base64.b64decode(re.findall(m3url+"""=['"](.+?)['"]""",unpacked)[0])
+
+	speechx=re.findall("""\d+\)\}else\{(.+?)\=dameVuelta\((.+?)\[(.+?)]\);""",unpacked)[0][2]
 	
-	ob21 = re.compile('var '+ob2[0][0]+'=(.+?);').findall(obliczenia)
-	ob22 = re.compile('var '+ob2[0][2]+'=(.+?);').findall(obliczenia)
+	sppech = re.findall(speechx+'=(.+?)([-+])(.+?);',unpacked)[0]
+	reg1 = sppech[0]+'=(.+?)([-+])(.+?);'
+	reg2 = sppech[2]+'=(.+?)([-+])(.+?);'
+	
+	ob1 =re.compile(reg1).findall(unpacked)
+	ob2 =re.compile(reg2).findall(unpacked)
+	
+	ob11 = re.compile('var '+ob1[0][0]+'=(.+?);').findall(unpacked)
+	ob12 = re.compile('var '+ob1[0][2]+'=(.+?);').findall(unpacked)
+	
+	ob21 = re.compile('var '+ob2[0][0]+'=(.+?);').findall(unpacked)
+	ob22 = re.compile('var '+ob2[0][2]+'=(.+?);').findall(unpacked)
 	
 	
 	obliczob1 = eval('%s%s%s'%(ob11[0],ob1[0][1],ob12[0]))
 	obliczob2 = eval('%s%s%s'%(ob21[0],ob2[0][1],ob22[0]))
 	spech = eval('%s%s%s'%(obliczob1,sppech[1],obliczob2))
-	
-	
-	realtoken = getRealToken('https://telerium.tv'+part1+part2, query,spech)
 
-	path = 'https:'+d1+realtoken
+	nxturl=basurl+d1+d2
+
+	realtoken = getRealToken(nxturl, query,spech)
 	
+	path = 'https:'+m3url+realtoken
+
 	path+='|User-Agent='+UACHR+'&Referer='+urllib.quote(query, safe='')+'&Sec-Fetch-Mode=cors&Origin=https://telerium.tv'
 
 	return path	
-	
+
+
 def getRealToken(link, referer,spech):
 	cookies = {
 		'ChorreameLaJa': '100',
 		'setVolumeSize': '100',
 		'NoldoTres': '100',
+	}
+	
+	cookies = {
+		'elVolumen': '100',
 	}
 	
 	headers = {
@@ -1166,16 +1192,36 @@ def getRealToken(link, referer,spech):
 		'X-Requested-With': 'XMLHttpRequest',
 		'Referer': referer,
 	}
-	h = {
-		'User-Agent': UACHR,
-		'Accept': 'application/json, text/javascript, */*; q=0.01',
-		'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
-		'Referer': referer,
-		'X-Requested-With': 'XMLHttpRequest',
-		'Connection': 'keep-alive',}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	#headers = {
+	#	'Host': 'telerium.tv',
+	#	'User-Agent': UACHR,
+	#	'Accept': 'application/json, text/javascript, */*; q=0.01',
+	#	'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+	#	'X-Requested-With': 'XMLHttpRequest',
+	#	'Referer': referer,
+	#}
+	#h = {
+	#	'User-Agent': UACHR,
+	#	'Accept': 'application/json, text/javascript, */*; q=0.01',
+	#	'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+	#	'Referer': referer,
+	#	'X-Requested-With': 'XMLHttpRequest',
+	#	'Connection': 'keep-alive',}	
 
 	realResp = requests.get(link, headers=headers,cookies=cookies,verify=False).content#[1:-1]
-
+	
 	realResp=re.findall('"(.+?)"',realResp)[spech]	
 
 	return realResp[::-1]	
