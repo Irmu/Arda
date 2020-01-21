@@ -72,6 +72,8 @@ image = xbmcgui.ControlImage
 alphanum_input = xbmcgui.INPUT_ALPHANUM
 password_input = xbmcgui.INPUT_PASSWORD
 hide_input = xbmcgui.ALPHANUM_HIDE_INPUT
+input_date = xbmcgui.INPUT_DATE
+input_time = xbmcgui.INPUT_TIME
 verify = xbmcgui.PASSWORD_VERIFY
 item = xbmcgui.ListItem
 
@@ -104,6 +106,17 @@ def name():
 def version():
 
     return addonInfo('version')
+
+
+def kodi_version():
+
+    """
+    Get kodi version as a float. Useful for various conditionals,
+    especially when doing operations that old versions do not support
+    :return: float
+    """
+
+    return float(addon('xbmc.addon').getAddonInfo('version')[:4])
 
 
 def fanart():
@@ -343,7 +356,7 @@ def openSettings(query=None, id=addonInfo('id')):
         try:
 
             c, f = query.split('.')
-            if float(addon('xbmc.addon').getAddonInfo('version')[:4]) > 17.6:
+            if kodi_version() > 17.6:
                 execute('SetFocus(-{0})'.format(100 - int(c)))
                 if int(f):
                     execute('SetFocus(-{0})'.format(80 - int(f)))
@@ -396,7 +409,7 @@ def refresh():
 
 def idle():
 
-    if float(addon('xbmc.addon').getAddonInfo('version')[:4]) > 17.6:
+    if kodi_version() > 17.6:
         execute('Dialog.Close(busydialognocancel)')
     else:
         execute('Dialog.Close(busydialog)')
@@ -404,10 +417,15 @@ def idle():
 
 def busy():
 
-    if float(addon('xbmc.addon').getAddonInfo('version')[:4]) > 17.6:
+    if kodi_version() > 17.6:
         execute('ActivateWindow(busydialognocancel)')
     else:
         execute('ActivateWindow(busydialog)')
+
+
+def close_all():
+
+    execute('Dialog.Close(all)')
 
 
 def set_view_mode(view_mode):

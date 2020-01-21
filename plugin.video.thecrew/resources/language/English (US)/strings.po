@@ -1871,6 +1871,6 @@ msgid "[B][COLOR ff00ff7f]REPORT BUGS[/COLOR][/B]"
 msgstr ""
 
 msgctxt "#90189"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]CC Cinema[/COLOR][/B]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]CC Collections[/COLOR][/B]"
 msgstr ""
 
