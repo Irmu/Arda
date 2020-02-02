@@ -118,7 +118,7 @@ v2.3.14 (2019-02-10)
 
 <addon
   id="inputstream.rtmp"
-  version="2.0.6"
+  version="2.0.8"
   name="RTMP Input"
   provider-name="spiff">
   <requires>
@@ -130,9 +130,17 @@ v2.3.14 (2019-02-10)
     protocols="rtmp|rtmpt|rtmpe|rtmpte|rtmps"
     library_windows="inputstream.rtmp.dll" />
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">InputStream Client for RTMP streams</summary>
-    <description lang="en">InputStream Client for RTMP streams using librtmp</description>
+    <summary lang="en">Client for RTMP streams</summary>
+    <description lang="en">The Real Time Messaging Protocol (RTMP) is a proprietary network protocol developed by Adobe Inc. to transmit audio, video and other data over the Internet from a media server to a flash player.
+
+This addon implements RTMP streaming support for Kodi and installed add-ons.
+</description>
     <platform>windows-i686</platform>
+    <license>GPL-2.0</license>
+    <source>https://github.com/xbmc/inputstream.rtmp</source>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
   </extension>
 </addon>
 
@@ -1834,7 +1842,7 @@ v3.0.5
     </extension>
 </addon>
 
-<addon id="plugin.video.seren" version="1.6.7" name="Seren" provider-name="Nixgates">
+<addon id="plugin.video.seren" version="1.6.9" name="Seren" provider-name="Nixgates">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0" />
 		<import addon="script.module.requests" version="2.19.1" />
@@ -1880,6 +1888,25 @@ v3.0.5
 			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
 		<news>
+
+Changelog 1.6.9:
+Fixed AllDebrid Cache check mistake during py3 compatibility changes
+
+Changelog 1.6.8:
+Tighten and speed up PM cloud file inspection
+Multiple fixes to TMDb module
+buildSimpleTorrentInfo now more safe for shows that lack information
+Added compatibility for Trakt usernames with non ASCII characters
+Created new regex method for identifying files inside a pack
+Premiumize resolver now uses regex method
+Real Debrid resolver now uses regex method
+Reworked RD cache check method to use new new methods created
+Cleaned up Real Debrid resolver method
+Cleaned up Premiumize resolver method
+Genre lists now use the trending endpoint to provide more current/relevant titles
+Fix possible double resolving of source in source select if not using auto-try next source
+Fixed Play from random point not clearing playing items from playlist
+
 Changelog 1.6.7:
 Fix season sort due to stringed season number from TMDb module
 
@@ -2219,7 +2246,7 @@ More minor bugfixes (honestly could not list them all)
 	</extension>
 </addon>
 
-<addon id="plugin.video.sport365.live" name="Sport365" version="2.6.9" provider-name="Bugatsinho">
+<addon id="plugin.video.sport365.live" name="Sport365" version="2.6.10.1" provider-name="Bugatsinho">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.19.1"/>
@@ -2243,8 +2270,8 @@ More minor bugfixes (honestly could not list them all)
     <icon>icon.png</icon>
     <fanart>fanart.png</fanart>
   </assets>
-  <news>2.6.9 09-12-2019
-- Fix GitHub URL on NEWS Tab</news>
+  <news>2.6.10 18-01-2020
+- Just fix regex issues.Streams could not play!</news>
   </extension>
 </addon>
 
@@ -2311,7 +2338,7 @@ More minor bugfixes (honestly could not list them all)
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.65" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.65b" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.thecrew" />
@@ -2467,7 +2494,7 @@ Fixed: Eroticage
   </extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="6.5.0" provider-name="anxdpanic, bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="6.6.0" provider-name="anxdpanic, bromix">
     <requires>
         <import addon="xbmc.python" version="2.20.0"/>
         <import addon="script.module.six" version="1.11.0"/>
@@ -2481,21 +2508,20 @@ Fixed: Eroticage
     <extension point="xbmc.python.module" library="resources/lib/"/>
     <extension point="xbmc.addon.metadata">
         <news>
-6.5.0
-[add] Video quality selection to Settings - MPEG-DASH
-[add] Limit to 30fps to Settings - MPEG-DASH
-[add] Uploads playlist to channel playlists
-[chg] Use search for channel videos instead of the Uploads playlist
-[fix] Signature cipher, some videos unplayable (ie. music videos)
-[fix] Playback monitoring using Python 3
-[fix] unescape html entities in title and plot
-[fix] handling of invalid grant when refreshing access token
-[fix] adding suggested videos when played from some widgets
-[fix] http server /client_ip using Python 3 |contrib: t6|
-[upd] refactor youtube_resolver.resolve
+[add] 'Play (Ask for quality)' context menu
+[add] search by channel or playlist id
+[add] hide_folders, hide_playlists, hide_search, and hide_live to /channel/&lt;channel_id&gt;/ end-point
+    - ie. plugin://plugin.video.youtube/channel/UC4PooiX37Pld1T8J5SYT-SQ/?hide_folders=true will hide all folders(Playlists, Search, and Live) in the channel listing
+[fix] playback for some videos (ie. music videos)
+[fix] playback of some videos with no adaptive video streams
+[fix] don't update watch history when incognito/screensaver/live |contrib: regseb|
+[fix] search prompting for input after video playback or refresh
 [lang] el_gr strings |contrib: twilight0|
 [lang] es_es strings |contrib: roliverosc|
-[lang] ko_kr strings |contrib: parkmino|
+[lang] pt_br strings |contrib: MediaBrasil|
+[lang] cs_cz strings |contrib: llzn.cz|
+[lang] it_it strings |contrib: SebastianoPistore|
+[lang] de_de strings |contrib: tweimer|
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -2536,10 +2562,16 @@ Fixed: Eroticage
         <description lang="nb_NO">YouTube er en av verdens største nettsider for videodeling.</description>
         <summary lang="ko_KR">유튜브 플러그인</summary>
         <description lang="ko_KR">유튜브는 세상에서 가장 큰 동영상 공유 사이트 중의 하나입니다.</description>
+        <summary lang="cs_CZ">Plugin pro YouTube</summary>
+        <description lang="cs_CZ">YouTube je jedna z největších webových stránek světa sdílející video.</description>
+        <disclaimer lang="cs_CZ">Tento plugin není schválen společností Google</disclaimer>
+        <summary lang="tr_TR">YouTube için eklenti</summary>
+        <description lang="tr_TR">YouTube, dünya üzerindeki en büyük video paylaşma platformlarından birisidir</description>
+        <disclaimer lang="tr_TR">Bu eklenti Google tarafından üretilmemiştir</disclaimer>
         <language></language>
         <platform>all</platform>
         <license>GPL-2.0-only</license>
-        <forum>https://forum.kodi.tv/showthread.php?tid=325740</forum>
+        <forum>https://forum.kodi.tv/showthread.php?tid=348464</forum>
         <website>https://www.youtube.com</website>
         <email>ytplugin at datanet dot ws</email>
         <source>https://github.com/jdf76/plugin.video.youtube</source>
@@ -2587,7 +2619,7 @@ Fixed: Eroticage
     </extension>
 </addon>
 
-    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.95" provider-name="Aliunde">
+    <addon id="repository.aliunde" name="[COLOR aqua]Aliunde Repository[/COLOR]" version="0.2.96" provider-name="Aliunde">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -4141,7 +4173,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.streamlink.base" name="Streamlink Library" version="2019.11.11.1" provider-name="Streamlink Devs, Twilight0">
+<addon id="script.module.streamlink.base" name="Streamlink Library" version="2020.01.28" provider-name="Streamlink Devs, Twilight0">
   <requires>
       <import addon="xbmc.python" version="2.24.0"/>
       <import addon="script.module.requests" version="2.12.4"/>
@@ -4159,9 +4191,9 @@ The author is not responsible for the use of this addon. The author is not respo
       <assets>
           <icon>icon.png</icon>
       </assets>
-      <news>+2019.11.11.X
-- Updated to cc32730ea7c9749169df34e2f1a82c1fdb704df4 from upstream
-      > USTVNOW plugin has been removed due to improper crypto library imports (due to backwards compatibility)</news>
+      <news>+2020.01.28
+- Updated to latest upstream commit
+- Tweaks for import errors for Python 3</news>
   </extension>
 </addon>
 
@@ -4210,7 +4242,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.65" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.65d" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.beautifulsoup4"/>
@@ -4275,7 +4307,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.tulip" name="Tulip Routine Libraries" version="2.5.7" provider-name="Twilight0">
+<addon id="script.module.tulip" name="Tulip Routine Libraries" version="2.5.9" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.module.kodi-six" version="0.0.2"/>
@@ -4675,6 +4707,30 @@ v5.2.14 (2017-01-23)
 	</assets>
     <source>https://github.com/opensubtitles/service.subtitles.opensubtitles_by_opensubtitles</source>
   </extension>
+</addon>
+
+<addon id="service.subtitles.subscene"
+       name="Subscene.com"
+       version="1.8.2"
+       provider-name="jarmo">
+    <requires>
+        <import addon="xbmc.python" version="2.14.0"/>
+    </requires>
+    <extension point="xbmc.subtitle.module"
+               library="service.py"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Get subtitles from Subscene.com</summary>
+        <description lang="en">Subscene.com provides subtitles in more than 50 languages, mainly in English, Arabic, Brazilian Portuguese, Farsi, Indonesian and Vietnamese.
+		Other languages with a great number of subtitles are: Danish, French, Swedish, Dutch, Italian, Norwegian and Spanish.[CR][CR]Note: Needs kodi-vfs-rar and/or kodi-vfs-libarchive addon to extract rar files.</description>
+        <disclaimer lang="en"/>
+        <platform>all</platform>
+        <language/>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+        <forum>http://forum.xbmc.org/showthread.php?tid=184854</forum>
+        <website/>
+        <email/>
+        <source>https://github.com/jarmo/service.subtitles.subscene</source>
+    </extension>
 </addon>
 
 <addon id="service.vpn.manager"

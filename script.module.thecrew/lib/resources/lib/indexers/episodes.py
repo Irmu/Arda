@@ -45,6 +45,7 @@ action = params.get('action')
 
 class seasons:
     def __init__(self):
+        self.count = int(control.setting('page.item.limit'))
         self.list = []
 
         self.lang = control.apiLanguage()['tvdb']
@@ -544,6 +545,7 @@ class seasons:
 
 class episodes:
     def __init__(self):
+        self.count = int(control.setting('page.item.limit'))
         self.list = []
 
         self.trakt_link = 'https://api.trakt.tv'
@@ -567,13 +569,13 @@ class episodes:
         #https://api.trakt.tv/calendars/all/shows/date[30]/31 #use this for new episodes?
         #self.mycalendar_link = 'https://api.trakt.tv/calendars/my/shows/date[29]/60/'
         self.mycalendar_link = 'https://api.trakt.tv/calendars/my/shows/date[30]/31/' #go back 30 and show all shows aired until tomorrow
-        self.trakthistory_link = 'https://api.trakt.tv/users/me/history/shows?limit=300'
+        self.trakthistory_link = 'https://api.trakt.tv/users/me/history/shows?limit=%d' % self.count
         self.progress_link = 'https://api.trakt.tv/users/me/watched/shows'
-        self.hiddenprogress_link = 'https://api.trakt.tv/users/hidden/progress_watched?limit=1000&type=show'
+        self.hiddenprogress_link = 'https://api.trakt.tv/users/hidden/progress_watched?limit=%d&type=show' % self.count
         self.calendar_link = 'https://api.tvmaze.com/schedule?date=%s'
         self.onDeck_link = 'https://api.trakt.tv/sync/playback/episodes?extended=full&limit=10'
         self.traktlists_link = 'https://api.trakt.tv/users/me/lists'
-        self.traktlikedlists_link = 'https://api.trakt.tv/users/likes/lists?limit=1000000'
+        self.traktlikedlists_link = 'https://api.trakt.tv/users/likes/lists?limit=%d' % self.count
         self.traktlist_link = 'https://api.trakt.tv/users/%s/lists/%s/items'
 
 
@@ -896,8 +898,8 @@ class episodes:
                 num = [x for x,y in enumerate(item) if re.compile('<SeasonNumber>(.+?)</SeasonNumber>').findall(y)[0] == str(i['snum']) and re.compile('<EpisodeNumber>(.+?)</EpisodeNumber>').findall(y)[0] == str(i['enum'])][-1]
                 item = [y for x,y in enumerate(item) if x > num][0]
 
-                print lang
-                print item
+                #print lang
+                #print item
 
                 premiered = client.parseDOM(item, 'FirstAired')[0]
                 if premiered == '' or '-00' in premiered: premiered = '0'

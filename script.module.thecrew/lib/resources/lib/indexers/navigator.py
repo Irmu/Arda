@@ -144,6 +144,7 @@ class navigator:
 #######################################################################
     
     def movies(self, lite=False):
+        self.count = int(control.setting('page.item.limit'))
         self.addDirectoryItem(32003, 'mymovieliteNavigator', 'mymovies.png', 'DefaultVideoPlaylists.png')
         if self.getMenuEnabled('navi.moviewidget') == True:
             self.addDirectoryItem(32005, 'movieWidget', 'latest-movies.png', 'DefaultMovies.png')
@@ -154,7 +155,7 @@ class navigator:
         if self.getMenuEnabled('navi.moviepopular') == True:
             self.addDirectoryItem(32018, 'movies&url=popular', 'most-popular.png', 'DefaultMovies.png') 
         if self.getMenuEnabled('navi.disneym') == True:
-            self.addDirectoryItem(90166, 'movies&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items', 'disney.png', 'disney.png')
+            self.addDirectoryItem(90166, 'movies&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items?limit=%d '% self.count, 'disney.png', 'disney.png')
         if self.getMenuEnabled('navi.traktlist') == True:
             self.addDirectoryItem(90051, 'traktlist', 'trakt.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.imdblist') == True:
@@ -223,6 +224,7 @@ class navigator:
 
 
     def tvshows(self, lite=False):
+        self.count = int(control.setting('page.item.limit'))
         self.addDirectoryItem(32004, 'mytvliteNavigator', 'mytvshows.png', 'DefaultVideoPlaylists.png')
         if self.getMenuEnabled('navi.tvAdded') == True:
             self.addDirectoryItem(32006, 'calendar&url=added', 'latest-episodes.png', 'DefaultRecentlyAddedEpisodes.png', queue=True)
@@ -235,9 +237,9 @@ class navigator:
         if self.getMenuEnabled('navi.tvPopular') == True:
             self.addDirectoryItem(32018, 'tvshows&url=popular', 'most-popular2.png', 'DefaultTVShows.png')
         if self.getMenuEnabled('navi.disney') == True:
-            self.addDirectoryItem(90166, 'tvshows&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items', 'disney.png', 'disney.png')
+            self.addDirectoryItem(90166, 'tvshows&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items?limit=%d '% self.count, 'disney.png', 'disney.png')
         if self.getMenuEnabled('navi.applet') == True:
-            self.addDirectoryItem(90170, 'tvshows&url=https://api.trakt.tv/users/mediashare2000/lists/apple-tv/items', 'apple.png', 'apple.png')
+            self.addDirectoryItem(90170, 'tvshows&url=https://api.trakt.tv/users/mediashare2000/lists/apple-tv/items?limit=%d '% self.count, 'apple.png', 'apple.png')
         self.addDirectoryItem(90015, '247tvshows', '247_shows.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32700, 'docuNavigator', 'documentaries.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.tvGenres') == True:
@@ -308,7 +310,7 @@ class navigator:
 
     def tools(self):
         self.addDirectoryItem(90000, 'newsNavigator', 'info.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(90188, 'bugReports', 'bugs.png', 'DefaultMovies.png')
+        #self.addDirectoryItem(90188, 'bugReports', 'bugs.png', 'DefaultMovies.png')
         self.addDirectoryItem(32073, 'authTrakt', 'trakt.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32609, 'ResolveUrlTorrent', 'resolveurl.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32043, 'openSettings&query=0.0', 'tools.png', 'DefaultAddonProgram.png')

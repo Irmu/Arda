@@ -260,7 +260,7 @@ class sources:
 
                     w = workers.Thread(self.sourcesResolve, items[i])
                     w.start()
-
+                    '''
                     #offset = 60 * 2 if items[i].get('source') in self.hostcapDict else 0
                     if items[i].get('debrid').lower() == 'real-debrid':
                         no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
@@ -270,10 +270,20 @@ class sources:
                         no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
                     if items[i].get('debrid').lower() == 'linksnappy':
                         no_skip = control.addon('script.module.resolveurl').getSetting('LinksnappyResolver_cached_only') == 'false'
-
+                    '''
+                    '''
                     if items[i].get('source') in self.hostcapDict: offset = 60 * 2
                     elif items[i].get('source').lower() == 'torrent' and no_skip: offset = float('inf')
                     else: offset = 0
+                    m = ''
+                    '''
+                    if items[i].get('source').lower() in self.hostcapDict:
+                        offset = 60 * 2
+                    elif items[i].get('source').lower() == 'torrent':  # and no_skip:
+                        offset = float('inf')
+                    else:
+                        offset = 0
+
                     m = ''
 
                     for x in range(3600):
@@ -1149,14 +1159,20 @@ class sources:
             except Exception:
                 d = self.sources[i]['debrid'] = ''
 
-            if d.lower() == 'real-debrid':
-                d = 'RD'
-            if d.lower() == 'premiumize.me':
-                d = 'PM'
             if d.lower() == 'alldebrid':
                 d = 'AD'
+            if d.lower() == 'debrid-link.fr':
+                d = 'DL.FR'
             if d.lower() == 'linksnappy':
                 d = 'LS'
+            if d.lower() == 'megadebrid':
+                d = 'MD'
+            if d.lower() == 'premiumize.me':
+                d = 'PM'
+            if d.lower() == 'real-debrid':
+                d = 'RD'
+            if d.lower() == 'zevera':
+                d = 'ZVR'
             if not d == '':
                 label = '%02d | %s | %s | %s | ' % (int(i+1), d, q, p)
             else:
@@ -1318,7 +1334,7 @@ class sources:
                         progressDialog.update(int((100 / float(len(items))) * i), str(items[i]['label']), str(' '))
                     except:
                         progressDialog.update(int((100 / float(len(items))) * i), str(header2), str(items[i]['label']))
-
+                    '''
                     if items[i].get('debrid').lower() == 'real-debrid':
                         no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
                     if items[i].get('debrid').lower() == 'alldebrid':
@@ -1327,10 +1343,20 @@ class sources:
                         no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
                     if items[i].get('debrid').lower() == 'linksnappy':
                         no_skip = control.addon('script.module.resolveurl').getSetting('LinksnappyResolver_cached_only') == 'false'
-
+                    '''
+                    '''
                     if items[i].get('source') in self.hostcapDict: offset = 60 * 2
                     elif items[i].get('source').lower() == 'torrent' and no_skip: offset = float('inf')
                     else: offset = 0
+                    m = ''
+                    '''
+                    if items[i].get('source').lower() in self.hostcapDict:
+                        offset = 60 * 2
+                    elif items[i].get('source').lower() == 'torrent':  # and no_skip:
+                        offset = float('inf')
+                    else:
+                        offset = 0
+
                     m = ''
 
                     for x in range(3600):
@@ -1545,7 +1571,7 @@ class sources:
             'openload.io', 'openload.co', 'oload.tv', 'oload.stream', 'oload.win', 'oload.download', 'oload.info',
             'oload.icu', 'oload.fun', 'oload.life', 'openload.pw', 'vev.io', 'vidup.me', 'vidup.tv', 'vidup.io',
             'vshare.io', 'vshare.eu', 'flashx.tv', 'flashx.to', 'flashx.sx', 'flashx.bz', 'flashx.cc', 'hugefiles.net',
-            'hugefiles.cc', 'thevideo.me', 'streamin.to']
+            'hugefiles.cc', 'thevideo.me', 'streamin.to', 'extramovies.guru', 'extramovies.trade', 'extramovies.host' ]
 
         self.hosthqDict = [
             'gvideo', 'google.com', 'thevideo.me', 'raptu.com', 'filez.tv', 'uptobox.com', 'uptostream.com',

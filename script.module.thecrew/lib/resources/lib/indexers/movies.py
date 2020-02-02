@@ -32,6 +32,7 @@ action = params.get('action')
 
 class movies:
     def __init__(self):
+        self.count = int(control.setting('page.item.limit'))
         self.list = []
 
         self.imdb_link = 'https://www.imdb.com'
@@ -39,6 +40,7 @@ class movies:
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         self.systime = (self.datetime).strftime('%Y%m%d%H%M%S%f')
         self.year_date = (self.datetime - datetime.timedelta(days = 365)).strftime('%Y-%m-%d')
+        self.month_date = (self.datetime - datetime.timedelta(days = 30)).strftime('%Y-%m-%d')
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
         self.trakt_user = control.setting('trakt.user').strip()
         self.imdb_user = control.setting('imdb.user').replace('ur', '')
@@ -46,6 +48,11 @@ class movies:
         self.fanart_tv_user = control.setting('fanart.tv.user')
         self.user = str(control.setting('fanart.tv.user')) + str(control.setting('tm.user'))
         self.lang = control.apiLanguage()['trakt']
+
+        self.hidecinema = control.setting('hidecinema')
+        self.hidecinema_rollback = int(control.setting('hidecinema.rollback'))
+        self.hidecinema_rollback2 = self.hidecinema_rollback * 30
+        self.hidecinema_date = (datetime.date.today() - datetime.timedelta(days = self.hidecinema_rollback2)).strftime('%Y-%m')
 
         self.search_link = 'https://api.trakt.tv/search/movie?limit=20&page=1&query='
         self.fanart_tv_art_link = 'https://webservice.fanart.tv/v3/movies/%s'
@@ -55,62 +62,72 @@ class movies:
 
         self.persons_link = 'https://www.imdb.com/search/name?count=100&name='
         self.personlist_link = 'https://www.imdb.com/search/name?count=100&gender=male,female'
-        self.person_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&role=%s&sort=year,desc&count=40&start=1'
-        self.keyword_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie,documentary&num_votes=100,&release_date=,date[0]&keywords=%s&sort=moviemeter,asc&count=40&start=1'
-        self.oscars_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&groups=oscar_best_picture_winners&sort=year,desc&count=40&start=1'
-        self.theaters_link = 'https://www.imdb.com/search/title?title_type=feature&num_votes=1000,&release_date=date[365],date[0]&sort=moviemeter,asc&count=40&start=1'
-        self.year_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=100,&production_status=released&year=%s,%s&sort=moviemeter,asc&count=40&start=1'
-    
-        self.popular_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=1000,&production_status=released&groups=top_1000&sort=moviemeter,asc&count=40&start=1'
-        self.views_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=1000,&production_status=released&sort=num_votes,desc&count=40&start=1'
-        self.featured_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=1000,&production_status=released&release_date=date[365],date[60]&sort=moviemeter,asc&count=40&start=1'
-        self.genre_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie,documentary&num_votes=100,&release_date=,date[0]&genres=%s&sort=moviemeter,asc&count=40&start=1'
-        self.language_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=100,&production_status=released&primary_language=%s&sort=moviemeter,asc&count=40&start=1'
-        self.certification_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=100,&production_status=released&certificates=us:%s&sort=moviemeter,asc&count=40&start=1'
-        self.boxoffice_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&sort=boxoffice_gross_us,desc&count=40&start=1'
-       
-        self.top100_link = 'https://www.imdb.com/search/title?title_type=feature&groups=top_100'
-        self.top250_link = 'https://www.imdb.com/search/title?title_type=feature&groups=top_250'
-        self.top1000_link = 'https://www.imdb.com/search/title?title_type=feature&groups=top_1000'
+        self.person_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&role=%s&sort=year,desc&count=%d&start=1' % ('%s', self.count)
+        self.keyword_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie,documentary&num_votes=100,&keywords=%s&sort=moviemeter,asc&count=%d&start=1' % ('%s', self.count)
+        self.oscars_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&groups=oscar_best_picture_winners&sort=year,desc&count=%d&start=1' % self.count
+        self.oscarsnominees_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&groups=oscar_best_picture_nominees&sort=year,desc&count=%d&start=1' % self.count
+        self.theaters_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=%s,%s&groups=now-playing-us&languages=en&sort=release_date,desc&count=%s&start=1' % (self.year_date, self.today_date, str(self.count))
+        self.year_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=100,&production_status=released&year=%s,%s&sort=moviemeter,asc&count=%d&start=1' % ('%s', '%s', self.count)
+
+        if self.hidecinema == 'true':
+            self.popular_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=1000,&production_status=released&groups=top_1000&release_date=,%s&sort=moviemeter,asc&count=%d&start=1' % (self.hidecinema_date, self.count )
+            self.views_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=1000,&production_status=released&release_date=,%s&sort=num_votes,desc&count=%d&start=1' % (self.hidecinema_date, self.count )
+            self.featured_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=1000,&production_status=released&release_date=,%s&sort=moviemeter,asc&count=%d&start=1' % (self.hidecinema_date, self.count )
+            self.genre_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie,documentary&num_votes=100,&release_date=,%s&genres=%s&sort=moviemeter,asc&count=%d&start=1' % (self.hidecinema_date, '%s', self.count)
+            self.language_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=100,&production_status=released&primary_language=%s&sort=moviemeter,asc&release_date=,%s&count=%d&start=1' % ('%s', self.hidecinema_date, self.count)
+            self.certification_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=100,&production_status=released&certificates=%s&sort=moviemeter,asc&release_date=,%s&count=%d&start=1' % ('%s', self.hidecinema_date, self.count)
+            self.boxoffice_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&sort=boxoffice_gross_us,desc&release_date=,%s&count=%d&start=1' % (self.hidecinema_date, self.count)
+        else:
+            self.popular_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=1000,&production_status=released&groups=top_1000&sort=moviemeter,asc&count=%d&start=1' % self.count
+            self.views_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=1000,&production_status=released&sort=num_votes,desc&count=%d&start=1' % self.count
+            self.featured_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=1000,&production_status=released&sort=moviemeter,asc&count=%d&start=1' % self.count
+            self.genre_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie,documentary&num_votes=100,&release_date=,date[0]&genres=%s&sort=moviemeter,asc&count=%d&start=1' % ('%s', self.count)
+            self.language_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=100,&production_status=released&primary_language=%s&sort=moviemeter,asc&count=%d&start=1' % ('%s', self.count)
+            self.certification_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=100,&production_status=released&certificates=%s&sort=moviemeter,asc&count=%d&start=1' % ('%s', self.count)
+            self.boxoffice_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&sort=boxoffice_gross_us,desc&count=%d&start=1' % self.count
+
+        self.top100_link = 'https://www.imdb.com/search/title?title_type=feature&groups=top_100&count=%d&start=1' % self.count
+        self.top250_link = 'https://www.imdb.com/search/title?title_type=feature&groups=top_250&count=%d&start=1' % self.count
+        self.top1000_link = 'https://www.imdb.com/search/title?title_type=feature&groups=top_1000&count=%d&start=1' % self.count
         self.rated_g_link = 'https://www.imdb.com/search/title/?certificates=US%3AG'
         self.rated_pg13_link = 'https://www.imdb.com/search/title/?certificates=US%3APG-13'
         self.rated_pg_link = 'https://www.imdb.com/search/title/?certificates=US%3APG'
         self.rated_r_link = 'https://www.imdb.com/search/title/?certificates=US%3AR'
         self.rated_nc17_link = 'https://www.imdb.com/search/title/?certificates=US%3ANC-17'
-        self.bestdirector_link = 'https://www.imdb.com/search/title?title_type=feature&groups=best_director_winner&sort=user_rating,desc'
-        self.national_film_board_link = 'https://www.imdb.com/search/title?title_type=feature&groups=national_film_preservation_board_winner&sort=user_rating,desc'
-        self.dreamworks_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=dreamworks'
-        self.fox_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=fox'
-        self.paramount_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=paramount'
-        self.mgm_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=mgm'
-        self.universal_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=universal'
-        self.sony_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=sony'
-        self.warnerbrothers_pictures = 'https://www.imdb.com/search/title?title_type=feature&companies=warner'
+        self.bestdirector_link = 'https://www.imdb.com/search/title?title_type=feature&groups=best_director_winner&sort=user_rating,desc&count=%d&start=1' % self.count
+        self.national_film_board_link = 'https://www.imdb.com/search/title?title_type=feature&groups=national_film_preservation_board_winner&sort=user_rating,desc&count=%d&start=1' % self.count
+        self.dreamworks_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=dreamworks&count=%d&start=1' % self.count
+        self.fox_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=fox&count=%d&start=1' % self.count
+        self.paramount_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=paramount&count=%d&start=1' % self.count
+        self.mgm_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=mgm&count=%d&start=1' % self.count
+        self.universal_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=universal&count=%d&start=1' % self.count
+        self.sony_pictures_link = 'https://www.imdb.com/search/title?title_type=feature&companies=sony&count=%d&start=1' % self.count
+        self.warnerbrothers_pictures = 'https://www.imdb.com/search/title?title_type=feature&companies=warner&count=%d&start=1' % self.count
         self.amazon_prime_link = 'https://www.imdb.com/search/title?title_type=feature&online_availability=US%2Ftoday%2FAmazon%2Fsubs'
-        self.disney_pictures_link = 'https://www.imdb.com/search/title?user_rating=1.0,10.0&companies=disney'
-        self.family_movies_link = 'https://www.imdb.com/search/title/?title_type=feature&genres=family'
-        self.classic_movies_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31'
-        self.classic_horror_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=horror'
-        self.classic_fantasy_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=fantasy'
-        self.classic_western_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=western'
-        self.classic_annimation_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=animation'
-        self.classic_war_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=war'
-        self.classic_scifi_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=sci_fi'
-        self.eighties_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1980-01-01,1989-12-31'
-        self.nineties_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1990-01-01,1999-12-31'
-        self.thousands_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=2000-01-01,2010-12-31'
-        self.twentyten_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=2010-01-01,2019-12-31'
+        self.disney_pictures_link = 'https://www.imdb.com/search/title?user_rating=1.0,10.0&companies=disney&count=%d&start=1' % self.count
+        self.family_movies_link = 'https://www.imdb.com/search/title/?title_type=feature&genres=family&count=%d&start=1' % self.count
+        self.classic_movies_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&count=%d&start=1' % self.count
+        self.classic_horror_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=horror&count=%d&start=1' % self.count
+        self.classic_fantasy_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=fantasy&count=%d&start=1' % self.count
+        self.classic_western_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=western&count=%d&start=1' % self.count
+        self.classic_annimation_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=animation&count=%d&start=1' % self.count
+        self.classic_war_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=war&count=%d&start=1' % self.count
+        self.classic_scifi_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1900-01-01,1993-12-31&genres=sci_fi&count=%d&start=1' % self.count
+        self.eighties_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1980-01-01,1989-12-31&count=%d&start=1' % self.count
+        self.nineties_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1990-01-01,1999-12-31&count=%d&start=1' % self.count
+        self.thousands_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=2000-01-01,2010-12-31&count=%d&start=1' % self.count
+        self.twentyten_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=2010-01-01,2019-12-31&count=%d&start=1' % self.count
         
         self.added_link  = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&languages=en&num_votes=500,&production_status=released&release_date=%s,%s&sort=release_date,desc&count=20&start=1' % (self.year_date, self.today_date)
-        self.trending_link = 'https://api.trakt.tv/movies/trending?limit=40&page=1'
+        self.trending_link = 'https://api.trakt.tv/movies/trending?limit=%d&page=1' % self.count
         self.traktlists_link = 'https://api.trakt.tv/users/me/lists'
         self.traktlikedlists_link = 'https://api.trakt.tv/users/likes/lists?limit=1000000'
         self.traktlist_link = 'https://api.trakt.tv/users/%s/lists/%s/items'
         self.traktcollection_link = 'https://api.trakt.tv/users/me/collection/movies'
         self.traktwatchlist_link = 'https://api.trakt.tv/users/me/watchlist/movies'
-        self.traktfeatured_link = 'https://api.trakt.tv/recommendations/movies?limit=40'
-        self.trakthistory_link = 'https://api.trakt.tv/users/me/history/movies?limit=40&page=1'
-        self.onDeck_link = 'https://api.trakt.tv/sync/playback/movies?extended=full&limit=10'
+        self.traktfeatured_link = 'https://api.trakt.tv/recommendations/movies?limit=%d' % self.count
+        self.trakthistory_link = 'https://api.trakt.tv/users/me/history/movies?limit=%d&page=1' % self.count
+        self.onDeck_link = 'https://api.trakt.tv/sync/playback/movies?extended=full&limit=%d' % self.count
         self.imdblists_link = 'https://www.imdb.com/user/ur%s/lists?tab=all&sort=mdfd&order=desc&filter=titles' % self.imdb_user
         self.imdblist_link = 'https://www.imdb.com/list/%s/?view=detail&sort=alpha,asc&title_type=movie,short,tvMovie,tvSpecial,video&start=1'
         self.imdblist2_link = 'https://www.imdb.com/list/%s/?view=detail&sort=date_added,desc&title_type=movie,short,tvMovie,tvSpecial,video&start=1'
@@ -118,14 +135,13 @@ class movies:
         self.imdbwatchlist2_link = 'https://www.imdb.com/user/ur%s/watchlist?sort=date_added,desc' % self.imdb_user
 
 #######HALLOWEN########
-        self.halloween_imdb_link = 'https://www.imdb.com/list/ls066334100/?sort=user_rating,desc&st_dt=&mode=detail&page=1' 
-        self.halloween_top_100_link = 'https://www.imdb.com/list/ls000091321/?sort=user_rating,desc&st_dt=&mode=detail&page=1'       
-        self.halloween_best_link = 'https://www.imdb.com/list/ls052042029/?sort=user_rating,desc&st_dt=&mode=detail&page=1'
-        self.halloween_great_link = 'https://www.imdb.com/list/ls050722485/?sort=user_rating,desc&st_dt=&mode=detail&page=1'
+        self.halloween_imdb_link = 'https://www.imdb.com/list/ls066334100/?sort=user_rating,desc&st_dt=&mode=detail&page=1&count=%d&start=1' % self.count
+        self.halloween_top_100_link = 'https://www.imdb.com/list/ls000091321/?sort=user_rating,desc&st_dt=&mode=detail&page=1&count=%d&start=1' % self.count
+        self.halloween_best_link = 'https://www.imdb.com/list/ls052042029/?sort=user_rating,desc&st_dt=&mode=detail&page=1&count=%d&start=1' % self.count
+        self.halloween_great_link = 'https://www.imdb.com/list/ls050722485/?sort=user_rating,desc&st_dt=&mode=detail&page=1&count=%d&start=1' % self.count
 #######HOLIDAY########
-        self.top50_holiday_link = 'https://www.imdb.com/list/ls003988974/?sort=user_rating,desc&st_dt=&mode=detail&page=1'
-        self.best_holiday_link = 'https://www.imdb.com/list/ls053245198/?sort=user_rating,desc&st_dt=&mode=detail&page=1'
-
+        self.top50_holiday_link = 'https://www.imdb.com/list/ls003988974/?sort=user_rating,desc&st_dt=&mode=detail&page=1&count=%d&start=1' % self.count
+        self.best_holiday_link = 'https://www.imdb.com/list/ls053245198/?sort=user_rating,desc&st_dt=&mode=detail&page=1&count=%d&start=1' % self.count
 
 
     def get(self, url, idx=True, create_directory=True):

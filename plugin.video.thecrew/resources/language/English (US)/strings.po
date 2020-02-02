@@ -1874,3 +1874,14 @@ msgctxt "#90189"
 msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]CC Collections[/COLOR][/B]"
 msgstr ""
 
+msgctxt "#90190"
+msgid "Hide movies in cinema"
+msgstr ""
+
+msgctxt "#90191"
+msgid "Page Item Limit"
+msgstr ""
+
+msgctxt "#90192"
+msgid "Months to Rollback for Hide in Cinema"
+msgstr ""
