@@ -1885,3 +1885,7 @@ msgstr ""
 msgctxt "#90192"
 msgid "Months to Rollback for Hide in Cinema"
 msgstr ""
+
+msgctxt "#90193"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]XFL[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""

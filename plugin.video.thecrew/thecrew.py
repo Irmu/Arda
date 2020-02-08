@@ -231,6 +231,10 @@ elif action == 'ncaab':
 elif action == 'lfl':
     from resources.lib.indexers import lists
     lists.indexer().root_lfl()
+    
+elif action == 'xfl':
+    from resources.lib.indexers import lists
+    lists.indexer().root_xfl()
 
 elif action == 'misc_sports':
     from resources.lib.indexers import lists

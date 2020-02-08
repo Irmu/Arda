@@ -484,6 +484,7 @@ class navigator:
         self.addDirectoryItem(90024, 'mlb', 'mlb.png', 'mlb.png')
         self.addDirectoryItem(90023, 'ncaa', 'ncaa.png', 'ncaa.png')
         self.addDirectoryItem(90156, 'ncaab', 'ncaab.png', 'ncaab.png')
+        self.addDirectoryItem(90193, 'xfl', 'xfl.png', 'xfl.png')
         self.addDirectoryItem(90028, 'ufc', 'ufc.png', 'ufc.png')
         self.addDirectoryItem(90049, 'wwe', 'wwe.png', 'wwe.png')
         self.addDirectoryItem(90115, 'boxing', 'boxing.png', 'boxing.png')
