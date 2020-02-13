@@ -28,7 +28,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['iwantmyshow.tk', 'myvideolinks.net']
-        self.base_link = 'https://see.home.kg/'
+        self.base_link = 'https://get.myvideolinks.net/'
         self.search_link = '?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
