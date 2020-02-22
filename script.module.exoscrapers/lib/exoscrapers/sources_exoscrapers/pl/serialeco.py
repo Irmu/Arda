@@ -54,7 +54,6 @@ class source:
 		self.domains = ['seriale.co']
 
 		self.base_link = 'http://seriale.co'
-		self.session = requests.Session()
 
 	def contains_word(self, str_to_check, word):
 		if str(word).lower() in str(str_to_check).lower():

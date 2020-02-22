@@ -26,7 +26,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import source_utils
@@ -40,7 +40,7 @@ class source:
 		self.base_link = 'https://streamdreams.org'
 		self.search_movie = '/movies/bbb-%s/'
 		self.search_tv = '/shows/bbb-%s/'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

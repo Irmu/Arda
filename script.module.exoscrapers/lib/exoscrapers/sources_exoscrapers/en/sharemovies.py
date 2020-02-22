@@ -28,7 +28,7 @@
 import base64
 import re
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import source_utils
 
@@ -40,7 +40,7 @@ class source:
 		self.domains = ['sharemovies.net']
 		self.base_link = 'http://sharemovies.net'
 		self.search_link = '/search-movies/%s.html'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

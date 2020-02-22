@@ -27,7 +27,7 @@
 
 import re
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import source_utils
 
@@ -39,7 +39,7 @@ class source:
 		self.genre_filter = ['animation', 'anime']
 		self.domains = ['animetoon.org', 'animetoon.tv']
 		self.base_link = 'http://www.animetoon.org'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

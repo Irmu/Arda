@@ -28,7 +28,7 @@ import re
 import urllib
 import urlparse
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import debrid
@@ -42,7 +42,7 @@ class source:
 		self.domains = ['btdb.eu']
 		self.base_link = 'https://btdb.eu/'
 		self.search_link = '/?s=%s'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 
 	def movie(self, imdb, title, localtitle, aliases, year):

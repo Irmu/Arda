@@ -892,14 +892,14 @@ class episodes:
                 zip.close()
 
                 result = result.split('<Episode>')
-                item = [x for x in result if '<EpisodeNumber>' in x]
+                item = [x for x in result if '<EpisodeNumber>' in x and not '<SeasonNumber>0</SeasonNumber>' in x]
                 item2 = result[0]
 
                 num = [x for x,y in enumerate(item) if re.compile('<SeasonNumber>(.+?)</SeasonNumber>').findall(y)[0] == str(i['snum']) and re.compile('<EpisodeNumber>(.+?)</EpisodeNumber>').findall(y)[0] == str(i['enum'])][-1]
                 item = [y for x,y in enumerate(item) if x > num][0]
 
-                #print lang
-                #print item
+
+
 
                 premiered = client.parseDOM(item, 'FirstAired')[0]
                 if premiered == '' or '-00' in premiered: premiered = '0'
@@ -1095,9 +1095,12 @@ class episodes:
                 zip.close()
 
                 result = result.split('<Episode>')
-                item = [(re.findall('<SeasonNumber>%01d</SeasonNumber>' % int(i['season']), x), re.findall('<EpisodeNumber>%01d</EpisodeNumber>' % int(i['episode']), x), x) for x in result]
-                item = [x[2] for x in item if len(x[0]) > 0 and len(x[1]) > 0][0]
+                item = [x for x in result if '<EpisodeNumber>' in x and not '<SeasonNumber>0</SeasonNumber>' in x]
                 item2 = result[0]
+                num = [x for x, y in enumerate(item)
+                       if re.compile('<SeasonNumber>(.+?)</SeasonNumber>').findall(y)[0] == str(i['snum']) and
+                       re.compile('<EpisodeNumber>(.+?)</EpisodeNumber>').findall(y)[0] == str(i['enum'])][-1]
+                item = [y for x, y in enumerate(item) if x > num][0]
 
                 premiered = client.parseDOM(item, 'FirstAired')[0]
                 if premiered == '' or '-00' in premiered: premiered = '0'
@@ -1119,6 +1122,8 @@ class episodes:
                 season = '%01d' % int(season)
                 season = season.encode('utf-8')
 
+                if int(season) == 0:
+                    raise Exception()
                 episode = client.parseDOM(item, 'EpisodeNumber')[0]
                 episode = re.sub('[^0-9]', '', '%01d' % int(episode))
                 episode = episode.encode('utf-8')

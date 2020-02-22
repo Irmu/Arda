@@ -30,7 +30,7 @@ import traceback
 import urllib
 import urlparse
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import log_utils
 from exoscrapers.modules import source_utils
@@ -45,7 +45,7 @@ class source:
 		# self.base_link = 'http://extramovies.net.in'  # Dead  extramovies.host
 		self.base_link = 'http://extramovies.pink'
 		self.search_link = '/?s=%s'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

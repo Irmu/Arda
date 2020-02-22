@@ -48,9 +48,9 @@ class source:
 
 		self.base_link = 'https://iitvx.pl/'
 		self.search_link = 'https://iitvx.pl/szukaj'
-		self.session = requests.Session()
 
 	def search(self, titles, season, episode):
+		session = requests.Session()
 		try:
 			for title in titles:
 				headers = {
@@ -58,7 +58,7 @@ class source:
 					'Referer': self.base_link
 				}
 				data = {'text': title}
-				result = self.session.post(self.search_link, data=data, headers=headers).content
+				result = session.post(self.search_link, data=data, headers=headers).content
 				if result is None:
 					continue
 				query = 'S00E00'
@@ -135,6 +135,7 @@ class source:
 			return
 
 	def sources(self, url, hostDict, hostprDict):
+		session = requests.Session()
 		sources = []
 		try:
 			if url is None:
@@ -144,7 +145,7 @@ class source:
 				'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0',
 				'Referer': self.base_link
 			}
-			output = self.session.get(url, headers=headers).content
+			output = session.get(url, headers=headers).content
 			output = client.parseDOM(output, 'div', attrs={'class': 'tab-wrapper'})[0]
 			lektor = client.parseDOM(output, 'ul', attrs={'id': 'lecPL'})
 			if len(lektor) > 0:

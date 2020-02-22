@@ -30,7 +30,7 @@ import re
 import urllib
 import urlparse
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import dom_parser
 from exoscrapers.modules import source_utils
@@ -45,7 +45,7 @@ class source:
 		self.domains = ['anime-base.net']
 		self.base_link = 'http://anime-base.net'
 		self.search_link = '/suche_ajax.php'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 	def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
 		try:

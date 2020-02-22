@@ -26,7 +26,7 @@
 
 import re
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import source_utils
 
@@ -38,7 +38,7 @@ class source:
 		self.domains = ['projectfreetv.ag']
 		self.base_link = 'http://www1.projectfreetv.ag'
 		self.search_link = '/episode/%s-season-%s-episode-%s'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 	def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
 		try:

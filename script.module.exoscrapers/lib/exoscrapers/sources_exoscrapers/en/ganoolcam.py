@@ -27,7 +27,7 @@
 
 import re
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import more_sources
@@ -41,7 +41,7 @@ class source:
 		self.domains = ['ganool.cam', 'ganool.fun', 'ganool.rip']
 		self.base_link = 'https://ganool.cam'
 		self.search_link = '/?s=%s+%s'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

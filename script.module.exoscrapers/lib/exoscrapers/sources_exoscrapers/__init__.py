@@ -13,6 +13,12 @@ import ko
 import pl
 import ru
 
+try:
+	from exoscrapers.modules import cfscrape
+	cfScraper = cfscrape.create_scraper()
+except:
+	pass
+
 scraper_source = os.path.dirname(__file__)
 __all__ = [x[1] for x in os.walk(os.path.dirname(__file__))][0]
 

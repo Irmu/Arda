@@ -28,7 +28,7 @@
 import re
 import traceback
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import log_utils
 from exoscrapers.modules import source_utils
@@ -40,7 +40,7 @@ class source:
 		self.language = ['en']
 		self.domains = ['1putlocker.io']
 		self.base_link = 'https://www15.1putlocker.io'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

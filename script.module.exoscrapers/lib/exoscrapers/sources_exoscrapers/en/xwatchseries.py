@@ -27,7 +27,7 @@
 import re
 import urlparse
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import proxy
@@ -40,7 +40,7 @@ class source:
 		self.domains = ['on.mywatchseries.stream', 'xwatchseries.to', 'onwatchseries.to', 'itswatchseries.to']
 		self.base_link = 'https://on.mywatchseries.stream'
 		self.search_link = 'https://on.mywatchseries.stream/search/%s'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 	def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
 		try:

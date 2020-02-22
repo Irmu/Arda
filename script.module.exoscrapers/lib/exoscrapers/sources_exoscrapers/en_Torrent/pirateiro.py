@@ -28,7 +28,7 @@ import re
 import urllib
 import urlparse
 
-from exoscrapers.modules import cfscrape
+from exoscrapers.sources_exoscrapers import cfScraper
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import debrid
 from exoscrapers.modules import source_utils
@@ -41,7 +41,7 @@ class source:
 		self.domains = ['pirateiro.unblockit.biz']
 		self.base_link = 'https://pirateiro.unblockit.biz'
 		self.search_link = '/torrents/?search=%s'
-		self.scraper = cfscrape.create_scraper()
+		self.scraper = cfScraper
 
 
 	def movie(self, imdb, title, localtitle, aliases, year):
