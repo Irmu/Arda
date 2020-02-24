@@ -1786,7 +1786,7 @@ v3.0.5
 
 <addon id="plugin.video.Rising.Tides"
 	name="[COLOR red][B]R[/B][/COLOR][COLOR white][B]ising[/B][/COLOR] [COLOR pink][B]T[/B][/COLOR][COLOR white][B]ides[/B][/COLOR]"
-	version="1.4.22.1"
+	version="1.4.22.2"
 	provider-name="[COLOR turquoise][B]mullafabz[/B][/COLOR]">
   <requires>
 	<import addon="xbmc.python" version="2.1.0"/>
@@ -2849,6 +2849,23 @@ Fixed: Eroticage
 	</extension>
 </addon>
 
+    <addon id="repository.houseofel" name="House of El Repo" version="0.0.1" provider-name="House of El">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="House of El Repo">
+            <info compressed="false">http://kodihelp.net/_elfiles/addons.xml</info>
+            <checksum>http://kodihelp.net/_elfiles/addons.xml.md5</checksum>
+            <datadir zip="true">http://kodihelp.net/_elfiles/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>The House of El Repo</summary>
+            <description>Also Includes Some Useful Dependencies etc when things are a bit hit and miss</description>
+            <platform>all</platform>
+    </extension>
+</addon>
+
     <addon id="repository.jenrepo" name="Jen Repo" version="1.0.0" provider-name="Community">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
@@ -3370,7 +3387,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"  name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.42a" provider-name="The Crew">
+﻿<addon id="script.crew.sports"  name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.44" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -4285,7 +4302,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.66h" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.66i" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.beautifulsoup4"/>
