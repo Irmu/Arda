@@ -28,7 +28,7 @@
 import re
 import urlparse
 
-from exoscrapers.sources_exoscrapers import cfScraper
+from exoscrapers.modules import cfscrape
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import jsunpack
@@ -42,7 +42,7 @@ class source:
 		self.domains = ['movie4k.is']  # Old  movie4k.ws
 		self.base_link = 'https://www2.movie4k.is'
 		self.search_link = '/search/%s/feed/rss2/'
-		self.scraper = cfScraper
+		self.scraper = cfscrape.create_scraper()
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

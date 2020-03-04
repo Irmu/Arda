@@ -55,7 +55,7 @@
 
 <addon
   id="inputstream.adaptive"
-  version="2.4.2"
+  version="2.4.3"
   name="InputStream Adaptive"
   provider-name="peak3d">
   <requires>
@@ -69,13 +69,16 @@
     name="adaptive"
     extension=""
     tags="true"
-    listitemprops="license_type|license_key|license_data|license_flags|manifest_type|server_certificate|stream_headers|manifest_update_parameter|original_audio_language|media_renewal_url|max_bandwidth"
+    listitemprops="license_type|license_key|license_data|license_flags|manifest_type|server_certificate|stream_headers|manifest_update_parameter|original_audio_language|media_renewal_url|media_renewal_time|max_bandwidth|play_timeshift_buffer"
     library_windows="inputstream.adaptive.dll"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">InputStream client for adaptive streams</summary>
     <description lang="en">InputStream client for adaptive streams</description>
     <platform>windows-i686</platform>
 	<news>
+v2.4.3 (2020-02-25)
+- Backport of Matrix features (v2.5.0 upwards)
+
 v2.4.2 (2019-09-02)
 - Fix versioning
 
@@ -1233,6 +1236,25 @@ version="6.0.0~alpha6" />
 	</extension>
 </addon>
 
+<addon id="plugin.video.KeltecMPIPTV" name="[B][COLOR blue]KelTecMP[/COLOR] [COLOR red]MMFilmes[/COLOR][/B]" version="24.02.20" provider-name="Team KeltecMP">
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.repository" name="KelTecMP IPTV Repo">
+		<info compressed="false">https://raw.githubusercontent.com/Jhonny-lima/Reposit-rio-KelTec-MP/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/Jhonny-lima/Reposit-rio-KelTec-MP/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/Jhonny-lima/Reposit-rio-KelTec-MP/master/Plugins</datadir>
+	</extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">MMFilmes</summary>
+    <description lang="en">Addon modificado do PlaylistLoader 1.2.0 por Avigdor https://github.com/avigdork/xbmc-avigdork. Nao somos responsaveis por colocar o conteudo online, apenas indexamos. Para sugestoes e report de bugs nossa pagina no FB: [COLOR blue]https://www.facebook.com/groups/KelTec.Media.Play[/COLOR]</description>
+	<disclaimer lang="en">O autor não é de forma alguma afiliado à Kodi, à Team Kodi ou à XBMC Foundation. Este é um recurso sem fins lucrativos, organizado exclusivamente para fins educacionais e protegido pela doutrina de uso justo da Lei de Direitos Autorais, especificamente a seção 107, que promove a liberdade de expressão, permitindo o uso não licenciado de obras protegidas por direitos autorais.</disclaimer>
+    <platform>all</platform>
+	<news> CORRIGIDO BUSCA, TROCA DE IMAGENS, MELHORIAS NA SEGURANÇA E ATUALIZALÇÕES SOMENTE VIA REPO.
+	</news>
+  </extension>
+</addon>
+
 <addon id="plugin.video.live.streamspro"
        name="LiveStreamsPro"
        version="2.9.3"
@@ -1554,7 +1576,7 @@ Initial Release
  </extension>
 </addon>
 
-<addon id="plugin.video.palantir" name="[COLOR gold]Palantir[/COLOR]" version="0.0.73" provider-name="TierraMedia">
+<addon id="plugin.video.palantir" name="[COLOR gold]Palantir[/COLOR]" version="0.0.74" provider-name="TierraMedia">
   <requires>
     <import addon="xbmc.python" version="2.24.0"/>
     <import addon="script.module.simple.downloader" version="1.9.5"/>
@@ -1572,9 +1594,9 @@ Initial Release
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>TV</summary>
-    <news>[COLOR lime][B] versión 0.0.73 [/B][/COLOR]
+    <news>[COLOR lime][B] versión 0.0.74 [/B][/COLOR]
         - [Interno] Reparados servidores:
-        - [Interno] Nuevos servidores:
+        - [Interno] Nuevo servidor (Hilvan):
     </news>
     <description>Visualiza el contenido de la nube, series, películas.</description>
     <disclaimer>[B][COLOR red]Todo el contenido disponible en este Addon esta sacado de servidores gratuitos, disponible en la red para todos los usuarios.[/B][/COLOR]</disclaimer>
@@ -1811,7 +1833,7 @@ v3.0.5
   </extension>
 </addon>
 
-<addon id="plugin.video.rtpplay" name="RTP Play" version="5.0.3" provider-name="enen92, guipenedo">
+<addon id="plugin.video.rtpplay" name="RTP Play" version="5.0.4" provider-name="enen92, guipenedo">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.routing" version="0.2.0"/>
@@ -1833,7 +1855,7 @@ v3.0.5
         <email>enen92@kodi.tv</email>
         <source>https://github.com/enen92/plugin.video.rtpplay</source>
         <news>
-            - Fix live
+            - Fix for some on-demand streams
         </news>
         <disclaimer lang="en_GB">The plugin is unnoficial and not endorsed by RTP. Expect it to break. </disclaimer>
         <assets>
@@ -2305,19 +2327,19 @@ More minor bugfixes (honestly could not list them all)
   </extension>
 </addon>
 
-<addon id="plugin.video.spotitube" name="Youtube Music" version="2.1.5" provider-name="realvito (inspired by L0RE)">
+<addon id="plugin.video.spotitube" name="Youtube Music" version="2.1.7" provider-name="realvito (inspired by L0RE)">
 	<requires>
-		<import addon="xbmc.python" version="2.24.0"/>
-		<import addon="plugin.video.youtube" version="6.1.0"/>
+		<import addon="xbmc.python" version="2.25.0"/>
+		<import addon="plugin.video.youtube" version="6.3.0"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video audio</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="de_DE">Musik über Youtube abspielen</summary>
-		<summary lang="en_GB">Play Music via Youtube</summary>
-		<description lang="de_DE">Musik aus verschiedenen Quellen z.B. Billboard, iTunes, Spotify etc. auswählen und über Youtube abspielen.[CR][CR]Für mehr Informationen zu allen Neuerungen siehe - CHANGELOG.[CR]     TEST IT AND LIKE IT</description>
-		<description lang="en_GB">Choose Music from different sources e.g. Billboard, iTunes, Spotify etc. and play it via Youtube.[CR][CR]For more information about all new features see - CHANGELOG.[CR]     TEST IT AND LIKE IT</description>
+		<summary lang="de_DE">YouTube Musicplayer</summary>
+		<summary lang="en_GB">YouTube Musicplayer</summary>
+		<description lang="de_DE">Musik aus verschiedenen Quellen z.B. Beatport, Billboard, iTunes, Officialcharts etc. auswählen und über YouTube abspielen.[CR][CR]Für mehr Informationen zu allen Neuerungen siehe - CHANGELOG.[CR]     TEST IT AND LIKE IT</description>
+		<description lang="en_GB">Choose Music from different sources e.g. Beatport, Billboard, iTunes, Officialcharts etc. and play it via YouTube.[CR][CR]For more information about all new features see - CHANGELOG.[CR]     TEST IT AND LIKE IT</description>
 		<disclaimer lang="de_DE">Die von diesem Addon dargestellten Inhalte werden von den Erstellern des Addons weder gehostet oder verbreitet, noch stehen die Ersteller in irgendeiner Beziehung zu den Anbietern des Inhalts.</disclaimer>
 		<disclaimer lang="en_GB">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content providers.</disclaimer>
 		<language></language>
@@ -2331,15 +2353,14 @@ More minor bugfixes (honestly could not list them all)
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
 		</assets>
-		<news>[B][COLOR orangered]Version 2.1.5  (17.11.2019)[/COLOR][/B] by realvito[CR]
-- fixed: Billboard - Hot 100 and Billboard 200 are not opened and error is displayed
-- fixed: Itunes-Videos are empty
-- removed: Billboard ARCHIVE because the Musiclists don't exists anymore
+		<news>[B][COLOR orangered]Version 2.1.7  (28.02.2020)[/COLOR][/B] by realvito[CR]
+- fixed: long wait time for playback
+- fixed: error for playback of playlists
 		</news>
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.66a" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.67" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.thecrew" />
@@ -2495,7 +2516,7 @@ Fixed: Eroticage
   </extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="6.6.0.0.3" provider-name="anxdpanic, bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="6.7.0~alpha2" provider-name="anxdpanic, bromix">
     <requires>
         <import addon="xbmc.python" version="2.20.0"/>
         <import addon="script.module.six" version="1.11.0"/>
@@ -2509,20 +2530,13 @@ Fixed: Eroticage
     <extension point="xbmc.python.module" library="resources/lib/"/>
     <extension point="xbmc.addon.metadata">
         <news>
-[add] 'Play (Ask for quality)' context menu
-[add] search by channel or playlist id
-[add] hide_folders, hide_playlists, hide_search, and hide_live to /channel/&lt;channel_id&gt;/ end-point
-    - ie. plugin://plugin.video.youtube/channel/UC4PooiX37Pld1T8J5SYT-SQ/?hide_folders=true will hide all folders(Playlists, Search, and Live) in the channel listing
-[fix] playback for some videos (ie. music videos)
-[fix] playback of some videos with no adaptive video streams
-[fix] don't update watch history when incognito/screensaver/live |contrib: regseb|
-[fix] search prompting for input after video playback or refresh
-[lang] el_gr strings |contrib: twilight0|
-[lang] es_es strings |contrib: roliverosc|
-[lang] pt_br strings |contrib: MediaBrasil|
-[lang] cs_cz strings |contrib: llzn.cz|
-[lang] it_it strings |contrib: SebastianoPistore|
-[lang] de_de strings |contrib: tweimer|
+[add] send PlaybackStarted notification containing video_id of the playing video
+[fix] allow playback regardless of API status
+    - fixes playback for strm, playlists, other add-ons, and sharing videos from devices
+[fix] fix possible loop due to invalid keys and login information
+[fix] fix playback of mpeg-dash streams if HTTP Server - Listen on IP is blank
+[upd] use a dialog to notify users of API key requirements with link to wiki
+    - https://ytaddon.page.link/keys
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -3387,7 +3401,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"  name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.44" provider-name="The Crew">
+﻿<addon id="script.crew.sports"  name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.49" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -3670,7 +3684,7 @@ The author is not responsible for the use of this addon. The author is not respo
 	</extension>
 </addon>
 
-<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="2.2.2" provider-name="Exodus">
+<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="2.2.3" provider-name="Exodus">
     <requires>
         <import addon="xbmc.python" version="2.25.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -3690,7 +3704,7 @@ The author is not responsible for the use of this addon. The author is not respo
         <icon>icon.png</icon>
         <fanart></fanart>
     </assets>
-    <news>v2.2.2 - scrapers and log_utils fix, torrent updates, scraper fixes</news>
+    <news>v2.2.3 - scrapers and log_utils fix, torrent updates, scraper fixes</news>
     </extension>
 </addon>
 
@@ -3750,12 +3764,14 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.inputstreamhelper" name="InputStream Helper" version="0.4.3" provider-name="emilsvennesson, dagwieers, mediaminister">
+<addon id="script.module.inputstreamhelper" name="InputStream Helper" version="0.4.4" provider-name="emilsvennesson, dagwieers, mediaminister">
   <requires>
+    <!--py3 compliant-->
+    <!--<import addon="xbmc.python" version="2.25.0" target="3.0.0"/>-->
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.pysocks" version="1.6.8" optional="true"/>
   </requires>
-  <!-- This is needed to get an addon icon -->
+  <!-- This is needed to get an add-on icon -->
   <extension point="xbmc.python.script" library="default.py">
     <provides>executable</provides>
   </extension>
@@ -3771,14 +3787,15 @@ The author is not responsible for the use of this addon. The author is not respo
     <description lang="ru_RU">Простой модуль для Kodi, который облегчает жизнь разработчикам дополнений, с использованием InputStream дополнений и воспроизведения DRM контента.</description>
     <description lang="fr_FR">Un simple module Kodi qui simplifie la vie des développeurs de modules complémentaires en s’appuyant sur des modules complémentaires basés sur InputStream et sur la lecture de DRM.</description>
     <news>
-      v0.4.3 (2019-09-25)
-        - French translation
-        - Updated translations
-        - Ensure Kodi 19 compatibility
-        - Configurable temporary download directory for devices with limited space
-        - Configurable Widevine CDM update frequency
-        - Fix add-on settings crashes when InputStream Adaptive is missing
-        - Improve unicode character support
+      v0.4.4 (2020-03-01)
+        - Added option to restore a previously installed Widevine version
+        - Improve progress bar when extracting Widevine on ARM devices
+        - Improve Widevine library version detection
+        - Improve InputStream Helper information
+        - Increase download reliability for Chrome OS on ARM devices
+        - Added Japanese, Korean, Croatian and Hungarian translations
+        - Updated existing translations
+        - Various small bugfixes for Widevine installation on ARM devices
     </news>
     <platform>all</platform>
     <license>MIT</license>
@@ -4302,7 +4319,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.66i" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.67a" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.beautifulsoup4"/>
@@ -4547,7 +4564,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="script.thecrew.artwork" version="0.0.29" name="[COLOR orchid]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
+<addon id="script.thecrew.artwork" version="0.0.30" name="[COLOR orchid]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
     </requires>

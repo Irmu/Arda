@@ -115,7 +115,7 @@ class navigator:
                             text_file.write(message)
                             text_file.close()
                             compfile = message
-            self.showText('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Information[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]', compfile)
+            self.showText('Information', compfile)
 
     def open_news_url(self, url):
             req = urllib2.Request(url)
@@ -638,14 +638,14 @@ class navigator:
 
 
     def collections(self, lite=False):
-        self.addDirectoryItem('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Actor Collection[/COLOR][/B]', 'collectionActors', 'boxsets.png', 'DefaultMovies.png')
-        self.addDirectoryItem('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Movie Collection[/COLOR][/B]', 'collectionBoxset', 'boxsets.png', 'DefaultMovies.png')
-        self.addDirectoryItem('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Car Movie Collections[/COLOR][/B]', 'collections&url=carmovies', 'boxsets.png', 'DefaultMovies.png')
-        self.addDirectoryItem('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Christmas Collection[/COLOR][/B]', 'collections&url=xmasmovies', 'boxsets.png', 'DefaultMovies.png')
-        self.addDirectoryItem('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]DC Comics Collection[/COLOR][/B]', 'collections&url=dcmovies', 'boxsets.png', 'DefaultRecentlyAddedMovies.png')
-        self.addDirectoryItem('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Kids Collections[/COLOR][/B]', 'collectionKids', 'boxsets.png', 'DefaultMovies.png')
-        self.addDirectoryItem('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Marvel Collection[/COLOR][/B]', 'collections&url=marvelmovies', 'boxsets.png', 'DefaultRecentlyAddedMovies.png')
-        self.addDirectoryItem('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Superhero Collections[/COLOR][/B]', 'collectionSuperhero', 'boxsets.png', 'DefaultMovies.png')
+        self.addDirectoryItem('Actor Collection', 'collectionActors', 'boxsets.png', 'DefaultMovies.png')
+        self.addDirectoryItem('Movie Collection', 'collectionBoxset', 'boxsets.png', 'DefaultMovies.png')
+        self.addDirectoryItem('Car Movie Collections', 'collections&url=carmovies', 'boxsets.png', 'DefaultMovies.png')
+        self.addDirectoryItem('Christmas Collection', 'collections&url=xmasmovies', 'boxsets.png', 'DefaultMovies.png')
+        self.addDirectoryItem('DC Comics Collection', 'collections&url=dcmovies', 'boxsets.png', 'DefaultRecentlyAddedMovies.png')
+        self.addDirectoryItem('Kids Collections', 'collectionKids', 'boxsets.png', 'DefaultMovies.png')
+        self.addDirectoryItem('Marvel Collection', 'collections&url=marvelmovies', 'boxsets.png', 'DefaultRecentlyAddedMovies.png')
+        self.addDirectoryItem('Superhero Collections', 'collectionSuperhero', 'boxsets.png', 'DefaultMovies.png')
         
         self.endDirectory()
 

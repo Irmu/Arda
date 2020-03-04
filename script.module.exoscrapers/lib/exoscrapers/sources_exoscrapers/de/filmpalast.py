@@ -31,7 +31,7 @@ import re
 import urllib
 import urlparse
 
-from exoscrapers.sources_exoscrapers import cfScraper
+from exoscrapers.modules import cfscrape
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import dom_parser
 from exoscrapers.modules import source_utils
@@ -45,7 +45,7 @@ class source:
 		self.base_link = 'http://filmpalast.to'
 		self.search_link = '/search/title/%s'
 		self.stream_link = 'stream/%s/1'
-		self.scraper = cfScraper
+		self.scraper = cfscrape.create_scraper()
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

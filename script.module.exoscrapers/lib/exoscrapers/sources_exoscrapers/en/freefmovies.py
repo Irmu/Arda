@@ -29,7 +29,7 @@ import re
 import urllib
 import urlparse
 
-from exoscrapers.sources_exoscrapers import cfScraper
+from exoscrapers.modules import cfscrape
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import dom_parser
@@ -43,7 +43,7 @@ class source:
 		self.domains = ['freefmovies.net']
 		self.base_link = 'http://freefmovies.net'
 		self.search_link = '/search/%s+%s.html'
-		self.scraper = cfScraper
+		self.scraper = cfscrape.create_scraper()
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

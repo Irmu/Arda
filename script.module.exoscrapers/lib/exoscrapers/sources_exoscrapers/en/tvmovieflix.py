@@ -30,7 +30,7 @@ import re
 
 import requests
 
-from exoscrapers.sources_exoscrapers import cfScraper
+from exoscrapers.modules import cfscrape
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import source_utils
 
@@ -41,7 +41,7 @@ class source:
 		self.language = ['en']
 		self.domains = ['tvmovieflix.com']
 		self.base_link = 'http://www.tvmovieflix.com'
-		self.scraper = cfScraper
+		self.scraper = cfscrape.create_scraper()
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

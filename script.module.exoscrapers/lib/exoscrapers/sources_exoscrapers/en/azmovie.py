@@ -24,7 +24,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from exoscrapers.sources_exoscrapers import cfScraper
+from exoscrapers.modules import cfscrape
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import source_utils
@@ -37,7 +37,7 @@ class source:
 		self.domains = ['azm.to', 'azmovie.to']
 		self.base_link = 'https://azm.to'
 		self.search_link = '/watch.php?title=%s'
-		self.scraper = cfScraper
+		self.scraper = cfscrape.create_scraper()
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

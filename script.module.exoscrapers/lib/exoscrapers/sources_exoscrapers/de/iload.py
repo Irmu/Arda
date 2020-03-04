@@ -30,7 +30,7 @@ import re
 import urllib
 import urlparse
 
-from exoscrapers.sources_exoscrapers import cfScraper
+from exoscrapers.modules import cfscrape
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import dom_parser
 from exoscrapers.modules import source_utils
@@ -44,7 +44,7 @@ class source:
 		self.base_link = 'https://iload.to'
 		self.search_link_mv = '/suche/%s/Filme'
 		self.search_link_tv = '/suche/%s/Serien'
-		self.scraper = cfScraper
+		self.scraper = cfscrape.create_scraper()
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:

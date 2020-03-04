@@ -29,7 +29,7 @@ import time
 import urllib
 import urlparse
 
-from exoscrapers.sources_exoscrapers import cfScraper
+from exoscrapers.modules import cfscrape
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import debrid
@@ -47,7 +47,7 @@ class source:
 		# self.base_link = 'http://rmz.cr/' # reCaptcha
 		self.base_link = 'http://rapidmoviez.cr/'
 		self.search_link = 'search/%s'
-		self.scraper = cfScraper
+		self.scraper = cfscrape.create_scraper()
 
 
 	def movie(self, imdb, title, localtitle, aliases, year):

@@ -54,6 +54,7 @@ class source:
 
 		self.base_link = 'https://horrortube.pl'
 		self.search_link = 'https://horrortube.pl/wyszukiwarka?phrase='
+		self.session = requests.Session()
 
 	def contains_word(self, str_to_check, word):
 		if str(word).lower() in str(str_to_check).lower():
@@ -67,7 +68,6 @@ class source:
 		return True
 
 	def search(self, title, localtitle, year, is_movie_search):
-		session = requests.Session()
 		try:
 			titles = []
 			titles.append(cleantitle.normalize(cleantitle.getsearch(title)))
@@ -75,7 +75,7 @@ class source:
 
 			for title in titles:
 				url = self.search_link + str(title)
-				result = session.get(url).content
+				result = self.session.get(url).content
 				result = result.decode('utf-8')
 				h = HTMLParser()
 				result = h.unescape(result)
@@ -102,10 +102,9 @@ class source:
 		return self.search(title, localtitle, year, True)
 
 	def sources(self, url, hostDict, hostprDict):
-		session = requests.Session()
 		try:
 			sources = []
-			result = session.get(url).content
+			result = self.session.get(url).content
 			result = result.decode('utf-8')
 			h = HTMLParser()
 			result = h.unescape(result)

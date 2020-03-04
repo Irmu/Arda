@@ -1,46 +1,46 @@
 # -*- coding: UTF-8 -*-
-# -Cleaned and Checked on 10-16-2019 by Exodus in Exodus.
+# -Cleaned and Checked on 02-24-2019 by JewBMX in Scrubs.
 
-import re
-from exoscrapers.modules import client
-from exoscrapers.modules import cleantitle
-from exoscrapers.modules import source_utils
+import re,traceback,urllib,urlparse
+from exoscrapers.modules import cleantitle,client,proxy,source_utils,log_utils
 
 
 class source:
-    def __init__(self):
-        self.priority = 1
-        self.language = ['en']  #  Old  coolmoviezone.online  coolmoviezone.io  coolmoviezone.pro
-        self.domains = ['coolmoviezone.cc']
-        self.base_link = 'https://coolmoviezone.cc'
+	def __init__(self):
+		self.priority = 1
+		self.language = ['en']
+		self.domains = ['coolmoviezone.club']
+		self.base_link = 'https://coolmoviezone.club'
+# old coolmoviezone.info  coolmoviezone.online  coolmoviezone.biz
 
 
-    def movie(self, imdb, title, localtitle, aliases, year):
-        try:
-            mtitle = cleantitle.geturl(title)
-            url = self.base_link + '/%s-%s' % (mtitle, year)
-            return url
-        except:
-            return
+	def movie(self, imdb, title, localtitle, aliases, year):
+		try:
+			title = cleantitle.geturl(title)
+			url = self.base_link + '/%s-%s' % (title,year)
+			return url
+		except:
+			return
 
 
-    def sources(self, url, hostDict, hostprDict):
-        try:
-            sources = []
-            hostDict = hostprDict + hostDict
-            r = client.request(url)
-            match = re.compile('<td align="center"><strong><a href="(.+?)"').findall(r)
-            for url in match:
-                valid, host = source_utils.is_host_valid(url, hostDict)
-                if valid:
-                    quality, info = source_utils.get_release_quality(url, url)
-                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': False})
-            return sources
-        except:
-            return sources
+	def sources(self, url, hostDict, hostprDict):
+		try:
+			sources = []
+			hostDict = hostprDict + hostDict
+			r = client.request(url)
+			match = re.compile('<td align="center"><strong><a href="(.+?)"').findall(r)
+			for url in match: 
+				host = url.split('//')[1].replace('www.','')
+				host = host.split('/')[0].split('.')[0].title()
+				quality = source_utils.check_sd_url(url)
+				valid, host = source_utils.is_host_valid(url, hostDict)
+				if valid:
+				    sources.append({'source': host, 'quality': quality, 'language': 'en','url': url,'direct': False,'debridonly': False})
+		except Exception:
+			return
+		return sources
 
 
-    def resolve(self, url):
-        return url
-
+	def resolve(self, url):
+		return url
 

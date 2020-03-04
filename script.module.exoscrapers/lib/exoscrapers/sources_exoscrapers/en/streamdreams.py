@@ -26,7 +26,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from exoscrapers.sources_exoscrapers import cfScraper
+from exoscrapers.modules import cfscrape
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import client
 from exoscrapers.modules import source_utils
@@ -38,9 +38,9 @@ class source:
 		self.language = ['en']
 		self.domains = ['streamdreams.org']
 		self.base_link = 'https://streamdreams.org'
-		self.search_movie = '/movies/bbb-%s/'
-		self.search_tv = '/shows/bbb-%s/'
-		self.scraper = cfScraper
+		self.search_movie = '/movies/lll-%s/'
+		self.search_tv = '/shows/lll-%s/'
+		self.scraper = cfscrape.create_scraper()
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:
@@ -84,12 +84,10 @@ class source:
 					valid, host = source_utils.is_host_valid(url, hostDict)
 					if valid:
 						quality, info = source_utils.get_release_quality(url, url)
-						if source_utils.limit_hosts() is True and host in str(sources):
-							continue
-						sources.append({'source': host, 'quality': quality, 'language': 'en', 'info': info, 'url': url,
-						                'direct': False, 'debridonly': False})
+						sources.append({'source': host, 'quality': quality, 'language': 'en', 'info': info, 'url': url, 'direct': False, 'debridonly': False})
 			return sources
 		except:
+			source_utils.scraper_error('STREAMDREAMS')
 			return sources
 
 	def resolve(self, url):

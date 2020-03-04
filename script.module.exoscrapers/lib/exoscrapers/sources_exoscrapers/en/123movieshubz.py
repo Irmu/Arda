@@ -1,5 +1,4 @@
 # -*- coding: UTF-8 -*-
-# -Cleaned and Checked on 08-24-2019 by JewBMX in Scrubs.
 
 #  ..#######.########.#######.##....#..######..######.########....###...########.#######.########..######.
 #  .##.....#.##.....#.##......###...#.##....#.##....#.##.....#...##.##..##.....#.##......##.....#.##....##
@@ -30,11 +29,10 @@ import re
 import urllib
 import urlparse
 
-from exoscrapers.sources_exoscrapers import cfScraper
+from exoscrapers.modules import cfscrape
 from exoscrapers.modules import cleantitle
 from exoscrapers.modules import dom_parser
 from exoscrapers.modules import source_utils
-
 
 class source:
 	def __init__(self):
@@ -43,7 +41,7 @@ class source:
 		self.domains = ['123movieshubz.com']
 		self.base_link = 'http://www5.123movieshubz.com'
 		self.search_link = '/watch/%s-%s-online-123movies.html'
-		self.scraper = cfScraper
+		self.scraper = cfscrape.create_scraper()
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:
@@ -97,8 +95,6 @@ class source:
 				       'data-name': i.attrs['data-name']}
 				url = urllib.urlencode(url)
 				valid, host = source_utils.is_host_valid(i.content, hostDict)
-				if source_utils.limit_hosts() is True and host in str(sources):
-					continue
 				if valid:
 					sources.append({'source': host, 'quality': quality, 'language': 'en', 'info': info, 'url': url,
 					                'direct': False, 'debridonly': False})
