@@ -3401,7 +3401,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"  name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.49" provider-name="The Crew">
+﻿<addon id="script.crew.sports"  name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.50a" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -4250,12 +4250,13 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.streamlink.base" name="Streamlink Library" version="2020.01.28" provider-name="Streamlink Devs, Twilight0">
+<addon id="script.module.streamlink.base" name="Streamlink Library" version="2020.03.05" provider-name="Streamlink Devs, Twilight0">
   <requires>
       <import addon="xbmc.python" version="2.24.0"/>
       <import addon="script.module.requests" version="2.12.4"/>
       <import addon="script.module.futures" version="2.2.0"/>
       <import addon="script.module.cryptolib" version="1.1.0"/>
+<!--      <import addon="script.module.pycryptodome" version="3.4.3"/>-->
   </requires>
   <extension point="xbmc.python.module" library="resources/lib/"/>
   <extension point="xbmc.addon.metadata">
@@ -4268,7 +4269,10 @@ The author is not responsible for the use of this addon. The author is not respo
       <assets>
           <icon>icon.png</icon>
       </assets>
-      <news>+2020.01.28
+      <news>+2020.03.05
+- Updated to latest commit
+
++2020.01.28
 - Updated to latest upstream commit
 - Tweaks for import errors for Python 3</news>
   </extension>
@@ -4319,7 +4323,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.67a" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.68a" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.beautifulsoup4"/>
