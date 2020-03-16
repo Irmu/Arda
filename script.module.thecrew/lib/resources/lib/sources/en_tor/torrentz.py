@@ -20,6 +20,7 @@ import re
 import urllib
 import urlparse
 
+from resources.lib.modules import cfscrape
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import debrid
@@ -67,6 +68,7 @@ class source:
 
 
     def sources(self, url, hostDict, hostprDict):
+        scraper = cfscrape.create_scraper()
         sources = []
         try:
             if url is None:
@@ -79,7 +81,6 @@ class source:
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
             title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
-            title = title.replace('&', 'and').replace('Special Victims Unit', 'SVU')
 
             hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
 
@@ -90,7 +91,7 @@ class source:
             url = urlparse.urljoin(self.base_link, url)
 
             try:
-                r = client.request(url)
+                r = scraper.get(url).content
 
                 posts = client.parseDOM(r, 'div', attrs={'class': 'results'})[0]
                 posts = client.parseDOM(posts, 'dl')

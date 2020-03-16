@@ -73,21 +73,18 @@ class navigator:
         if self.getMenuEnabled('navi.sports') == True:
             self.addDirectoryItem(
                 90006, 'bluehat', 'main_bluehat.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.slim') == False:
-            if self.getMenuEnabled('navi.iptv') == True:
-                self.addDirectoryItem(
-                    90007, 'whitehat', 'main_whitehat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.iptv') == True:
+            self.addDirectoryItem(
+                90007, 'whitehat', 'main_whitehat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.kids') == True:
             self.addDirectoryItem(
                 90009, 'greyhat', 'main_greyhat.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.slim') == False:
-            if self.getMenuEnabled('navi.1clicks') == True:
-                self.addDirectoryItem(
-                    90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.slim') == False:
-            if self.getMenuEnabled('navi.purplehat') == True:
-                self.addDirectoryItem(
-                    90189, 'purplehat', 'main_purplehat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.1clicks') == True:
+            self.addDirectoryItem(
+                90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.purplehat') == True:
+            self.addDirectoryItem(
+                90189, 'purplehat', 'main_purplehat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.standup') == True:
                 self.addDirectoryItem(
@@ -222,29 +219,35 @@ class navigator:
             if self.getMenuEnabled('navi.collections') == True:
                 self.addDirectoryItem(
                     32000, 'collectionsNavigator', 'boxsets.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movieboxoffice') == True:
-            self.addDirectoryItem(
-                32020, 'movies&url=boxoffice', 'box-office.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movieoscars') == True:
-            self.addDirectoryItem(32021, 'movies&url=oscars',
-                                  'oscar-winners.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.movieboxoffice') == True:
+                self.addDirectoryItem(
+                    32020, 'movies&url=boxoffice', 'box-office.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.movieoscars') == True:
+                self.addDirectoryItem(32021, 'movies&url=oscars',
+                                    'oscar-winners.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.moviegenre') == True:
             self.addDirectoryItem(32011, 'movieGenres',
                                   'genres.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movieyears') == True:
-            self.addDirectoryItem(32012, 'movieYears',
-                                  'years.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.moviepersons') == True:
-            self.addDirectoryItem(32013, 'moviePersons',
-                                  'people.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movielanguages') == True:
-            self.addDirectoryItem(32014, 'movieLanguages',
-                                  'international.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.movieyears') == True:
+                self.addDirectoryItem(32012, 'movieYears',
+                                    'years.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.moviepersons') == True:
+                self.addDirectoryItem(32013, 'moviePersons',
+                                    'people.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.movielanguages') == True:
+                self.addDirectoryItem(32014, 'movieLanguages',
+                                    'international.png', 'DefaultMovies.png')
         # if self.getMenuEnabled('navi.moviecerts') == True:
             #self.addDirectoryItem(32015, 'movieCertificates', 'certificates.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.movieviews') == True:
-            self.addDirectoryItem(32019, 'movies&url=views',
-                                  'most-voted.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.movieviews') == True:
+                self.addDirectoryItem(32019, 'movies&url=views',
+                                    'most-voted.png', 'DefaultMovies.png')
         self.addDirectoryItem(32028, 'moviePerson',
                               'people-search.png', 'DefaultMovies.png')
         self.addDirectoryItem(32010, 'movieSearch',
@@ -314,9 +317,10 @@ class navigator:
         if self.getMenuEnabled('navi.tvPremier') == True:
             self.addDirectoryItem(
                 32026, 'tvshows&url=premiere', 'new-tvshows.png', 'DefaultTVShows.png')
-        if self.getMenuEnabled('navi.tvAiring') == True:
-            self.addDirectoryItem(
-                32024, 'tvshows&url=airing', 'airing-today.png', 'DefaultTVShows.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.tvAiring') == True:
+                self.addDirectoryItem(
+                    32024, 'tvshows&url=airing', 'airing-today.png', 'DefaultTVShows.png')
         if self.getMenuEnabled('navi.tvTrending') == True:
             self.addDirectoryItem(32017, 'tvshows&url=trending',
                                   'people-watching2.png', 'DefaultRecentlyAddedEpisodes.png')
@@ -337,29 +341,35 @@ class navigator:
         if self.getMenuEnabled('navi.slim') == False:
             self.addDirectoryItem(32700, 'docuNavigator',
                                   'documentaries.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.tvGenres') == True:
-            self.addDirectoryItem(
-                32011, 'tvGenres', 'genres2.png', 'DefaultTVShows.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.tvGenres') == True:
+                self.addDirectoryItem(
+                    32011, 'tvGenres', 'genres2.png', 'DefaultTVShows.png')
         if self.getMenuEnabled('navi.tvNetworks') == True:
             self.addDirectoryItem(32016, 'tvNetworks',
                                   'networks2.png', 'DefaultTVShows.png')
         # if self.getMenuEnabled('navi.tvCertificates') == True:
             #self.addDirectoryItem(32015, 'tvCertificates', 'certificates2.png', 'DefaultTVShows.png')
-        if self.getMenuEnabled('navi.tvRating') == True:
-            self.addDirectoryItem(
-                32023, 'tvshows&url=rating', 'highly-rated.png', 'DefaultTVShows.png')
-        if self.getMenuEnabled('navi.tvViews') == True:
-            self.addDirectoryItem(32019, 'tvshows&url=views',
-                                  'most-voted2.png', 'DefaultTVShows.png')
-        if self.getMenuEnabled('navi.tvLanguages') == True:
-            self.addDirectoryItem(32014, 'tvLanguages',
-                                  'international2.png', 'DefaultTVShows.png')
-        if self.getMenuEnabled('navi.tvActive') == True:
-            self.addDirectoryItem(
-                32025, 'tvshows&url=active', 'returning-tvshows.png', 'DefaultTVShows.png')
-        if self.getMenuEnabled('navi.tvCalendar') == True:
-            self.addDirectoryItem(
-                32027, 'calendars', 'calendar2.png', 'DefaultRecentlyAddedEpisodes.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.tvRating') == True:
+                self.addDirectoryItem(
+                    32023, 'tvshows&url=rating', 'highly-rated.png', 'DefaultTVShows.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.tvViews') == True:
+                self.addDirectoryItem(32019, 'tvshows&url=views',
+                                    'most-voted2.png', 'DefaultTVShows.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.tvLanguages') == True:
+                self.addDirectoryItem(32014, 'tvLanguages',
+                                    'international2.png', 'DefaultTVShows.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.tvActive') == True:
+                self.addDirectoryItem(
+                    32025, 'tvshows&url=active', 'returning-tvshows.png', 'DefaultTVShows.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            if self.getMenuEnabled('navi.tvCalendar') == True:
+                self.addDirectoryItem(
+                    32027, 'calendars', 'calendar2.png', 'DefaultRecentlyAddedEpisodes.png')
         self.addDirectoryItem(
             32028, 'tvPerson', 'people-search2.png', 'DefaultTVShows.png')
         self.addDirectoryItem(
@@ -672,14 +682,16 @@ class navigator:
         self.addDirectoryItem(90028, 'ufc', 'ufc.png', 'ufc.png')
         self.addDirectoryItem(90049, 'wwe', 'wwe.png', 'wwe.png')
         self.addDirectoryItem(90115, 'boxing', 'boxing.png', 'boxing.png')
-        self.addDirectoryItem(90046, 'fifa', 'fifa.png', 'fifa.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            self.addDirectoryItem(90046, 'fifa', 'fifa.png', 'fifa.png')
         self.addDirectoryItem(90136, 'tennis', 'tennis.png', 'tennis.png')
-        self.addDirectoryItem(90047, 'motogp', 'motogp.png', 'motogp.png')
-        self.addDirectoryItem(90151, 'f1', 'f1.png', 'f1.png')
-        self.addDirectoryItem(90153, 'pga', 'pga.png', 'pga.png')
-        self.addDirectoryItem(90154, 'cricket', 'cricket.png', 'cricket.png')
-        self.addDirectoryItem(90152, 'nascar', 'nascar.png', 'nascar.png')
-        self.addDirectoryItem(90142, 'lfl', 'lfl.png', 'lfl.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            self.addDirectoryItem(90047, 'motogp', 'motogp.png', 'motogp.png')
+            self.addDirectoryItem(90151, 'f1', 'f1.png', 'f1.png')
+            self.addDirectoryItem(90153, 'pga', 'pga.png', 'pga.png')
+            self.addDirectoryItem(90154, 'cricket', 'cricket.png', 'cricket.png')
+            self.addDirectoryItem(90152, 'nascar', 'nascar.png', 'nascar.png')
+            self.addDirectoryItem(90142, 'lfl', 'lfl.png', 'lfl.png')
         self.addDirectoryItem(90114, 'misc_sports',
                               'misc_sports.png', 'misc_sports.png')
         #self.addDirectoryItem(90030, 'sports_channels', 'sports_schannels.png', 'sports_schannels.png')
@@ -692,10 +704,13 @@ class navigator:
         self.addDirectoryItem(90013, 'swiftNavigator',
                               'swift.png', 'swift.png')
         self.addDirectoryItem(90187, 'gitNavigator', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90184, 'fluxNavigator', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90185, 'stratusNavigator',
+        if self.getMenuEnabled('navi.slim') == False:
+            self.addDirectoryItem(90184, 'fluxNavigator', 'iptv.png', 'iptv.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            self.addDirectoryItem(90185, 'stratusNavigator',
                               'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
+        if self.getMenuEnabled('navi.slim') == False:
+            self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
 
         self.endDirectory()
 

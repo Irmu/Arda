@@ -1891,9 +1891,9 @@ msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]XFL[/COLOR][/B] [COLOR orchid]¤
 msgstr ""
 
 msgctxt "#90194"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Basic Only[/COLOR][/B]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Show only Hats[/COLOR][/B]"
 msgstr ""
 
 msgctxt "#90195"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Slim It Down[/COLOR][/B]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]The Crew Version[/COLOR][/B]"
 msgstr ""
