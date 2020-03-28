@@ -684,7 +684,7 @@ This addon implements RTMP streaming support for Kodi and installed add-ons.
 
 <addon id="metadata.tvshows.themoviedb.org"
        name="The Movie Database"
-       version="3.5.1"
+       version="3.5.2"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -1146,6 +1146,35 @@ version="6.0.0~alpha6" />
   </extension>
 </addon>
 
+<addon id="plugin.video.destinyds"
+	   name="Destiny of Deathstar"
+	   version="1.4.1"
+	   provider-name="Dark Child">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.requests"/>
+	<import addon="script.module.python.koding.aio" version="0.9.6.6" />
+	<import addon="script.module.resolveurl" version="5.0.00"/>
+	<import addon="script.common.plugin.cache" version="2.5.5"/>
+	<import addon="script.module.pyxbmct" version="1.1.4" />
+	<import addon="script.module.futures" version="2.2.0"/>
+	<import addon="script.module.universalscrapers"/>
+	<import addon="script.module.beautifulsoup4" version="4.5.3"/>
+	<import addon="script.module.feedparser" />
+	<import addon="script.module.dateutil" />
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+            library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="startup" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Fork of Destiny</summary>
+    <description lang="en">Destiny and Deathstar have been united. Tweaked Version by DaB.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.video.exodus" version="8.3.8" name="Exodus" provider-name="Exodus">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
@@ -1552,7 +1581,7 @@ Initial Release
   </extension>
 </addon>
 
-<addon id="plugin.video.mrpiracy" name="MrPiracy" provider-name="MrPiracy" version="0.9.6">
+<addon id="plugin.video.mrpiracy" name="MrPiracy" provider-name="MrPiracy" version="0.9.7">
  <requires>
   <import addon="xbmc.python" version="2.14.0"/>
   <import addon="script.module.t0mm0.common"/>
@@ -1576,7 +1605,7 @@ Initial Release
  </extension>
 </addon>
 
-<addon id="plugin.video.palantir" name="[COLOR gold]Palantir[/COLOR]" version="0.0.74" provider-name="TierraMedia">
+<addon id="plugin.video.palantir" name="[COLOR gold]Palantir[/COLOR]" version="0.0.76" provider-name="TierraMedia">
   <requires>
     <import addon="xbmc.python" version="2.24.0"/>
     <import addon="script.module.simple.downloader" version="1.9.5"/>
@@ -1594,9 +1623,8 @@ Initial Release
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>TV</summary>
-    <news>[COLOR lime][B] versión 0.0.74 [/B][/COLOR]
-        - [Interno] Reparados servidores:
-        - [Interno] Nuevo servidor (Hilvan):
+    <news>[COLOR lime][B] versión 0.0.76 [/B][/COLOR]
+        - [Interno] Reparado el servidor TOP
     </news>
     <description>Visualiza el contenido de la nube, series, películas.</description>
     <disclaimer>[B][COLOR red]Todo el contenido disponible en este Addon esta sacado de servidores gratuitos, disponible en la red para todos los usuarios.[/B][/COLOR]</disclaimer>
@@ -1833,7 +1861,7 @@ v3.0.5
   </extension>
 </addon>
 
-<addon id="plugin.video.rtpplay" name="RTP Play" version="5.0.4" provider-name="enen92, guipenedo">
+<addon id="plugin.video.rtpplay" name="RTP Play" version="5.0.5" provider-name="enen92, guipenedo">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.routing" version="0.2.0"/>
@@ -1855,7 +1883,7 @@ v3.0.5
         <email>enen92@kodi.tv</email>
         <source>https://github.com/enen92/plugin.video.rtpplay</source>
         <news>
-            - Fix for some on-demand streams
+            - Fix live and ondemand
         </news>
         <disclaimer lang="en_GB">The plugin is unnoficial and not endorsed by RTP. Expect it to break. </disclaimer>
         <assets>
@@ -2516,7 +2544,7 @@ Fixed: Eroticage
   </extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="6.7.0~beta1" provider-name="anxdpanic, bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="6.7.0" provider-name="anxdpanic, bromix">
     <requires>
         <import addon="xbmc.python" version="2.20.0"/>
         <import addon="script.module.six" version="1.11.0"/>
@@ -2533,13 +2561,16 @@ Fixed: Eroticage
 [add] send PlaybackInit, PlaybackStarted, PlaybackStopped notifications containing video id, channel id, and the status of the playing video
 [fix] allow playback regardless of API status
     - fixes playback for strm, playlists, other add-ons, and sharing videos from devices
+[fix] finding player config, allow playback to continue when not found if possible
 [fix] fix possible loop due to invalid keys and login information
 [fix] fix playback of mpeg-dash streams if HTTP Server - Listen on IP is blank
 [upd] use a dialog to notify users of API key requirements with link to wiki
     - https://ytaddon.page.link/keys
 [rem] remove provided api keys
-[lang] pl_pl strings |contrib: drrak|
 [lang] de_de strings |contrib: tweimer|
+[lang] el_gr strings |contrib: twilight0|
+[lang] hu_hu strings |contrib: thelacesz|
+[lang] pl_pl strings |contrib: drrak|
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -2586,7 +2617,6 @@ Fixed: Eroticage
         <summary lang="tr_TR">YouTube için eklenti</summary>
         <description lang="tr_TR">YouTube, dünya üzerindeki en büyük video paylaşma platformlarından birisidir</description>
         <disclaimer lang="tr_TR">Bu eklenti Google tarafından üretilmemiştir</disclaimer>
-        <language></language>
         <platform>all</platform>
         <license>GPL-2.0-only</license>
         <forum>https://forum.kodi.tv/showthread.php?tid=348464</forum>
@@ -2622,6 +2652,47 @@ Fixed: Eroticage
 	<forum>https://www.tvaddons.co/forums</forum>
 	<website>https://www.tvaddons.co</website>
   </extension>
+</addon>
+
+<addon id="repository.20ap" name="20ap" version="20.03.26" provider-name="Enzo">
+    <extension point="xbmc.addon.repository" name="20ap">
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/PiDiaries/repository.mpd/master/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/PiDiaries/repository.mpd/master/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/PiDiaries/repository.mpd/master/zips/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/</datadir>
+            <hashes>false</hashes>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
+        </dir>
+        <info compressed="false">https://raw.githubusercontent.com/Johnstonevo/20ap/master/zips/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/Johnstonevo/20ap/master/zips/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/Johnstonevo/20ap/master/zips/</datadir>
+
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Our Own Repo</summary>
+        <description lang="en">Repo for our own stuff</description>
+        <genre>comedy,documentary,movies,music,sports,uk</genre>
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon id="repository.aenemapy" name="Aenemapy Addons Repository" version="2018.01.04.2" provider-name="aenemapy">
@@ -2728,7 +2799,7 @@ Fixed: Eroticage
         </extension>
     </addon>
 
-<addon id="repository.bugatsinho" name=" Bugatsinho repository" version="2.3" provider-name="Bugatsinho">
+<addon id="repository.bugatsinho" name=" Bugatsinho repository" version="2.4" provider-name="Bugatsinho">
     <extension point="xbmc.addon.repository" name="Bugatsinho repository">
         <info compressed="false">https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/addons.xml</info>
         <checksum>https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/addons.xml.md5</checksum>
@@ -2749,6 +2820,11 @@ Fixed: Eroticage
             <info compressed="false">https://raw.githubusercontent.com/Twilight0/repo.twilight0.libs/master/_zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/Twilight0/repo.twilight0.libs/master/_zips/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/Twilight0/repo.twilight0.libs/master/_zips/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
         </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
@@ -2883,17 +2959,15 @@ Fixed: Eroticage
     </extension>
 </addon>
 
-    <addon id="repository.jenrepo" name="Jen Repo" version="1.0.0" provider-name="Community">
+    <addon id="repository.jenrepo" name="Jen Repo" version="1.0.1" provider-name="Community">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
         <extension point="xbmc.addon.repository" name="Jen Addon Repo">
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/</datadir>
+            <info compressed="false">https://raw.githubusercontent.com/jenaddon/jenrepo/__zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/jenaddon/jenrepo/__zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/jenaddon/jenrepo/__zips/</datadir>
             <hashes>false</hashes>
-        </dir>
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
@@ -2903,6 +2977,11 @@ Fixed: Eroticage
             <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
+        </dir>
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
         </dir>
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>
@@ -3292,7 +3371,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="repository.thecrew" name="[COLOR orchid]THE CREW REPO[/COLOR]" provider-name="The Crew" version="0.2.10">
+<addon id="repository.thecrew" name="[COLOR orchid]THE CREW REPO[/COLOR]" provider-name="The Crew" version="0.3.0">
 	<requires>
 		<import addon="xbmc.addon" version="12.0.0"/>
 	</requires>
@@ -3303,9 +3382,9 @@ The author is not responsible for the use of this addon. The author is not respo
 			<datadir zip="true">https://raw.githubusercontent.com/thecrewwh/zips/master/_zip</datadir>
 		</dir>
 		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
+			<info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
 		</dir>
 		<dir>
 			<info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
@@ -3414,7 +3493,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"	name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.56" provider-name="The Crew">
+﻿<addon id="script.crew.sports"	name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.58" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -4113,7 +4192,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.38" provider-name="jsergio">
+<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.39" provider-name="jsergio">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="plugin.video.youtube" optional="true" />
@@ -4336,7 +4415,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.70" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.70b" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.beautifulsoup4"/>

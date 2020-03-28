@@ -83,8 +83,7 @@ class movies:
             '%s', self.count)
         self.oscars_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&groups=oscar_best_picture_winners&sort=year,desc&count=%d&start=1' % self.count
         self.oscarsnominees_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&production_status=released&groups=oscar_best_picture_nominees&sort=year,desc&count=%d&start=1' % self.count
-        self.theaters_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=%s,%s&groups=now-playing-us&languages=en&sort=release_date,desc&count=%s&start=1' % (
-            self.year_date, self.today_date, str(self.count))
+        self.theaters_link = 'https://www.imdb.com/search/title?title_type=feature&num_votes=1000,&release_date=date[365],date[0]&sort=moviemeter,asc&count=40&start=1'
         self.year_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&num_votes=100,&production_status=released&year=%s,%s&sort=moviemeter,asc&count=%d&start=1' % (
             '%s', '%s', self.count)
 
