@@ -20,6 +20,7 @@ import re
 import urllib
 import urlparse
 
+from resources.lib.modules import cfscrape
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import source_utils
@@ -69,6 +70,7 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             self._sources = []
+            scraper = cfscrape.create_scraper()
 
             if url is None:
                 return self._sources
@@ -88,7 +90,7 @@ class source:
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
 
-            r = client.request(url)
+            r = scraper.get(url).content
 
             posts = client.parseDOM(r, 'figure')
 
@@ -146,10 +148,11 @@ class source:
 
     def _get_sources(self, url, quality, info, hostDict, hostprDict):
         urls = []
+        scraper = cfscrape.create_scraper()
 
         # log_utils.log('url = %s' % url, log_utils.LOGDEBUG)
 
-        result = client.request(url)
+        result = scraper.get(url).content
 
         urls = [(client.parseDOM(result, 'a', ret='href', attrs={'class': 'dbuttn watch'})[0],
                 client.parseDOM(result, 'a', ret='href', attrs={'class': 'dbuttn blue'})[0],
@@ -163,7 +166,7 @@ class source:
         for url in urls[0]:
             # log_utils.log('url = %s' % url, log_utils.LOGDEBUG)
             try:
-                r = client.request(url)
+                r = scraper.get(url)content
                 # log_utils.log('r = %s' % r, log_utils.LOGDEBUG)
 
                 # if 'linkprotector' in url:

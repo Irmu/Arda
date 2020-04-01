@@ -96,6 +96,14 @@ elif action == 'iptv':
     from resources.lib.indexers import lists
     lists.indexer().root_iptv()
 
+elif action == 'yss':
+    from resources.lib.indexers import lists
+    lists.indexer().root_yss()
+
+elif action == 'weak':
+    from resources.lib.indexers import lists
+    lists.indexer().root_weak()
+
 elif action == 'iptv_lodge':
     from resources.lib.indexers import lists
     lists.indexer().root_iptv_lodge()

@@ -52,33 +52,22 @@ class sources:
             url = None
 
             items = self.getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered)
-            select = control.setting('hosts.mode') if select is None else select
-            title = tvshowtitle if not tvshowtitle is None else title
-           
+            select = control.setting('hosts.mode') if select == None else select
+            title = tvshowtitle if not tvshowtitle == None else title
             if control.window.getProperty('PseudoTVRunning') == 'True':
                 return control.resolve(int(sys.argv[1]), True, control.item(path=str(self.sourcesDirect(items))))
-
             if len(items) > 0:
-
                 if select == '1' and 'plugin' in control.infoLabel('Container.PluginName'):
                     control.window.clearProperty(self.itemProperty)
                     control.window.setProperty(self.itemProperty, json.dumps(items))
-
                     control.window.clearProperty(self.metaProperty)
                     control.window.setProperty(self.metaProperty, meta)
-
                     control.sleep(200)
-
-                    return control.execute('Container.Update(%s?action=addItem&title=%s)' %
-                                           (sys.argv[0],
-                                            urllib.quote_plus(title)))
-
+                    return control.execute('Container.Update(%s?action=addItem&title=%s)' % (sys.argv[0], urllib.quote_plus(title)))
                 elif select == '0' or select == '1':
                     url = self.sourcesDialog(items)
-
                 else:
                     url = self.sourcesDirect(items)
-
             if url is None:
                 return self.errorForSources()
 
@@ -116,8 +105,7 @@ class sources:
 
         syshandle = int(sys.argv[1])
 
-        downloads = True if control.setting('downloads') == 'true' and not (control.setting(
-            'movie.download.path') == '' or control.setting('tv.download.path') == '') else False
+        downloads = True if control.setting('downloads') == 'true' and not (control.setting('movie.download.path') == '' or control.setting('tv.download.path') == '') else False
 
         systitle = sysname = urllib.quote_plus(title)
 
@@ -260,26 +248,10 @@ class sources:
 
                     w = workers.Thread(self.sourcesResolve, items[i])
                     w.start()
-                    '''
-                    #offset = 60 * 2 if items[i].get('source') in self.hostcapDict else 0
-                    if items[i].get('debrid').lower() == 'real-debrid':
-                        no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
-                    if items[i].get('debrid').lower() == 'alldebrid':
-                        no_skip = control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == ''
-                    if items[i].get('debrid').lower() == 'premiumize.me':
-                        no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
-                    if items[i].get('debrid').lower() == 'linksnappy':
-                        no_skip = control.addon('script.module.resolveurl').getSetting('LinksnappyResolver_cached_only') == 'false'
-                    '''
-                    '''
-                    if items[i].get('source') in self.hostcapDict: offset = 60 * 2
-                    elif items[i].get('source').lower() == 'torrent' and no_skip: offset = float('inf')
-                    else: offset = 0
-                    m = ''
-                    '''
+
                     if items[i].get('source').lower() in self.hostcapDict:
                         offset = 60 * 2
-                    elif items[i].get('source').lower() == 'torrent':  # and no_skip:
+                    elif items[i].get('source').lower() == 'torrent':
                         offset = float('inf')
                     else:
                         offset = 0
@@ -410,8 +382,7 @@ class sources:
             # Disabled on 11/11/17 due to hang. Should be checked in the future and possible enabled again.
             # season, episode = thexem.get_scene_episode_number(tvdb, season, episode)
             for i in sourceDict:
-                threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season,
-                                              episode, tvshowtitle, localtvshowtitle, aliases, premiered, i[0], i[1]))
+                threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season, episode, tvshowtitle, localtvshowtitle, aliases, premiered, i[0], i[1]))
 
         s = [i[0] + (i[1],) for i in zip(sourceDict, threads)]
         s = [(i[3].getName(), i[0], i[2]) for i in s]
@@ -483,196 +454,117 @@ class sources:
 
                 if len(self.sources) > 0:
                     if quality in ['0']:
-                        source_4k = len([e for e in self.sources if e['quality'] == '4K' and e['debridonly'] is False])
-                        source_1080 = len([e for e in self.sources if e['quality'] in [
-                                          '1440p', '1080p'] and e['debridonly'] is False])
-                        source_720 = len([e for e in self.sources if e['quality'] in [
-                                         '720p', 'HD'] and e['debridonly'] is False])
-                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] is False])
+                        source_4k = len([e for e in self.sources if e['quality'] == '4K' and e['debridonly'] == False])
+                        source_1080 = len([e for e in self.sources if e['quality'] in ['1440p','1080p'] and e['debridonly'] == False])
+                        source_720 = len([e for e in self.sources if e['quality'] in ['720p','HD'] and e['debridonly'] == False])
+                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] == False])
                     elif quality in ['1']:
-                        source_1080 = len([e for e in self.sources if e['quality'] in [
-                                          '1440p', '1080p'] and e['debridonly'] is False])
-                        source_720 = len([e for e in self.sources if e['quality'] in [
-                                         '720p', 'HD'] and e['debridonly'] is False])
-                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] is False])
+                        source_1080 = len([e for e in self.sources if e['quality'] in ['1440p','1080p'] and e['debridonly'] == False])
+                        source_720 = len([e for e in self.sources if e['quality'] in ['720p','HD'] and e['debridonly'] == False])
+                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] == False])
                     elif quality in ['2']:
-                        source_1080 = len([e for e in self.sources if e['quality']
-                                           in ['1080p'] and e['debridonly'] is False])
-                        source_720 = len([e for e in self.sources if e['quality'] in [
-                                         '720p', 'HD'] and e['debridonly'] is False])
-                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] is False])
+                        source_1080 = len([e for e in self.sources if e['quality'] in ['1080p'] and e['debridonly'] == False])
+                        source_720 = len([e for e in self.sources if e['quality'] in ['720p','HD'] and e['debridonly'] == False])
+                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] == False])
                     elif quality in ['3']:
-                        source_720 = len([e for e in self.sources if e['quality'] in [
-                                         '720p', 'HD'] and e['debridonly'] is False])
-                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] is False])
+                        source_720 = len([e for e in self.sources if e['quality'] in ['720p','HD'] and e['debridonly'] == False])
+                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] == False])
                     else:
-                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] is False])
+                        source_sd = len([e for e in self.sources if e['quality'] == 'SD' and e['debridonly'] == False])
 
                     total = source_4k + source_1080 + source_720 + source_sd
 
                     if debrid_status:
                         if quality in ['0']:
                             for d in debrid_list:
-                                d_source_4k = len([e for e in self.sources if e['quality']
-                                                   == '4K' and d.valid_url(str(e['url']), e['source'])])
-                                d_source_1080 = len([e for e in self.sources if e['quality'] in [
-                                                    '1440p', '1080p'] and d.valid_url(str(e['url']), e['source'])])
-                                d_source_720 = len([e for e in self.sources if e['quality'] in [
-                                                   '720p', 'HD'] and d.valid_url(str(e['url']), e['source'])])
-                                d_source_sd = len([e for e in self.sources if e['quality']
-                                                   == 'SD' and d.valid_url(str(e['url']), e['source'])])
+                                d_source_4k = len([e for e in self.sources if e['quality'] == '4K' and d.valid_url(e['url'], e['source'])])
+                                d_source_1080 = len([e for e in self.sources if e['quality'] in ['1440p','1080p'] and d.valid_url(e['url'], e['source'])])
+                                d_source_720 = len([e for e in self.sources if e['quality'] in ['720p','HD'] and d.valid_url(e['url'], e['source'])])
+                                d_source_sd = len([e for e in self.sources if e['quality'] == 'SD' and d.valid_url(e['url'], e['source'])])
                         elif quality in ['1']:
                             for d in debrid_list:
-                                d_source_1080 = len([e for e in self.sources if e['quality'] in [
-                                                    '1440p', '1080p'] and d.valid_url(str(e['url']), e['source'])])
-                                d_source_720 = len([e for e in self.sources if e['quality'] in [
-                                                   '720p', 'HD'] and d.valid_url(str(e['url']), e['source'])])
-                                d_source_sd = len([e for e in self.sources if e['quality']
-                                                   == 'SD' and d.valid_url(str(e['url']), e['source'])])
+                                d_source_1080 = len([e for e in self.sources if e['quality'] in ['1440p','1080p'] and d.valid_url(e['url'], e['source'])])
+                                d_source_720 = len([e for e in self.sources if e['quality'] in ['720p','HD'] and d.valid_url(e['url'], e['source'])])
+                                d_source_sd = len([e for e in self.sources if e['quality'] == 'SD' and d.valid_url(e['url'], e['source'])])
                         elif quality in ['2']:
                             for d in debrid_list:
-                                d_source_1080 = len([e for e in self.sources if e['quality'] in [
-                                                    '1080p'] and d.valid_url(str(e['url']), e['source'])])
-                                d_source_720 = len([e for e in self.sources if e['quality'] in [
-                                                   '720p', 'HD'] and d.valid_url(str(e['url']), e['source'])])
-                                d_source_sd = len([e for e in self.sources if e['quality']
-                                                   == 'SD' and d.valid_url(str(e['url']), e['source'])])
+                                d_source_1080 = len([e for e in self.sources if e['quality'] in ['1080p'] and d.valid_url(e['url'], e['source'])])
+                                d_source_720 = len([e for e in self.sources if e['quality'] in ['720p','HD'] and d.valid_url(e['url'], e['source'])])
+                                d_source_sd = len([e for e in self.sources if e['quality'] == 'SD' and d.valid_url(e['url'], e['source'])])
                         elif quality in ['3']:
                             for d in debrid_list:
-                                d_source_720 = len([e for e in self.sources if e['quality'] in [
-                                                   '720p', 'HD'] and d.valid_url(str(e['url']), e['source'])])
-                                d_source_sd = len([e for e in self.sources if e['quality']
-                                                   == 'SD' and d.valid_url(str(e['url']), e['source'])])
+                                d_source_720 = len([e for e in self.sources if e['quality'] in ['720p','HD'] and d.valid_url(e['url'], e['source'])])
+                                d_source_sd = len([e for e in self.sources if e['quality'] == 'SD' and d.valid_url(e['url'], e['source'])])
                         else:
                             for d in debrid_list:
-                                d_source_sd = len([e for e in self.sources if e['quality']
-                                                   == 'SD' and d.valid_url(str(e['url']), e['source'])])
+                                d_source_sd = len([e for e in self.sources if e['quality'] == 'SD' and d.valid_url(e['url'], e['source'])])
 
                         d_total = d_source_4k + d_source_1080 + d_source_720 + d_source_sd
 
                 if debrid_status:
-                    d_4k_label = total_format % (
-                        'red', d_source_4k) if d_source_4k == 0 else total_format % (
-                        'lime', d_source_4k)
-                    d_1080_label = total_format % (
-                        'red', d_source_1080) if d_source_1080 == 0 else total_format % (
-                        'lime', d_source_1080)
-                    d_720_label = total_format % (
-                        'red', d_source_720) if d_source_720 == 0 else total_format % (
-                        'lime', d_source_720)
-                    d_sd_label = total_format % (
-                        'red', d_source_sd) if d_source_sd == 0 else total_format % (
-                        'lime', d_source_sd)
-                    d_total_label = total_format % (
-                        'red', d_total) if d_total == 0 else total_format % (
-                        'lime', d_total)
-
-                source_4k_label = total_format % (
-                    'red', source_4k) if source_4k == 0 else total_format % (
-                    'lime', source_4k)
-                source_1080_label = total_format % (
-                    'red', source_1080) if source_1080 == 0 else total_format % (
-                    'lime', source_1080)
-                source_720_label = total_format % (
-                    'red', source_720) if source_720 == 0 else total_format % (
-                    'lime', source_720)
-                source_sd_label = total_format % (
-                    'red', source_sd) if source_sd == 0 else total_format % (
-                    'lime', source_sd)
+                    d_4k_label = total_format % ('red', d_source_4k) if d_source_4k == 0 else total_format % ('lime', d_source_4k)
+                    d_1080_label = total_format % ('red', d_source_1080) if d_source_1080 == 0 else total_format % ('lime', d_source_1080)
+                    d_720_label = total_format % ('red', d_source_720) if d_source_720 == 0 else total_format % ('lime', d_source_720)
+                    d_sd_label = total_format % ('red', d_source_sd) if d_source_sd == 0 else total_format % ('lime', d_source_sd)
+                    d_total_label = total_format % ('red', d_total) if d_total == 0 else total_format % ('lime', d_total)
+                source_4k_label = total_format % ('red', source_4k) if source_4k == 0 else total_format % ('lime', source_4k)
+                source_1080_label = total_format % ('red', source_1080) if source_1080 == 0 else total_format % ('lime', source_1080)
+                source_720_label = total_format % ('red', source_720) if source_720 == 0 else total_format % ('lime', source_720)
+                source_sd_label = total_format % ('red', source_sd) if source_sd == 0 else total_format % ('lime', source_sd)
                 source_total_label = total_format % ('red', total) if total == 0 else total_format % ('lime', total)
 
                 if (i / 2) < timeout:
                     try:
-                        mainleft = [sourcelabelDict[x.getName()] for x in threads if x.is_alive() is
-                                    True and x.getName() in mainsourceDict]
-                        info = [sourcelabelDict[x.getName()] for x in threads if x.is_alive() is True]
+                        mainleft = [sourcelabelDict[x.getName()] for x in threads if x.is_alive() == True and x.getName() in mainsourceDict]
+                        info = [sourcelabelDict[x.getName()] for x in threads if x.is_alive() == True]
                         if i >= timeout and len(mainleft) == 0 and len(self.sources) >= 100 * len(info):
-                            break  # improve responsiveness
+                            break # improve responsiveness
                         if debrid_status:
                             if quality in ['0']:
                                 if not progressDialog == control.progressDialogBG:
-                                    line1 = ('%s:' + '|'.join(pdiag_format)) % (string6, d_4k_label,
-                                                                                d_1080_label, d_720_label, d_sd_label, str(string4), d_total_label)
-                                    line2 = ('%s:' + '|'.join(pdiag_format)) % (string7, source_4k_label,
-                                                                                source_1080_label, source_720_label, source_sd_label, str(string4),
-                                                                                source_total_label)
+                                    line1 = ('%s:' + '|'.join(pdiag_format)) % (string6, d_4k_label, d_1080_label, d_720_label, d_sd_label, str(string4), d_total_label)
+                                    line2 = ('%s:' + '|'.join(pdiag_format)) % (string7, source_4k_label, source_1080_label, source_720_label, source_sd_label, str(string4), source_total_label)
                                     print line1, line2
                                 else:
                                     control.idle()
-                                    line1 = '|'.join(
-                                        pdiag_bg_format[: -1]) % (
-                                        source_4k_label, d_4k_label, source_1080_label, d_1080_label, source_720_label,
-                                        d_720_label, source_sd_label, d_sd_label)
+                                    line1 = '|'.join(pdiag_bg_format[:-1]) % (source_4k_label, d_4k_label, source_1080_label, d_1080_label, source_720_label, d_720_label, source_sd_label, d_sd_label)
                             elif quality in ['1']:
                                 if not progressDialog == control.progressDialogBG:
-                                    line1 = (
-                                        '%s:' + '|'.join(pdiag_format[1:])) % (string6, d_1080_label, d_720_label, d_sd_label, str(string4), d_total_label)
-                                    line2 = (
-                                        '%s:' + '|'.join(pdiag_format[1:])) % (
-                                        string7, source_1080_label, source_720_label, source_sd_label, str(string4),
-                                        source_total_label)
+                                    line1 = ('%s:' + '|'.join(pdiag_format[1:])) % (string6, d_1080_label, d_720_label, d_sd_label, str(string4), d_total_label)
+                                    line2 = ('%s:' + '|'.join(pdiag_format[1:])) % (string7, source_1080_label, source_720_label, source_sd_label, str(string4), source_total_label)
                                 else:
                                     control.idle()
-                                    line1 = '|'.join(
-                                        pdiag_bg_format[1:]) % (
-                                        source_1080_label, d_1080_label, source_720_label, d_720_label, source_sd_label,
-                                        d_sd_label, source_total_label, d_total_label)
+                                    line1 = '|'.join(pdiag_bg_format[1:]) % (source_1080_label, d_1080_label, source_720_label, d_720_label, source_sd_label, d_sd_label, source_total_label, d_total_label)
                             elif quality in ['2']:
                                 if not progressDialog == control.progressDialogBG:
-                                    line1 = (
-                                        '%s:' + '|'.join(pdiag_format[1:])) % (string6, d_1080_label, d_720_label, d_sd_label, str(string4), d_total_label)
-                                    line2 = (
-                                        '%s:' + '|'.join(pdiag_format[1:])) % (
-                                        string7, source_1080_label, source_720_label, source_sd_label, str(string4),
-                                        source_total_label)
+                                    line1 = ('%s:' + '|'.join(pdiag_format[1:])) % (string6, d_1080_label, d_720_label, d_sd_label, str(string4), d_total_label)
+                                    line2 = ('%s:' + '|'.join(pdiag_format[1:])) % (string7, source_1080_label, source_720_label, source_sd_label, str(string4), source_total_label)
                                 else:
                                     control.idle()
-                                    line1 = '|'.join(
-                                        pdiag_bg_format[1:]) % (
-                                        source_1080_label, d_1080_label, source_720_label, d_720_label, source_sd_label,
-                                        d_sd_label, source_total_label, d_total_label)
+                                    line1 = '|'.join(pdiag_bg_format[1:]) % (source_1080_label, d_1080_label, source_720_label, d_720_label, source_sd_label, d_sd_label, source_total_label, d_total_label)
                             elif quality in ['3']:
                                 if not progressDialog == control.progressDialogBG:
-                                    line1 = ('%s:' + '|'.join(pdiag_format[2:])) % (string6,
-                                                                                    d_720_label, d_sd_label, str(string4), d_total_label)
-                                    line2 = (
-                                        '%s:' + '|'.join(pdiag_format[2:])) % (string7, source_720_label, source_sd_label, str(string4), source_total_label)
+                                    line1 = ('%s:' + '|'.join(pdiag_format[2:])) % (string6, d_720_label, d_sd_label, str(string4), d_total_label)
+                                    line2 = ('%s:' + '|'.join(pdiag_format[2:])) % (string7, source_720_label, source_sd_label, str(string4), source_total_label)
                                 else:
                                     control.idle()
-                                    line1 = '|'.join(
-                                        pdiag_bg_format[2:]) % (
-                                        source_720_label, d_720_label, source_sd_label, d_sd_label, source_total_label,
-                                        d_total_label)
+                                    line1 = '|'.join(pdiag_bg_format[2:]) % (source_720_label, d_720_label, source_sd_label, d_sd_label, source_total_label, d_total_label)
                             else:
                                 if not progressDialog == control.progressDialogBG:
-                                    line1 = ('%s:' + '|'.join(pdiag_format[3:])) % (string6,
-                                                                                    d_sd_label, str(string4), d_total_label)
-                                    line2 = ('%s:' + '|'.join(pdiag_format[3:])) % (string7,
-                                                                                    source_sd_label, str(string4), source_total_label)
+                                    line1 = ('%s:' + '|'.join(pdiag_format[3:])) % (string6, d_sd_label, str(string4), d_total_label)
+                                    line2 = ('%s:' + '|'.join(pdiag_format[3:])) % (string7, source_sd_label, str(string4), source_total_label)
                                 else:
                                     control.idle()
-                                    line1 = '|'.join(
-                                        pdiag_bg_format[3:]) % (
-                                        source_sd_label, d_sd_label, source_total_label, d_total_label)
+                                    line1 = '|'.join(pdiag_bg_format[3:]) % (source_sd_label, d_sd_label, source_total_label, d_total_label)
                         else:
                             if quality in ['0']:
-                                line1 = '|'.join(pdiag_format) % (source_4k_label, source_1080_label,
-                                                                  source_720_label, source_sd_label, str(string4), source_total_label)
+                                line1 = '|'.join(pdiag_format) % (source_4k_label, source_1080_label, source_720_label, source_sd_label, str(string4), source_total_label)
                             elif quality in ['1']:
-                                line1 = '|'.join(
-                                    pdiag_format[1:]) % (
-                                    source_1080_label, source_720_label, source_sd_label, str(string4),
-                                    source_total_label)
+                                line1 = '|'.join(pdiag_format[1:]) % (source_1080_label, source_720_label, source_sd_label, str(string4), source_total_label)
                             elif quality in ['2']:
-                                line1 = '|'.join(
-                                    pdiag_format[1:]) % (
-                                    source_1080_label, source_720_label, source_sd_label, str(string4),
-                                    source_total_label)
+                                line1 = '|'.join(pdiag_format[1:]) % (source_1080_label, source_720_label, source_sd_label, str(string4), source_total_label)
                             elif quality in ['3']:
-                                line1 = '|'.join(
-                                    pdiag_format[2:]) % (
-                                    source_720_label, source_sd_label, str(string4),
-                                    source_total_label)
+                                line1 = '|'.join(pdiag_format[2:]) % (source_720_label, source_sd_label, str(string4), source_total_label)
                             else:
                                 line1 = '|'.join(pdiag_format[3:]) % (source_sd_label, str(string4), source_total_label)
 

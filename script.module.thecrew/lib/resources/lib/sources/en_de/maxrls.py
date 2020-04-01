@@ -17,6 +17,7 @@
 
 import re,urllib,urlparse
 
+from resources.lib.modules import cfscrape
 from resources.lib.modules import client
 from resources.lib.modules import debrid
 from resources.lib.modules import source_utils
@@ -62,6 +63,7 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
+            scraper = cfscrape.create_scraper()
 
             if url is None:
                 return sources
@@ -81,18 +83,18 @@ class source:
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url).replace('%3A+', '+')
 
-            r = client.request(url)
+            r = scraper.get(url).content
             if r is None and 'tvshowtitle' in data:
                 season = re.search('S(.*?)E', hdlr)
                 season = season.group(1)
                 url = title
 
-                r = client.request(url)
+                r = scraper.get(url).content
 
             for loopCount in range(0, 2):
                 if loopCount == 1 or (r is None and 'tvshowtitle' in data):
 
-                    r = client.request(url)
+                    r = scraper.get(url).content
 
                 posts = client.parseDOM(r, "h2", attrs={"class": "postTitle"})
                 hostDict = hostprDict + hostDict
@@ -112,7 +114,7 @@ class source:
             for item in items:
                 try:
                     i = str(item)
-                    r = client.request(i)
+                    r = scraper.get(i).content
                     u = client.parseDOM(r, "div", attrs={"class": "postContent"})
                     for t in u:
                         r = client.parseDOM(t, 'a', ret='href')

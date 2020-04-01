@@ -711,6 +711,8 @@ class navigator:
                               'iptv.png', 'iptv.png')
         if self.getMenuEnabled('navi.slim') == False:
             self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90196, 'yss', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90197, 'weak', 'iptv.png', 'iptv.png')
 
         self.endDirectory()
 
