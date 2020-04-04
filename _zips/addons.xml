@@ -2388,7 +2388,7 @@ More minor bugfixes (honestly could not list them all)
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.72" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.72a" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.thecrew" />
@@ -2502,6 +2502,25 @@ DaftSex updated server lists
 Fixed: Eroticage
 </news>
     </extension>
+</addon>
+
+<addon id="plugin.video.wonderfulsubs" name="WonderfulSubs : Anime Subs &amp; Dubs" provider-name="DxCx" version="0.0.29">
+  <requires>
+    <import addon="xbmc.python" version="2.25.0" />
+    <import addon="script.module.requests" version="2.12.4" />
+    <import addon="script.module.beautifulsoup4" version="4.5.3" />
+    <import addon="script.common.plugin.cache" version="2.5.5" />
+    <import addon="script.module.inputstreamhelper" version="0.3.3" />
+  </requires>
+  <extension library="default.py" point="xbmc.python.pluginsource">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">WonderfulSubs : Anime Subs &amp; Dubs</summary>
+    <description lang="en">HD Animes</description>
+    <source>https://github.com/DxCx/plugin.video.wonderfulsubs</source>
+    <platform>all</platform>
+  </extension>
 </addon>
 
 <addon id="plugin.video.wonderfulsubs" name="WonderfulSubs : Anime Subs &amp; Dubs" provider-name="DxCx" version="0.0.28">
@@ -3493,7 +3512,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"	name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.58" provider-name="The Crew">
+﻿<addon id="script.crew.sports"	name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.59" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -4129,6 +4148,27 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
+<addon id="script.module.pyrrent2http" name="pyrrent2http" version="0.9.9" provider-name="inpos">
+    <requires>
+        <import addon="xbmc.python" version="2.14.0"/>
+        <import	addon="script.module.libtorrent" />
+        <import addon="script.module.chardet" />
+    </requires>
+    <extension point="xbmc.python.module" library="lib"/>
+    <extension point="xbmc.python.script" library="default.py">
+    	<provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <language>en</language>
+        <summary lang="en">Downloads torrents and share it over HTTP</summary>
+        <summary lang="ru">Загружает торренты и раздает их по HTTP</summary>
+        <description lang="ru">Обеспечивает последовательную (sequential) загрузку торрентов для потокового онлайн просмотра через HTTP. Основан на библиотеке LibTorrent.</description>
+        <description lang="en">Provides sequential torrent downloading for online streaming video and other media over HTTP.</description>
+        <email>inpos@yandex.ru</email>
+        <source>https://github.com/inpos/script.module.pyrrent2http</source></extension>
+</addon>
+
 <addon id="script.module.python.koding.aio"
    name="Python Koding AIO"
    version="1.0"
@@ -4235,7 +4275,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.40" provider-name="jsergio">
+<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.41" provider-name="jsergio">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="plugin.video.youtube" optional="true" />
@@ -4458,7 +4498,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.72" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.72d" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.beautifulsoup4"/>
@@ -4495,6 +4535,41 @@ The author is not responsible for the use of this addon. The author is not respo
         <license>Apache 2.0</license>
         <source>https://github.com/marcelveldt/script.module.thetvdb</source>
         <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id='script.module.torrent.ts' version='0.7.3.4' name='AceStream client' provider-name='1orgar'>
+  <requires>
+    <import addon='xbmc.python' version='2.7.8'/>
+  </requires>
+    <extension point="xbmc.python.script" library="default.py">
+    	<provides>executable</provides>
+    </extension>
+    <extension point="xbmc.python.module" library="lib"/>
+  <extension point='xbmc.addon.metadata'>
+    <platform>all</platform>
+    <summary>AceStream client</summary>
+  </extension>
+</addon>
+
+<addon id="script.module.torrent2http" name="torrent2http" version="0.2.6" provider-name="anteo,DiMartino,-=Vd=-">
+    <requires>
+        <import addon="xbmc.python" version="2.14.0"/>
+		<import addon="script.module.requests" optional="false"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib"/>
+	<extension point="xbmc.python.script" library="main.py">
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="startup" />
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <language>en</language>
+        <summary lang="en">Downloads torrents and share it over HTTP</summary>
+        <summary lang="ru">Загружает торренты и раздает их по HTTP</summary>
+        <description lang="ru">Обеспечивает последовательную (sequential) загрузку торрентов для потокового онлайн просмотра через HTTP. Основан на библиотеке LibTorrent.</description>
+        <description lang="en">Provides sequential torrent downloading for online streaming video and other media over HTTP.</description>
+        <email>anteo@academ.org</email>
     </extension>
 </addon>
 
@@ -4592,7 +4667,7 @@ The author is not responsible for the use of this addon. The author is not respo
 	</extension>
 </addon>
 
-<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.2.2" provider-name="Team Universal">
+<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.2.3" provider-name="Team Universal">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.beautifulsoup" version="3.2.1"/>
@@ -4654,6 +4729,20 @@ The author is not responsible for the use of this addon. The author is not respo
         <platform>all</platform>
         <summary lang="en">I dont want ndigo, so i removed it. Period.</summary>
     </extension>
+</addon>
+
+<addon id="script.module.xbmcswift2" name="xbmcswift2" provider-name="Jonathan Beluch (jbel), enen92" version="2.5.1">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0" />
+  </requires>
+  <extension library="lib" point="xbmc.python.module" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <source>https://github.com/XBMC-Addons/script.module.xbmcswift2</source>
+    <license>GPL-3.0</license>
+    <summary lang="en">xbmcswift2 is a small framework to ease development of KODI addons.</summary>
+    <description lang="en">xbmcswift2 is a small framework to ease development of KODI addons.</description>
+  </extension>
 </addon>
 
 <addon id="script.module.youtube.dl" name="youtube-dl Control" version="19.912.1" provider-name="Rick Phillips (ruuk)">
@@ -4722,7 +4811,7 @@ The author is not responsible for the use of this addon. The author is not respo
 	</extension>
 </addon>
 
-<addon id="script.thecrew.artwork" version="0.0.30" name="[COLOR orchid]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
+<addon id="script.thecrew.artwork" version="0.0.31" name="[COLOR orchid]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
     </requires>
@@ -5107,6 +5196,174 @@ v5.2.14 (2017-01-23)
         <website>https://kodi.tv</website>
         <source>https://github.com/XBMC-Addons/service.xbmc.versioncheck</source>
     </extension>
+</addon>
+
+<addon id='torrenter.searcher.ExtraTorrent' version='1.0.3'
+     name='Torrenter Searcher: ExtraTorrent' provider-name='DiMartino'>
+  <requires>
+    <import addon='xbmc.python' version='2.1.0'/>
+  </requires>
+  <extension point="xbmc.python.script" library="__init__.py">
+    <provides>executable</provides>
+  </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang='en'>Torrenter v2 Searcher module for ExtraTorrent.CC.
+        </summary>
+        <description lang='en'>Torrenter v2 Searcher module for ExtraTorrent.CC.
+        </description>
+        <disclaimer lang='en'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+        <summary lang='ru'>Серчер трекера ExtraTorrent.CC для плагина Torrenter v2.
+        </summary>
+        <description lang='ru'>Серчер трекера ExtraTorrent.CC для плагина Torrenter v2.
+        </description>
+        <disclaimer lang='ru'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+    </extension>
+  <extension point='xbmc.python.module'/>
+</addon>
+
+<addon id='torrenter.searcher.EZTV' version='1.0.3'
+     name='Torrenter Searcher: EZTV' provider-name='DiMartino'>
+  <requires>
+    <import addon='xbmc.python' version='2.1.0'/>
+  </requires>
+  <extension point="xbmc.python.script" library="__init__.py">
+    <provides>executable</provides>
+  </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang='en'>Torrenter v2 Searcher module for EZTV.IT.
+        </summary>
+        <description lang='en'>Torrenter v2 Searcher module for EZTV.IT.
+        </description>
+        <disclaimer lang='en'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+        <summary lang='ru'>Серчер трекера EZTV.IT для плагина Torrenter v2.
+        </summary>
+        <description lang='ru'>Серчер трекера EZTV.IT для плагина Torrenter v2.
+        </description>
+        <disclaimer lang='ru'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+    </extension>
+  <extension point='xbmc.python.module'/>
+</addon>
+
+<addon id='torrenter.searcher.KickAssSo' version='1.0.4'
+     name='Torrenter Searcher: KickAssSo' provider-name='DiMartino'>
+  <requires>
+    <import addon='xbmc.python' version='2.1.0'/>
+  </requires>
+  <extension point="xbmc.python.script" library="__init__.py">
+    <provides>executable</provides>
+  </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang='en'>Torrenter v2 Searcher module for KickAss.So.
+        </summary>
+        <description lang='en'>Torrenter v2 Searcher module for KickAss.So.
+        </description>
+        <disclaimer lang='en'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+        <summary lang='ru'>Серчер трекера KickAss.So для плагина Torrenter v2.
+        </summary>
+        <description lang='ru'>Серчер трекера KickAss.So для плагина Torrenter v2.
+        </description>
+        <disclaimer lang='ru'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+    </extension>
+  <extension point='xbmc.python.module'/>
+</addon>
+
+<addon id='torrenter.searcher.KinoZalTV' version='1.0.6a'
+     name='Torrenter Searcher: KinoZalTV' provider-name='DiMartino'>
+  <requires>
+    <import addon='xbmc.python' version='2.1.0'/>
+  </requires>
+  <extension point="xbmc.python.script" library="__init__.py">
+    <provides>executable</provides>
+  </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang='en'>Torrenter v2 Searcher module for KinoZal.TV.
+        </summary>
+        <description lang='en'>Torrenter v2 Searcher module for KinoZal.TV.
+        </description>
+        <disclaimer lang='en'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+        <summary lang='ru'>Серчер трекера KinoZal.TV для плагина Torrenter v2.
+        </summary>
+        <description lang='ru'>Серчер трекера KinoZal.TV для плагина Torrenter v2.
+        </description>
+        <disclaimer lang='ru'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+    </extension>
+  <extension point='xbmc.python.module'/>
+</addon>
+
+<addon id='torrenter.searcher.MagnetDL' version='1.0.2'
+     name='Torrenter Searcher: MagnetDL' provider-name='DiMartino'>
+  <requires>
+    <import addon='xbmc.python' version='2.1.0'/>
+  </requires>
+  <extension point="xbmc.python.script" library="__init__.py">
+    <provides>executable</provides>
+  </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang='en'>Torrenter v2 Searcher module for MagnetDL.com.
+        </summary>
+        <description lang='en'>Torrenter v2 Searcher module for MagnetDL.com.
+        </description>
+        <disclaimer lang='en'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+        <summary lang='ru'>Серчер трекера MagnetDL.com для плагина Torrenter v2.
+        </summary>
+        <description lang='ru'>Серчер трекера MagnetDL.com для плагина Torrenter v2.
+        </description>
+        <disclaimer lang='ru'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+    </extension>
+  <extension point='xbmc.python.module'/>
+</addon>
+
+<addon id='torrenter.searcher.RuTorOrg' version='1.0.2'
+     name='Torrenter Searcher: RuTorOrg' provider-name='DiMartino'>
+  <requires>
+    <import addon='xbmc.python' version='2.1.0'/>
+  </requires>
+  <extension point="xbmc.python.script" library="__init__.py">
+    <provides>executable</provides>
+  </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang='en'>Torrenter v2 Searcher module for RuTor.Org.
+        </summary>
+        <description lang='en'>Torrenter v2 Searcher module for RuTor.Org.
+        </description>
+        <disclaimer lang='en'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+        <summary lang='ru'>Серчер трекера RuTor.Org для плагина Torrenter v2.
+        </summary>
+        <description lang='ru'>Серчер трекера RuTor.Org для плагина Torrenter v2.
+        </description>
+        <disclaimer lang='ru'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+    </extension>
+  <extension point='xbmc.python.module'/>
+</addon>
+
+<addon id='torrenter.searcher.RuTrackerOrg' version='1.0.9'
+     name='Torrenter Searcher: RuTrackerOrg' provider-name='DiMartino'>
+  <requires>
+    <import addon='xbmc.python' version='2.1.0'/>
+  </requires>
+  <extension point="xbmc.python.script" library="__init__.py">
+    <provides>executable</provides>
+  </extension>
+      <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang='en'>Torrenter v2 Searcher module for RuTracker.Org.
+        </summary>
+        <description lang='en'>Torrenter v2 Searcher module for RuTracker.Org.
+        </description>
+        <disclaimer lang='en'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+        <summary lang='ru'>Серчер трекера RuTracker.Org для плагина Torrenter v2.
+        </summary>
+        <description lang='ru'>Серчер трекера RuTracker.Org для плагина Torrenter v2.
+        </description>
+        <disclaimer lang='ru'>GNU GPLv3 http://www.gnu.org/licenses/</disclaimer>
+    </extension>
+  <extension point='xbmc.python.module'/>
 </addon>
 
 <addon id="weather.yahoo" name="Yahoo! Weather" version="5.0.6" provider-name="ronie">

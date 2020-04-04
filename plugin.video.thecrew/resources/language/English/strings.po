@@ -1715,7 +1715,7 @@ msgid "[COLOR orchid]¤[/COLOR] [B][COLOR orange]100 Great Halloween Movies[/COL
 msgstr ""
 
 msgctxt "#90150"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]Chains Of Absolution[/COLOR][/B]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]Chain Reaction[/COLOR][/B]"
 msgstr ""
 
 msgctxt "#90151"

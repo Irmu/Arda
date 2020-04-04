@@ -1,15 +1,7 @@
 # -*- coding: utf-8 -*-
 
-#  ..#######.########.#######.##....#..######..######.########....###...########.#######.########..######.
-#  .##.....#.##.....#.##......###...#.##....#.##....#.##.....#...##.##..##.....#.##......##.....#.##....##
-#  .##.....#.##.....#.##......####..#.##......##......##.....#..##...##.##.....#.##......##.....#.##......
-#  .##.....#.########.######..##.##.#..######.##......########.##.....#.########.######..########..######.
-#  .##.....#.##.......##......##..###.......#.##......##...##..########.##.......##......##...##........##
-#  .##.....#.##.......##......##...##.##....#.##....#.##....##.##.....#.##.......##......##....##.##....##
-#  ..#######.##.......#######.##....#..######..######.##.....#.##.....#.##.......#######.##.....#..######.
 
 '''
-    OpenScrapers Project
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -23,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+
 import re
 import urllib
 import urlparse
@@ -41,6 +34,7 @@ class source:
         self.domains = ['torrentz2.eu']
         self.base_link = 'https://torrentz2.eu'
         self.search_link = '/search?f=%s'
+        self.scraper = cfscrape.create_scraper()
 
 
     def movie(self, imdb, title, localtitle, aliases, year):
@@ -75,7 +69,6 @@ class source:
 
 
     def sources(self, url, hostDict, hostprDict):
-        scraper = cfscrape.create_scraper()
         sources = []
         try:
             if url is None:
@@ -98,7 +91,7 @@ class source:
             url = urlparse.urljoin(self.base_link, url)
 
             try:
-                r = scraper.get(url).content
+                r = self.scraper.get(url).content
 
                 posts = client.parseDOM(r, 'div', attrs={'class': 'results'})[0]
                 posts = client.parseDOM(posts, 'dl')

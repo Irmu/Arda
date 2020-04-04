@@ -65,66 +65,50 @@ class navigator:
         # if self.getMenuEnabled('navi.halloween') == True:
         #self.addDirectoryItem(90144, 'halloweenNavigator', 'halloween.png', 'halloween.png')
         if self.getMenuEnabled('navi.movies') == True:
-            self.addDirectoryItem(32001, 'movieNavigator',
-                                  'main_movies.png', 'DefaultMovies.png')
+            self.addDirectoryItem(32001, 'movieNavigator','main_movies.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.tvshows') == True:
-            self.addDirectoryItem(32002, 'tvNavigator',
-                                  'main_tvshows.png', 'DefaultTVShows.png')
+            self.addDirectoryItem(32002, 'tvNavigator','main_tvshows.png', 'DefaultTVShows.png')
         if self.getMenuEnabled('navi.sports') == True:
-            self.addDirectoryItem(
-                90006, 'bluehat', 'main_bluehat.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90006, 'bluehat', 'main_bluehat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.iptv') == True:
-            self.addDirectoryItem(
-                90007, 'whitehat', 'main_whitehat.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90007, 'whitehat', 'main_whitehat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.kids') == True:
-            self.addDirectoryItem(
-                90009, 'greyhat', 'main_greyhat.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90009, 'greyhat', 'main_greyhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.1clicks') == True:
-            self.addDirectoryItem(
-                90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.purplehat') == True:
-            self.addDirectoryItem(
-                90189, 'purplehat', 'main_purplehat.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90189, 'purplehat', 'main_purplehat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.purplehat') == True:
+            self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.standup') == True:
-                self.addDirectoryItem(
-                    90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
+                self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.fitness') == True:
-                self.addDirectoryItem(
-                    90010, 'blackhat', 'main_blackhat.png', 'DefaultMovies.png')
+                self.addDirectoryItem(90010, 'blackhat', 'main_blackhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.food') == True:
-                self.addDirectoryItem(
-                    90143, 'food', 'food.png', 'DefaultMovies.png')
+                self.addDirectoryItem(90143, 'food', 'food.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.radio') == True:
-                self.addDirectoryItem(90012, 'yellowhat',
-                                      'radio.png', 'radio.png')
+                self.addDirectoryItem(90012, 'yellowhat','radio.png', 'radio.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.add_addons') == True:
-                self.addDirectoryItem(
-                    90181, 'nav_add_addons', 'add_addon.png', 'DefaultMovies.png')
+                self.addDirectoryItem(90181, 'nav_add_addons', 'add_addon.png', 'DefaultMovies.png')
         adult = True if control.setting('adult_pw') == 'lol' else False
         if adult == True:
-            self.addDirectoryItem(
-                90008, 'porn', 'main_pinkhat.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90008, 'porn', 'main_pinkhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.personal.list') == True:
-            self.addDirectoryItem(
-                90167, 'plist', 'userlists.png', 'userlists.png')
+            self.addDirectoryItem(90167, 'plist', 'userlists.png', 'userlists.png')
         if not control.setting('furk.ai') == '':
-            self.addDirectoryItem(
-                'Furk.net', 'furkNavigator', 'movies.png', 'movies.png')
-        self.addDirectoryItem(32008, 'toolNavigator',
-                              'main_tools.png', 'DefaultAddonProgram.png')
+            self.addDirectoryItem('Furk.net', 'furkNavigator', 'movies.png', 'movies.png')
+        self.addDirectoryItem(32008, 'toolNavigator','main_tools.png', 'DefaultAddonProgram.png')
         downloads = True if control.setting('downloads') == 'true' and (len(control.listDir(control.setting(
             'movie.download.path'))[0]) > 0 or len(control.listDir(control.setting('tv.download.path'))[0]) > 0) else False
         if downloads == True:
-            self.addDirectoryItem(32009, 'downloadNavigator',
-                                  'downloads.png', 'DefaultFolder.png')
+            self.addDirectoryItem(32009, 'downloadNavigator','downloads.png', 'DefaultFolder.png')
         if self.getMenuEnabled('navi.slim') == False:
-            self.addDirectoryItem(32010, 'searchNavigator',
-                                  'main_search.png', 'DefaultFolder.png')
+            self.addDirectoryItem(32010, 'searchNavigator','main_search.png', 'DefaultFolder.png')
 
         self.endDirectory()
 
