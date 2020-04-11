@@ -29,7 +29,7 @@ class source:
         self.language = ['en']
         self.domains = ['scene-rls.com', 'scene-rls.net']
         self.base_link = 'http://scene-rls.net'
-        self.search_link = '/?s=%s&submit=Find'
+        self.search_link = '/?s=%s'
         self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
@@ -50,7 +50,8 @@ class source:
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
-            if url == None: return
+            if url is None:
+                return
 
             url = urlparse.parse_qs(url)
             url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
@@ -64,9 +65,11 @@ class source:
         try:
             sources = []
 
-            if url == None: return sources
+            if url is None:
+                return sources
 
-            if debrid.status() == False: raise Exception()
+            if debrid.status() is False:
+                raise Exception()
 
             hostDict = hostprDict + hostDict
 
@@ -92,10 +95,11 @@ class source:
 
                 for post in posts:
                     try:
-                        u = client.parseDOM(post, "div", attrs={"class": "postContent"})
-                        u = client.parseDOM(u, "h2")
+                        content = client.parseDOM(post, "div", attrs={"class": "postContent"})
+                        size = re.findall('((?:\d+\,\d+\.\d+|\d+\.\d+|\d+\,\d+|\d+)\s*(?:GiB|MiB|GB|MB))', content[0])[0]
+                        u = client.parseDOM(content, "h2")
                         u = client.parseDOM(u, 'a', ret='href')
-                        u = [(i.strip('/').split('/')[-1], i) for i in u]
+                        u = [(i.strip('/').split('/')[-1], i, size) for i in u]
                         items += u
                     except:
                         pass
@@ -120,7 +124,8 @@ class source:
                     url = url.encode('utf-8')
 
                     host = re.findall('([\w]+[.][\w]+)$', urlparse.urlparse(url.strip().lower()).netloc)[0]
-                    if not host in hostDict: raise Exception()
+                    if not host in hostDict:
+                        continue
                     host = client.replaceHTMLCodes(host)
                     host = host.encode('utf-8')
 

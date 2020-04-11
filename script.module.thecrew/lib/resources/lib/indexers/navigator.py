@@ -78,8 +78,6 @@ class navigator:
             self.addDirectoryItem(90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.purplehat') == True:
             self.addDirectoryItem(90189, 'purplehat', 'main_purplehat.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.purplehat') == True:
-            self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.standup') == True:
                 self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
@@ -644,14 +642,13 @@ class navigator:
 
     def add_addons(self):
         if self.getMenuEnabled('navi.eyecandy') == True:
-            self.addDirectoryItem(
-                90164, 'eyecandy', 'eyecandy.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90164, 'eyecandy', 'eyecandy.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.retribution') == True:
-            self.addDirectoryItem(90165, 'retribution',
-                                  'retribution.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90165, 'retribution','retribution.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.titan') == True:
-            self.addDirectoryItem(
-                90155, 'titan', 'titan.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90155, 'titan', 'titan.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.purplehat') == True:
+            self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
 
         self.endDirectory()
 
@@ -676,8 +673,7 @@ class navigator:
             self.addDirectoryItem(90154, 'cricket', 'cricket.png', 'cricket.png')
             self.addDirectoryItem(90152, 'nascar', 'nascar.png', 'nascar.png')
             self.addDirectoryItem(90142, 'lfl', 'lfl.png', 'lfl.png')
-        self.addDirectoryItem(90114, 'misc_sports',
-                              'misc_sports.png', 'misc_sports.png')
+        self.addDirectoryItem(90114, 'misc_sports','misc_sports.png', 'misc_sports.png')
         #self.addDirectoryItem(90030, 'sports_channels', 'sports_schannels.png', 'sports_schannels.png')
         self.addDirectoryItem(
             90031, 'sreplays', 'sports_replays.png', 'sports_replays.png')
@@ -685,14 +681,12 @@ class navigator:
         self.endDirectory()
 
     def whitehat(self):
-        self.addDirectoryItem(90013, 'swiftNavigator',
-                              'swift.png', 'swift.png')
+        self.addDirectoryItem(90013, 'swiftNavigator','swift.png', 'swift.png')
         self.addDirectoryItem(90187, 'gitNavigator', 'iptv.png', 'iptv.png')
         if self.getMenuEnabled('navi.slim') == False:
             self.addDirectoryItem(90184, 'fluxNavigator', 'iptv.png', 'iptv.png')
         if self.getMenuEnabled('navi.slim') == False:
-            self.addDirectoryItem(90185, 'stratusNavigator',
-                              'iptv.png', 'iptv.png')
+            self.addDirectoryItem(90185, 'stratusNavigator','iptv.png', 'iptv.png')
         if self.getMenuEnabled('navi.slim') == False:
             self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90196, 'yss', 'iptv.png', 'iptv.png')

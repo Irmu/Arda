@@ -27,7 +27,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['ganool.ws', 'ganol.si', 'ganool123.com']
-        self.base_link = 'https://123movie.nu'
+        self.base_link = 'https://fmovies.tw'
         self.search_link = '/search/?q=%s'
         self.scraper = cfscrape.create_scraper()
 

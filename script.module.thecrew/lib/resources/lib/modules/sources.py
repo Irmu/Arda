@@ -22,7 +22,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import sys,re,json,urllib,urlparse,random,datetime,time
+import datetime
+import json
+import random
+import re
+import sys
+import time
+import urllib
+import urlparse
 
 from resources.lib.modules import (cleantitle, client, control, debrid,
                                    log_utils, source_utils, trakt, tvmaze,
@@ -52,22 +59,33 @@ class sources:
             url = None
 
             items = self.getSources(title, year, imdb, tvdb, season, episode, tvshowtitle, premiered)
-            select = control.setting('hosts.mode') if select == None else select
-            title = tvshowtitle if not tvshowtitle == None else title
+            select = control.setting('hosts.mode') if select is None else select
+            title = tvshowtitle if not tvshowtitle is None else title
+
             if control.window.getProperty('PseudoTVRunning') == 'True':
                 return control.resolve(int(sys.argv[1]), True, control.item(path=str(self.sourcesDirect(items))))
+
             if len(items) > 0:
+
                 if select == '1' and 'plugin' in control.infoLabel('Container.PluginName'):
                     control.window.clearProperty(self.itemProperty)
                     control.window.setProperty(self.itemProperty, json.dumps(items))
+
                     control.window.clearProperty(self.metaProperty)
                     control.window.setProperty(self.metaProperty, meta)
+
                     control.sleep(200)
-                    return control.execute('Container.Update(%s?action=addItem&title=%s)' % (sys.argv[0], urllib.quote_plus(title)))
+
+                    return control.execute('Container.Update(%s?action=addItem&title=%s)' %
+                                           (sys.argv[0],
+                                            urllib.quote_plus(title)))
+
                 elif select == '0' or select == '1':
                     url = self.sourcesDialog(items)
+
                 else:
                     url = self.sourcesDirect(items)
+
             if url is None:
                 return self.errorForSources()
 
@@ -105,7 +123,8 @@ class sources:
 
         syshandle = int(sys.argv[1])
 
-        downloads = True if control.setting('downloads') == 'true' and not (control.setting('movie.download.path') == '' or control.setting('tv.download.path') == '') else False
+        downloads = True if control.setting('downloads') == 'true' and not (control.setting(
+            'movie.download.path') == '' or control.setting('tv.download.path') == '') else False
 
         systitle = sysname = urllib.quote_plus(title)
 
@@ -415,7 +434,6 @@ class sources:
 
         pre_emp =  control.setting('preemptive.termination')
         pre_emp_limit = control.setting('preemptive.limit')
-
         source_4k = d_source_4k = 0
         source_1080 = d_source_1080 = 0
         source_720 = d_source_720 = 0
@@ -431,7 +449,7 @@ class sources:
 
         for i in range(0, 4 * timeout):
             if str(pre_emp) == 'true':
-                if quality in ['0', '1']:
+                if quality in ['0','1']:
                     if (source_4k + d_source_4k) >= int(pre_emp_limit): break
                 elif quality in ['1']:
                     if (source_1080 + d_source_1080) >= int(pre_emp_limit): break
@@ -441,7 +459,6 @@ class sources:
                     if (source_sd + d_source_sd) >= int(pre_emp_limit): break
                 else:
                     if (source_sd + d_source_sd) >= int(pre_emp_limit): break
-
             try:
                 if xbmc.abortRequested is True:
                     return sys.exit()
@@ -512,7 +529,6 @@ class sources:
                 source_720_label = total_format % ('red', source_720) if source_720 == 0 else total_format % ('lime', source_720)
                 source_sd_label = total_format % ('red', source_sd) if source_sd == 0 else total_format % ('lime', source_sd)
                 source_total_label = total_format % ('red', total) if total == 0 else total_format % ('lime', total)
-
                 if (i / 2) < timeout:
                     try:
                         mainleft = [sourcelabelDict[x.getName()] for x in threads if x.is_alive() == True and x.getName() in mainsourceDict]
@@ -899,17 +915,21 @@ class sources:
             hashList = list(set(hashList))
             control.sleep(500)
             cachedRDHashes, cachedADHashes, cachedPMHashes = DBCheck.run(hashList)
+            #cached
             cachedRDSources = [dict(i.items()) for i in torrent_sources if (any(v in i.get('info_hash') for v in cachedRDHashes) and i.get('debrid', '') == 'Real-Debrid')]
-            for i in cachedRDSources: i.update({'source': 'cached torrent'})
             cachedTorrents += cachedRDSources
             cachedADSources = [dict(i.items()) for i in torrent_sources if (any(v in i.get('info_hash') for v in cachedADHashes) and i.get('debrid', '') == 'AllDebrid')]
-            for i in cachedADSources: i.update({'source': 'cached torrent'})
             cachedTorrents += cachedADSources
             cachedPMSources = [dict(i.items()) for i in torrent_sources if (any(v in i.get('info_hash') for v in cachedPMHashes) and i.get('debrid', '') == 'Premiumize.me')]
-            for i in cachedPMSources: i.update({'source': 'cached torrent'})
             cachedTorrents += cachedPMSources
-            cachedHashes = list(set(cachedRDHashes + cachedADHashes + cachedPMHashes))
-            uncachedTorrents += [dict(i.items()) for i in torrent_sources if not i.get('info_hash') in cachedHashes]
+            for i in cachedTorrents: i.update({'source': 'cached torrent'})
+            #uncached
+            uncachedRDSources = [dict(i.items()) for i in torrent_sources if (not any(v in i.get('info_hash') for v in cachedRDHashes) and i.get('debrid', '') == 'Real-Debrid')]
+            uncachedTorrents += uncachedRDSources
+            uncachedADSources = [dict(i.items()) for i in torrent_sources if (not any(v in i.get('info_hash') for v in cachedADHashes) and i.get('debrid', '') == 'AllDebrid')]
+            uncachedTorrents += uncachedADSources
+            uncachedPMSources = [dict(i.items()) for i in torrent_sources if (not any(v in i.get('info_hash') for v in cachedPMHashes) and i.get('debrid', '') == 'Premiumize.me')]
+            uncachedTorrents += uncachedPMSources
             for i in uncachedTorrents: i.update({'source': 'uncached torrent'})
             #uncheckedTorrents += [dict(i.items()) for i in torrent_sources if i.get('source').lower() == 'torrent']
             return cachedTorrents + uncachedTorrents# + uncheckedTorrents
@@ -950,19 +970,9 @@ class sources:
         if not HEVC == 'true':
             self.sources = [i for i in self.sources if not any(value in str(i['url']).lower() for value in ['hevc', 'h265', 'h.265', 'x265', 'x.265'])]
 
-#        for i in self.sources:
-#            if 'checkquality' in i and i['checkquality'] is True:
-#                if not i['source'].lower() in self.hosthqDict and i['quality'] not in ['SD', 'SCR', 'CAM']: i.update({'quality': 'SD'})
-
         local = [i for i in self.sources if 'local' in i and i['local'] is True]
         for i in local: i.update({'language': self._getPrimaryLang() or 'en'})
         self.sources = [i for i in self.sources if not i in local]
-
-#        filter = []
-#        filter += [i for i in self.sources if i['direct'] is True]
-#        filter += [i for i in self.sources if i['direct'] is False]
-#        self.sources = filter
-
         ''' Filter-out duplicate links'''
         try:
             if control.setting('remove.dups') == 'true':
@@ -1196,7 +1206,7 @@ class sources:
             provider = item['provider']
             call = [i[1] for i in self.sourceDict if i[0] == provider][0]
             u = url = call.resolve(url)
-            if url == None or not '://' in url and not local and not 'magnet:' in url: 
+            if url is None or ('://' not in str(url) and not local and 'magnet:' not in str(url)):
                 raise Exception()
 
             if not local:
@@ -1285,28 +1295,6 @@ class sources:
                         progressDialog.update(int((100 / float(len(items))) * i), str(items[i]['label']), str(' '))
                     except:
                         progressDialog.update(int((100 / float(len(items))) * i), str(header2), str(items[i]['label']))
-                    '''
-                    if items[i].get('debrid').lower() == 'real-debrid':
-                        no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
-                    if items[i].get('debrid').lower() == 'alldebrid':
-                        no_skip = control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == ''
-                    if items[i].get('debrid').lower() == 'premiumize.me':
-                        no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
-                    if items[i].get('debrid').lower() == 'linksnappy':
-                        no_skip = control.addon('script.module.resolveurl').getSetting('LinksnappyResolver_cached_only') == 'false'
-                    '''
-                    '''
-                    if items[i].get('source') in self.hostcapDict: offset = 60 * 2
-                    elif items[i].get('source').lower() == 'torrent' and no_skip: offset = float('inf')
-                    else: offset = 0
-                    m = ''
-                    '''
-                    if items[i].get('source').lower() in self.hostcapDict:
-                        offset = 60 * 2
-                    elif items[i].get('source').lower() == 'torrent':  # and no_skip:
-                        offset = float('inf')
-                    else:
-                        offset = 0
 
                     m = ''
 
@@ -1323,13 +1311,13 @@ class sources:
                         if k:
                             m += '1'
                             m = m[-1]
-                        if (w.is_alive() is False or x > 30 + offset) and not k:
+                        if (w.is_alive() is False or x > 30) and not k:
                             break
                         k = control.condVisibility('Window.IsActive(yesnoDialog)')
                         if k:
                             m += '1'
                             m = m[-1]
-                        if (w.is_alive() is False or x > 30 + offset) and not k:
+                        if (w.is_alive() is False or x > 30) and not k:
                             break
                         time.sleep(0.5)
 

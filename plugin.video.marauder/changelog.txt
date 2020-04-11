@@ -1,0 +1,100 @@
+[B][COLOR gold]Marauder Video Plugin v2.1.0[/COLOR][/B]
+- Cached Torrent Thanks Host 505 and Fen
+
+[B][COLOR gold]Marauder Video Plugin v2.0.8a[/COLOR][/B]
+- Notification Adjustment
+- Release from Beta
+
+[B][COLOR gold]Marauder Video Plugin v2.0.8[/COLOR][/B]
+- Coverity Updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.7[/COLOR][/B]
+- TV fixes
+
+[B][COLOR gold]Marauder Video Plugin v2.0.6f[/COLOR][/B]
+- Adjustment to notification window
+
+[B][COLOR gold]Marauder Video Plugin v2.0.6e[/COLOR][/B]
+- Silent update for Trakt Sync
+
+[B][COLOR gold]Marauder Video Plugin v2.0.6d[/COLOR][/B]
+- Trakt silent call updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.6c[/COLOR][/B]
+- Trakt Sync updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.6b[/COLOR][/B]
+- Trakt API Update (Crew)
+- Scraper updates (Crew)
+- CFScrape Update (Crew)
+- Library Updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.6[/COLOR][/B]
+- Special Episodes option added for Library
+- Code Cleanup
+- More TVDB sort work
+- Added IMDb watch and user lists sorting options
+- Added support for more content types for IMDb watch and user lists
+- Sources cleanup
+
+[B][COLOR gold]Marauder Video Plugin v2.0.5[/COLOR][/B]
+[B][COLOR gold]Marauder Artwork v2.0.4[/COLOR][/B]
+- Changelog Window Scroll Fix (I'm dumb)
+- New custom Notification window
+- New setting for Voice Sounds
+- Default sound is System
+- Skin code cleanup and organization
+- Notification for the common "Temporary"
+  Trakt errors
+
+[B][COLOR gold]Marauder Video Plugin v2.0.4[/COLOR][/B]
+- TVDB Updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.3c[/COLOR][/B]
+- Added Apple TV+ to Networks
+- Added Disney+ to Networks
+- Upgraded TVDB links to secure
+
+[B][COLOR gold]Marauder Video Plugin v2.0.3b[/COLOR][/B]
+- TVDB adustment for artwork. May require clear cache
+
+[B][COLOR gold]Marauder Video Plugin v2.0.3a[/COLOR][/B]
+- TVDB adjustment. Fixes Seasons etc, artwork
+  slow to load at the moment but does load
+- Remember to clear ALL cache (except Search)
+
+[B][COLOR gold]Marauder Video Plugin v2.0.3[/COLOR][/B]
+[B][COLOR gold]Marauder Artwork v2.0.2[/COLOR][/B]
+- Filter updates
+- Log Viewer/Uploader added under Tools
+- Pairing tool added under Tools
+- Skin updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.2[/COLOR][/B]
+- TMDB Code Expired. New one in Settings that will
+  require you to open Settings -> hit Defaults button
+  -> Hit OK to save.
+- Menu updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.1a[/COLOR][/B]
+- Minor tweak in theme code
+
+[B][COLOR gold]Marauder Video Plugin v2.0.1[/COLOR][/B]
+[B][COLOR gold]Marauder Artwork v2.0.1[/COLOR][/B]
+- Artwork and List updates
+
+[B][COLOR gold]Marauder Video Plugin v2.0.0b[/COLOR][/B]
+[B][COLOR gold]Marauder Artwork v2.0.0b[/COLOR][/B]
+[B][COLOR gold]Marauder Meta v2.0.0[/COLOR][/B]
+[B][COLOR gold]Barnacle Scrapers v1.0.0[/COLOR][/B]
+- Rework of the addon with a more modern based fork
+- Added TVDB Key to Settings and updated calls
+- Added Fanart TV API Key to Settings and updated calls
+- Updated Anilist.CO API details
+- Added all original Marauder lists
+- Added Navigation to Settings
+- Implementing Category based directory calls with sort ability
+- New fully skinned Changelog window
+- Dual Scraper abilities (Barnacle and OpenScrapers)
+- Artwork revamp
+- New lists added to Movies -> Collection
