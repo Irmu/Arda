@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
+'''
+**Created by Tempest**
 
+'''
 
 
 import re, urllib, urlparse, json, traceback
@@ -14,7 +17,7 @@ from resources.lib.modules import debrid
 
 class source:
     def __init__(self):
-        self.priority = 0
+        self.priority = 1
         self.language = ['en']
         self.domains = ['https://solidtorrents.net']
         self.base_link = 'https://solidtorrents.net'

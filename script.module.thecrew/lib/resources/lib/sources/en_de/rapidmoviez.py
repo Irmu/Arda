@@ -31,8 +31,8 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['rmz.cr']
-        self.base_link = 'http://rapidmoviez.cr/'
-        self.search_link = 'search/%s'
+        self.base_link = 'http://rmz.cr/'
+        self.search_link = 'search/%s/titles'
         self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
