@@ -1899,9 +1899,21 @@ msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]The Crew Version[/COLOR][/B]"
 msgstr ""
 
 msgctxt "#90196"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]YOUR SPORTS STREAM[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Your Sports Stream[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""
 
 msgctxt "#90197"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]WEAK SPELL[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Weak Spell[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90198"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Sports 24 Tv[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90199"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Arconai Tv[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90200"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Sportsbay Tv[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""

@@ -193,10 +193,10 @@ class navigator:
             if self.getMenuEnabled('navi.imdblist') == True:
                 self.addDirectoryItem(
                     90141, 'imdblist', 'trakt.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.slim') == False:
-            if self.getMenuEnabled('navi.247movies') == True:
-                self.addDirectoryItem(90014, '247movies',
-                                      '247_movies.png', 'DefaultMovies.png')
+       # if self.getMenuEnabled('navi.slim') == False:
+            #if self.getMenuEnabled('navi.247movies') == True:
+            #    self.addDirectoryItem(90014, '247movies',
+            #                          '247_movies.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.collections') == True:
                 self.addDirectoryItem(
@@ -317,9 +317,9 @@ class navigator:
             if self.getMenuEnabled('navi.applet') == True:
                 self.addDirectoryItem(
                     90170, 'tvshows&url=https://api.trakt.tv/users/mediashare2000/lists/apple-tv/items?limit=%d ' % self.count, 'apple.png', 'apple.png')
-        if self.getMenuEnabled('navi.slim') == False:
-            self.addDirectoryItem(90015, '247tvshows',
-                                  '247_shows.png', 'DefaultTVShows.png')
+       # if self.getMenuEnabled('navi.slim') == False:
+          #  self.addDirectoryItem(90015, '247tvshows',
+           #                       '247_shows.png', 'DefaultTVShows.png')
         if self.getMenuEnabled('navi.slim') == False:
             self.addDirectoryItem(32700, 'docuNavigator',
                                   'documentaries.png', 'DefaultMovies.png')
@@ -659,7 +659,7 @@ class navigator:
         self.addDirectoryItem(90024, 'mlb', 'mlb.png', 'mlb.png')
         self.addDirectoryItem(90023, 'ncaa', 'ncaa.png', 'ncaa.png')
         self.addDirectoryItem(90156, 'ncaab', 'ncaab.png', 'ncaab.png')
-        self.addDirectoryItem(90193, 'xfl', 'xfl.png', 'xfl.png')
+        #self.addDirectoryItem(90193, 'xfl', 'xfl.png', 'xfl.png')
         self.addDirectoryItem(90028, 'ufc', 'ufc.png', 'ufc.png')
         self.addDirectoryItem(90049, 'wwe', 'wwe.png', 'wwe.png')
         self.addDirectoryItem(90115, 'boxing', 'boxing.png', 'boxing.png')
@@ -681,6 +681,7 @@ class navigator:
         self.endDirectory()
 
     def whitehat(self):
+        self.addDirectoryItem(90199, 'arconai', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90013, 'swiftNavigator','swift.png', 'swift.png')
         self.addDirectoryItem(90187, 'gitNavigator', 'iptv.png', 'iptv.png')
         if self.getMenuEnabled('navi.slim') == False:
@@ -691,6 +692,8 @@ class navigator:
             self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90196, 'yss', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90197, 'weak', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90198, 'sports24', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90200, 'sportsbay', 'iptv.png', 'iptv.png')
 
         self.endDirectory()
 

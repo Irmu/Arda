@@ -33,7 +33,7 @@ class Engine:
                  user_agent=None, startup_timeout=5, state_file='', enable_utp=True, enable_tcp=True,
                  debug_alerts=False, logger=None, torrent_connect_boost=50, connection_speed=50,
                  peer_connect_timeout=15, request_timeout=20, min_reconnect_time=60, max_failcount=3,
-                 dht_routers=None, trackers=None):
+                 dht_routers=None, trackers=None, proxy=None):
         """
         Creates engine instance. It doesn't do anything except initializing object members. For starting engine use
         start() method.
@@ -126,6 +126,7 @@ class Engine:
         self.logger = logger
         self.uri = uri
         self.started = False
+        self.proxy = proxy
 
     @staticmethod
     def _validate_save_path(path):
@@ -166,6 +167,7 @@ class Engine:
         kwargs = {
             'torrentConnectBoost': self.torrent_connect_boost,
             'trackers': ",".join(self.trackers),
+            'proxy': self.proxy,
             'resumeFile': self.resume_file,
             'minReconnectTime': self.min_reconnect_time,
             'enableUPNP': self.enable_upnp,

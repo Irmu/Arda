@@ -317,9 +317,3 @@ class DebridCache:
 
     def _get_timestamp(self, date_time):
         return int(time.mktime(date_time.timetuple()))
-
-
-
-
-
-

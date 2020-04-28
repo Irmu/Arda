@@ -151,7 +151,7 @@ This addon implements RTMP streaming support for Kodi and installed add-ons.
 
 <addon id="metadata.album.universal"
        name="Universal Album Scraper"
-       version="3.1.2"
+       version="3.1.3"
        provider-name="Olympia, Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -388,6 +388,46 @@ This addon implements RTMP streaming support for Kodi and installed add-ons.
     <assets>
         <icon>icon.png</icon>
     </assets>
+  </extension>
+</addon>
+
+<addon id="metadata.common.fanart.tv"
+       name="fanart.tv Scraper Library"
+       version="3.6.3"
+       provider-name="Team Kodi">
+  <requires>
+    <import addon="xbmc.metadata" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.metadata.scraper.library"
+             library="fanarttv.xml"/>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="bg">Библиотека за сваляне на инф. от fanart.tv</summary>
+    <summary lang="en">fanart.tv Scraper Library</summary>
+    <summary lang="de">Scraper für Hintergründe von fanart.tv</summary>
+    <summary lang="es">Scraper de fanart.tv</summary>
+    <summary lang="fi">fanart.tv taustakuvalataajan kirjasto</summary>
+    <summary lang="fr">Scraper fanart.tv</summary>
+    <summary lang="hu">fanart.tv leolvasó-könyvtár</summary>
+    <summary lang="nl">fanart.tv-scraperfuncties</summary>
+    <summary lang="pl">Scraper biblioteki fanart.tv</summary>
+    <summary lang="pt">Biblioteca de fundos fanart.tv</summary>
+    <summary lang="ru">Обработчик Фоновых изображений с fanart.tv</summary>
+    <summary lang="se">Skrapa för fanart.tv</summary>
+    <summary lang="zh">fanart.tv刮削器代码库</summary>
+    <description lang="bg">Сваля декорации от www.fanart.tv.com</description>
+    <description lang="en">Download backdrops from www.fanart.tv.com</description>
+    <description lang="de">Downloade Hintergründe von www.fanart.tv.com</description>
+    <description lang="es">Descarga fanart y fotos de artistas de www.fanart.tv.com</description>
+    <description lang="fi">Lataa taustakuvia osoitteesta www.fanart.tv.com</description>
+    <description lang="fr">Télécharge les backdrops depuis www.htbackgrops.com</description>
+    <description lang="hu">Fanartképek letöltése www.fanart.tv.com webhelyről</description>
+    <description lang="nl">Achtergronden ophalen van www.fanart.tv.com</description>
+    <description lang="pl">Pobieraj tła z www.fanart.tv.com</description>
+    <description lang="pt">Descarregar fundos de www.fanart.tv.com</description>
+    <description lang="ru">Загружать фоновые изображения с www.fanart.tv.com</description>
+    <description lang="se">Ladda ner bakgrundsbilder från www.fanart.tv.com</description>
+    <description lang="zh">从www.fanart.tv.com下载背景图</description>
   </extension>
 </addon>
 
@@ -1002,6 +1042,57 @@ This addon implements RTMP streaming support for Kodi and installed add-ons.
       <icon>icon.gif</icon>
       <fanart>fanart.jpg</fanart>
     </assets>
+  </extension>
+</addon>
+
+<addon id="plugin.video.alfa" name="Alfa" version="3.1.0" provider-name="Alfa Addon">
+  <requires>
+    <import addon="script.module.requests"/>
+    <import addon="script.module.beautifulsoup4" version="4.5.3"/>
+    <import addon="script.module.html5lib" version="0.999.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="es">Navega con Kodi por páginas web.</summary>
+    <assets>
+      <icon>resources/logo2.png</icon>
+      <fanart>resources/fanart1.jpg</fanart>
+      <screenshot>resources/media/themes/ss/1.jpg</screenshot>
+      <screenshot>resources/media/themes/ss/2.jpg</screenshot>
+      <screenshot>resources/media/themes/ss/3.jpg</screenshot>
+      <screenshot>resources/media/themes/ss/4.jpg</screenshot>
+    </assets>
+      <news>[B]Estos son los cambios para esta versión:[/B]
+
+      [COLOR green][B]Arreglos[/B][/COLOR]
+      ¤ Grantorrent                        ¤ Seriespapaya                     ¤ SeriesFLV
+      ¤ Pelkex                                 ¤ PelisPlus                             ¤ DescargaCineclasico
+      ¤ PoseidonHD                       ¤ CineTux                              ¤ PeliculonHD
+      ¤ serieslan                             ¤ Veseriesonline
+      ¤ Descargas: gestión integral de canales Torrent          ¤ +18
+
+      [COLOR green][B]Novedades[/B][/COLOR]
+      ¤ Peliculasdisneylatino        ¤ 123Pelis                              ¤ SeriesFlix
+      ¤ Anavids                              ¤ Doodstream                      ¤ Stream.Wiki
+      ¤ +18
+
+      Agradecimiento a @mac12m99 por su colaboración en esta versión
+
+    </news>
+    <description lang="es">Navega con Kodi por páginas web para ver sus videos de manera fácil.</description>
+    <summary lang="en">Browse web pages using Kodi</summary>
+    <description lang="en">Browse web pages using Kodi, you can easily watch their video content.</description>
+    <disclaimer>[COLOR red]The owners and submitters to this addon do not host or distribute any of the content displayed by these addons nor do they have any affiliation with the content providers.[/COLOR]</disclaimer>
+    <platform>all</platform>
+    <license>GNU GPL v3</license>
+    <forum>foro</forum>
+    <website>web</website>
+    <email>my@email.com</email>
+    <source>https://github.com/alfa-addon/addon</source>
+  </extension>
+  <extension point="xbmc.service" library="videolibrary_service.py" start="login|startup">
   </extension>
 </addon>
 
@@ -1868,8 +1959,9 @@ v3.0.5
 	</extension>
 </addon>
 
-<addon id="plugin.video.releaseBB" version="1.8.6" name="Release[COLOR orange][B]BB[/B][/COLOR]" provider-name="Bugatsinho">
+<addon id="plugin.video.releaseBB" version="1.9.0" name="Release[COLOR orange][B]BB[/B][/COLOR]" provider-name="Bugatsinho">
   <requires>
+    <import addon="script.module.cloudscraper" version="1.2.34"/>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.t0mm0.common" version="2.1.1"/>
     <import addon="script.module.resolveurl" version="5.0.1"/>
@@ -1893,10 +1985,8 @@ v3.0.5
     <twitter>https://twitter.com/bugatsinho</twitter>
     <repo>https://bugatsinho.github.io/repo/</repo>
     <email>bugatsinho@protonmail.com</email>
-    <news>++ [B][COLOR lime]1.8.6[/B][/COLOR] [COLOR gold](03-01-2020)[/COLOR]
-- add foreign movies menu
-- fix search function to point titles link to old2.rlsbb domain
-- add service.py and make function to get the available RLSBB domains</news>
+    <news>+ [B][COLOR lime]1.9.0[/B][/COLOR] [COLOR gold](22-04-2020)[/COLOR]
+- add cloudscraper module to bypass cloudflare</news>
     <assets>
         <icon>icon.png</icon>
         <fanart>fanart.jpg</fanart>
@@ -1931,7 +2021,7 @@ v3.0.5
   </extension>
 </addon>
 
-<addon id="plugin.video.rtpplay" name="RTP Play" version="5.0.6" provider-name="enen92, guipenedo">
+<addon id="plugin.video.rtpplay" name="RTP Play" version="5.0.8" provider-name="enen92, guipenedo">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.routing" version="0.2.0"/>
@@ -1953,7 +2043,7 @@ v3.0.5
         <email>enen92@kodi.tv</email>
         <source>https://github.com/enen92/plugin.video.rtpplay</source>
         <news>
-            - Addon is now supported in matrix
+            - Add #estudoemcasa (school classes during lockdown)
         </news>
         <disclaimer lang="en_GB">The plugin is unnoficial and not endorsed by RTP. Expect it to break. </disclaimer>
         <assets>
@@ -2304,6 +2394,26 @@ More minor bugfixes (honestly could not list them all)
 	</extension>
 </addon>
 
+<addon id="plugin.video.shadow"
+	   name="Shadow"
+	   version="1.6.2"
+	   provider-name="Darkness">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.requests"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+            library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">The single light in the Darkness</summary>
+    <description lang="en">All the media as fast as possiable</description>
+	<disclaimer lang="en_US"> Thanks to Nixgates for parts of his code</disclaimer>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.video.SkyNet"
        name="[COLOR white]SkyNet[/COLOR]"
        version="5.0.2"
@@ -2480,7 +2590,7 @@ More minor bugfixes (honestly could not list them all)
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.75" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.78" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.thecrew" />
@@ -2655,7 +2765,7 @@ Fixed: Eroticage
   </extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="6.7.1~alpha1" provider-name="anxdpanic, bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="6.8.0" provider-name="anxdpanic, bromix">
     <requires>
         <import addon="xbmc.python" version="2.20.0"/>
         <import addon="script.module.six" version="1.11.0"/>
@@ -2669,7 +2779,13 @@ Fixed: Eroticage
     <extension point="xbmc.python.module" library="resources/lib/"/>
     <extension point="xbmc.addon.metadata">
         <news>
+[add] support for video comments, Comments in the More... dialog |contrib: doko-desuka|
+[add] simulate deprecated recommended home API |contrib: hedleyroos|
 [fix] error caused by timestamp formatting
+[fix] fix Premiere's exiting after 5 seconds |contrib: jpfox156|
+[fix] playlists over json-rpc |contrib: JasperE84|
+[lang] de_de strings |contrib: tweimer|
+[lang] el_gr strings |contrib: twilight0|
 [lang] es_es strings |contrib: roliverosc|
 [lang] pt_pt strings |contrib: daniel3x|
         </news>
@@ -2720,7 +2836,7 @@ Fixed: Eroticage
         <disclaimer lang="tr_TR">Bu eklenti Google tarafından üretilmemiştir</disclaimer>
         <platform>all</platform>
         <license>GPL-2.0-only</license>
-        <forum>https://forum.kodi.tv/showthread.php?tid=348464</forum>
+        <forum>https://ytaddon.page.link/forum</forum>
         <website>https://www.youtube.com</website>
         <email>ytplugin at datanet dot ws</email>
         <source>https://github.com/jdf76/plugin.video.youtube</source>
@@ -2752,6 +2868,378 @@ Fixed: Eroticage
     <platform>all</platform>
 	<forum>https://www.tvaddons.co/forums</forum>
 	<website>https://www.tvaddons.co</website>
+  </extension>
+</addon>
+
+<addon
+  id="pvr.vuplus"
+  version="3.28.9"
+  name="Enigma2 Client"
+  provider-name="Joerg Dembski and Ross Nicholson">
+  <requires>
+<import addon="kodi.binary.global.main" version="1.0.14"/>
+<import addon="kodi.binary.instance.pvr" version="5.10.3"/></requires>
+  <extension
+    point="xbmc.pvrclient"
+    library_windows="pvr.vuplus.dll"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="af_ZA">Kodi se voorprogram vir VU+ / Enigma2 gebasseerde 'set-top' bokse</summary>
+    <summary lang="be_BY">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
+    <summary lang="bg_BG">Клиент за устройства, базирани на VU+ / Enigma2</summary>
+    <summary lang="ca_ES">Frontal de Kodi per als descodificadors basats en VU+/Enigma2</summary>
+    <summary lang="cs_CZ">Rozhraní Kodi pro přijímače založené na Enigma2</summary>
+    <summary lang="cy_GB">Blaen Kodi ar gyfer blychau teledu VU+ / Enigma2</summary>
+    <summary lang="da_DK">Kodi's frontend til VU+ / Enigma2 baseret på settop bokse</summary>
+    <summary lang="de_DE">Kodi Oberfläche für VU+ / Enigma2-basierte Settop-Boxen</summary>
+    <summary lang="el_GR">Frontend του Kodi για αποκωδικοποιητές (settop box) τύπου VU+ / Enigma2</summary>
+    <summary lang="en_AU">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
+    <summary lang="en_GB">Kodi's frontend for Enigma2 based set-top boxes</summary>
+    <summary lang="en_NZ">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
+    <summary lang="en_US">Kodi's frontend for VU+ / Enigma2 based settop boxes</summary>
+    <summary lang="es_AR">Kodi frontend para decodificadores equipados con VU+/Enigma2</summary>
+    <summary lang="es_ES">Frontend Kodi para decodificadores basados en VU+/Enigma2</summary>
+    <summary lang="es_MX">Kodi frontend para cajas fijas basadas en VU + / Enigma2</summary>
+    <summary lang="et_EE">Kodi liides VU+ / Enigma2 põhistele digiboksidele</summary>
+    <summary lang="fi_FI">Kodin VU+/ Enigma2-asiakasohjelma</summary>
+    <summary lang="fr_CA">Frontale Kodi pour les boîtiers décodeurs fondés sur Enigma2</summary>
+    <summary lang="fr_FR">Interface logicielle pour les enregistreurs VU+/Enigma2</summary>
+    <summary lang="gl_ES">Interface de Kodi para decodificadores equipados con VU+/Enigma2</summary>
+    <summary lang="he_IL">לקוח טלוויזיה חיה עבור מכשירי VU+ או מבוססי Enigma2</summary>
+    <summary lang="hr_HR">Kodi sučelje za VU+ / Enigma2 set-top box temeljene uređaje</summary>
+    <summary lang="hu_HU">Kodi előtét a VU+ és Enigma2 settop boxokhoz</summary>
+    <summary lang="id_ID">Frontend Kodi untuk settop boxes berbasis VU+ / Enigma2</summary>
+    <summary lang="is_IS">XBMS framendi fyrir tengibox byggð á VU+ / Enigma2</summary>
+    <summary lang="it_IT">Frontend con Kodi per i settop box basati su VU+ / Enigma2</summary>
+    <summary lang="ja_JP">VU+ / Enigma2 ベースのセットトップボックス用 Kodi フロントエンド</summary>
+    <summary lang="ko_KR">VU+ / Enigma2 베이스 셋탑박스를 위한 Kodi 프론트엔드</summary>
+    <summary lang="lt_LT">Kodi sąsaja(-os) VU + / Enigma2 rinkinių priedų pagrindu</summary>
+    <summary lang="lv_LV">Kodi galasistēma VU+ / Enigma2 balstītām pierīcēm</summary>
+    <summary lang="mk_MK">Kodi's интерфејс за VU+ / Enigma2 базирани звучници</summary>
+    <summary lang="ms_MY">Bahagian hadapan Kodi untuk kotak settop berasaskan VU+/Enigma2</summary>
+    <summary lang="nb_NO">Kodis grenseflate for VU+ / Enigma2-baserte TV-bokser</summary>
+    <summary lang="nl_NL">Kodi's frontend voor op VU+ / Enigma2 gebaseerde settopboxen</summary>
+    <summary lang="pl_PL">Klient telewizji dla dekoderów VU+ / Enigma2 </summary>
+    <summary lang="pt_BR">Frontend do Kodi para conversores baseados em VU+/Enigma2</summary>
+    <summary lang="pt_PT">Interface Kodi para caixas settop baseadas em VU+ / Enigma2</summary>
+    <summary lang="ro_RO">Interfața Kodi pentru decodoare VU+ / Enigma2 </summary>
+    <summary lang="ru_RU">Фронтэнд Kodi для тюнеров, основанных на VU+ /Enigma2</summary>
+    <summary lang="sk_SK">Rozhranie Kodi pre spoluprácu s prijímačmi VU+ / Enigma2</summary>
+    <summary lang="sl_SI">Kodijev vmesnik za sprejemnike VU+ / Enigma2</summary>
+    <summary lang="sq_AL">Frontend i Kodi'së për Aparate VU+ / Enigma2 </summary>
+    <summary lang="sr_RS">Kodi-јев интерфејс за VU+ / Enigma2 засноване settop кутије</summary>
+    <summary lang="sr_RS@latin">Kodijev interfejs za VU+ / Enigma2 zasnovane settop kutije</summary>
+    <summary lang="sv_SE">Kodi Frontend för Enigma2 baserade digitalboxar</summary>
+    <summary lang="szl">Klijynt telewizyjny dlŏ dekoderōw VU+ / Enigma2 </summary>
+    <summary lang="tr_TR">VU+ / Enigma2 alıcı kutuları için Kodi ön ucu</summary>
+    <summary lang="uk_UA">Накладка VU+ /  Enigma2 для Kodi</summary>
+    <summary lang="vi_VN">Giao tiếp Kodi cho VU+ / Enigma2 dựa trên các bộ Settop Box</summary>
+    <summary lang="zh_CN">基于 Enigma2 的机顶盒的 Kodi 前端</summary>
+    <summary lang="zh_TW">給以VU+ / Enigma2開發的機上盒所使用的Kodi前端</summary>
+    <description lang="af_ZA">VU+ voorprogram; ondersteun stroom van Lewendige TV &amp; Opnames, EPG, Tydhouers.</description>
+    <description lang="be_BY">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
+    <description lang="bg_BG">Клиент за „VU+“. Поддържа телевизия на живо и записване, електронен програмен справочник и броячи.</description>
+    <description lang="ca_ES">Frontal de VU+; és compatible amb les transmissions en línia de TV en directe i enregistraments, guia electrònica de programació (EPG) i temporitzadors.</description>
+    <description lang="cs_CZ">Rozhraní Enigma2 – podporuje streamování živého vysílání a nahrávání, televizní program, časovače, automatické časovače.&#10;&#10;Pro dokumentaci navštivte: https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md</description>
+    <description lang="cy_GB">Blaen VU+; cynnal ffrydio Teledu Byw, Recordio, Amserlenni, Amseryddion</description>
+    <description lang="da_DK">VU+ frontend; understøtter streaming af TV og Optagelser, EPG og Timere.</description>
+    <description lang="de_DE">VU+ -Oberfläche; Unterstützt Live TV &amp; Aufnahmen, EPG und Timer.</description>
+    <description lang="el_GR">Frontend για το VU+. Υποστηρίζει ροές Live TV &amp; Εγγραφές, EPG, Χρονοδιακόπτες.</description>
+    <description lang="en_AU">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
+    <description lang="en_GB">Enigma2 frontend - supporting streaming of Live TV &amp; Recordings, EPG, Timers, Autotimers.&#10;    &#10;For documentation visit: https://github.com/kodi-pvr/pvr.vuplus/blob/Leia/README.md&#10;    </description>
+    <description lang="en_NZ">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
+    <description lang="en_US">VU+ frontend; supporting streaming of Live TV &amp; Recordings, EPG, Timers.</description>
+    <description lang="es_AR">VU+ frontend; soporta TV en vivo, grabaciones, guía de programación (GEP) y temporizadores.</description>
+    <description lang="es_ES">Frontend VU+; soporta TV en vivo, grabaciones, guía de programación (EPG) y temporizadores.</description>
+    <description lang="es_MX">VU+ frontend; Soportando transmisión de TV en directo y grabaciones, EPG, Temporizadores.</description>
+    <description lang="et_EE">VU+ liides. Toetab telekanalite striimimist ja salvestamist ning elektroonilist saatekava.</description>
+    <description lang="fi_FI">VU+-asiakasohjelma. Tukee suorien tv-lähetysten ja tallennusten katsomista, ohjelmaopasta ja ohjelmien ajastamista.</description>
+    <description lang="fr_CA">Frontale Enigma2 qui prend en charge la diffusion en continu des télés en direct et des enregistrements, le GÉP et les minuteries&#10;&#10;    &#10;Pour consulter la documentation, visitez https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md (page en anglais)</description>
+    <description lang="fr_FR">Interface logicielle pour enregistreur VU+. Gère la diffusion et les enregistrements de la TV en direct, le guide électronique des programmes TV et les programmations.</description>
+    <description lang="gl_ES">Interface VU+; soporta TV en directo, gravacións, Guía de programación e temporizadores.</description>
+    <description lang="he_IL">לקוח טלוויזיה חיה של VU+. תומך בהזרמת שידורים חיים והקלטות, הצגת לוח שידורים ותזמון הקלטות.</description>
+    <description lang="hr_HR">VU+ sučelje; podržava stremanje i snimanje TV programa, elektronski programski vodič (EPG)  i vremeski zadano snimanje.</description>
+    <description lang="hu_HU">VU+ előtét. Élő adások és felvételek támogatása EPG-vel és időzítéssel.</description>
+    <description lang="id_ID">Frontend VU+. Mendukung pengaliran TV dan Rekaman langsung, EPG dan Timer.</description>
+    <description lang="is_IS">VU+ framendi; styður streymingu á beinum útsendingum og upptökum, rafrænum dagskrárvísum (EPG) og tímatöku.</description>
+    <description lang="it_IT">Frontend VU+; supporta EPG, i timer e lo streaming della TV dal vivo e delle registrazioni.</description>
+    <description lang="ja_JP">VU+ フロントエンド。ライブテレビのストリーミングや録画、EPG、タイマーをサポート。</description>
+    <description lang="ko_KR">VU+ 프론트엔드; TV 시청 &amp; 녹화, EPG, 타이머 지원</description>
+    <description lang="lt_LT">TPB + sąsaja, remti transliacijos Live TV &amp; įrašai, EPG, Laikmačiai.</description>
+    <description lang="lv_LV">VU+ galasistēma; atbalsta tiešraides TV &amp; ierakstu straumēšanu, EPG, taimerus.</description>
+    <description lang="mk_MK">VU+ интерфејс;подржува стриминг на Live TV &amp; Recordings, EPG, Timers.</description>
+    <description lang="ms_MY">Bahagian hadapan VU+; menyokong penstirman  Langsung &amp; Rakaman, EPG, Pemasa TV</description>
+    <description lang="nb_NO">VU+grenseflate; støtter strømming av direkte-TV og opptak, EPG, tidsur.</description>
+    <description lang="nl_NL">VU+ frontend; ondersteunt het streamen van Live-TV &amp; opnames, EPG, timers</description>
+    <description lang="pl_PL">Klient telewizji dla VU+ obsługuje transmisję kanałów radiowych i telewizyjnych, nagrywanie i harmonogram nagrań oraz funkcje przewodnika telewizyjnego.</description>
+    <description lang="pt_BR">VU+ frontend; suporta streaming de TV Ao Vivo e Gravações, EPG, agendamentos.</description>
+    <description lang="pt_PT">Interface VU+ ; suporta transmissão e gravação de TV em direto, EPG e temporizadores.</description>
+    <description lang="ro_RO">Interfața VU+; suportă streaming programe TV și înregistrare, program electronic, cronometre - înregistrare programată</description>
+    <description lang="ru_RU">VU+ фронтэнд; поддерживает потоковое TV, запись, ЕПГ, таймеры.</description>
+    <description lang="sk_SK">VU+ rozhranie; je podporované streamovanie živého televízneho vysielania a nahrávok, EPG, časovačov.</description>
+    <description lang="sl_SI">Vmesnik za VU+; podpira pretakanje televizije v živo in posnetkov, EPG, časovnike.</description>
+    <description lang="sq_AL">VU+ frontend, përkrahën transmetimin e Live TV's &amp; Regjistrime, EPG, timer.</description>
+    <description lang="sr_RS">VU+ интерфејс; подржава стримовање ТВ Уживо &amp; Снимака, EPG, Тајмере</description>
+    <description lang="sr_RS@latin">VU+ interfejs; podržava strimovanje TV Uživo &amp; Snimaka, EPG, Tajmere</description>
+    <description lang="sv_SE">Enigma2 frontend; stödjer strömning av Live-TV &amp; inspelningar, EPG, timers, autotimers.&#10;    &#10;För dokumentationen besök https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md&#10;  </description>
+    <description lang="szl">Klijynt telewizyjny dlŏ VU+  podpiyrŏ szpricowanie kanałōw radyjowych i telewizyjnych, nagrowanie i harmōnogram nagrań aji funkcyje EPG.</description>
+    <description lang="tr_TR">VU+ ön ucu; Canlı TV akışı ve kayıt yapabilme, EPG ve zamanlayıcıları destekler.</description>
+    <description lang="uk_UA">Накладка VU+; підтримує потоки Live TV, запис, програму передач, таймери.</description>
+    <description lang="vi_VN">Giao tiếp cho VU+; hỗ trợ truyền phát và thu chương trình Live TV, hẹn giờ và hiển thị lịch trình chiếu (EPG)</description>
+    <description lang="zh_CN">Enigma2 前端 - 支持直播电视播放和录像、电子节目单、定时器、自动定时器。&#10;&#10;文档见：https://github.com/kodi-pvr/pvr.vuplus/blob/master/README.md</description>
+    <description lang="zh_TW">VU+前端；支援的串流媒體包括有：電視直播和節目錄影，電子節目表，定時器。</description>
+    <disclaimer lang="af_ZA">Hierdie is onstabiele sagteware! Die outeurs is op geen manier verantwoordelik vir gefaalde opnames, inkorrekte tydhouers, gemorsde ure, of enige ander ongewensde effekte.</disclaimer>
+    <disclaimer lang="be_BY">This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects..</disclaimer>
+    <disclaimer lang="bg_BG">Тази програма е нестабилна! Авторите не носят отговорност за неуспешно записване, некоректни броячи, пропиляно време и други нежелани ефекти.</disclaimer>
+    <disclaimer lang="ca_ES">Això és programari inestable! Els autors no són de cap manera responsables dels enregistraments que han fallat, temporitzadors incorrectes, hores perdudes, o qualssevol altres efectes no desitjats..</disclaimer>
+    <disclaimer lang="cs_CZ">Tento software není stabilní! Autoři nejsou žádným způsobem zodpovědní za neúspěšná nahrávání, chybné časovače, ztracený čas nebo jakékoliv jiné nežádoucí výsledky...</disclaimer>
+    <disclaimer lang="cy_GB">Mae hwn yn feddalwedd ansad! Nid yw'r awduron yn gyfrifol mewn unrhyw ffordd am fethu recordio, amseru gwallus, oriau wedi eu gwastraffu nac effeithiau anymunol eraill.</disclaimer>
+    <disclaimer lang="da_DK">Dette er ustabil software! Ophavsmændene er på ingen måde ansvarlige for mislykkede optagelser, ukorrekte timere, spildte timer, eller andre uønskede konsekvenser..</disclaimer>
+    <disclaimer lang="de_DE">Dies ist instabile Software! Die Autoren sind in keiner Weise verantwortlich für fehlgeschlagene Aufnahmen, falsche Timer, verschwendete Zeit oder andere ungewünschte Effekte.</disclaimer>
+    <disclaimer lang="el_GR">Ασταθές πρόγραμμα! Οι δημιουργοί δεν είναι σε καμία περίπτωση υπεύθυνοι για αποτυχημένες εγγραφές, λανθασμένους χρονοδιακόπτες, χαμένες ώρες, ή κάθε είδους ανεπιθύμητα αποτελέσματα..</disclaimer>
+    <disclaimer lang="en_AU">This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects..</disclaimer>
+    <disclaimer lang="en_GB">This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects..</disclaimer>
+    <disclaimer lang="en_NZ">This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects..</disclaimer>
+    <disclaimer lang="en_US">This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects..</disclaimer>
+    <disclaimer lang="es_AR">¡Este software es inestable! Los autores no se responsabilizan por grabaciones fallidas, temporizadores incorrectos, horas perdidas, o cualquier otro efecto no deseado..</disclaimer>
+    <disclaimer lang="es_ES">¡Este es un software inestable! Los autores no son de ninguna manera responsables de las grabaciones fallidas o incorrectas, las temporizadores perdidas, ni otros efectos no deseables..</disclaimer>
+    <disclaimer lang="es_MX">¡Esto es software inestable! Los autores no son de ninguna manera responsables por grabaciones fallidas, temporizadores incorrectos, horas perdidas o cualquier otro efecto no deseado...</disclaimer>
+    <disclaimer lang="et_EE">See on ebastabiilne tarkvara! Autorid ei ole kuidagi moodi vastutavad nurjunud salvestiste, ebaõige aegrelee, raisatud tundide ega muude soovimatute asjade eest.</disclaimer>
+    <disclaimer lang="eu_ES">Software hau ezegonkorra da! Egilea ez da arduratzen grabazio-erroreetaz, kronometro-erroreetaz, ordu galduetaz edo beste edozein ondorio ezerosoetaz.</disclaimer>
+    <disclaimer lang="fi_FI">Tämä on epävakaa ohjelma! Sen tekijät eivät ole millään muotoa vastuussa epäonnistuneista tallennuksista, virheellisistä ajastuksista, haaskatusta ajasta, verenpaineen noususta tai mistään muusta epäsuotuisasta vaikutuksesta.</disclaimer>
+    <disclaimer lang="fr_CA">Ce logiciel est instable ! Les auteurs ne sont aucunement responsables des enregistrements défaillants, des minuteries erronées, des heures perdues ou tout autre effet indésirable.</disclaimer>
+    <disclaimer lang="fr_FR">Logiciel en cours d'élaboration ! Les auteurs ne sont en aucun cas responsables de l'échec des enregistrements, programmations défectueuses, temps perdu ou autres effets indésirables.</disclaimer>
+    <disclaimer lang="gl_ES">Software non estable, os autores non se fan responsábeis dos erros na gravacións, temporizadores incorrectos, e outros efectos non desexados.</disclaimer>
+    <disclaimer lang="he_IL">זוהי איננה הרחבה יציבה! המפתחים אינם אחראים על כשלון בניגון, זמנים שגויים במדריך השידורים, שעות מבוזבזות או כל תופעה לא רצויה אחרת.</disclaimer>
+    <disclaimer lang="hr_HR">Ovo je nestabilan softver! Autori nisu ni na koji način odgovorni za neuspjelo snimanje, netočna vremena snimanja, izgubljene sate, ili bilo koje druge nepoželjne učinke...</disclaimer>
+    <disclaimer lang="hu_HU">Ez nem stabil szoftver! A készítők nem vállalnak felelősséget, a hibás felvételért, rossz időzítésért, elvesztegetett időért...</disclaimer>
+    <disclaimer lang="hy_AM">Սա անկայուն ծրագրային ապահովում է: Հեղինակները պատասխանատու չեն վատ ձայնագրումների, սխալ ժամանակացույցերի, կորած ժամանակի կամ այլ ոչ ցանկալի երևույթների համար:</disclaimer>
+    <disclaimer lang="id_ID">Ini merupakan software yang tidak stabil! Penulis tidak bertanggung jawab untuk rekaman gagal, timer salah, waktu terbuang, atau efek tak diinginkan lainnya...</disclaimer>
+    <disclaimer lang="is_IS">Þetta er óstöðugur hugbúnaður! Höfundarnir eru á engan hátt ábyrgir fyrir misheppnuðum upptökum, röngum upptökutímum, klukkustundum sem að fóru í súginn eða nokkrum öðrum óæskilegum áhrifum.</disclaimer>
+    <disclaimer lang="it_IT">Questo software è instabile! Gli autori non sono in alcun modo responsabile per le fallite registrazioni, timer non corretti, ore perse o qualsiasi altro effetto non desiderato...</disclaimer>
+    <disclaimer lang="ja_JP">これは不安定なソフトウェアです！本プログラムの作者は、録画の失敗、正確に作動しなかったタイマー、無駄にした時間、その他あらゆる好ましくない結果について責任を負わないものとします。</disclaimer>
+    <disclaimer lang="ko_KR">이 소프트웨어는 불안정합니다! 제작자는 녹화 실패, 부정확한 타이머, 시간 낭비 및 기타 예상하지 못한 결과에 대해 책임지지 않습니다..</disclaimer>
+    <disclaimer lang="lt_LT">Tai yra nestabili programinė įranga! Autorius jokiu būdu neatsakingas už nepavykusius įrašus, neteisingus laikmačius, iššvaistytas valandas, ar nutikus kitiems nepageidaujamiems poveikiams ...[COLOR=red](Kodi.lt rekomenduoja/siūlo testuojant šį priedą persijungti į Anglų [orinali] kalbą)[/COLOR]</disclaimer>
+    <disclaimer lang="lv_LV">Šī ir nestabila programmatūra! Autori nav atbildīgi par nesanākušiem ierakstiem, nepareiziem taimeriem, iztērētām stundām vai jebkādiem citiem nevēlamiem efektiem..</disclaimer>
+    <disclaimer lang="mk_MK">Ова е нестабилен софтвер! Авторите на ниту еден начин не одговараат за неуспешни снимки, неточни тајмери, потрошени часови, или било кои други несакани ефекти.</disclaimer>
+    <disclaimer lang="mn_MN">Тус програм нь гүйцэд хийгдэж дуусаагүй! Зохиогч нь алдаатай бичлэг, цагийн буруу хөтлөлт, алдагдсан цаг хугацаа эсвэл бусад ямар нэгэн хүсээгүй үр дүнд хариуцлага хүлээхгүй.</disclaimer>
+    <disclaimer lang="ms_MY">Ini merupakan perisian tidak stabil! Pengarang tidak bertanggungjawab atas kegagalan rakaman, pemasa tidak betul, masa yang dibazirkan, atau apa jua kesan yang tidak dikehendaki..</disclaimer>
+    <disclaimer lang="mt_MT">Dan il-programm mhuwiex stabbli! L-Awturi m'humiex responsabbli bl-ebda mod għal rekordings li ma jirnexxewx, arloġġi żbaljati, siegħat moħlija, jew kwalunkwe effett ieħor mhux mixtieq.</disclaimer>
+    <disclaimer lang="nb_NO">Dette er ustabil programvare! Skaperen har ikke på noen måte ansvar for feilede opptak, uriktige tidsur, bortkastede timer, eller andre uønskede effekter…</disclaimer>
+    <disclaimer lang="nl_NL">Dit is onstabiele software! De auteurs zijn op geen enkele manier verantwoordelijk voor mislukte opnames, incorrecte timers, verspilde uren of andere ongewenste effecten.</disclaimer>
+    <disclaimer lang="pl_PL">Oprogramowanie nadal jest w fazie rozwoju i jest niestabilne! Autorzy w żaden sposób nie są odpowiedzialni za nieudane nagrania, błędy w harmonogramie nagrań, zmarnowany czas ani jakiekolwiek inne niepożądane efekty.</disclaimer>
+    <disclaimer lang="pt_BR">Este é um software instável! Os autores não são responsáveis por falhas nas gravações, agendamentos incorretos, horas dispendidas, ou quaisquer outros efeitos indesejáveis</disclaimer>
+    <disclaimer lang="pt_PT">Este software é instável! Os autores não podem ser responsabilizados por gravações falhadas, temporizadores incorretos, horas desperdiçadas ou qualquer outro tipo de efeitos indesejáveis...</disclaimer>
+    <disclaimer lang="ro_RO">Acesta nu este o aplicație definitivă! Autorii nu sunt în nici un fel responsabili pentru înregistrări eșuate, cronometre incorecte, ore pierdute, sau orice alte efecte nedorite...</disclaimer>
+    <disclaimer lang="ru_RU">Это тестовая программа! Авторы не несут ответственности за неудачные записи, неверные таймеры, потраченное время и прочие нежелательные эффекты..</disclaimer>
+    <disclaimer lang="si_LK">මෙය අස්ථිර මෘදුකාංගයකි! මෙහි සිදුවන පටිගත කිරීම් අසාර්ථක වීම්, සාවද්‍ය මුහුර්තක, නාස්ති වූ කාලයන්, හෝ වෙනත් යමිකිසි නුසුදුසු බලපෑම් සඳහා කතෘ වග කියනු නොලැබේ.</disclaimer>
+    <disclaimer lang="sk_SK">Tento softvér nie je stabilný! Autori nenesú žiadnu zodpovednosť za chybné nahrávky vysielania, nesprávne časovače alebo iné neželané udalosti spôsobené týmto softvérom..</disclaimer>
+    <disclaimer lang="sl_SI">To je nestabilna programska oprema! Avtorji niso odgovorni za neuspela snemanja, nepravilne časovnike, zapravljen čas in katerikoli drug neželen učinek...</disclaimer>
+    <disclaimer lang="sq_AL">Ky program nuk është ende stabil! Autorët e këtij programi nuk janë në as një menyr përgjegjës për rregistrime të gabuara, timer të pasaktë, kohë të humbur ose efekte të tilla të padëshirueshme.</disclaimer>
+    <disclaimer lang="sr_RS">Овај софтвер је нестабилан! Аутори ни на који начин нису одговорни за неуспела снимања, неисправне тајмере, изгубљене сате, или било које друге нежељене ефекте.</disclaimer>
+    <disclaimer lang="sr_RS@latin">Ovaj softver je nestabilan! Autori ni na koji način nisu odgovorni za neuspela snimanja, neispravne tajmere, izgubljene sate, ili bilo koje druge neželjene efekte.</disclaimer>
+    <disclaimer lang="sv_SE">Detta är instabil mjukvara! Upphovsmännen är inte ansvariga för misslyckade inspelningar, inkorrekta timers, bortslösade timmar, eller några andra oönskade effekter..</disclaimer>
+    <disclaimer lang="szl">To software je niysztabilne! Autory w żŏdyn knif niy ôdpadajōm za niypodarzōne nagrania, felery w harmōnogramie nagrań, potracōne godziny a tyż jake ino inksze niynazdane efekty.</disclaimer>
+    <disclaimer lang="te_IN">ఇది అస్థిర సాఫ్ట్వేర్! విఫలమైన రికార్డింగ్లు, తప్పు టైమర్లు, వృధా గంటల, లేదా ఏ ఇతర అవాంఛనీయ ప్రభావాలకు ఏ విధంగా రచయితలు భాద్యుతులు కారు.</disclaimer>
+    <disclaimer lang="tg_TJ">Ин нармафзори ноустувор аст! Муаллифон барои вайрониҳои сабт, вақтсанҷҳои нодуруст, соатҳои бефоида ва дигар таъсирҳои номатлуб ҷавобгар намебошанд.</disclaimer>
+    <disclaimer lang="th_TH">นี่คือโปรแกรมที่ยังไม่เสถียร! ผู้เขียนไม่อยู่ในทางที่จะรับผิดชอบในการบันทึกที่ล้มเหลว, การตั้งเวลาที่ไม่ถูกต้อง, การเสียเวลา, หรือผลกระทบที่ไม่พึงประสงค์อื่น ๆ..</disclaimer>
+    <disclaimer lang="tr_TR">Bu kararsız bir yazılımdır! Yapımcılar hatalı kayıtlardan, bozuk sürelerden, harcanan vakitten veya herhangi bir olumsuz etkiden dolayı sorumlu tutulamaz.</disclaimer>
+    <disclaimer lang="uk_UA">Це нестабільна програма! Автори не несуть відповідальності за попсуті записи, неправильні таймери, втрачений час та інші небажані ефекти.</disclaimer>
+    <disclaimer lang="vi_VN">Đây là phần mềm không ổn định! Các tác giả không chịu trách nhiệm đối với bản ghi chương trình thất bại, hẹn giờ không chính xác, giờ lãng phí, hoặc bất kỳ tác dụng không mong muốn khác..</disclaimer>
+    <disclaimer lang="zh_CN">这是不稳定版的软件！作者不对录像失败、错误定时造成时间浪费或其它不良影响负责。</disclaimer>
+    <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
+    <platform>windows-i686</platform>
+    <news>
+v3.28.9
+- Fixed: Add Timer title and fallback entry fix
+
+v3.28.8
+- Fixed: Fix time_t format string specifier win32 seg faults
+
+v3.28.7
+- Fixed: Logger fix ported from pvr.hts
+
+v3.28.6
+- Added: Epg lookup more debug logging on add timer
+
+v3.28.5
+- Added: release package bump
+
+v3.28.4
+- Added: added new addon icon
+
+v3.28.3
+- Added: Epg lookup debug logging - When adding timer
+
+v3.28.2
+- Fixed: Use correct start time for EPG lookup when adding timer
+- Fixed: strncpy fix possible length fault
+
+v3.28.1
+- Update: Github README link in addon.xml for Leia
+
+v3.28.0
+- Added: Support for IPTV Streams configured on E2 device (no timeshifting)
+- Added: Reload instead of reconnecting when channel/group changes are detected
+- Added: Use truly unique IDs for channels so EPG changes are correctly reflected
+- Fixed: Only get drive space for devices that have an HDD
+- Fixed: use correct function to lookup group when adding
+- Added: update README.md to show appveyor/travis badges per branch
+- Added: Update OSX build script
+- Added: update badge status for travis/appveyor
+- Added: add copyright notices to files
+- Fixed: Fix default path for genre text mapping file
+
+v3.27.1
+- Update: Build sytem version
+- Added: AppVeyor for Windows related build tests
+- Fixed: Build depends search way
+
+v3.27.0
+- Added: Allow creation of epg based repeating timer rules if autotimers are not available
+
+v3.26.0
+- Added: Set program id option for streams with superfluous program data
+- Added: Undelete and trashcan (when configured on backend) for recordings
+- Added: Use new API for backend channel numbers - openwebif 1.3.7
+- Fixed: Radio groups parsed from wrong api
+- Added: Support disabling addon debug logging in debug mode
+
+v3.25.0
+- Added: Support backend channel numbers for all channel groups not just the first
+- Added: Ignore empty channel groups
+- Added: Readme and help info updates
+- Fixed: Revert support hidden entries for backend channel numbers
+- Fixed: Fix hanging on deleting multiple recordings at once
+
+v3.24.0
+- Added: Custom Channel Groups, closes #209
+- Added: Connection manager improvements
+- Added: Support hidden entries for backend channel numbers
+- Fixed: Timer descprition for providers who only use long descrption
+
+v3.23.0
+- Added: Support settings levels via the current kodi settings level
+- Added: Fallback EPG Entries for Timers
+- Added: Support backend channel numbers using Openwebif
+
+v3.22.0
+- Added: Help info for addon settings
+- Added: Delete child timers when deleting autotimers
+- Added: Set max connection check interval to 60 seconds
+- Fixed: Incorrect localisation IDs
+- Fixed: Timers in error state cause crash on delete
+- Added: Support show info fields for Timers
+
+v3.21.0
+- Added: Support Edit Recording name, last played and play count
+- Fixed: Use v3.6.1 of nlohmann/json to relax cmake version dependency for OSMC, fixes #194
+- Added: Nightly channel reload check as default
+- Added: Split out and move openwebif version checking to settings
+
+v3.20.0
+- Added: Add options to Tune Async connection for slower E2 devices
+- Added: Enable option to reload channels and groups once per day if changes are detected
+- Added: Allow timers generated by autotimers to be deleted
+- Fixed: Fix for disabling timers
+- Added: Use genre from kodi for timers instead of lookup where possible
+- Added: Support recording type fully for TV/Radio/Any channel
+- Added: By default load Last Scanned group if no TV groups found
+- Fixed: Channel Service Refs Can sometimes have alphabetic characters appended at the end, fixes #202
+- Added: For timers and autotimers without a valid channel put in error state instead of omitting
+- Fixed: IsRunning timer check not checking start time
+
+v3.19.0
+- Added: Async Connection - Reconnect if Enigma2 device was or becomes unavailable, closes #154, closes #184
+- Added: Notify when Channel/ChannelGroups changes are detected, closes #179
+- Added: Support genres for Recordings and Timers, fixes #186
+- Fixed: Instant recordings may be missing show info depending on last EPG update, fixes #185
+- Added: Helper build script for MacOSX
+
+v3.18.1
+- Fixed: Crash on addon start, fixes #191
+
+v3.18.0
+- Fixed: Ensure only one call to GetEPGForChannel happens at one time, fixes #181
+- Added: Update/fix server version for pvr addon
+- Added: Option to skip initial EPG Load
+- Fixed: Fix for zap on channel change for dreamboxes
+- Added: Support for padding in certain timer types
+- Fixed: Change the call web/tunersignal to web/signal so it also works on DreamOS
+
+v3.17.0
+- Added: Recording EDL support
+- Added: Update Timer Types to display correctly in Manual vs EPG UIs
+- Added: Updated show info regex's
+- Fixed: Timer Recording not displaying description - Not being stored on STB - AddTimer Call, fixes #174
+- Fixed: Fix for uncaught type_error for nlohmann/json
+- Fixed: Include TV Favourites channels by default in settings
+- Added: Support Last Scanned for both TV and Radio, fixes #178
+- Fixed: Null pointer check for Genre EPG data processed XML
+
+v3.16.2
+- Fixed: Seg fault on shutdown - Timer Updates thread accessing released object, fixes #172
+- Fixed: Incorrectly used time_t instead int64 in GetStreamTimes, fixes #171
+- Added: Load Addon Version
+- Fixed: Clean up/partition addon debug log, fixes #159
+- Added: Add user defined delay between EPG Channel Updates, fixes #158
+- Added: Enable Trace Logging in debug mode
+- Added: Integrate Stream API details with Tuners
+- Fixed: JSON API requires version 1.3.5+ of OpenWebIf, fixes #169
+- Added: updated language files from Transifex
+
+v3.16.1
+- Fixed: Backend polled too often for Signal Quality, fixes #165
+- Fixed: SNR and Signal showing as zero in PVR info overlay, fixes #164
+- Fixed: When playing a current recording duration at end time is wrong, fixes #160
+- Fixed: Plugin won't load channels after upgrade to 3.16.0, fixes #161
+
+v3.16.0
+- Added: Tuners and SignalStatus
+- Added: Use Picon Path from OpenWebIf
+- Fixed: Change startup issue log statements from Debug to Error, fixes #157
+
+v3.15.5
+- Added: updated language files from Transifex
+
+v3.15.4
+- Fixed: In 3.15.2 WebIf that is not OpenWebIf does not support auto timer API - Addon won't load Newnigma2 image, fixes #151
+
+v3.15.3
+- Fixed: GetStreamTimes not implemented for Recordings, fixes #148
+- Fixed: When starting a recording partway through start time is EPG start not recording start, fixes #147
+
+v3.15.2
+- Fixed: Only load Season info extractor and genre mappers config when enabled, fixes #136
+- Fixed: 3.15.1 dont load/work on old DM800se, fixes #139
+- Fixed: Missing default value from timeshift buffer path, fixes #140
+- Fixed: Channel Group Member Order not preserved, fixes #141
+
+v3.15.1
+- Fixed: since 3.15.0 pvr manager cant start #134
+- Added: Log Distro Version
+
+v3.15.0
+- Added: Support for Radio Groups
+- Added: Create unique list of channels instead of a copy of each channel per group, fixes #101
+- Fixed: hdd free space is wrong, fixes #122
+- Added: Device Settings - AutoTimer and Padding
+- Added: PowerstateMode on exit, fixes #128
+- Fixed: Store timer state on update, fixes #131
+- Fixed: Updates not occuring at specified time and immediate update on timer event, fixes #130
+- Added: Support different update modes for timers and recordings, fixes #125
+
+v3.14.0
+- Added: Externalised season/episode and genre config to allow users support other formats/languages, closes #118
+- Added: Server OpenWebIf version now reported by addon
+
+v3.13.0
+- Added: New setting to enable streaming over HTTPS
+- Added: New setting to enable authentication for streaming
+
+v3.12.6
+- Fixed: Windows build fix
+- Fixed: tsbuffer.ts never got deleted, fixes #115
+    </news>
   </extension>
 </addon>
 
@@ -2997,41 +3485,36 @@ Fixed: Eroticage
     </extension>
 </addon>
 
-    <addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="9.3" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-        <extension point="xbmc.addon.repository" name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Repo">
-            <dir>
-				<info compressed="false">https://raw.githubusercontent.com/MrKoyu/repo/master/addons.xml</info>
-				<checksum>https://raw.githubusercontent.com/MrKoyu/repo/master/addons.xml.md5</checksum>
-				<datadir zip="true">https://raw.githubusercontent.com/MrKoyu/repo/master/zips</datadir>
-            <hashes>false</hashes>
-			</dir>
-            <dir>
-                <info compressed="false">https://raw.githubusercontent.com/frenchdj/repository.frenchdj/master/_repo/addons.xml</info>
-                <checksum>https://raw.githubusercontent.com/frenchdj/repository.frenchdj/master/_repo/addons.xml.md5</checksum>
-                <datadir zip="true">https://raw.githubusercontent.com/frenchdj/repository.frenchdj/master/_repo/</datadir>
-            </dir>
-            <dir>
-                <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
-                <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
-                <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
-            </dir>
-			<dir>
-                <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
-                <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
-                <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
-            </dir>
-        </extension>
-        <extension point="xbmc.addon.metadata">
+<addon id="repository.cdrepo" name="[COLOR deepskyblue]CellarDoorTV [COLOR white]Repo[/COLOR]" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR]" version="9.6">
+	<requires>
+		<import addon="xbmc.addon" version="12.0.0"/>
+	</requires>
+	<extension name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Repo" point="xbmc.addon.repository">
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/MrKoyu/repo/master/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/MrKoyu/repo/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/MrKoyu/repo/master/zips</datadir>
+		</dir>
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
+		</dir>
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+			<checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+			<datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+		</dir>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="[login|startup]" />
+	<extension point="xbmc.addon.metadata">
 		<summary lang="en">CellarDoorTV Repository</summary>
-		<description lang="en">[COLOR gold]The Future Of Home Entertainment[/COLOR][CR]Kodi Repository for [COLOR steelblue]CellarDoorTV[/COLOR][CR][COLOR steelblue]CellarDoorTV[/COLOR] [COLOR white]Repo[/COLOR] allows you to install CDTV Wizard Krypton and CDTV Wizard Leia to get access to the latest CDTV Custom Builds and more.</description>
+		<description lang="en">[COLOR gold]The Future Of Home Entertainment[/COLOR][CR]Kodi Repository for [COLOR steelblue]CellarDoorTV[/COLOR][CR][COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR white]Repo[/COLOR] allows you to install CDTV Wizard Krypton and CDTV Wizard Leia to get access to the latest CDTV Custom Builds and more.</description>
 		<platform>all</platform>
-    <assets>
-        <icon>icon.gif</icon>
-        <fanart>fanart.jpg</fanart>
-    </assets>
+		<assets>
+			<icon>icon.gif</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
 	</extension>
 </addon>
 
@@ -3187,26 +3670,64 @@ Fixed: Eroticage
     </extension>
 </addon>
 
-<addon id="repository.kodinerds" name="kodinerds.net Add-ons" version="6.19.2" provider-name="L0RE, Steffen Rolapp">
-	<requires>
-		<import addon="xbmc.addon" version="12.0.0"/>
-	</requires>
-	<extension point="xbmc.addon.repository" name="L0RE">
-		<dir>
-			<info compressed="true">https://raw.githubusercontent.com/kodinerds/repo/master/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/kodinerds/repo/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/kodinerds/repo/master/</datadir>
-		</dir>
-
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Official Repository of Kodinerds</summary>
-		<summary lang="de">Offizielles Repository der Kodinerds</summary>
-		<description lang="en">This is the official Repository of the german Community 'Kodinerds' which you'll find at www.kodinerds.net. Most of the hosted Addons are supported by the members of the Community. Enjoy!</description>
-		<description lang="de">Das ist das offizielle Repository der deutschen Community 'Kodinerds', welche Du unter www.kodinerds.net findest. Die meisten der hier gehosteten Addons werden von den Mitgliedern der Community aktiv supported. Viel Spaß!</description>
-		<disclaimer></disclaimer>
-		<platform>all</platform>
-	</extension>
+<addon id="repository.kodinerds" name="Kodinerds Addon Repo" version="7.0.0" provider-name="Kodinerds">
+    <requires>
+        <import addon="xbmc.addon" version="12.0.0"/>
+    </requires>
+    <extension point="xbmc.addon.repository" name="Kodinerds Addon Repo">
+        <dir>
+            <info compressed="true">https://repo.kodinerds.net/addons/addons.xml</info>
+            <checksum>https://repo.kodinerds.net/addons/addons.xml.md5</checksum>
+            <datadir zip="true">https://repo.kodinerds.net/addons</datadir>
+        </dir>
+        <dir minversion="18.9.0">
+            <info compressed="true">https://repo.kodinerds.net/addons/matrix/addons.xml</info>
+            <checksum>https://repo.kodinerds.net/addons/matrix/addons.xml.md5</checksum>
+            <datadir zip="true">https://repo.kodinerds.net/addons/matrix/zip/</datadir>
+        </dir>
+        <dir minversion="17.9.0">
+            <info compressed="true">https://repo.kodinerds.net/addons/leia/addons.xml</info>
+            <checksum>https://repo.kodinerds.net/addons/leia/addons.xml.md5</checksum>
+            <datadir zip="true">https://repo.kodinerds.net/addons/leia/zip/</datadir>
+        </dir>
+        <dir minversion="16.9.0">
+            <info compressed="true">https://repo.kodinerds.net/addons/krypton/addons.xml</info>
+            <checksum>https://repo.kodinerds.net/addons/krypton/addons.xml.md5</checksum>
+            <datadir zip="true">https://repo.kodinerds.net/addons/krypton/zip/</datadir>
+        </dir>
+        <dir minversion="15.9.0">
+            <info compressed="true">https://repo.kodinerds.net/addons/jarvis/addons.xml</info>
+            <checksum>https://repo.kodinerds.net/addons/jarvis/addons.xml.md5</checksum>
+            <datadir zip="true">https://repo.kodinerds.net/addons/jarvis/zip/</datadir>
+        </dir>
+        <dir minversion="14.9.0">
+            <info compressed="true">https://repo.kodinerds.net/addons/isengard/addons.xml</info>
+            <checksum>https://repo.kodinerds.net/addons/isengard/addons.xml.md5</checksum>
+            <datadir zip="true">https://repo.kodinerds.net/addons/isengard/zip/</datadir>
+        </dir>
+        <dir minversion="13.9.0">
+            <info compressed="true">https://repo.kodinerds.net/addons/helix/addons.xml</info>
+            <checksum>https://repo.kodinerds.net/addons/helix/addons.xml.md5</checksum>
+            <datadir zip="true">https://repo.kodinerds.net/addons/helix/zip/</datadir>
+        </dir>
+        <dir minversion="12.9.0">
+            <info compressed="true">https://repo.kodinerds.net/addons/gotham/addons.xml</info>
+            <checksum>https://repo.kodinerds.net/addons/gotham/addons.xml.md5</checksum>
+            <datadir zip="true">https://repo.kodinerds.net/addons/gotham/zip/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Addon repository of the Kodinerds Community</summary>
+        <description lang="en">The 'Nerdsrepo' is the Repository of the german Kodi Community 'Kodinerds' (www.kodinerds.net). Most of the hosted Addons here are active developed and supported by the members of the Community. Nerdsrepo is an unofficial Repository of the Kodi Media Center Software</description>
+        <summary lang="de">Addon Repository der Kodinerds Community</summary>
+        <description lang="de">Das 'Nerdsrepo' ist das Addon Repository der deutschen Kodi-Community 'Kodinerds' (www.kodinerds.net). Die meisten der hier im Nerdsrepo gehosteten Addons werden von den Mitgliedern der Community aktiv entwickelt und unterstützt. Das Nerdsrepo ist ein unoffizielles Repository der Kodi Media Center Software.</description>
+        <disclaimer/>
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon>
 
     <addon id="repository.kodiyhelp" name="KoDIY Help Repo" version="0.1.0" provider-name="KoDIY Help">
@@ -3481,7 +4002,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="12.0.000" provider-name="@Nemzzy668 / @_Manc_">
+<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="12.0.002" provider-name="@Nemzzy668 / @_Manc_">
     <extension point="xbmc.addon.repository" name="Stream Army">
         <info compressed="false">https://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml</info>
         <checksum>http://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml.md5</checksum>
@@ -3650,7 +4171,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-﻿<addon id="script.crew.sports"	name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.61" provider-name="The Crew">
+﻿<addon id="script.crew.sports"	name="[COLOR orchid]THE CREW SPORTS[/COLOR]" version="0.0.63a" provider-name="The Crew">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
 		<import addon="script.module.addon.common"/>
@@ -3660,6 +4181,9 @@ The author is not responsible for the use of this addon. The author is not respo
 		<import addon="script.module.beautifulsoup4"/>
 		<import addon="script.module.resolveurl"/>
 		<import addon="script.module.python.koding.aio.alt" version="1.1"/>
+		<import addon="script.module.pytz" />
+		<import addon="script.module.js2py" />
+		<import addon="script.module.pyjsparser" />
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>all</provides>
@@ -3910,6 +4434,28 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
+<addon id="script.module.cloudscraper" name="CloudScraper2" version="1.2.34" provider-name="venomous">
+  <requires>
+    <import addon="xbmc.python" version="2.26.0"/>
+    <import addon="script.module.requests" />
+
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.python.pluginsource" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_gb">cloudscraper</summary>
+    <description lang="en_gb">cloudscraper</description>
+    <disclaimer lang="en_gb"></disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license></license>
+    <forum></forum>
+    <website></website>
+    <email></email>
+    <source></source>
+  </extension>
+</addon>
+
 <addon id="script.module.cryptolib" name="Crypto Libraries" version="1.1.1" provider-name="Twilight0">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -3957,7 +4503,7 @@ The author is not responsible for the use of this addon. The author is not respo
 	</extension>
 </addon>
 
-<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="2.2.6" provider-name="Exodus">
+<addon id="script.module.exoscrapers" name="ExoScrapers Module" version="2.2.9" provider-name="Exodus">
     <requires>
         <import addon="xbmc.python" version="2.25.0" />
         <import addon="script.module.beautifulsoup4"/>
@@ -3977,7 +4523,7 @@ The author is not responsible for the use of this addon. The author is not respo
         <icon>icon.png</icon>
         <fanart></fanart>
     </assets>
-    <news>v2.2.6 - scrapers and log_utils fix, torrent updates, scraper fixes</news>
+    <news>v2.2.9 - scrapers and log_utils fix, torrent updates, scraper fixes</news>
     </extension>
 </addon>
 
@@ -4087,6 +4633,27 @@ The author is not responsible for the use of this addon. The author is not respo
 		<platform>all</platform>
 		<summary lang="en">Jor-El</summary>
 	</extension>
+</addon>
+
+<addon id="script.module.js2py" name="js2py" version="0.6.6a" provider-name="Addons4Kodi">
+  <requires>
+    <import addon="xbmc.python" version="2.25.0"/>
+    <import addon="script.module.six" version="1.11.0"/>
+    <import addon="script.module.pyjsparser" version="2.7.1"/>
+    <import addon="script.module.tzlocal" version="1.5.1"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary>Pure Python JavaScript Translator/Interpreter</summary>
+    <description>Packed for Kodi from https://github.com/PiotrDabkowski/Js2Py</description>
+    <platform>all</platform>
+    <language></language>
+    <license>MIT</license>
+    <forum></forum>
+    <website>https://github.com/PiotrDabkowski/Js2Py</website>
+    <source>https://github.com/PiotrDabkowski/Js2Py</source>
+    <email></email>
+  </extension>
 </addon>
 
 <addon id="script.module.kodi-six"
@@ -4265,6 +4832,24 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
+<addon id="script.module.pyjsparser" name="pyjsparser" version="2.7.2a" provider-name="Addons4Kodi">
+  <requires>
+    <import addon="xbmc.python" version="2.25.0"/>
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary>Pure Python JavaScript Translator/Interpreter</summary>
+    <description>Packed for Kodi from https://github.com/PiotrDabkowski/pyjsparser</description>
+    <platform>all</platform>
+    <language></language>
+    <license>MIT</license>
+    <forum></forum>
+    <website>https://github.com/PiotrDabkowski/pyjsparser</website>
+    <source>https://github.com/PiotrDabkowski/pyjsparser</source>
+    <email></email>
+  </extension>
+</addon>
+
 <addon id="script.module.pyqrcode" version="0.0.2" name="pyQRcode" provider-name="Lunatixz">
     <requires>
         <import addon="xbmc.python" version="2.24.0" />
@@ -4284,7 +4869,7 @@ The author is not responsible for the use of this addon. The author is not respo
     </extension>
 </addon>
 
-<addon id="script.module.pyrrent2http" name="pyrrent2http" version="0.9.9" provider-name="inpos">
+<addon id="script.module.pyrrent2http" name="pyrrent2http" version="1.0.0" provider-name="inpos">
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
         <import	addon="script.module.libtorrent" />
@@ -4411,7 +4996,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.42" provider-name="jsergio">
+<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.44" provider-name="jsergio, gujal">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="plugin.video.youtube" optional="true" />
@@ -4634,7 +5219,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.75a" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.78" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.beautifulsoup4"/>
@@ -4951,7 +5536,7 @@ The author is not responsible for the use of this addon. The author is not respo
 	</extension>
 </addon>
 
-<addon id="script.thecrew.artwork" version="0.0.31" name="[COLOR orchid]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
+<addon id="script.thecrew.artwork" version="0.0.32" name="[COLOR orchid]THE CREW ARTWORK[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
     </requires>

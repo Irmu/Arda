@@ -2,7 +2,7 @@
 
 '''
 **Created by Tempest**
-
+Fixed 4/20/20
 '''
 
 import re, urllib, urlparse
@@ -19,8 +19,8 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['onceddl.net']
-        self.base_link = 'https://onceddl.net'
-        self.search_link = '/?s=%s'
+        self.base_link = 'https://onceddl.org'
+        self.search_link = '/search/keyword/%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:

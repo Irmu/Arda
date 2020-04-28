@@ -3,13 +3,13 @@ import os
 import chardet
 
 try:
-    from python_libtorrent import get_libtorrent
+    from python_libtorrent import get_libtorrent  # @UnresolvedImport
     lt=get_libtorrent()
     print('Imported libtorrent v%s from python_libtorrent' %(lt.version, ))
 except Exception, e:
     print('Error importing python_libtorrent.Exception: %s' %(str(e),))
     try:
-        import libtorrent as lt
+        import libtorrent as lt   # @UnresolvedImport
     except Exception as e:
         strerror = e.args
         print(strerror)
@@ -42,8 +42,8 @@ if not hasattr(os, 'getppid'):
     import ctypes
 
     TH32CS_SNAPPROCESS = 0x02L
-    CreateToolhelp32Snapshot = ctypes.windll.kernel32.CreateToolhelp32Snapshot
-    GetCurrentProcessId = ctypes.windll.kernel32.GetCurrentProcessId
+    CreateToolhelp32Snapshot = ctypes.windll.kernel32.CreateToolhelp32Snapshot  # @UndefinedVariable
+    GetCurrentProcessId = ctypes.windll.kernel32.GetCurrentProcessId    # @UndefinedVariable
 
     MAX_PATH = 260
 
@@ -510,7 +510,7 @@ class Pyrrent2http(object):
                     maxUploadRate = -1, connectionsLimit = 200, encryption = 1,
                     minReconnectTime = 60, maxFailCount = 3, noSparseFile = False,
                     randomPort = False, enableScrape = False, enableDHT = True,
-                    enableLSD = True, enableUPNP = True, enableNATPMP = True, enableUTP = True, enableTCP = True):
+                    enableLSD = True, enableUPNP = True, enableNATPMP = True, enableUTP = True, enableTCP = True, proxy=None):
         self.torrentHandle = None
         self.forceShutdown = False
         self.session = None
@@ -555,6 +555,7 @@ class Pyrrent2http(object):
         self.config.enableNATPMP = enableNATPMP
         self.config.enableUTP = enableUTP
         self.config.enableTCP = enableTCP
+        self.config.proxy = proxy
         if self.config.uri == '':
             raise Exception("uri is empty string")
         if self.config.uri.startswith('magnet:'):
@@ -608,7 +609,7 @@ class Pyrrent2http(object):
             for n in range(len(trackers)):
                 tracker = trackers[n].strip()
                 logging.info('Adding tracker: %s' % (tracker,) )
-                self.torrentHandle.add_tracker(tracker, startTier + n)
+                self.torrentHandle.add_tracker({'url': tracker})
         if self.config.enableScrape:
             logging.info('Sending scrape request to tracker')
             self.torrentHandle.scrape_tracker()
@@ -677,6 +678,20 @@ class Pyrrent2http(object):
         settings["rate_limit_ip_overhead"] = True
         settings["min_announce_interval"] = 60
         settings["tracker_backoff"] = 0
+        ### Непонятно, как заставить использовать прокси только для подключения к трекеру?
+        if self.config.proxy is not None:
+            ps = lt.proxy_settings()
+            #peer_ps = lt.proxy_settings()
+            #peer_ps.type = lt.proxy_type.none
+            ps.hostname = self.config.proxy['host']
+            ps.port = self.config.proxy['port']
+            ps.type = lt.proxy_type.socks5
+            #self.session.set_peer_proxy(peer_ps)
+            self.session.set_proxy(ps)
+            settings['force_proxy'] = False
+            settings['proxy_peer_connections'] = False
+            settings['anonymous_mode'] = False
+            settings['proxy_tracker_connections'] = True
         self.session.set_settings(settings)
         
         if self.config.stateFile != '':

@@ -30,6 +30,11 @@ logger = logging.getLogger(ADDON.getAddonInfo('id'))
 kodilogging.config()
 plugin = routing.Plugin()
 
+HEADERS_VOD = {
+    "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Mobile Safari/537.36",
+    "Cookie": "rtp_cookie_privacy=permit 1,2,3,4;"
+}
+
 @plugin.route('/')
 def index():
     direto = ListItem("[B]{}[/B]".format(kodiutils.get_string(32004)))
@@ -37,6 +42,9 @@ def index():
 
     programas = ListItem("[B]{}[/B]".format(kodiutils.get_string(32005)))
     addDirectoryItem(handle=plugin.handle, listitem=programas, isFolder=True, url=plugin.url_for(programs))
+
+    estudoemcasaitem = ListItem("[B]{}[/B]".format(kodiutils.get_string(32010)))
+    addDirectoryItem(handle=plugin.handle, listitem=estudoemcasaitem, isFolder=True, url=plugin.url_for(estudoemcasa))
 
     pesquisar = ListItem("[B]{}[/B]".format(kodiutils.get_string(32006)))
     addDirectoryItem(handle=plugin.handle, listitem=pesquisar, isFolder=True, url=plugin.url_for(search))
@@ -50,7 +58,7 @@ def search():
     input_text = Dialog().input(kodiutils.get_string(32007), "", INPUT_ALPHANUM)
 
     try:
-        req = requests.get("https://www.rtp.pt/play/pesquisa?q={}".format(input_text), headers=HEADERS).text
+        req = requests.get("https://www.rtp.pt/play/pesquisa?q={}".format(input_text), headers=HEADERS_VOD).text
     except:
         raise_notification()
 
@@ -271,12 +279,18 @@ def programs_episodes():
     url = plugin.args["url"][0]
     page = plugin.args["page"][0]
 
-    prog_id = url.split("/")[2][1:]
+    if url.find("estudoemcasa") >= 0:
+        prog_id = url.split("/")[3][1:]
+        mainurl = "https://www.rtp.pt/play/estudoemcasa"
+    else:
+        prog_id = url.split("/")[2][1:]
+        mainurl = "https://www.rtp.pt/play"
 
     try:
-        req = requests.get("https://www.rtp.pt/play/bg_l_ep/?listProgram={}&page={}".format(
+        req = requests.get("{}/bg_l_ep/?listProgram={}&page={}".format(
+            mainurl,
             prog_id,
-            page), headers=HEADERS)
+            page), headers=HEADERS_VOD)
         req.encoding = "latin-1"
         req = req.text
     except:
@@ -344,13 +358,58 @@ def programs_play():
         stream = re.search(r'"https://(.+?)ondemand.rtp.pt(.*?)"', req.text)
         stream = "https://" + stream.group(1) + "ondemand.rtp.pt" + stream.group(2)
     except:
-        raise_notification()
+        try:
+            stream = re.search(r'"https://(.+?)streaming.rtp.pt(.*?)"', req.text)
+            stream = "https://" + stream.group(1) + "streaming.rtp.pt" + stream.group(2)
+        except:
+            raise_notification()
 
-    liz = ListItem("{} ({})".format(title, ep))
+    liz = ListItem("{} ({})".format(
+        kodiutils.compat_py23str(title),
+        kodiutils.compat_py23str(ep))
+    )
     liz.setArt({"thumb": img, "icon": img})
     liz.setProperty('IsPlayable', 'true')
     liz.setPath("{}|{}".format(stream, urlencode(HEADERS)))
     setResolvedUrl(plugin.handle, True, liz)
+
+
+@plugin.route('/estudoemcasa')
+def estudoemcasa():
+    try:
+        req = requests.get("https://www.rtp.pt/play/estudoemcasa/", headers=HEADERS)
+        req.encoding = "latin-1"
+        req = req.text
+    except:
+        raise_notification()
+
+    soup = BeautifulSoup(req, 'html.parser')
+
+    for a in soup.find_all('a', class_='item wide-169'):
+        url = a.get('href')
+        title = a.get('title')
+        img = a.find('img').get('data-src')
+
+        liz = ListItem("{}".format(
+            kodiutils.compat_py23str(title))
+        )
+        liz.setArt({"thumb": img,
+                    "icon": img,
+                    "fanart": kodiutils.FANART})
+        liz.setInfo("Video", infoLabels={"title": kodiutils.compat_py23str(title)})
+
+        addDirectoryItem(
+            plugin.handle,
+            plugin.url_for(
+                programs_episodes,
+                title=kodiutils.compat_py23str(title),
+                img=kodiutils.compat_py23str(img),
+                url=kodiutils.compat_py23str(url),
+                ep=kodiutils.compat_py23str(title),
+                page=1
+            ), liz, True)
+
+    endOfDirectory(plugin.handle)
 
 
 def raise_notification():

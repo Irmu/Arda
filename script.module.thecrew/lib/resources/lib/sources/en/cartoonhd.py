@@ -1,20 +1,5 @@
 # -*- coding: utf-8 -*-
-
-'''
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
-
+# -Cleaned and Checked on 04-14-2020 by Tempest.
 
 import re
 import urllib
@@ -34,7 +19,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['cartoonhd.care']
-        self.base_link = 'https://www1.cartoonhd.care'
+        self.base_link = 'https://ww2.cartoonhd.com'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -71,7 +56,7 @@ class source:
             for alias in aliases:
                 url = '%s/show/%s/season/%01d/episode/%01d' % (self.base_link, cleantitle.geturl(title), int(season), int(episode))
                 url = client.request(url, headers=headers, output='geturl', timeout='10')
-                if not url is None and url != self.base_link:
+                if url is not None and url != self.base_link:
                     break
             return url
         except:
@@ -142,7 +127,7 @@ class source:
             headers['Referer'] = url
 
             u = '/ajax/vsozrflxcw.php'
-            self.base_link = client.request(self.base_link, headers=headers, output='geturl')
+            self.base_link = client.request(self.base_link, headers={'User-Agent': client.agent()}, output='geturl')
             u = urlparse.urljoin(self.base_link, u)
 
             action = 'getEpisodeEmb' if '/episode/' in url else 'getMovieEmb'

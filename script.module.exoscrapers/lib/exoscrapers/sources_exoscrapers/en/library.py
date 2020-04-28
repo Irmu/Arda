@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+#  (updated 4-20-2020)
 
 #  ..#######.########.#######.##....#..######..######.########....###...########.#######.########..######.
 #  .##.....#.##.....#.##......###...#.##....#.##....#.##.....#...##.##..##.....#.##......##.....#.##....##
@@ -14,12 +15,10 @@
 	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
-
 	This program is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
-
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
@@ -85,10 +84,10 @@ class source:
 				r = control.jsonrpc('{"jsonrpc": "2.0", "method": "VideoLibrary.GetMovies", "params": {"filter":{"or": [{"field": "year", "operator": "is", "value": "%s"}, {"field": "year", "operator": "is", "value": "%s"}, {"field": "year", "operator": "is", "value": "%s"}]}, "properties": ["imdbnumber", "title", "originaltitle", "file"]}, "id": 1}' % years)
 				r = unicode(r, 'utf-8', errors='ignore')
 				r = json.loads(r)['result']['movies']
-
 				r = [i for i in r if str(i['imdbnumber']) in ids or title in [cleantitle.get_simple(i['title']), cleantitle.get_simple(i['originaltitle'])]]
+				if r == []:
+					return sources
 				r = [i for i in r if not i['file'].encode('utf-8').endswith('.strm')][0]
-
 				r = control.jsonrpc('{"jsonrpc": "2.0", "method": "VideoLibrary.GetMovieDetails", "params": {"properties": ["streamdetails", "file"], "movieid": %s }, "id": 1}' % str(r['movieid']))
 				r = unicode(r, 'utf-8', errors='ignore')
 				r = json.loads(r)['result']['moviedetails']
@@ -169,5 +168,3 @@ class source:
 
 	def resolve(self, url):
 		return url
-
-
