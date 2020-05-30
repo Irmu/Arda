@@ -112,6 +112,14 @@ elif action == 'sports24':
     from resources.lib.indexers import lists
     lists.indexer().root_sports24()
 
+elif action == 'base':
+    from resources.lib.indexers import lists
+    lists.indexer().root_base()
+
+elif action == 'waste':
+    from resources.lib.indexers import lists
+    lists.indexer().root_waste()
+
 elif action == 'arconai':
     from resources.lib.indexers import lists
     lists.indexer().root_arconai()
@@ -123,6 +131,26 @@ elif action == 'iptv_lodge':
 elif action == 'stratus':
     from resources.lib.indexers import lists
     lists.indexer().root_stratus()
+
+elif action == 'distro':
+    from resources.lib.indexers import lists
+    lists.indexer().root_distro()
+
+elif action == 'xumo':
+    from resources.lib.indexers import lists
+    lists.indexer().root_xumo()
+
+elif action == 'bumble':
+    from resources.lib.indexers import lists
+    lists.indexer().root_bumble()
+
+elif action == 'pluto':
+    from resources.lib.indexers import lists
+    lists.indexer().root_pluto()
+
+elif action == 'tubi':
+    from resources.lib.indexers import lists
+    lists.indexer().root_tubi()
 
 elif action == 'spanish':
     from resources.lib.indexers import lists

@@ -26,12 +26,12 @@ from resources.lib.modules import workers
 from resources.lib.modules import cfscrape
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
         self.domains = ['rmz.cr']
-        self.base_link = 'https://rapidmoviez.cr'
+        self.base_link = 'https://rmz.cr'
         self.search_link = '/search/%s'
         self.scraper = cfscrape.create_scraper()
 

@@ -46,6 +46,8 @@
         <setting id="navi.add_addons" type="bool" label="90181" default="true" />
         <setting id="navi.eyecandy" type="bool" label="90164" default="true" />
         <setting id="navi.retribution" type="bool" label="90165" default="true" />
+        <setting id="navi.base" type="bool" label="90201" default="true" />
+        <setting id="navi.waste" type="bool" label="90202" default="true" />
         <setting id="navi.titan" type="bool" label="90155" default="true" />
         <setting type="lsep" label="32001" />
         <setting id="navi.247movies" type="bool" label="90014" default="true" />

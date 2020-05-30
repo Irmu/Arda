@@ -24,7 +24,7 @@ import urlparse
 from resources.lib.modules import cleantitle, client, control, debrid, log_utils, source_utils
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']

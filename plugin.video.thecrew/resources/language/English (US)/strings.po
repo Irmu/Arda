@@ -1917,3 +1917,31 @@ msgstr ""
 msgctxt "#90200"
 msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Sportsbay Tv[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""
+
+msgctxt "#90201"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]Base[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90202"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]Wasteland[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90203"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]PLUTO TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90204"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]XUMO TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90205"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]BUMBLEBEE TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90206"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]DISTRO TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90207"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]TUBI TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""

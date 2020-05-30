@@ -92,7 +92,7 @@ class RDapi:
 
 class ADapi:
     def __init__(self):
-        self.base_url = 'https://api.alldebrid.com/'
+        self.base_url = 'https://api.alldebrid.com/v4/'
         self.token = __r_url__.getSetting('AllDebridResolver_token')
         self.user_agent = 'ResolveURL for Kodi'
 
@@ -102,9 +102,16 @@ class ADapi:
         return result
 
     def _post(self, url, data={}):
-        if self.token == '': return None
-        url = self.base_url + url + '?agent=%s&token=%s' % (self.user_agent, self.token)
-        return requests.post(url, data=data).json()
+        result = None
+        try:
+            if self.token == '': return None
+            url = self.base_url + url + '?agent=%s&apikey=%s' % (self.user_agent, self.token)
+            result = requests.post(url, data=data).json()
+            if result.get('status') == 'success':
+                if 'data' in result:
+                    result = result['data']
+        except: pass
+        return result
 
 class PMapi:
     def __init__(self):
@@ -165,8 +172,9 @@ class DebridCheck:
                 self.main_threads.append(Thread(target=self.starting_debrids[i][1]))
                 self.starting_debrids_display.append((self.main_threads[i].getName(), self.starting_debrids[i][0]))
             [i.start() for i in self.main_threads]
-            [i.join() for i in self.main_threads]
             self.debrid_check_dialog()
+            [i.join() for i in self.main_threads]
+            # self.debrid_check_dialog()
         control.sleep(500)
         return self.rd_cached_hashes, self.ad_cached_hashes, self.pm_cached_hashes
 
@@ -227,13 +235,16 @@ class DebridCheck:
 
     def _ad_lookup(self, hash_list):
         try:
-            ad_cache = ADapi().check_cache(hash_list)['data']
-            for i in ad_cache:
-                cached = 'False'
-                if i['instant'] == True:
-                    self.ad_cached_hashes.append(i['hash'])
-                    cached = 'True'
-                self.ad_process_results.append((i['hash'], cached))
+            ad_cache = ADapi().check_cache(hash_list)['magnets']
+            if isinstance(ad_cache, list):
+                for i in ad_cache:
+                    cached = 'False'
+                    if i['instant'] == True:
+                        self.ad_cached_hashes.append(i['hash'])
+                        cached = 'True'
+                    self.ad_process_results.append((i['hash'], cached))
+            else:
+                for i in hash_list: self.ad_process_results.append((i, 'False'))
         except: pass
 
     def _pm_lookup(self, hash_list):

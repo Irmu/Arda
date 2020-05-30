@@ -23,12 +23,12 @@ from resources.lib.modules import debrid
 from resources.lib.modules import client
 from resources.lib.modules import source_utils
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
         self.domains = ['iwantmyshow.tk', 'myvideolinks.net']
-        self.base_link = 'http://kita.myvideolinks.net/'
+        self.base_link = 'http://sag.myvideolinks.net/'
         self.search_link = '?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):

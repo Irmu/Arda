@@ -9,7 +9,7 @@
         <setting id="indicators" type="enum" label="32313" lvalues="32314" default="0" visible="eq(-2,)" />
         <setting id="api.language" type="select" label="32316" values="AUTO|Bulgarian|Chinese|Croatian|Czech|Danish|Dutch|English|Finnish|French|German|Greek|Hebrew|Hungarian|Italian|Japanese|Korean|Norwegian|Polish|Portuguese|Romanian|Russian|Serbian|Slovak|Slovenian|Spanish|Swedish|Thai|Turkish|Ukrainian" default="AUTO" />
         <setting id="providers.lang" type="select" label="32360" values="English|French|French+English|German|German+English|Greek|Greek+English|Korean|Korean+English|Polish|Polish+English|Russian|Russian+English|Spanish|Spanish+English" default="English" />
-        <setting id="fanart" type="bool" label="32318" default="false" />
+        <setting id="fanart" type="bool" label="32318" default="true" />
         <setting id="hidecinema" type="bool" label="32571" default="false" />
         <setting id="notifyvoice" type="bool" label="Voice Notifications" default="false" />
         <setting type="lsep" label="32319" />
@@ -101,7 +101,7 @@
         <setting id="trakt.scrobble" type="bool" label="32097" default="false" enable="!eq(-7,)"/>
         <setting type="text" label="32098" enable="false" />
         <setting id="trakt.scrobble.notify" type="bool" label="32099" default="false" enable="!eq(-9,)+eq(-2,true)"/>
-        <setting id="rersume.source" type="enum" label="32095" lvalues="32314|32096" default="0" enable="!eq(-10,)" />
+        <setting id="resume.source" type="enum" label="32095" lvalues="32314|32096" default="0" enable="!eq(-10,)" />
         <setting type="lsep" label="32614" />
         <setting id="autoTraktOnStart" type="bool" label="32615" default="false" enable="!eq(-12,)"/>
         <setting id="schedTraktTime" type="slider" label="32616" default="0" range="0,24" option="int" enable="!eq(-13,)" />

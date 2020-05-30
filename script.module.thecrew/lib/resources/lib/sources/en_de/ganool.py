@@ -22,12 +22,12 @@ from resources.lib.modules import debrid
 from resources.lib.modules import cfscrape
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
         self.domains = ['ganool.ws', 'ganol.si', 'ganool123.com']
-        self.base_link = 'https://fmovies.tw'
+        self.base_link = 'https://soapgate.online/'
         self.search_link = '/search/?q=%s'
         self.scraper = cfscrape.create_scraper()
 

@@ -20,7 +20,7 @@ from resources.lib.modules import cleantitle, debrid, source_utils
 from resources.lib.modules import client
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']

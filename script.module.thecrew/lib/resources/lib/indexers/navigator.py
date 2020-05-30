@@ -649,6 +649,10 @@ class navigator:
             self.addDirectoryItem(90155, 'titan', 'titan.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.purplehat') == True:
             self.addDirectoryItem(90150, 'absolution', 'absolution.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.base') == True:
+            self.addDirectoryItem(90201, 'base', 'base.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.waste') == True:
+            self.addDirectoryItem(90202, 'waste', 'waste.png', 'DefaultMovies.png')
 
         self.endDirectory()
 
@@ -681,7 +685,7 @@ class navigator:
         self.endDirectory()
 
     def whitehat(self):
-        self.addDirectoryItem(90199, 'arconai', 'iptv.png', 'iptv.png')
+        #self.addDirectoryItem(90199, 'arconai', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90013, 'swiftNavigator','swift.png', 'swift.png')
         self.addDirectoryItem(90187, 'gitNavigator', 'iptv.png', 'iptv.png')
         if self.getMenuEnabled('navi.slim') == False:
@@ -690,6 +694,11 @@ class navigator:
             self.addDirectoryItem(90185, 'stratusNavigator','iptv.png', 'iptv.png')
         if self.getMenuEnabled('navi.slim') == False:
             self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90203, 'pluto', 'pluto.png', 'pluto.png')
+        self.addDirectoryItem(90204, 'xumo', 'xumo.png', 'xumo.png')
+        self.addDirectoryItem(90205, 'bumble', 'bumble.png', 'bumble.png')
+        self.addDirectoryItem(90206, 'distro', 'distro.png', 'distro.png')
+        self.addDirectoryItem(90207, 'tubi', 'tubi.png', 'tubi.png')
         self.addDirectoryItem(90196, 'yss', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90197, 'weak', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90198, 'sports24', 'iptv.png', 'iptv.png')

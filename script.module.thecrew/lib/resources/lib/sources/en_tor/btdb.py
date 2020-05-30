@@ -20,13 +20,13 @@ from resources.lib.modules import client
 from resources.lib.modules import cfscrape
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
         self.domains = ['btdb.eu']
-        self.base_link = 'https://btdb.eu/'
-        self.search_link = '?s=%s'
+        self.base_link = 'https://btdb.io'
+        self.search_link = '/search/%s/'
         self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
@@ -77,13 +77,15 @@ class source:
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
 
             url = self.search_link % urllib.quote_plus(query)
-            url = urlparse.urljoin(self.base_link, url)
+            url = urlparse.urljoin(self.base_link, url).replace('+', '%20')
+
+            headers = {'Referer': self.base_link,'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0'}
 
             try:
-                r = self.scraper.get(url).content
-                posts = client.parseDOM(r, 'li')
+                r = self.scraper.get(url, headers=headers).content
+                posts = client.parseDOM(r, "div", attrs={"class": "media"})
                 for post in posts:
-                    link = re.findall('a title="Download using magnet" href="(magnet:.+?)"', post, re.DOTALL)
+                    link = re.findall('a href="(magnet:.+?)"', post, re.DOTALL)
                     try:
                         size = re.findall('((?:\d+\,\d+\.\d+|\d+\.\d+|\d+\,\d+|\d+)\s*(?:GiB|MiB|GB|MB))', post)[0]
                         div = 1 if size.endswith('GB') else 1024

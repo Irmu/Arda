@@ -20,12 +20,12 @@ from resources.lib.modules import client
 from resources.lib.modules import cfscrape
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
         self.domains = ['idope.today']
-        self.base_link = 'http://idope.today/'
+        self.base_link = 'http://idope.org/'
         self.search_link = 'search?q=%s'
         self.scraper = cfscrape.create_scraper()
 

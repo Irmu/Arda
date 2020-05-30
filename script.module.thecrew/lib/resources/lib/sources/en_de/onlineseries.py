@@ -25,7 +25,7 @@ from resources.lib.modules import source_utils
 from resources.lib.modules import debrid
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']

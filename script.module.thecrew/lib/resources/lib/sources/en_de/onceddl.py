@@ -2,7 +2,7 @@
 
 '''
 **Created by Tempest**
-Fixed 4/20/20
+
 '''
 
 import re, urllib, urlparse
@@ -14,13 +14,13 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import dom_parser
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
         self.domains = ['onceddl.net']
         self.base_link = 'https://onceddl.org'
-        self.search_link = '/search/keyword/%s'
+        self.search_link = '/find/keyword/%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:

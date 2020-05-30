@@ -10,7 +10,7 @@ from resources.lib.modules import getSum
 from resources.lib.modules import source_utils
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']  # Old  watch-series.co  watch-series.ru  watch-series.live

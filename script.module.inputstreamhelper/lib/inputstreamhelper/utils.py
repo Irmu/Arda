@@ -4,14 +4,15 @@
 
 from __future__ import absolute_import, division, unicode_literals
 import os
+from time import time
 
 from . import config
-from .kodiutils import get_setting, localize, log, ok_dialog, progress_dialog, set_setting, translate_path
+from .kodiutils import copy, delete, exists, get_setting, localize, log, mkdirs, ok_dialog, progress_dialog, set_setting, stat_file, translate_path
+from .unicodes import compat_path, from_unicode, to_unicode
 
 
 def temp_path():
     """Return temporary path, usually ~/.kodi/userdata/addon_data/script.module.inputstreamhelper/temp"""
-    from xbmcvfs import exists, mkdirs
     tmp_path = translate_path(os.path.join(get_setting('temp_path', 'special://masterprofile/addon_data/script.module.inputstreamhelper'), 'temp'))
     if not exists(tmp_path):
         mkdirs(tmp_path)
@@ -38,12 +39,12 @@ def _http_request(url):
     except ImportError:  # Python 2
         from urllib2 import HTTPError, urlopen
 
-    log('Request URL: {url}', url=url)
+    log(0, 'Request URL: {url}', url=url)
     filename = url.split('/')[-1]
 
     try:
         req = urlopen(url, timeout=5)
-        log('Response code: {code}', code=req.getcode())
+        log(0, 'Response code: {code}', code=req.getcode())
         if 400 <= req.getcode() < 600:
             raise HTTPError('HTTP %s Error for url: %s' % (req.getcode(), url), response=req)
     except HTTPError:
@@ -60,7 +61,7 @@ def http_get(url):
 
     content = req.read()
     # NOTE: Do not log reponse (as could be large)
-    # log('Response: {response}', response=content)
+    # log(0, 'Response: {response}', response=content)
     return content.decode()
 
 
@@ -73,7 +74,7 @@ def http_download(url, message=None, checksum=None, hash_alg='sha1', dl_size=Non
         elif hash_alg == 'md5':
             calc_checksum = md5()
         else:
-            log('Invalid hash algorithm specified: {}'.format(hash_alg))
+            log(4, 'Invalid hash algorithm specified: {}'.format(hash_alg))
             checksum = None
 
     req = _http_request(url)
@@ -87,10 +88,16 @@ def http_download(url, message=None, checksum=None, hash_alg='sha1', dl_size=Non
     download_path = os.path.join(temp_path(), filename)
     total_length = float(req.info().get('content-length'))
     progress = progress_dialog()
-    progress.create(localize(30014), message)  # Download in progress
+    progress.create(
+        localize(30014),  # Download in progress
+        message='{line1}\n{line2}'.format(
+            line1=message,
+            line2=localize(30058, mins=0, secs=0))  # Time remaining
+    )
 
+    starttime = time()
     chunk_size = 32 * 1024
-    with open(download_path, 'wb') as image:
+    with open(compat_path(download_path), 'wb') as image:
         size = 0
         while True:
             chunk = req.read(chunk_size)
@@ -101,19 +108,24 @@ def http_download(url, message=None, checksum=None, hash_alg='sha1', dl_size=Non
                 calc_checksum.update(chunk)
             size += len(chunk)
             percent = int(size * 100 / total_length)
+            time_left = int((total_length - size) * (time() - starttime) / size)
             if progress.iscanceled():
                 progress.close()
                 req.close()
                 return False
-            progress.update(percent)
+            progress.update(
+                percent,
+                message='{line1}\n{line2}'.format(
+                    line1=message,
+                    line2=localize(30058, mins=time_left // 60, secs=time_left % 60))  # Time remaining
+            )
 
     if checksum and not calc_checksum.hexdigest() == checksum:
-        log('Download failed, checksums do not match!')
+        log(4, 'Download failed, checksums do not match!')
         return False
 
-    from xbmcvfs import Stat
-    if dl_size and not Stat(download_path).st_size() == dl_size:
-        log('Download failed, filesize does not match!')
+    if dl_size and not stat_file(download_path).st_size() == dl_size:
+        log(4, 'Download failed, filesize does not match!')
         return False
 
     progress.close()
@@ -124,24 +136,23 @@ def http_download(url, message=None, checksum=None, hash_alg='sha1', dl_size=Non
 
 def unzip(source, destination, file_to_unzip=None, result=[]):  # pylint: disable=dangerous-default-value
     """Unzip files to specified path"""
-    from xbmcvfs import exists, mkdirs
 
     if not exists(destination):
         mkdirs(destination)
 
     from zipfile import ZipFile
-    zip_obj = ZipFile(source)
+    zip_obj = ZipFile(compat_path(source))
     for filename in zip_obj.namelist():
         if file_to_unzip and filename != file_to_unzip:
             continue
 
         # Detect and remove (dangling) symlinks before extraction
         fullname = os.path.join(destination, filename)
-        if os.path.islink(fullname):
-            log('Remove (dangling) symlink at {symlink}', symlink=fullname)
-            os.unlink(fullname)
+        if os.path.islink(compat_path(fullname)):
+            log(3, 'Remove (dangling) symlink at {symlink}', symlink=fullname)
+            delete(fullname)
 
-        zip_obj.extract(filename, destination)
+        zip_obj.extract(filename, compat_path(destination))
         result.append(True)  # Pass by reference for Thread
 
     return bool(result)
@@ -150,17 +161,18 @@ def unzip(source, destination, file_to_unzip=None, result=[]):  # pylint: disabl
 def system_os():
     """Get system platform, and remember this information"""
 
-    # If it wasn't stored before, get the correct value
-    if not store('system_os'):
-        from xbmc import getCondVisibility
-        if getCondVisibility('system.platform.android'):
-            store('system_os', 'Android')
-        else:
-            from platform import system
-            store('system_os', system())
+    if hasattr(system_os, 'cached'):
+        return getattr(system_os, 'cached')
 
-    # Return the stored value
-    return store('system_os')
+    from xbmc import getCondVisibility
+    if getCondVisibility('system.platform.android'):
+        sys_name = 'Android'
+    else:
+        from platform import system
+        sys_name = system()
+
+    system_os.cached = sys_name
+    return sys_name
 
 
 def store(name, val=None):
@@ -168,7 +180,7 @@ def store(name, val=None):
 
     if val is not None:
         setattr(store, name, val)
-        log('Stored {} in {}'.format(val, name))
+        log(0, 'Stored {} in {}'.format(val, name))
         return val
 
     if not hasattr(store, name):
@@ -178,7 +190,7 @@ def store(name, val=None):
 
 def diskspace():
     """Return the free disk space available (in bytes) in temp_path."""
-    statvfs = os.statvfs(temp_path())
+    statvfs = os.statvfs(compat_path(temp_path()))
     return statvfs.f_frsize * statvfs.f_bavail
 
 
@@ -191,7 +203,6 @@ def cmd_exists(cmd):
 
 def run_cmd(cmd, sudo=False, shell=False):
     """Run subprocess command and return if it succeeds as a bool"""
-    from .unicodes import to_unicode
     import subprocess
     env = os.environ.copy()
     env['LANG'] = 'C'
@@ -204,16 +215,16 @@ def run_cmd(cmd, sudo=False, shell=False):
         output = to_unicode(subprocess.check_output(cmd, shell=shell, stderr=subprocess.STDOUT, env=env))
     except subprocess.CalledProcessError as error:
         output = to_unicode(error.output)
-        log('{cmd} cmd failed.', cmd=cmd)
+        log(4, '{cmd} cmd failed.', cmd=cmd)
     except OSError as error:
-        log('{cmd} cmd doesn\'t exist. {error}', cmd=cmd, error=error)
+        log(4, '{cmd} cmd doesn\'t exist. {error}', cmd=cmd, error=error)
     else:
         success = True
-        log('{cmd} cmd executed successfully.', cmd=cmd)
+        log(0, '{cmd} cmd executed successfully.', cmd=cmd)
 
     if output.rstrip():
-        log('{cmd} cmd output:\n{output}', cmd=cmd, output=output)
-    if 'sudo' in cmd:
+        log(0, '{cmd} cmd output:\n{output}', cmd=cmd, output=output)
+    if from_unicode('sudo') in cmd:
         subprocess.call(['sudo', '-k'])  # reset timestamp
 
     return {
@@ -233,24 +244,48 @@ def sizeof_fmt(num, suffix='B'):
 
 
 def arch():
-    """Map together and return the system architecture."""
+    """Map together, cache and return the system architecture"""
+
+    if hasattr(arch, 'cached'):
+        return getattr(arch, 'cached')
+
     from platform import architecture, machine
     sys_arch = machine()
-    if sys_arch == 'aarch64':
-        import struct
-        if struct.calcsize('P') * 8 == 32:
-            # Detected 64-bit kernel in 32-bit userspace, use 32-bit arm widevine
-            sys_arch = 'arm'
     if sys_arch == 'AMD64':
         sys_arch_bit = architecture()[0]
         if sys_arch_bit == '32bit':
             sys_arch = 'x86'  # else, sys_arch = AMD64
+
     elif 'armv' in sys_arch:
         import re
         arm_version = re.search(r'\d+', sys_arch.split('v')[1])
         if arm_version:
             sys_arch = 'armv' + arm_version.group()
-    if sys_arch in config.ARCH_MAP:
-        return config.ARCH_MAP[sys_arch]
 
+    if sys_arch in config.ARCH_MAP:
+        sys_arch = config.ARCH_MAP[sys_arch]
+
+    log(0, 'Found system architecture {arch}', arch=sys_arch)
+
+    arch.cached = sys_arch
     return sys_arch
+
+
+def hardlink(src, dest):
+    """Hardlink a file when possible, copy when needed"""
+    if exists(dest):
+        delete(dest)
+
+    try:
+        from os import link
+        link(compat_path(src), compat_path(dest))
+    except (AttributeError, OSError, ImportError):
+        return copy(src, dest)
+    log(2, "Hardlink file '{src}' to '{dest}'.", src=src, dest=dest)
+    return True
+
+
+def remove_tree(path):
+    """Remove an entire directory tree"""
+    from shutil import rmtree
+    rmtree(compat_path(path))

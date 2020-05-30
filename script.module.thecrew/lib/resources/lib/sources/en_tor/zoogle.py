@@ -24,7 +24,7 @@ from resources.lib.modules import workers
 from resources.lib.modules import source_utils
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
