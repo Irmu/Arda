@@ -1927,21 +1927,21 @@ msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][C
 msgstr ""
 
 msgctxt "#90203"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]PLUTO TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Pluto TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""
 
 msgctxt "#90204"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]XUMO TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Xumo TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""
 
 msgctxt "#90205"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]BUMBLEBEE TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Bumblebee TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""
 
 msgctxt "#90206"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]DISTRO TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Distro TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""
 
 msgctxt "#90207"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]TUBI TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Tubi TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""

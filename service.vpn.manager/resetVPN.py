@@ -20,7 +20,7 @@
 
 import xbmcgui
 import xbmcaddon
-from libs.common import resetVPNConnections, stopService, startService, DIALOG_SPEED
+from libs.common import resetVPNConnections, stopService, startService, DIALOG_SPEED, getVPNRequestedProfile, setAPICommand
 from libs.utility import debugTrace, errorTrace, infoTrace, newPrint, getID, getName
 
 debugTrace("-- Entered resetVPN.py --")
@@ -38,16 +38,24 @@ if not getID() == "":
         progress_title = "Resetting VPN connections"
         progress.create(addon_name,progress_title) 
 
-        # Stop the VPN monitor
-        xbmc.sleep(100)
-        progress.update(0, progress_title, "Pausing VPN monitor...")
-        xbmc.sleep(100)
-        if not stopService():
+        if not getVPNRequestedProfile() == "":
             progress.close()
-            # Display error result in an ok dialog
-            errorTrace("resetVPN.py", "VPN monitor service is not running, can't reset VPNs")
-            xbmcgui.Dialog().ok(progress_title, "Error, Service not running. Check log and re-enable.")
+            xbmcgui.Dialog().ok(addon_name, "Connection to VPN being attempted and will be aborted.  Try again in a few seconds.")
+            setAPICommand("Disconnect")
             success = False
+        
+        if success:
+            # Stop the VPN monitor
+            xbmc.sleep(100)
+            progress.update(0, progress_title, "Pausing VPN monitor...")
+            xbmc.sleep(100)
+                
+            if not stopService():
+                progress.close()
+                # Display error result in an ok dialog
+                errorTrace("resetVPN.py", "VPN monitor service is not running, can't reset VPNs")
+                xbmcgui.Dialog().ok(progress_title, "Error, Service not running. Check log and re-enable.")
+                success = False
         
         # Disconnect and reset all connections
         if success:
@@ -56,6 +64,10 @@ if not getID() == "":
             progress.update(40, progress_title, "Stopping any active VPN connection...")
             xbmc.sleep(100)
             resetVPNConnections(addon)
+            # Reset any validated values
+            addon.setSetting("vpn_provider_validated", "")
+            addon.setSetting("vpn_username_validated", "")
+            addon.setSetting("vpn_password_validated", "")
         
         # Restart the VPN monitor
         if success:

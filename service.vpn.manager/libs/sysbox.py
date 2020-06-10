@@ -22,7 +22,7 @@ import xbmcaddon
 import xbmcgui
 from libs.common import getSystemData
 from utility import debugTrace, errorTrace, infoTrace, getID
-from platform import getVPNLogFilePath, getLogPath, getImportLogPath, getAddonPath, getUserDataPath
+from vpnplatform import getVPNLogFilePath, getLogPath, getImportLogPath, getAddonPath, getUserDataPath
 
 ACTION_PREVIOUS_MENU = 10
 ACTION_NAV_BACK = 92
@@ -69,5 +69,5 @@ def popupSysBox():
             dialog_text_r = dialog_text_r + line + "\n"    
         showInfoBox("System Information", dialog_text_l, dialog_text_r)
     else:
-        errorTrace("infopopup.py", "VPN service is not ready")
+        errorTrace("sysbox.py", "VPN service is not ready")
     

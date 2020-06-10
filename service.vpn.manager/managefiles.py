@@ -25,10 +25,12 @@ import xbmcvfs
 import datetime
 import os
 from libs.vpnproviders import removeGeneratedFiles, cleanPassFiles, providers, usesUserKeys, usesMultipleKeys, getUserKeys
-from libs.vpnproviders import getUserCerts, getVPNDisplay, getVPNLocation, refreshFromGit, removeDownloadedFiles, isAlternative, resetAlternative
+from libs.vpnproviders import getUserCerts, getVPNDisplay, getVPNLocation, removeDownloadedFiles, isAlternative, resetAlternative
 from libs.utility import debugTrace, errorTrace, infoTrace, newPrint, getID, getName
-from libs.platform import getLogPath, getUserDataPath, writeVPNLog, copySystemdFiles, addSystemd, removeSystemd, generateVPNs
-from libs.common import resetVPNConnections, isVPNConnected, disconnectVPN, suspendConfigUpdate, resumeConfigUpdate, dnsFix
+from libs.vpnplatform import getLogPath, getUserDataPath, writeVPNLog, copySystemdFiles, addSystemd, removeSystemd, generateVPNs, writeVPNConfiguration
+from libs.common import resetVPNConnections, isVPNConnected, disconnectVPN, suspendConfigUpdate, resumeConfigUpdate, dnsFix, getVPNRequestedProfile
+from libs.common import resetVPNProvider, setAPICommand
+from libs.access import getVPNProfile
 from libs.ipinfo import resetIPServices
 try:
     from libs.generation import generateAll
@@ -47,35 +49,40 @@ if not getID() == "":
     
     # Reset the ovpn files
     if action == "ovpn":
-        if addon.getSetting("1_vpn_validated") == "" or xbmcgui.Dialog().yesno(addon_name, "Resetting the VPN provider will disconnect and reset all VPN connections, and then remove any files that have been created. Continue?"):
-            suspendConfigUpdate()
-            # Disconnect so that live files are not being modified
-            if isVPNConnected(): resetVPNConnections(addon)            
-            debugTrace("Deleting all generated files")
-            # Delete the ovpn files and the generated flag file.
-            removeGeneratedFiles()
-            vpn_provider = getVPNLocation(addon.getSetting("vpn_provider"))
-            if isAlternative(vpn_provider): resetAlternative(vpn_provider)
-            # Reset the IP service error counts, etc
-            resetIPServices()
-            # Re-enble the wizard
-            addon.setSetting("vpn_wizard_enabled", "true")
-            resumeConfigUpdate()
-            xbmcgui.Dialog().ok(addon_name, "Reset the VPN provider. Validate a connection to start using a VPN again.\n")
-
+        if getVPNRequestedProfile() == "":                
+            if xbmcgui.Dialog().yesno(addon_name, "Resetting the VPN provider will disconnect and reset all VPN connections, and then remove any files that have been created. Continue?"):
+                suspendConfigUpdate()
+                # Disconnect so that live files are not being modified
+                resetVPNConnections(addon)            
+                infoTrace("managefiles.py", "Resetting the VPN provider")
+                # Delete the generated files, and reset the locations so it can be selected again
+                removeGeneratedFiles()
+                # Delete any values that have previously been validated
+                vpn_provider = getVPNLocation(addon.getSetting("vpn_provider"))
+                if isAlternative(vpn_provider): resetAlternative(vpn_provider)          
+                # Reset the IP service error counts, etc
+                resetIPServices()
+                addon = xbmcaddon.Addon(getID())
+                resetVPNProvider(addon)
+                addon = xbmcaddon.Addon(getID())
+                resumeConfigUpdate()
+                xbmcgui.Dialog().ok(addon_name, "Reset the VPN provider. Validate a connection to start using a VPN again.")
+        else:
+            xbmcgui.Dialog().ok(addon_name, "Connection to VPN being attempted and has been aborted.  Try again in a few seconds.")
+            setAPICommand("Disconnect")
             
     # Generate the VPN provider files
     if action == "generate":
         # Only used during development to create location files
         generateAll()
-        xbmcgui.Dialog().ok(addon_name, "Regenerated some or all of the VPN location files.\n")        
+        xbmcgui.Dialog().ok(addon_name, "Regenerated some or all of the VPN location files.")        
            
 
     # Delete all of the downloaded VPN files
     if action == "downloads":
         debugTrace("Deleting all downloaded VPN files")
         removeDownloadedFiles()
-        xbmcgui.Dialog().ok(addon_name, "Deleted all of the downloaded VPN files. They'll be downloaded again if required.\n")
+        xbmcgui.Dialog().ok(addon_name, "Deleted all of the downloaded VPN files. They'll be downloaded again if required.")
 
             
     # Copy the log file        
@@ -89,13 +96,14 @@ if not getID() == "":
             dest_path = "kodi " + datetime.datetime.now().strftime("%y-%m-%d %H-%M-%S") + ".log"
             dest_path = dest_folder + dest_path.replace(" ", "_")
             # Write VPN log to log before copying
+            writeVPNConfiguration(getVPNProfile())
             writeVPNLog()
             debugTrace("Copying " + log_path + " to " + dest_path)
             addon = xbmcaddon.Addon(getID())
             infoTrace("managefiles.py", "Copying log file to " + dest_path + ".  Using version " + addon.getSetting("version_number"))
             xbmcvfs.copy(log_path, dest_path)
             if not xbmcvfs.exists(dest_path): raise IOError('Failed to copy log ' + log_path + " to " + dest_path)
-            dialog_message = "Copied log file to:\n" + dest_path
+            dialog_message = "Copied log file to: " + dest_path
         except:
             errorTrace("managefiles.py", "Failed to copy log from " + log_path + " to " + dest_path)
             if xbmcvfs.exists(log_path):
@@ -174,7 +182,7 @@ if not getID() == "":
                                                 if xbmcvfs.exists(path + ".crt"):
                                                     xbmcvfs.delete(path + ".crt")
                                             except:
-                                                xbmcgui.Dialog().ok(addon_name, "Couldn't delete one of the key or certificate files:\n" + path)
+                                                xbmcgui.Dialog().ok(addon_name, "Couldn't delete one of the key or certificate files: " + path)
                             else:
                                 path = getUserDataPath(provider + "/" + all_user[index])
                                 try:
@@ -185,7 +193,7 @@ if not getID() == "":
                                     if xbmcvfs.exists(path + ".crt"):
                                         xbmcvfs.delete(path + ".crt")
                                 except:
-                                    xbmcgui.Dialog().ok(addon_name, "Couldn't delete one of the key or certificate files:\n" + path)
+                                    xbmcgui.Dialog().ok(addon_name, "Couldn't delete one of the key or certificate files: " + path)
                                 
                             # Fetch the directory list again
                             user_keys = getUserKeys(provider)

@@ -1,3 +1,0 @@
-green
-bs4
-requests

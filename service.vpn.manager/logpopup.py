@@ -39,4 +39,4 @@ if not getID() == "":
 else:
     errorTrace("logpopup.py", "VPN service is not ready")
     
-debugTrace("-- Exit infopopup.py --")
+debugTrace("-- Exit logpopup.py --")

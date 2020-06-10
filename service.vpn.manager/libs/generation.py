@@ -29,7 +29,7 @@ import string
 import os.path
 import time
 from utility import debugTrace, errorTrace, infoTrace, newPrint
-from platform import getUserDataPath, fakeConnection
+from vpnplatform import getUserDataPath, fakeConnection
 from common import getFriendlyProfileName
 
 MINIMUM_LEVEL = "400"
@@ -40,7 +40,7 @@ def generateAll():
     #generateBlackbox
     #generateBTGuard()
     #generateBulletVPN()
-    generateCelo()
+    #generateCelo()
     #generateCyberGhost()
     #generateExpressVPN()
     #generateHideMe()
@@ -49,7 +49,7 @@ def generateAll():
     #generateibVPN()
     #generateIPVanish()
     #generateIVPN()
-    #generateLimeVPN()
+    generateLimeVPN()
     #generateLiquidVPN()
     #generateMullvad()
     #generatePerfectPrivacy()
@@ -219,7 +219,7 @@ def generateCyberGhost():
     # Data is stored as a bunch of ovpn files
     # File name has location but needs mapping.  File has the server
     profiles = getProfileList("CyberGhost")
-    location_file = getLocations("CyberGhost", "Premium and Premium Plus Account")
+    location_file = getLocations("CyberGhost", "")
     for profile in profiles:
         geo = profile[profile.rfind("\\")+1:profile.index(".ovpn")]
         geo = resolveCountry(geo[0:2]) + geo[2:]
@@ -473,11 +473,10 @@ def generateLimeVPN():
         geo = geo.replace("limevpn","")
         geo = geo.replace(".com", "")
         geo = geo.replace(".", "")
-        if geo.startswith("ny"): geo = "New York"
-        elif geo.startswith("eu"): geo = "Europe " + geo[2:]
-        elif geo.startswith("london"): geo = "London"
-        elif geo.startswith("sw"): geo = "Sweden " + geo[2:]
-        elif geo.startswith("aus"): geo = "Australia " + geo[3:]
+        geo = geo.upper()
+        if geo.startswith("EU"): geo = "Europe " + geo[2:]
+        elif geo.startswith("SW"): geo = "Sweden " + geo[2:]
+        elif geo.startswith("AUS"): geo = "Australia " + geo[3:]
         else: geo = resolveCountry(geo[0:2].upper()) + " " + geo[2:]
         geo = geo.strip()
         profile_file = open(profile, 'r')
@@ -488,10 +487,12 @@ def generateLimeVPN():
                 tokens = line.split(" ")
                 server = tokens[1]
                 port = tokens[2]
-        output_line_udp = geo + " (UDP)," + server + "," + "udp,1195" + "\n"
-        #output_line_tcp = geo + " (TCP)," + server + "," + "tcp,80" + "\n"
+        if not geo == "Europe 10":
+            output_line_udp = geo + " (UDP)," + server + "," + "udp,1195" + "\n"
+        else:
+            output_line_udp = geo + " (UDP)," + server + "," + "udp,1195" + ",#CERT=eu10ca.crt\n"
+        
         location_file.write(output_line_udp)
-        #location_file.write(output_line_tcp)
     location_file.close()
     generateMetaData("LimeVPN", MINIMUM_LEVEL)
 
@@ -940,9 +941,15 @@ def generateTorGuard():
         profile_file = open(profile, 'r')
         lines = profile_file.readlines()
         profile_file.close()
+        server = ""
+        port = ""
         for line in lines:
             if line.startswith("remote "):
-                _, server, port = line.split()
+                _, s, p = line.split()
+                if not server == "": server = server + " "
+                server = server + s
+                if not port == "": port = port + " "
+                port = port + p
             if line.startswith("proto "):
                 _, proto = line.split() 
         output_line_udp = geo + " (UDP)," + server + ",udp" + "," + port + "\n"
@@ -1223,6 +1230,9 @@ def generateWindscribe():
         line = line.strip(" \t\n\r")
         server = line
         geo = line.replace(".windscribe.com", "")
+        if geo.startswith("wf-"):
+            geo = geo.replace("wf-", "")
+            geo = geo + "-Windflix"
         if "-" in geo:
             geo, rest = geo.split("-")
             rest = " " + string.capwords(rest)

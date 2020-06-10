@@ -1,17 +1,53 @@
-Version 5.0.47 (May 17, 2020)
+Version 5.1.0 (June 7, 2020)
 - Code Base Changes:
-    - None
+    - All code has been updated to work in both PY2/PY3
+    - Kodi Matrix compatible
 
 - Resolvers Added:
-    - abcvideo
-    - viduplayer
+    - PlayTube
  
 - Resolvers Fixed/Updated:
-    - mystream
-    - vidmoly
+    - None
 
 - Resolvers Removed
-    - none
+    - abcvideo
+    - castamp
+    - doodstream
+    - flix555
+    - gamovideo
+    - grifthost
+    - idup
+    - irshare
+    - kupload
+    - movdivx
+    - myviru
+    - oneload
+    - playedto
+    - powvideo
+    - primevideos
+    - prostream
+    - speedvid
+    - ssfiles
+    - streamenet
+    - streammoe
+    - streamplay
+    - syfy
+    - tocloud
+    - tolstd_fel
+    - unitplay
+    - upfiles
+    - usersfiles
+    - ustream
+    - verystream
+    - vidbom
+    - vidcloud
+    - vidtodo
+    - vidmad
+    - vidup
+    - vshare
+    - waaw
+    - zevera
+
 
 - Languages Added/Updated
-    - none
+    - None

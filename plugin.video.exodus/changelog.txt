@@ -1,3 +1,0 @@
-Exodus Changelog:
-8.3.8
-- Scraper updates

@@ -28,7 +28,7 @@ import time
 import glob
 from utility import debugTrace, errorTrace, infoTrace, newPrint, getID, getName
 from vpnproviders import getUserDataPathWrapper, removeGeneratedFiles, cleanPassFiles, getGitMetaData
-from platform import getUserDataPath, getPlatform, platforms, getSeparator, getImportLogPath
+from vpnplatform import getUserDataPath, getPlatform, platforms, getSeparator, getImportLogPath
 from logbox import popupImportLog
 
 # Delete any existing files
@@ -69,7 +69,7 @@ def importWizard():
     xbmcgui.Dialog().ok(addon_name, "The User Defined import wizard helps you set up an unsupported VPN provider.  It may not work without additional user intervention.  You should review the import log and subsequent VPN logs to debug any problems.")
 
     # Warn the user that files will be deleted and kittens will be harmed
-    if xbmcgui.Dialog().yesno(addon_name, "Any existing User Defined settings and files will be deleted. Do you want to continue?", "", ""):
+    if xbmcgui.Dialog().yesno(addon_name, "Any existing User Defined settings and files will be deleted. Do you want to continue?"):
         removeGeneratedFiles()
         success = clearUserData()
         addon.setSetting("vpn_provider", "User Defined")
@@ -80,7 +80,7 @@ def importWizard():
 
     # Get the list of files to be used
     if success:
-        if xbmcgui.Dialog().yesno(addon_name, "Select ALL files needed to connect to the VPN provider, including .ovpn, .key and .crt files.  Select a directory (sub directories are ignored) or select multiple files within a directory?.", "", "", "Directory", "Files"):
+        if xbmcgui.Dialog().yesno(addon_name, "Select ALL files needed to connect to the VPN provider, including .ovpn, .key and .crt files.  Select a directory (sub directories are ignored) or select multiple files within a directory?.", nolabel="Directory", yeslabel="Files"):
             directory_input = False
             files = xbmcgui.Dialog().browse(1, "Select all VPN provider files", "files", "", False, False, "", True)
         else:
@@ -117,10 +117,10 @@ def importWizard():
         
         update = False
         rename = False
-        if not xbmcgui.Dialog().yesno(addon_name, "Update the .ovpn files to best guess values and determine the best User Defined provider settings [I](recommended)[/I]?", "", "", "Yes", "No"):
+        if not xbmcgui.Dialog().yesno(addon_name, "Update the .ovpn files to best guess values and determine the best User Defined provider settings [I](recommended)[/I]?", nolabel="Yes", yeslabel="No"):
             update = True
             detail.append("Updating the .ovpn files to best guess settings\n")
-            if not xbmcgui.Dialog().yesno(addon_name, "Rename the .ovpn files to indicate either a UDP or TCP connection type to allow filtering of connections [I](recommended)[/I]?", "", "", "Yes", "No"):
+            if not xbmcgui.Dialog().yesno(addon_name, "Rename the .ovpn files to indicate either a UDP or TCP connection type to allow filtering of connections [I](recommended)[/I]?", nolabel="Yes", yeslabel="No"):
                 rename = True
                 detail.append("Files will be renamed to indicate UDP or TCP\n")        
             
@@ -226,7 +226,7 @@ def importWizard():
                                 path, name = os.path.split(fname)
                                 if not line.startswith("#"):
                                     params = line.split()
-                                    if len(params) == 2:
+                                    if len(params) > 2:
                                         # Remove the separator in order to get any fully qualified filename as space delimited
                                         params[1].replace(getSeparator(), " ")
                                         # Add in a leading space for unqualified filenames
@@ -234,6 +234,10 @@ def importWizard():
                                         if params[1].endswith(" " + name):
                                             old_line = line
                                             line = params[0] + " " + "#PATH" + getSeparatorOutput() + name
+                                            # Add any trailing parameters back in
+                                            if len(params) > 2:
+                                                for i in range(2, len(params)):
+                                                    line = line + " " + params[i]
                                             detail.append("  Found " + name + ", old line was : " + old_line + "\n")
                                             detail.append("  New line is " + line + "\n")
                                             other_files_count[i] += 1
@@ -425,7 +429,7 @@ def importWizard():
         xbmc.sleep(100)
         
     if success:
-        if xbmcgui.Dialog().yesno(addon_name, "Import wizard finished.  You should view the import log to review any issues, enter your user ID and password (if necessary) and then try and validate a VPN connection.", "", "", "OK", "Import Log"):
+        if xbmcgui.Dialog().yesno(addon_name, "Import wizard finished.  You should view the import log to review any issues, enter your user ID and password (if necessary) and then try and validate a VPN connection.", nolabel="OK", yeslabel="Import Log"):
             popupImportLog()
     else:
         xbmcgui.Dialog().ok(addon_name, errorMessage)

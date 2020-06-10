@@ -1,3 +1,47 @@
+v6.3.5
+- Recover from process/window reset cleanly
+
+v6.3.4
+- ovpn tracing bug fix
+
+v6.3.3
+- Add ovpn tracing
+
+v6.3.2
+- Fix NordVPN authentication for funky characters
+
+v6.3.1
+- remap-usr1 option
+
+v6.3.0
+- Rename of platform module
+
+v6.2.3
+- Refresh systemd for Nord default connection
+
+v6.2.2
+- Logging bug fix
+
+v6.2.1
+- Bug fix for 6.2.0 function
+
+v6.2.0
+- Display VPN server URL
+- Improve VPN log file handling
+
+v6.1.0
+- Improve defaulting of paths for openvpn
+
+v6.0.2
+- Kodi 18 fixes
+
+v6.0.0
+- Kodi 18 support
+- Add Shellfire API support
+- Replace FreeGeoIP with ipstack
+- Add connectivity checking after establishing a VPN
+- Busy dialog when getting location
+
 v5.0.7
 - Fix some issues with paths that contain spaces within ovpn files
 
