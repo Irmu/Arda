@@ -52,6 +52,152 @@ def log(msg, level=xbmc.LOGNOTICE):
 			a=1
 		except: pass  
 
+class MyStream():
+	def __init__(self, url):
+		self.url = url
+		self.net = Net()
+		self.UA = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"
+		self.headers = {"User-Agent": self.UA, "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
+		self.legenda = ''
+
+	def getId(self, url):
+		return urlparse.urlparse(url).path.split("/")[-1]
+
+	def abrirMyStream(self):
+		req = urllib2.Request(self.url, headers=self.headers)
+		response = urllib2.urlopen(req)
+		link=response.read()
+		response.close()
+		return link
+
+	def getMediaUrl(self):
+		
+		conteudo = self.abrirMyStream()
+		result = re.findall("([$]=.+?\(\)\)\(\);)", conteudo, re.DOTALL)
+		videoUrl = False
+		if result:
+			for i in result:
+				decoded = self.temp_decode(i)
+				if decoded:
+					r = re.search("setAttribute\(\'src\', *\'([^']+)\'\)", decoded, re.DOTALL)
+					if r:
+						videoUrl = r.group(1)
+		if videoUrl:
+			return videoUrl+'|User-Agent=' + self.UA + '&Referer=' + self.url + '&Origin=https://embed.mystream.to'
+
+		return ''
+
+
+	def temp_decode(self, data):
+		startpos = data.find('"\\""+') + 5
+		endpos = data.find('"\\"")())()')
+		first_group = data[startpos:endpos]
+		l = re.search("(\(!\[\]\+\"\"\)\[.+?\]\+)", first_group, re.DOTALL)
+		if l:
+			first_group = first_group.replace(l.group(1), 'l').replace('$.__+', 't').replace('$._+', 'u').replace('$._$+', 'o')
+			tmplist = []
+			js = re.search('(\$={.+?});', data, re.DOTALL)
+			if js:
+				js_group = js.group(1)[3:][:-1]
+				second_group = js_group.split(',')
+				i = -1
+				for x in second_group:
+					a, b = x.split(':')
+					if b == '++$':
+						i += 1
+						tmplist.append(("{}{}{}".format('$.', a, '+'), i))
+					elif b == '(![]+"")[$]':
+						tmplist.append(("{}{}{}".format('$.', a, '+'), 'false'[i]))
+					elif b == '({}+"")[$]':
+						tmplist.append(("{}{}{}".format('$.', a, '+'), '[object Object]'[i]))
+					elif b == '($[$]+"")[$]':
+						tmplist.append(("{}{}{}".format('$.',a,'+'),'undefined'[i]))
+					elif b == '(!""+"")[$]':
+						tmplist.append(("{}{}{}".format('$.', a, '+'), 'true'[i]))
+
+				tmplist = sorted(tmplist, key=lambda x: x[1])
+				for x in tmplist:
+					first_group = first_group.replace(x[0], str(x[1]))
+
+				first_group = first_group.replace(r'\\"' , '\\').replace("\"\\\\\\\\\"", "\\\\").replace('\\"', '\\').replace('"', '').replace("+", "")
+		try:
+			final_data = unicode(first_group, encoding = 'unicode-escape')
+			return final_data
+		except:
+			return False
+
+	def getLegenda(self):
+		return self.legenda
+
+
+class Fembed():
+	def __init__(self, url):
+		self.oldUrl = url
+		self.id = self.getId(url)
+		self.net = Net()
+		self.headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0"}
+		self.legenda = ''
+		req = urllib2.Request(url, headers=self.headers)
+		response = urllib2.urlopen(req)
+		self.url = response.geturl()
+		response.close()
+		self.host = re.findall(r'(?://|\.)([^/]+)', self.url)[0]
+		self.headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0", "Referer": self.get_url(self.host,self.id)}
+
+	def get_url(self, host, media_id):
+		return 'https://{host}/v/{media_id}'.format(host=host, media_id=media_id)
+
+	def getId(self, url):
+		return urlparse.urlparse(url).path.split("/")[-1]
+
+	def abrirMixdrop(self, url):
+		req = urllib2.Request(url, headers=self.headers)
+		response = urllib2.urlopen(req)
+		link=response.read()
+		response.close()
+		return link
+
+	def getMediaUrl(self):
+		videoUrl = ''
+		api_url = 'https://{0}/api/source/{1}'.format(self.host, self.id)
+		post = {'r': '', 'd': self.host}
+		post = json.dumps(post)
+
+		req = urllib2.Request(api_url, data=post, headers=self.headers)
+		response = urllib2.urlopen(req)
+		content = response.read()
+		response.close()
+		if response.geturl() != api_url:
+			api_url = 'https://www.{0}/api/source/{1}'.format(self.host, self.id)
+			req = urllib2.Request(api_url, data=post, headers=self.headers)
+			response = urllib2.urlopen(req)
+			content = response.read()
+			response.close()
+		if content:
+			js_data = json.loads(content)
+			if js_data.get('success'):
+				sources = [(i.get('label'), i.get('file')) for i in js_data.get('data') if i.get('type') == 'mp4']
+
+				if len(sources) == 1:
+					videoUrl = sources[0][1]
+				elif len(sources) > 1:
+					qualidade = xbmcgui.Dialog().select('Escolha a qualidade', [str(source[0]) if source[0] else 'Unknown' for source in sources])
+					if qualidade == -1:
+						controlo.log("ERRO")
+					videoUrl = sources[qualidade][1]
+
+
+		request = urllib2.Request(videoUrl)
+		request.get_method = lambda: 'HEAD'
+		request.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0')
+		for key in self.headers:
+			request.add_header(key, self.headers[key])
+		response = urllib2.urlopen(request)
+
+		return videoUrl+'|%s' % '&'.join(['%s=%s' % (key, urllib.quote_plus(self.headers[key])) for key in self.headers])
+		
+	def getLegenda(self):
+		return self.legenda
 class Mixdrop():
 	def __init__(self, url):
 		self.url = url
@@ -334,12 +480,21 @@ class CloudMailRu():
 	def getId(self):
 		return re.compile('(?:\/\/|\.)cloud\.mail\.ru\/public\/(.+)').findall(self.url)[0]
 	def getMediaUrl(self):
-		conteudo = self.net.http_GET(self.url).content
-		ext = re.compile('<meta name=\"twitter:image\" content=\"(.+?)\"/>').findall(conteudo)[0]
+
+		headers = { 'Accept': ' text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+		  'Host': ' cloud.mail.ru',
+		  'User-Agent': ' Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36' }
+		   
+		req = urllib2.Request(self.url, headers=headers)
+		response = urllib2.urlopen(req)  
+		sourceCode = response.read()
+		response.close()
+
+		ext = re.compile('<meta name=\"twitter:image\" content=\"(.+?)\"/>').findall(sourceCode)[0]
 		streamAux = clean(ext.split('/')[-1])
 		extensaoStream = clean(streamAux.split('.')[-1])
 		#token = re.compile('"tokens"\s*:\s*{\s*"download"\s*:\s*"([^"]+)').findall(conteudo)[0]
-		mediaLink = re.compile('(https\:\/\/[a-zA-Z0-9\-\.]+cldmail+\.[a-zA-Z]{2,3}\/\S*)"').findall(conteudo)[0]
+		mediaLink = re.compile('(https\:\/\/[a-zA-Z0-9\-\.]+cloud.+\.[a-zA-Z]{2,3}\/\S*?\/G)').findall(sourceCode)[0]
 		#videoUrl = '%s/%s?key=%s' % (mediaLink, self.getId(), token)
 		videoUrl = '%s/%s' % (mediaLink, self.getId())
 		return videoUrl, extensaoStream
