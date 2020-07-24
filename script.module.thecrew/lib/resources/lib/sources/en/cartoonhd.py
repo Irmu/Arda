@@ -19,7 +19,7 @@ class s0urce:
         self.priority = 1
         self.language = ['en']
         self.domains = ['cartoonhd.care']
-        self.base_link = 'https://ww2.cartoonhd.com'
+        self.base_link = 'https://cartoonhd.app'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -180,11 +180,12 @@ class s0urce:
                             pass
                     else:
                         valid, hoster = source_utils.is_host_valid(i, hostDict)
-                        if not valid:
-                            continue
-
-                        sources.append({'source': hoster, 'quality': '720p', 'language': 'en', 'url': i,
-                                        'direct': False, 'debridonly': False})
+                        if valid:
+                            if 'vidnode.net' in i:
+                                i = i.replace('vidnode.net', 'vidcloud9.com')
+                                hoster = 'vidcloud9'
+                            sources.append({'source': hoster, 'quality': '720p', 'language': 'en', 'url': i,
+                                            'direct': False, 'debridonly': False})
                 except Exception:
                     pass
             return sources

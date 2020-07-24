@@ -27,8 +27,8 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['my-project-free.tv']
-        self.base_link = 'https://www8.project-free-tv.ag/'
-        self.search_link = '/episode/%s-season-%s-episode-%s'
+        self.base_link = 'https://projecfreetv.co'
+        self.search_link = '/episode/%s-s%02de%02d'
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
@@ -52,7 +52,7 @@ class source:
             sources = []
             r = client.request(url)
             try:
-                data = re.compile("callvalue\('.+?','.+?','(.+?)://(.+?)/(.+?)'\)",re.DOTALL).findall(r)
+                data = re.compile('<a href="(.+?)" target="_blank" rel="nofollow" title.+?').findall(r)
                 for http,host,url in data:
                     url = '%s://%s/%s' % (http,host,url)
                     sources.append({

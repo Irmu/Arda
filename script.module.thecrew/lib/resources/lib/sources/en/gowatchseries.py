@@ -28,7 +28,7 @@ class s0urce:
         self.language = ['en']
         self.direct = 1
         self.domains = ['gowatchseries.io','gowatchseries.co']
-        self.base_link = 'https://gowatchseries.tv'
+        self.base_link = 'https://www2.series.movie/'
         self.search_link = '/ajax-search.html?keyword=%s&id=-1'
         self.search_link2 = '/search.html?keyword=%s'
 

@@ -29,7 +29,7 @@ class s0urce:
         self.priority = 1
         self.language = ['en']
         self.domains = ['seriesonline.io','series9.io']
-        self.base_link = 'https://series9.io'
+        self.base_link = 'https://series9.to'
         self.search_link = '/movie/search/%s'
 
     def matchAlias(self, title, aliases):
@@ -93,7 +93,7 @@ class s0urce:
             url = urlparse.urljoin(self.base_link, self.search_link % cleantitle.geturl(title))
             r = scraper.get(url).content
             r = client.parseDOM(r, 'div', attrs={'class': 'ml-item'})
-            r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a', ret='title'))
+            r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a', ret='oldtitle'))
             results = [(i[0], i[1], re.findall('\((\d{4})', i[1])) for i in r]
             try:
                 r = [(i[0], i[1], i[2][0]) for i in results if len(i[2]) > 0]

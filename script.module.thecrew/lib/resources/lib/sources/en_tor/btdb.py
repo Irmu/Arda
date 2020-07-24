@@ -25,7 +25,7 @@ class s0urce:
         self.priority = 1
         self.language = ['en']
         self.domains = ['btdb.eu']
-        self.base_link = 'https://btdb.io'
+        self.base_link = 'https://btdb.eu'
         self.search_link = '/search/%s/'
         self.scraper = cfscrape.create_scraper()
 

@@ -24,7 +24,7 @@ class s0urce:
         self.priority = 1
         self.language = ['en']
         self.domains = ['extramovies.trade', 'extramovies.guru']
-        self.base_link = 'http://extramovies.casa/'
+        self.base_link = 'http://extramovies.casa'
         self.search_link = '/?s=%s'
         self.User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
         self.scraper = cfscrape
@@ -80,7 +80,7 @@ class s0urce:
             if 'tvshowtitle' in data:
                 html = self.scraper.get(url, headers=headers).content
 
-                match = re.compile('class="post-item.+?href="(.+?)" title="(.+?)"', re.DOTALL).findall(html)
+                match = re.compile('<div class="thumbnail".+?href="(.+?)" title="(.+?)"', re.DOTALL | re.IGNORECASE).findall(html)
                 for url, item_name in match:
                     if cleantitle.getsearch(title).lower() in cleantitle.getsearch(item_name).lower():
                         season_url = '%02d' % int(data['season'])

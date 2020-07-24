@@ -17,6 +17,7 @@
 
 import re, urllib, urlparse
 from resources.lib.modules import cleantitle
+from resources.lib.modules import client
 from resources.lib.modules import source_utils
 from resources.lib.modules import debrid
 from resources.lib.modules import cfscrape
@@ -27,7 +28,7 @@ class s0urce:
         self.priority = 1
         self.language = ['en']
         self.domains = ['ganool.ws', 'ganol.si', 'ganool123.com']
-        self.base_link = 'https://soapgate.online/'
+        self.base_link = 'https://idtube.ru'
         self.search_link = '/search/?q=%s'
         self.scraper = cfscrape.create_scraper()
 
@@ -50,14 +51,15 @@ class s0urce:
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             q = '%s' % cleantitle.get_gan_url(data['title'])
             url = self.base_link + self.search_link % q
-            r = self.scraper.get(url).content
-            v = re.compile('<a href="(.+?)" class="ml-mask jt" title="(.+?)">\r\n\t\t\t\t\t\t\t\t\t\t\t\t<span class=".+?">(.+?)</span>').findall(r)
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'}
+            r = self.scraper.get(url, headers=headers).content
+            v = re.compile('<a href="(.+?)" class="ml-mask jt" title="(.+?)">\s+<span class=".+?">(.+?)</span>').findall(r)
             for url, check, quality in v:
                 t = '%s (%s)' % (data['title'], data['year'])
                 if t not in check:
                     raise Exception()
                 key = url.split('-hd')[1]
-                r = self.scraper.get('https://123movie.nu/moviedownload.php?q=' + key).content
+                r = self.scraper.get('https://idtube.ru/moviedownload.php?q=' + key).content
                 r = re.compile('<a rel=".+?" href="(.+?)" target=".+?">').findall(r)
                 for url in r:
                     if any(x in url for x in ['.rar']):

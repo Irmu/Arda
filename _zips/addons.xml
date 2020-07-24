@@ -995,7 +995,7 @@ v3.0.5
 	</extension>
 </addon>
 
-<addon id="plugin.video.thecrew" version="0.0.82a" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
+<addon id="plugin.video.thecrew" version="0.0.85" name="[COLOR orchid]THE CREW[/COLOR]" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.thecrew" />
@@ -1303,26 +1303,6 @@ Fixed: Eroticage
     </extension>
 </addon>
 
-    <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="6.0.0" provider-name="Mr Blamo">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-        <extension point="xbmc.addon.repository" name="[COLOR red]Blamo Repo[/COLOR]">
-            <dir>
-			<info compressed="false">https://raw.githubusercontent.com/MrBlamo420/Project/master/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/MrBlamo420/Project/master/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/MrBlamo420/Project/master/zips/</datadir>
-            <hashes>false</hashes>
-			</dir>
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary>The Official Repo for Mr Blamo</summary>
-            <description>The Official Repo for Mr Blamo</description>
-            <platform>all</platform>
-            <genre>movies,usa</genre>
-        </extension>
-    </addon>
-
 <addon id="repository.bugatsinho" name=" Bugatsinho repository" version="2.4" provider-name="Bugatsinho">
     <extension point="xbmc.addon.repository" name="Bugatsinho repository">
         <info compressed="false">https://raw.githubusercontent.com/bugatsinho/bugatsinho.github.io/master/addons.xml</info>
@@ -1472,20 +1452,6 @@ Fixed: Eroticage
     </extension>
 </addon>
 
-<addon id="repository.kodil" name=".[COLOR blue].Kodil [/COLOR][COLOR white] Repository [/COLOR]" version="1.3" provider-name="kodil">
-    <extension point="xbmc.addon.repository" name=".Kodil  Repository ">
-        <info compressed="false">https://raw.githubusercontent.com/kodil/kodil/master/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/kodil/kodil/master/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/kodil/kodil/master/repo</datadir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>kodisrael repository</summary>
-        <description>kodil repository - the most extensive repository in isrl </description>
-        <description>הריפו של קודישראל - מאגר ההרחבות הגדול והאיכותי בישראל  </description>
-        <platform>all</platform>
-    </extension>
-</addon>
-
 <addon id="repository.kodinerds" name="Kodinerds Addon Repo" version="7.0.0" provider-name="Kodinerds">
     <requires>
         <import addon="xbmc.addon" version="12.0.0"/>
@@ -1580,40 +1546,6 @@ Fixed: Eroticage
     </extension>
 </addon>
 
-<addon id="repository.mrandmrssmith" name="[B][COLORdarkgray]Mr and Mrs Smith Repository[/COLOR][/B]" version="1.0.2" provider-name="[B][COLORdarkgray]John and Jane[/COLOR][/B]">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-	<extension point="xbmc.addon.repository" name="Mr and Mrs Smith">
-		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/</datadir>
-		</dir>
-		<dir>
-		    <info compressed="false">http://www.mrandmrssmith.appboxes.co/Repo/addons.xml</info>
-		    <checksum>http://www.mrandmrssmith.appboxes.co/Repo/addons.xml.md5</checksum>
-		    <datadir zip="true">http://www.mrandmrssmith.appboxes.co/Repo/</datadir>
-		</dir>
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
-        </dir>
-		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
-		</dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-<platform>all</platform>
-<description lang="en">
-The author is not responsible for the use of this addon. The author is not responsible for the content found using this addon. The author does not host or own any content found within this addon. The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation. The Search process is the same as a search engine with no data actual hosted by the developer. This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.
-</description>
-</extension>
-</addon>
-
 <addon id="repository.mrpiracy" name="MrPiracy.top Repositório" version="1.0.3" provider-name="MrPiracy.top">
 	<extension point="xbmc.addon.repository" name="MrPiracy Repository">
 		<info compressed="false">http://raw.github.com/mrpiracyPT/repository.mrpiracy/master/addons.xml</info>
@@ -1641,34 +1573,6 @@ The author is not responsible for the use of this addon. The author is not respo
 		<description>The official repo for OpenScrapers!.</description>
 		<disclaimer></disclaimer>
 		<platform>all</platform>
-	</extension>
-</addon>
-
-
-				<!--// Phoenix Reborn Repository \\-->
-
-<addon
-  id="repository.phoenixreborn"
-  name="[COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]"
-  version="1.6.6"
-  provider-name="Kodi Phoenix Reborn">
-	<extension point="xbmc.addon.repository"
-    name="[COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]">
-		<info compressed="false">http://cdn.phoenixrebornbuild.com.hr/repo-addons/addons.xml</info>
-		<checksum>http://cdn.phoenixrebornbuild.com.hr/repo-addons/addons.xml.gz.md5</checksum>
-		<datadir zip="true">http://cdn.phoenixrebornbuild.com.hr/repo-addons/dodani-addoni/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="hr_HR">Kodi Phoenix Reborn Repozitorij. [COLOR=cyan]Facebook[/COLOR] grupa: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR]</summary>
-		<summary lang="en_GB">Kodi Phoenix Reborn  Repository. [COLOR cyan]Facebook[/COLOR] Group: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR]</summary>
-		<description lang="hr_HR">Kodi Phoenix Reborn Repositorij. Besplatan IPTV add-on, kids add-on, porn add-on, filmski add-on i ostali dodatci potrebni za koristenje Kodi aplikacije. [COLOR=cyan]Facebook[/COLOR] grupa: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</description>
-		<description lang="en_GB">Kodi Phoenix Reborn  Repository. Free IPTV add-on, kids add-on, porn add-on, movie add-on and other addon's needed for use the Kodi aplications. [COLOR cyan]Facebook[/COLOR] Group: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</description>
-		<news lang="hr_HR">Nova verzija [COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]-a. Verzija: 1.6.6 Dodan Phoenix Reborn skin, ispravljeni nedostatci, izmijenjen izgled i funkcionalnost Repository-a. [COLOR=cyan]Facebook[/COLOR] grupa: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</news>
-        <news lang="en_GB">New version of the [COLOR=orangered]Kodi[/COLOR] [COLOR=gold]Phoenix Reborn[/COLOR] [COLOR=orangered]Repository[/COLOR]. Version: 1.6.6 Added Phoenix Reborn skin, fixed bugs, changed layout and functionality of Repository. [COLOR cyan]Facebook[/COLOR] Group: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</news>
-		<disclaimer lang="hr_HR">Autor ovog repozitorija ne sadrzi bilo koji sadrzaj koji se nalazi i nema vezu s bilo kojim davateljima sadrzaja. Koristite na vlastiti rizik! [COLOR=cyan]Facebook[/COLOR] grupa: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</disclaimer>
-		<disclaimer lang="en_GB">Author of this repository does not contain any content and has no connection with any content provider. Use at your own risk! [COLOR cyan]Facebook[/COLOR] Group: [COLOR=orangered]Kodi Phoenix Reborn Squad[/COLOR].</disclaimer>
-		<platform>all</platform>
-		<website>http://phoenixrebornbuild.com.hr</website>
 	</extension>
 </addon>
 
@@ -2183,10 +2087,9 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.inputstreamhelper" name="InputStream Helper" version="0.4.7" provider-name="emilsvennesson, dagwieers, mediaminister">
+<addon id="script.module.inputstreamhelper" name="InputStream Helper" version="0.5.0" provider-name="emilsvennesson, dagwieers, mediaminister, horstle">
   <requires>
     <!--py3 compliant-->
-    <!--<import addon="xbmc.python" version="2.25.0" targetversion="3.0.0"/>-->
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.pysocks" version="1.6.8" optional="true"/>
   </requires>
@@ -2208,10 +2111,12 @@ The author is not responsible for the use of this addon. The author is not respo
     <description lang="fr_FR">Un simple module Kodi qui simplifie la vie des développeurs de modules complémentaires en s’appuyant sur des modules complémentaires basés sur InputStream et sur la lecture de DRM.</description>
     <description lang="es_ES">Un módulo Kodi simple que hace la vida más fácil para los desarrolladores de complementos que dependen de complementos basados en InputStream y reproducción de DRM.</description>
     <news>
-      v0.4.7 (2020-05-03)
-        - Fix hardlink on Windows
-        - Fix support for unicode chars in paths
-        - Show remaining time during Widevine installation on ARM devices
+     v0.5.0 (2020-06-25)
+        - Extract Widevine CDM directly from Chrome OS, minimizing disk space usage and eliminating the need for root access
+        - Improve progress dialog while extracting Widevine CDM on ARM devices
+        - Support resuming interrupted downloads on unreliable internet connections
+        - Reshape InputStream Helper information dialog
+        - Updated Dutch, English, French, German, Greek, Hungarian, Romanian, Russian, Spanish and Swedish translations
     </news>
     <platform>all</platform>
     <license>MIT</license>
@@ -2523,7 +2428,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.resolveurl" name="ResolveURL" version="5.1.1" provider-name="gujal">
+<addon id="script.module.resolveurl" name="ResolveURL" version="5.1.3" provider-name="gujal">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0" /> -->
         <import addon="script.module.six" version="0.0.1"/>
@@ -2778,7 +2683,7 @@ The author is not responsible for the use of this addon. The author is not respo
   </extension>
 </addon>
 
-<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.82" provider-name="The Crew">
+<addon id="script.module.thecrew" name="[COLOR orchid]THE CREW MODULE[/COLOR]" version="0.0.85" provider-name="The Crew">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
         <import addon="script.module.beautifulsoup4"/>

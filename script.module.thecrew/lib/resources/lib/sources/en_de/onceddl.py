@@ -20,7 +20,7 @@ class s0urce:
         self.language = ['en']
         self.domains = ['onceddl.net']
         self.base_link = 'https://onceddl.org'
-        self.search_link = '/find/keyword/%s'
+        self.search_link = '/s/keyword/%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
