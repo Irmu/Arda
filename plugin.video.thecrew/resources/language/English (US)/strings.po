@@ -1945,3 +1945,11 @@ msgstr ""
 msgctxt "#90207"
 msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Tubi TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""
+
+msgctxt "#90208"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]DaddyLive TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90209"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]GRATIS TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""

@@ -104,6 +104,10 @@ elif action == 'weak':
     from resources.lib.indexers import lists
     lists.indexer().root_weak()
 
+elif action == 'daddylive':
+    from resources.lib.indexers import lists
+    lists.indexer().root_daddylive()
+
 elif action == 'sportsbay':
     from resources.lib.indexers import lists
     lists.indexer().root_sportsbay()
@@ -111,6 +115,10 @@ elif action == 'sportsbay':
 elif action == 'sports24':
     from resources.lib.indexers import lists
     lists.indexer().root_sports24()
+
+elif action == 'gratis':
+    from resources.lib.indexers import lists
+    lists.indexer().root_gratis()
 
 elif action == 'base':
     from resources.lib.indexers import lists

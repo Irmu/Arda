@@ -641,10 +641,6 @@ class navigator:
                         listitem=item, isFolder=isFolder)
 
     def add_addons(self):
-        if self.getMenuEnabled('navi.eyecandy') == True:
-            self.addDirectoryItem(90164, 'eyecandy', 'eyecandy.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.retribution') == True:
-            self.addDirectoryItem(90165, 'retribution','retribution.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.titan') == True:
             self.addDirectoryItem(90155, 'titan', 'titan.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.purplehat') == True:
@@ -685,7 +681,7 @@ class navigator:
         self.endDirectory()
 
     def whitehat(self):
-        #self.addDirectoryItem(90199, 'arconai', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90209, 'gratis', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90013, 'swiftNavigator','swift.png', 'swift.png')
         self.addDirectoryItem(90187, 'gitNavigator', 'iptv.png', 'iptv.png')
         if self.getMenuEnabled('navi.slim') == False:
@@ -703,6 +699,7 @@ class navigator:
         self.addDirectoryItem(90197, 'weak', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90198, 'sports24', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90200, 'sportsbay', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90208, 'daddylive', 'iptv.png', 'iptv.png')
 
         self.endDirectory()
 

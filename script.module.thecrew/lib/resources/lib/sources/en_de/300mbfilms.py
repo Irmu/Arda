@@ -26,7 +26,7 @@ class s0urce:
         self.priority = 1
         self.language = ['en']
         self.domains = ['300mbfilms.co']
-        self.base_link = 'https://www.300mbfilms.co'
+        self.base_link = 'https://www.300mbfilms.ws'
         self.search_link = '/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
