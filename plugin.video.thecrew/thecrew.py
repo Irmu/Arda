@@ -128,6 +128,10 @@ elif action == 'waste':
     from resources.lib.indexers import lists
     lists.indexer().root_waste()
 
+elif action == 'whitehat':
+    from resources.lib.indexers import lists
+    lists.indexer().root_whitehat()
+
 elif action == 'arconai':
     from resources.lib.indexers import lists
     lists.indexer().root_arconai()

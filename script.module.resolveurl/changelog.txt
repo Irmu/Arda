@@ -1,14 +1,14 @@
-Version 5.1.3 (July 10, 2020)
+Version 5.1.6 (August 16, 2020)
 - Code Base Changes:
-    - possible Fix for settings.xml writing on XBox
+    - None
 
 - Resolvers Added:
-    - megogo
-    - oogly
-    - videoapne
+    - Doodstream
+    - Vidup
+    - Vidbom
  
 - Resolvers Fixed/Updated:
-    - None
+    - vidstreaming
 
 - Resolvers Removed
     - None

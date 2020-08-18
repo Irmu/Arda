@@ -680,28 +680,28 @@ class navigator:
 
         self.endDirectory()
 
-    def whitehat(self):
-        self.addDirectoryItem(90209, 'gratis', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90013, 'swiftNavigator','swift.png', 'swift.png')
-        self.addDirectoryItem(90187, 'gitNavigator', 'iptv.png', 'iptv.png')
-        if self.getMenuEnabled('navi.slim') == False:
-            self.addDirectoryItem(90184, 'fluxNavigator', 'iptv.png', 'iptv.png')
-        if self.getMenuEnabled('navi.slim') == False:
-            self.addDirectoryItem(90185, 'stratusNavigator','iptv.png', 'iptv.png')
-        if self.getMenuEnabled('navi.slim') == False:
-            self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90203, 'pluto', 'pluto.png', 'pluto.png')
-        self.addDirectoryItem(90204, 'xumo', 'xumo.png', 'xumo.png')
-        self.addDirectoryItem(90205, 'bumble', 'bumble.png', 'bumble.png')
-        self.addDirectoryItem(90206, 'distro', 'distro.png', 'distro.png')
-        self.addDirectoryItem(90207, 'tubi', 'tubi.png', 'tubi.png')
-        self.addDirectoryItem(90196, 'yss', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90197, 'weak', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90198, 'sports24', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90200, 'sportsbay', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90208, 'daddylive', 'iptv.png', 'iptv.png')
+    #def whitehat(self):
+        #self.addDirectoryItem(90209, 'gratis', 'iptv.png', 'iptv.png')
+        #self.addDirectoryItem(90013, 'swiftNavigator','swift.png', 'swift.png')
+        #self.addDirectoryItem(90187, 'gitNavigator', 'iptv.png', 'iptv.png')
+        #if self.getMenuEnabled('navi.slim') == False:
+        #    self.addDirectoryItem(90184, 'fluxNavigator', 'iptv.png', 'iptv.png')
+        #if self.getMenuEnabled('navi.slim') == False:
+        #    self.addDirectoryItem(90185, 'stratusNavigator','iptv.png', 'iptv.png')
+        #if self.getMenuEnabled('navi.slim') == False:
+        #    self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
+        #self.addDirectoryItem(90203, 'pluto', 'pluto.png', 'pluto.png')
+        #self.addDirectoryItem(90204, 'xumo', 'xumo.png', 'xumo.png')
+        #self.addDirectoryItem(90205, 'bumble', 'bumble.png', 'bumble.png')
+        #self.addDirectoryItem(90206, 'distro', 'distro.png', 'distro.png')
+        #self.addDirectoryItem(90207, 'tubi', 'tubi.png', 'tubi.png')
+        #self.addDirectoryItem(90196, 'yss', 'iptv.png', 'iptv.png')
+        #self.addDirectoryItem(90197, 'weak', 'iptv.png', 'iptv.png')
+        #self.addDirectoryItem(90198, 'sports24', 'iptv.png', 'iptv.png')
+        #self.addDirectoryItem(90200, 'sportsbay', 'iptv.png', 'iptv.png')
+        #self.addDirectoryItem(90208, 'daddylive', 'iptv.png', 'iptv.png')
 
-        self.endDirectory()
+        #self.endDirectory()
 
     def iptv_fluxus(self):
         self.addDirectoryItem(90035, 'iptv', 'iptv.png', 'iptv.png')
