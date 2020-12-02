@@ -28,8 +28,8 @@ class s0urce:
         self.priority = 1
         self.language = ['en']
         self.domains = ['iwantmyshow.tk', 'myvideolinks.net', 'go.myvideolinks.net']
-        self.base_link = 'http://new.myvideolinks.net/'
-        self.search_link = '?s=%s'
+        self.base_link = 'http://forum.myvideolinks.net'
+        self.search_link = '/search.php?keywords=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:

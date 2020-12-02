@@ -210,19 +210,19 @@ class traktAPI(object):
     def getShowsRated(self, shows):
         with Trakt.configuration.oauth.from_response(self.authorization):
             with Trakt.configuration.http(retry=True, timeout=90):
-                Trakt['sync/ratings'].shows(shows, exceptions=True)
+                Trakt['sync/ratings'].shows(store=shows, exceptions=True)
         return shows
 
     def getEpisodesRated(self, shows):
         with Trakt.configuration.oauth.from_response(self.authorization):
             with Trakt.configuration.http(retry=True, timeout=90):
-                Trakt['sync/ratings'].episodes(shows, exceptions=True)
+                Trakt['sync/ratings'].episodes(store=shows, exceptions=True)
         return shows
 
     def getMoviesRated(self, movies):
         with Trakt.configuration.oauth.from_response(self.authorization):
             with Trakt.configuration.http(retry=True, timeout=90):
-                Trakt['sync/ratings'].movies(movies, exceptions=True)
+                Trakt['sync/ratings'].movies(store=movies, exceptions=True)
         return movies
 
     def addToCollection(self, mediaObject):
@@ -253,28 +253,28 @@ class traktAPI(object):
         ratings = {}
         with Trakt.configuration.oauth.from_response(self.authorization):
             with Trakt.configuration.http(retry=True):
-                Trakt['sync/ratings'].shows(ratings)
+                Trakt['sync/ratings'].shows(store=ratings)
         return findShowMatchInList(showId, ratings, idType)
 
     def getSeasonRatingForUser(self, showId, season, idType='tvdb'):
         ratings = {}
         with Trakt.configuration.oauth.from_response(self.authorization):
             with Trakt.configuration.http(retry=True):
-                Trakt['sync/ratings'].seasons(ratings)
+                Trakt['sync/ratings'].seasons(store=ratings)
         return findSeasonMatchInList(showId, season, ratings, idType)
 
     def getEpisodeRatingForUser(self, showId, season, episode, idType='tvdb'):
         ratings = {}
         with Trakt.configuration.oauth.from_response(self.authorization):
             with Trakt.configuration.http(retry=True):
-                Trakt['sync/ratings'].episodes(ratings)
+                Trakt['sync/ratings'].episodes(store=ratings)
         return findEpisodeMatchInList(showId, season, episode, ratings, idType)
 
     def getMovieRatingForUser(self, movieId, idType='imdb'):
         ratings = {}
         with Trakt.configuration.oauth.from_response(self.authorization):
             with Trakt.configuration.http(retry=True):
-                Trakt['sync/ratings'].movies(ratings)
+                Trakt['sync/ratings'].movies(store=ratings)
         return findMovieMatchInList(movieId, ratings, idType)
 
     # Send a rating to Trakt as mediaObject so we can add the rating
@@ -299,7 +299,7 @@ class traktAPI(object):
             with Trakt.configuration.http(retry=True):
                 playback = Trakt['sync/playback'].movies(exceptions=True)
 
-                for _, item in list(playback.items()):
+                for _, item in playback.items():
                     if type(item) is Movie:
                         progressMovies.append(item)
 
@@ -313,7 +313,7 @@ class traktAPI(object):
             with Trakt.configuration.http(retry=True):
                 playback = Trakt['sync/playback'].episodes(exceptions=True)
 
-                for _, item in list(playback.items()):
+                for _, item in playback.items():
                     if type(item) is Show:
                         progressEpisodes.append(item)
 

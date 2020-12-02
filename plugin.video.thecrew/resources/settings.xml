@@ -36,7 +36,7 @@
         <setting id="navi.tvshows" type="bool" label="32002" default="true" />
         <setting id="navi.sports" type="bool" label="90006" default="true" />
         <setting id="navi.iptv" type="bool" label="90007" default="true" />
-        <setting id="navi.kids" type="bool" label="90009" default="true" />
+        <setting id="navi.kidsgrey" type="bool" label="90009" default="true" />
         <setting id="navi.1clicks" type="bool" label="90011" default="true" />
         <setting id="navi.purplehat" type="bool" label="90189" default="true" />
         <setting id="navi.standup" type="bool" label="90113" default="true" />
@@ -155,6 +155,10 @@
         <setting type="sep" />
         <setting type="lsep" label="TVDb" />
         <setting id="tvdb.user" type="text" label="32303" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="Easynews"/>
+        <setting id="easynews.user" type="text" label="Easynews Username" default=""/>
+        <setting id="easynews.password" type="text" label="Easynews Password" default=""/>
         <setting type="sep" />
         <setting type="lsep" label="Furk.net" />
         <setting id="furk.user_name" type="text" label="Furk Username" default="" />

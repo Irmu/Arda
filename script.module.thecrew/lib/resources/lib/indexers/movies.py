@@ -145,6 +145,9 @@ class movies:
         self.nineties_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=1990-01-01,1999-12-31&count=%d&start=1' % self.count
         self.thousands_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=2000-01-01,2010-12-31&count=%d&start=1' % self.count
         self.twentyten_link = 'https://www.imdb.com/search/title?title_type=feature&release_date=2010-01-01,2019-12-31&count=%d&start=1' % self.count
+        self.advancedsearchtrending_link = 'https://www.imdb.com/search/title?title_type=feature&genres=animation,family&sort=moviemeter,asc&page=1&ref_=adv_prv'
+        self.collectionsactionhero_link = 'https://www.imdb.com/search/keyword/?keywords=action-hero&pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=7846868c-8414-4178-8f43-9ad6b2ef0baf&pf_rd_r=N2RAG179F05MS9C7TEF4&pf_rd_s=center-1&pf_rd_t=15051&pf_rd_i=moka&ref_=kw_1&sort=num_votes,desc&mode=detail&page=1'
+        self.advancedsearchdcvsmarvel_link = 'https://www.imdb.com/list/ls065237713/?sort=alpha,asc&st_dt=&mode=detail&page=1'
 
         self.added_link = 'https://www.imdb.com/search/title?title_type=feature,tv_movie&languages=en&num_votes=500,&production_status=released&release_date=%s,%s&sort=release_date,desc&count=20&start=1' % (
             self.year_date, self.today_date)

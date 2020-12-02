@@ -1,21 +1,13 @@
 # -*- coding: utf-8 -*-
 
 '''
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+**Created by Tempest**
+Updated For New Domain and changed
 '''
 
+
 import re, urllib, urlparse
+
 
 from resources.lib.modules import client
 from resources.lib.modules import debrid
@@ -24,13 +16,14 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import dom_parser
 
 
-class source:
+
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
         self.domains = ['onceddl.net']
-        self.base_link = 'https://onceddl.net'
-        self.search_link = '/?s=%s'
+        self.base_link = 'https://2ddl.ms'
+        self.search_link = '/?q=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -82,18 +75,17 @@ class source:
             query = re.sub('(\\\|/| -|:|\.|;|\*|\?|"|\'|<|>|\|)', ' ', query)
 
             url = self.search_link % urllib.quote_plus(query)
-            url = urlparse.urljoin(self.base_link, url).replace('-', '+').replace('%3A+', '+')
+            url = urlparse.urljoin(self.base_link, url).replace('%3A+', '-').replace('+', '-').replace('--', '-').lower()
 
             r = client.request(url)
-            r = client.parseDOM(r, 'div', attrs={'class': 'item-post'})
-            r = [re.findall('<a href="(.+?)">(.+?)<', i, re.DOTALL)[0] for i in r]
+            r = client.parseDOM(r, 'h2', attrs={'class': 'title'})
+            r = [re.findall('<a class=""\s*href="([^"]*)"\s*title="([^"]*)', i, re.DOTALL)[0] for i in r]
 
             hostDict = hostprDict + hostDict
             items = []
             for item in r:
                 try:
                     t = item[1]
-                    t = re.sub('(\[.*?\])|(<.+?>)', '', t)
                     t1 = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d+|3D)(\.|\)|\]|\s|)(.+|)', '', t)
 
                     if not cleantitle.get(t1) == cleantitle.get(title): raise Exception()
@@ -103,10 +95,9 @@ class source:
                     if not y == hdlr: raise Exception()
 
                     data = client.request(item[0])
-                    data = client.parseDOM(data, 'div', attrs={'class': 'single-link'})[0]
-                    data = dom_parser.parse_dom(data, 'a', req='href')
+                    data = re.findall('<a href="([^"]*)',data)
 
-                    u = [(t, i.attrs['href']) for i in data]
+                    u = [(t, i) for i in data]
                     items += u
 
                 except:
@@ -120,8 +111,7 @@ class source:
                     quality, info = source_utils.get_release_quality(name, item[1])
 
                     url = item[1]
-                    if any(x in url for x in ['.rar', '.zip', '.iso', 'www.share-online.biz', 'https://ouo.io',
-                                              'http://guard.link']): raise Exception()
+                    if any(x in url for x in ['.rar', '.zip', '.iso', 'www.share-online.biz', 'https://ouo.io','http://guard.link']): raise Exception()
                     url = client.replaceHTMLCodes(url)
                     url = url.encode('utf-8')
                     valid, host = source_utils.is_host_valid(url, hostDict)

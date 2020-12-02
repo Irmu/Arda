@@ -72,8 +72,8 @@ class navigator:
             self.addDirectoryItem(90006, 'bluehat', 'main_bluehat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.iptv') == True:
             self.addDirectoryItem(90007, 'whitehat', 'main_whitehat.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.kids') == True:
-            self.addDirectoryItem(90009, 'greyhat', 'main_greyhat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.kidsgrey') == True:
+            self.addDirectoryItem(90009, 'kidsgreyNavigator', 'main_greyhat.png', 'DefaultTVShows.png')
         if self.getMenuEnabled('navi.1clicks') == True:
             self.addDirectoryItem(90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.purplehat') == True:
@@ -166,7 +166,6 @@ class navigator:
 #######################################################################
 
     def movies(self, lite=False):
-        self.count = int(control.setting('page.item.limit'))
         self.addDirectoryItem(32003, 'mymovieliteNavigator',
                               'mymovies.png', 'DefaultVideoPlaylists.png')
         if self.getMenuEnabled('navi.moviewidget') == True:
@@ -184,7 +183,7 @@ class navigator:
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.disneym') == True:
                 self.addDirectoryItem(
-                    90166, 'movies&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items?limit=%d ' % self.count, 'disney.png', 'disney.png')
+                    90166, 'movies&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items?limit=%d ', 'disney.png', 'disney.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.traktlist') == True:
                 self.addDirectoryItem(90051, 'traktlist',
@@ -290,7 +289,6 @@ class navigator:
         self.endDirectory()
 
     def tvshows(self, lite=False):
-        self.count = int(control.setting('page.item.limit'))
         self.addDirectoryItem(32004, 'mytvliteNavigator',
                               'mytvshows.png', 'DefaultVideoPlaylists.png')
         if self.getMenuEnabled('navi.tvAdded') == True:
@@ -312,11 +310,11 @@ class navigator:
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.disney') == True:
                 self.addDirectoryItem(
-                    90166, 'tvshows&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items?limit=%d ' % self.count, 'disney.png', 'disney.png')
+                    90166, 'tvshows&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items?limit=%d ', 'disney.png', 'disney.png')
         if self.getMenuEnabled('navi.slim') == False:
             if self.getMenuEnabled('navi.applet') == True:
                 self.addDirectoryItem(
-                    90170, 'tvshows&url=https://api.trakt.tv/users/mediashare2000/lists/apple-tv/items?limit=%d ' % self.count, 'apple.png', 'apple.png')
+                    90170, 'tvshows&url=https://api.trakt.tv/users/mediashare2000/lists/apple-tv/items?limit=%d ', 'apple.png', 'apple.png')
        # if self.getMenuEnabled('navi.slim') == False:
           #  self.addDirectoryItem(90015, '247tvshows',
            #                       '247_shows.png', 'DefaultTVShows.png')
@@ -800,22 +798,17 @@ class navigator:
         self.endDirectory()
 
     def holidays(self):
-        self.count = int(control.setting('page.item.limit'))
         self.addDirectoryItem(
             90161, 'movies&url=top50_holiday', 'holidays.png', 'holidays.png')
         self.addDirectoryItem(90162, 'movies&url=best_holiday',
                               'holidays.png', 'holidays.png')
-        self.addDirectoryItem(90158, 'movies&url=https://api.trakt.tv/users/movistapp/lists/christmas-movies/items?limit=%d ' %
-                              self.count, 'holidays.png', 'holidays.png')
-        self.addDirectoryItem(90159, 'movies&url=https://api.trakt.tv/users/cjcope/lists/hallmark-christmas/items?limit=%d ' %
-                              self.count, 'holidays.png', 'holidays.png')
-        self.addDirectoryItem(90160, 'movies&url=https://api.trakt.tv/users/mkadam68/lists/christmas-list/items?limit=%d ' %
-                              self.count, 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90158, 'movies&url=https://api.trakt.tv/users/movistapp/lists/christmas-movies/items?limit=%d ', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90159, 'movies&url=https://api.trakt.tv/users/cjcope/lists/hallmark-christmas/items?limit=%d ', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90160, 'movies&url=https://api.trakt.tv/users/mkadam68/lists/christmas-list/items?limit=%d ', 'holidays.png', 'holidays.png')
 
         self.endDirectory()
 
     def halloween(self):
-        self.count = int(control.setting('page.item.limit'))
         self.addDirectoryItem(
             90146, 'movies&url=halloween_imdb', 'halloween.png', 'halloween.png')
         self.addDirectoryItem(
@@ -824,89 +817,49 @@ class navigator:
             90148, 'movies&url=halloween_best', 'halloween.png', 'halloween.png')
         self.addDirectoryItem(
             90149, 'movies&url=halloween_great', 'halloween.png', 'halloween.png')
-        self.addDirectoryItem(90145, 'movies&url=https://api.trakt.tv/users/petermesh/lists/halloween-movies/items?limit=%d ' %
-                              self.count, 'halloween.png', 'halloween.png')
+        self.addDirectoryItem(90145, 'movies&url=https://api.trakt.tv/users/petermesh/lists/halloween-movies/items?limit=%d ', 'halloween.png', 'halloween.png')
 
         self.endDirectory()
 
     def traktlist(self):
-        self.count = int(control.setting('page.item.limit'))
-        self.addDirectoryItem(90041, 'movies&url=https://api.trakt.tv/users/giladg/lists/latest-releases/items?limit=%d ' %
-                              self.count, 'fhd_releases.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90042, 'movies&url=https://api.trakt.tv/users/giladg/lists/latest-4k-releases/items?limit=%d ' %
-                              self.count, '4k_releases.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90043, 'movies&url=https://api.trakt.tv/users/giladg/lists/top-10-movies-of-the-week/items?limit=%d ' %
-                              self.count, 'top_10.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90044, 'movies&url=https://api.trakt.tv/users/giladg/lists/academy-award-for-best-cinematography/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90045, 'movies&url=https://api.trakt.tv/users/giladg/lists/stand-up-comedy/items?limit=%d ' %
-                              self.count, 'standup.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90052, 'movies&url=https://api.trakt.tv/users/daz280982/lists/movie-boxsets/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90053, 'movies&url=https://api.trakt.tv/users/movistapp/lists/action/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90054, 'movies&url=https://api.trakt.tv/users/movistapp/lists/adventure/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90055, 'movies&url=https://api.trakt.tv/users/movistapp/lists/animation/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90056, 'movies&url=https://api.trakt.tv/users/ljransom/lists/comedy-movies/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90057, 'movies&url=https://api.trakt.tv/users/movistapp/lists/crime/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90058, 'movies&url=https://api.trakt.tv/users/movistapp/lists/drama/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90059, 'movies&url=https://api.trakt.tv/users/movistapp/lists/family/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90060, 'movies&url=https://api.trakt.tv/users/movistapp/lists/history/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90061, 'movies&url=https://api.trakt.tv/users/movistapp/lists/horror/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90062, 'movies&url=https://api.trakt.tv/users/movistapp/lists/music/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90063, 'movies&url=https://api.trakt.tv/users/movistapp/lists/mystery/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90064, 'movies&url=https://api.trakt.tv/users/movistapp/lists/romance/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90065, 'movies&url=https://api.trakt.tv/users/movistapp/lists/science-fiction/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90066, 'movies&url=https://api.trakt.tv/users/movistapp/lists/thriller/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90067, 'movies&url=https://api.trakt.tv/users/movistapp/lists/war/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90068, 'movies&url=https://api.trakt.tv/users/movistapp/lists/western/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90069, 'movies&url=https://api.trakt.tv/users/movistapp/lists/marvel/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90070, 'movies&url=https://api.trakt.tv/users/movistapp/lists/walt-disney-animated-feature-films/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90071, 'movies&url=https://api.trakt.tv/users/movistapp/lists/batman/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90072, 'movies&url=https://api.trakt.tv/users/movistapp/lists/superman/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90073, 'movies&url=https://api.trakt.tv/users/movistapp/lists/star-wars/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90074, 'movies&url=https://api.trakt.tv/users/movistapp/lists/007/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90075, 'movies&url=https://api.trakt.tv/users/movistapp/lists/pixar-animation-studios/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90076, 'movies&url=https://api.trakt.tv/users/movistapp/lists/quentin-tarantino-collection/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90077, 'movies&url=https://api.trakt.tv/users/movistapp/lists/rocky/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90078, 'movies&url=https://api.trakt.tv/users/movistapp/lists/dreamworks-animation/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90079, 'movies&url=https://api.trakt.tv/users/movistapp/lists/dc-comics/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90080, 'movies&url=https://api.trakt.tv/users/movistapp/lists/the-30-best-romantic-comedies-of-all-time/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90081, 'movies&url=https://api.trakt.tv/users/movistapp/lists/88th-academy-awards-winners/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90082, 'movies&url=https://api.trakt.tv/users/movistapp/lists/most-sexy-movies/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90083, 'movies&url=https://api.trakt.tv/users/movistapp/lists/dance-movies/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90084, 'movies&url=https://api.trakt.tv/users/movistapp/lists/halloween-movies/items?limit=%d ' %
-                              self.count, 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90041, 'movies&url=https://api.trakt.tv/users/giladg/lists/latest-releases/items?limit=%d ', 'fhd_releases.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90042, 'movies&url=https://api.trakt.tv/users/giladg/lists/latest-4k-releases/items?limit=%d ', '4k_releases.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90043, 'movies&url=https://api.trakt.tv/users/giladg/lists/top-10-movies-of-the-week/items?limit=%d ', 'top_10.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90044, 'movies&url=https://api.trakt.tv/users/giladg/lists/academy-award-for-best-cinematography/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90045, 'movies&url=https://api.trakt.tv/users/giladg/lists/stand-up-comedy/items?limit=%d ', 'standup.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90052, 'movies&url=https://api.trakt.tv/users/daz280982/lists/movie-boxsets/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90053, 'movies&url=https://api.trakt.tv/users/movistapp/lists/action/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90054, 'movies&url=https://api.trakt.tv/users/movistapp/lists/adventure/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90055, 'movies&url=https://api.trakt.tv/users/movistapp/lists/animation/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90056, 'movies&url=https://api.trakt.tv/users/ljransom/lists/comedy-movies/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90057, 'movies&url=https://api.trakt.tv/users/movistapp/lists/crime/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90058, 'movies&url=https://api.trakt.tv/users/movistapp/lists/drama/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90059, 'movies&url=https://api.trakt.tv/users/movistapp/lists/family/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90060, 'movies&url=https://api.trakt.tv/users/movistapp/lists/history/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90061, 'movies&url=https://api.trakt.tv/users/movistapp/lists/horror/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90062, 'movies&url=https://api.trakt.tv/users/movistapp/lists/music/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90063, 'movies&url=https://api.trakt.tv/users/movistapp/lists/mystery/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90064, 'movies&url=https://api.trakt.tv/users/movistapp/lists/romance/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90065, 'movies&url=https://api.trakt.tv/users/movistapp/lists/science-fiction/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90066, 'movies&url=https://api.trakt.tv/users/movistapp/lists/thriller/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90067, 'movies&url=https://api.trakt.tv/users/movistapp/lists/war/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90068, 'movies&url=https://api.trakt.tv/users/movistapp/lists/western/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90069, 'movies&url=https://api.trakt.tv/users/movistapp/lists/marvel/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90070, 'movies&url=https://api.trakt.tv/users/movistapp/lists/walt-disney-animated-feature-films/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90071, 'movies&url=https://api.trakt.tv/users/movistapp/lists/batman/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90072, 'movies&url=https://api.trakt.tv/users/movistapp/lists/superman/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90073, 'movies&url=https://api.trakt.tv/users/movistapp/lists/star-wars/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90074, 'movies&url=https://api.trakt.tv/users/movistapp/lists/007/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90075, 'movies&url=https://api.trakt.tv/users/movistapp/lists/pixar-animation-studios/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90076, 'movies&url=https://api.trakt.tv/users/movistapp/lists/quentin-tarantino-collection/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90077, 'movies&url=https://api.trakt.tv/users/movistapp/lists/rocky/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90078, 'movies&url=https://api.trakt.tv/users/movistapp/lists/dreamworks-animation/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90079, 'movies&url=https://api.trakt.tv/users/movistapp/lists/dc-comics/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90080, 'movies&url=https://api.trakt.tv/users/movistapp/lists/the-30-best-romantic-comedies-of-all-time/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90081, 'movies&url=https://api.trakt.tv/users/movistapp/lists/88th-academy-awards-winners/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90082, 'movies&url=https://api.trakt.tv/users/movistapp/lists/most-sexy-movies/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90083, 'movies&url=https://api.trakt.tv/users/movistapp/lists/dance-movies/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90084, 'movies&url=https://api.trakt.tv/users/movistapp/lists/halloween-movies/items?limit=%d ', 'trakt.png', 'DefaultMovies.png')
 
         self.endDirectory()
 
@@ -1520,6 +1473,16 @@ class navigator:
 
         self.endDirectory()
 
+    def kidsgrey(self, lite=False):
+        self.addDirectoryItem('[COLOR orchid]¤ [/COLOR] [B][COLOR white]Debrid Kids[/COLOR][/B] [COLOR orchid] ¤[/COLOR]', 'debridkids', 'debrid_kids.png', 'DefaultMovies.png')
+        self.addDirectoryItem('[COLOR orchid]¤ [/COLOR] [B][COLOR white]Kids Trending[/COLOR][/B] [COLOR orchid] ¤[/COLOR]', 'movies&url=advancedsearchtrending', 'kids_trending.png', 'DefaultMovies.png')
+        self.addDirectoryItem('[COLOR orchid]¤ [/COLOR] [B][COLOR white]Action Hero[/COLOR][/B] [COLOR orchid] ¤[/COLOR]', 'movies&url=collectionsactionhero', 'action_hero.png', 'DefaultMovies.png')
+        self.addDirectoryItem('[COLOR orchid]¤ [/COLOR] [B][COLOR white]DC vs Marvel[/COLOR][/B] [COLOR orchid] ¤[/COLOR]', 'movies&url=advancedsearchdcvsmarvel', 'dc_marvel.png', 'DefaultMovies.png')
+        self.addDirectoryItem('[COLOR orchid]¤ [/COLOR] [B][COLOR white]Walt Disney[/COLOR][/B] [COLOR orchid] ¤[/COLOR]', 'waltdisney', 'walt_disney.png', 'DefaultMovies.png')
+        self.addDirectoryItem('[COLOR orchid]¤ [/COLOR] [B][COLOR white]Learning TV[/COLOR][/B] [COLOR orchid] ¤[/COLOR]', 'learning', 'learning_tv.png', 'DefaultMovies.png')
+        self.addDirectoryItem('[COLOR orchid]¤ [/COLOR] [B][COLOR white]Kids Songs[/COLOR][/B] [COLOR orchid] ¤[/COLOR]', 'songs', 'kids_songs.png', 'DefaultMovies.png')
+
+        self.endDirectory()
     def endDirectory(self):
         control.content(syshandle, 'addons')
         control.directory(syshandle, cacheToDisc=True)

@@ -27,12 +27,12 @@ from resources.lib.modules import debrid
 from resources.lib.modules import source_utils
 
 
-class source:
+class s0urce:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
         self.domains = ['torrentz2.eu']
-        self.base_link = 'https://torrentz2.eu'
+        self.base_link = 'https://torrentz2.is'
         self.search_link = '/search?f=%s'
         self.scraper = cfscrape.create_scraper()
 

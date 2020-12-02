@@ -899,3 +899,23 @@ elif action == 'halloweenNavigator':
 elif action == 'bugReports':
     from resources.lib.reports import bugreports
     bugreports.BugReporter()
+
+elif action == 'kidsgreyNavigator':
+    from resources.lib.indexers import navigator
+    navigator.navigator().kidsgrey()
+
+elif action == 'debridkids':
+    from resources.lib.indexers import lists
+    lists.indexer().root_debridkids()
+
+elif action == 'waltdisney':
+    from resources.lib.indexers import lists
+    lists.indexer().root_waltdisney()
+
+elif action == 'learning':
+    from resources.lib.indexers import lists
+    lists.indexer().root_learning()
+
+elif action == 'songs':
+    from resources.lib.indexers import lists
+    lists.indexer().root_songs()                    

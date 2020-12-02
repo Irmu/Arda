@@ -36,7 +36,7 @@ from resolveurl import common
 from resolveurl.hmf import HostedMediaFile
 from resolveurl.resolver import ResolveUrl
 from resolveurl.plugins.__resolve_generic__ import ResolveGeneric
-from resolveurl.plugins import *
+from resolveurl.plugins import *  # NOQA
 
 common.logger.log_debug('Initializing ResolveURL version: %s' % common.addon_version)
 MAX_SETTINGS = 75
@@ -308,6 +308,7 @@ def _update_settings_xml():
                 old_xml = f.read()
     except:
         old_xml = u''
+    old_xml = six.ensure_text(old_xml)
 
     new_xml = six.ensure_text('\n'.join(new_xml))
     if old_xml != new_xml:

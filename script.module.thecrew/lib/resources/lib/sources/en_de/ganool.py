@@ -28,7 +28,7 @@ class s0urce:
         self.priority = 1
         self.language = ['en']
         self.domains = ['ganool.ws', 'ganol.si', 'ganool123.com']
-        self.base_link = 'https://idtube.ru'
+        self.base_link = 'https://0123movies.in/'
         self.search_link = '/search/?q=%s'
         self.scraper = cfscrape.create_scraper()
 
@@ -59,7 +59,7 @@ class s0urce:
                 if t not in check:
                     raise Exception()
                 key = url.split('-hd')[1]
-                r = self.scraper.get('https://idtube.ru/moviedownload.php?q=' + key).content
+                r = self.scraper.get('https://0123movies.in/moviedownload.php?q=' + key).content
                 r = re.compile('<a rel=".+?" href="(.+?)" target=".+?">').findall(r)
                 for url in r:
                     if any(x in url for x in ['.rar']):

@@ -74,7 +74,6 @@ class s0urce:
 
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
-            # log_utils.log('url = %s' % url, log_utils.LOGDEBUG)
 
             r = self.scraper.get(url).content
 

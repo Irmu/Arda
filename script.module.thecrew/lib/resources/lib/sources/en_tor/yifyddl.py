@@ -28,7 +28,7 @@ class s0urce:
         self.priority = 1
         self.language = ['en']
         self.domains = ['yifyddl.movie']
-        self.base_link = 'https://yts.ws'
+        self.base_link = 'https://yifyddl.co'
         self.search_link = '/movie/%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
@@ -55,8 +55,7 @@ class s0urce:
             try:
                 results = client.parseDOM(html, 'div', attrs={'class': 'ava1'})
             except:
-                failure = traceback.format_exc()
-                log_utils.log('YIFYDLL - Exception: \n' + str(failure))
+
                 return sources
             for torrent in results:
                 link = re.findall('a data-torrent-id=".+?" href="(magnet:.+?)" class=".+?" title="(.+?)"', torrent, re.DOTALL)
@@ -76,8 +75,7 @@ class s0urce:
 
             return sources
         except:
-            failure = traceback.format_exc()
-            log_utils.log('YIFYDLL - Exception: \n' + str(failure))
+
             return
 
     def resolve(self, url):

@@ -30,7 +30,7 @@ class s0urce:
         self.language = ['en']
         self.domains = ['yts.am']
         self.base_link = 'https://yts.mx/'
-        self.search_link = '/browse-movies/%s/all/all/0/latest'
+        self.search_link = '/browse-movies/%s'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
 
     def movie(self, imdb, title, localtitle, aliases, year):
